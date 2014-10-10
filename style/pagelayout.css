@@ -1,0 +1,110 @@
+/* this file only used if the theme is two column only theme*/
+
+.side-pre-only #page-content #region-main {
+    margin-left: 174px;
+}
+
+#page-content #region-pre {
+    width: 174px;
+}
+
+
+/*layout for new left column */
+#page-content-wrapper{
+float: left;
+width: 100%;
+}
+
+#page-content {
+margin-left: 174px; /*Set left margin to LeftColumnWidth*/
+width: auto;
+background: #f4f4f4;
+}
+
+#leftcolumn{
+float: left;
+width: 174px; /*Width of left column*/
+margin-left: -100%;
+background: #E9E9E9;
+min-height: 174px;
+}
+
+#page-site-index.notloggedin #leftcolumn, #page-site-index.guestuser #leftcolumn {
+	background: #2eaadc url([[pix:theme|blockback]]) no-repeat top left;
+}
+
+#page-content #region-main-box .region-content {
+    padding: 0;
+}
+
+#page-content #region-post-box {
+    padding-top: 0px;
+}
+
+#page-content #region-main, .side-pre-only #page-content #region-main-box #region-post-box #region-main-wrap #region-main {
+    padding: 20px 20px 0 20px;
+    min-height: 400px;
+}
+
+/* if side post only theme, use the below 
+
+.side-post-only #page-content #region-post {
+	 width: 240px;
+}
+
+.side-post-only #page-content #region-post-box {
+    margin-left: -240px;
+}
+
+.side-post-only #page-content #region-main {
+    margin-left: 240px;
+}
+
+.blocks-moving.side-post-only #page-content #region-main-box {left: 0;}
+.blocks-moving.side-post-only #page-content #region-post-box {margin-left: -260px;}
+.blocks-moving.side-post-only #page-content #region-main {margin-left: 260px;}
+.blocks-moving.side-post-only #page-content #region-post {width: 260px;}
+
+
+*/
+
+/* for making both sides larger 
+
+#page-content #region-main-box {
+    left: 230px;
+}
+
+#page-content #region-pre {
+    left: 230px;
+    width: 230px;
+}
+
+#page-content #region-post {
+    width: 230px;
+}
+
+#page-content #region-post-box {
+    margin-left: -460px;
+}
+
+#page-content #region-main {
+    margin-left: 460px;
+}
+
+.side-pre-only #page-content #region-post-box {
+    margin-left: -230px;
+}
+
+.side-pre-only #page-content #region-main {
+    margin-left: 230px;
+}
+
+.side-post-only #page-content #region-post-box {
+    margin-left: -230px;
+}
+
+.side-post-only #page-content #region-main {
+    margin-left: 230px;
+}
+
+*/

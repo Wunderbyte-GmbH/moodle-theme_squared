@@ -1,0 +1,301 @@
+/*overrides for standard theme used in express designs*/
+.has_custom_menu.pagelayout-frontpage #page-header {
+    border-bottom-width: inherit;
+}
+
+.pagelayout-frontpage #page-header {
+    border-bottom: none;
+    margin: 0;
+    width: auto;
+}
+
+.headingblock, table.minicalendar td, .path-calendar .maincalendar .filters table, .path-calendar .sidecalendar .filters table, .block.block_calendar_month .filters table, .path-calendar .maincalendar li.calendar_event_course, .path-calendar .maincalendar li.calendar_event_global, .path-calendar .maincalendar li.calendar_event_user, .path-calendar .maincalendar li.calendar_event_group, .path-calendar .filters td.calendar_event_course, .path-calendar .filters td.calendar_event_global, .path-calendar .filters td.calendar_event_user, .path-calendar .filters td.calendar_event_group, .generalbox, .generalboxcontent, .informationbox, .informationboxcontent {
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.categorybox, .categoryboxcontent, .coursebox, .notifyproblem, .notifysuccess, table.minicalendar {
+	border: none;
+	-webkit-border-radius: 0px 0px 0px 0px;
+	-moz-border-radius: 0px 0px 0px 0px;
+    border-radius: 0px 0px 0px 0px;
+}
+
+.loginbox .content.right, .forumpost .content, .forumpost .message, .forumpost .side, .glossarycomment .entry {
+	-moz-border-bottom-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.path-calendar .maincalendar, .path-calendar .sidecalendar, .path-calendar td.sidecalendar .block, .loginbox, .userinfobox, .groupinfobox, .forumpost, .block .content, .glossarycomment {
+	-moz-border-bottom-left-radius: 0px;
+    -moz-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.header, .navbar {
+    background-color: transparent;
+    background-image: none;
+    background-repeat: repeat-x;
+}
+
+.navbar .breadcrumb, .navbar .navbutton {
+    margin: 0px;
+}
+
+.headingblock {
+    border: none;
+    margin-top: 0;
+    padding: inherit;
+}
+
+h2.headingblock {
+    font-size: inherit;
+
+
+/* real main headings */
+h1, h2, h3, h2.headingblock {
+    margin: 0em 0 .5em;
+    line-height: normal;
+    padding: 0 0;
+}
+
+
+.block .header .block_action img, .block .header .block_action input {
+    height: auto;
+    width: auto;
+}
+
+.block .header {
+    border-bottom: 0px solid #DDDDDD;
+    border-color: transparent;
+}
+
+.block .content {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.forumpost.firstpost .row.header, .forumpost .row.header {
+    background-color: transparent;
+}
+
+.forumpost .topic .subject {
+    font-weight: inherit;
+    padding: 0px 4px 0;
+}
+
+.forumpost .row.maincontent .left {
+    display: block;
+}
+
+.forumpost .row {
+    background-color: transparent;
+}
+
+.forumpost .row.side, .forumpost .row .content {
+    background: transparent;
+}
+
+.forumpost .row.maincontent {
+    background: transparent;
+}
+
+#custommenu .yui3-menu {
+    background-color: transparent;
+    background-image: none;
+    background-repeat: repeat-x;
+}
+
+#custommenu .yui3-menu .yui3-menu-label-menuvisible, #custommenu .yui3-menu .yui3-menuitem-active {
+    background-color: transparent;
+}
+
+pagelayout-frontpage #custommenu {
+    padding: 0;
+}
+
+#dock .dockeditem {
+    background-color: transparent;
+}
+
+#dock .dockeditem .dockedtitle {
+    background-color: transparent;
+}    
+
+#dock .dockeditem .dockedtitle {
+    background-image: none;
+    background-position: 90% 0;
+    background-repeat: repeat-y;
+    border-color: transparent;
+}
+
+.path-course-view .weeks .content, .path-course-view .topics .content, .path-course-view .weeks .section, .path-course-view .topics .section {
+    background: transparent;
+}
+
+.block .minicalendar {
+    border: 0px solid #DDDDDD;
+}
+
+.path-course-view .section .activity a {
+	line-height: auto;
+}
+
+.path-course-view .section {
+    font-size: inherit;
+    line-height: auto;
+}
+
+#region-post .region-content, #region-pre .region-content {
+	padding: 0px 0px;
+}
+
+#page-footer .logininfo, #page-footer .sitelink, #page-footer .helplink {
+    margin: 0 0px;
+}
+
+.path-course-view .completionprogress {
+    padding: 0px;
+}
+
+/*add back in a few canvas styles */
+body {
+	font-size: 85%;
+	line-height: 1.4;
+}
+
+/*add in express course css */
+ul.topics, ul.weeks {
+	margin: 0px;
+}
+
+.path-course-view .weeks .section, .path-course-view .topics .section {
+    background: transparent;
+}
+
+.path-course-view .course-content li.section {
+    border: 1px solid #eee;
+}
+
+.path-course-view .course-content .side {
+    padding: 5px 0;
+}
+
+#page-course-view-weeks .weekdates {
+    font-size: 1em;
+    font-weight: normal;
+    color: #777;
+    padding: 2px;
+}
+
+.section ul.section {
+	margin: 0 0;
+}
+
+.course-content .main.section {
+    background: #f7f5f1;
+    border: 1px solid #ddd
+}
+
+.course-content .main.section.current {
+    background: #dadada;
+}
+
+.course-content .current .left.side {
+    color: inherit !important;
+}
+.course-content .current {
+    background: #da5013;
+}
+
+.course-content .current .left.side {
+  color: #fff;
+}
+
+.course-content .main .content {
+    background: #fff;
+}
+
+
+span.completionprogress {
+    font-size: 11px;
+    font-weight: 200;
+}
+
+.course-content .section .activity img.activityicon {
+    height: 16px;
+    width: 16px;
+}
+
+.path-course-view .section .activity {
+    padding-bottom: 0.2em !important;
+    padding-top: 0.2em !important;
+}
+
+/*tabs */
+.tabtree .tabrow0 li a {
+   background: #eee url([[pix:theme|alert-overlay]]) repeat-x top left !important;
+   background-color: #eee;
+ }
+
+.tabtree .tabrow0 li a {
+    border-color: #CCCCCC;
+    border-style: solid;
+    border-width: 1px 1px 0;
+    padding: 8px 10px 4px;
+    
+    
+    -webkit-border-top-left-radius: 3px;
+	-webkit-border-top-right-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-topright: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+
+.tabtree .tabrow0 .here a {
+    background: #fff !important;
+    padding-bottom: 5px;
+}
+
+tabtree .tabrow0 ul, .tabtree .tabrow0 div {
+    border-top: 1px solid #CCCCCC;
+}    
+
+.tabtree .tabrow0 li a span {
+    padding-right: 0px;
+}
+
+.tabtree .tabrow1 li a {
+	border: none !important;
+	background: transparent !important;
+	background-color: transparent !important;
+}
+
+ .tabtree .tabrow0 li a span, .tabtree .tabrow0 li a:hover span, .tabtree .tabrow0 li a:hover {
+	background-image: none;
+}
+
+.tabtree .tabrow0 ul, .tabtree .tabrow0 div {
+    background-image: none;
+    background-position: 0 50%;
+    border-top: 1px solid #ccc;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.5em 0;
+}
+
+body.pagelayout-popup, body.pagelayout-embedded {
+	background: #fff;
+}
+
+.forumaddnew {
+	text-align: center;
+	padding-bottom: 10px;
+}
+

@@ -1,0 +1,521 @@
+/** inside  of course **/
+ul.topics, ul.weeks {
+	margin: 0px;
+}
+
+.section .left.side, .section .right.side {
+	display: none;
+}
+
+.editing .section .left.side, .editing .section .right.side {
+	display: inherit;
+}
+
+#page .course-content li.section .content {
+    margin: 0;
+}
+
+.editing #page .course-content li.section .content {
+    margin: 0 40px;
+}
+
+.path-course-view .course-content li.section {
+    border: 0px solid transparent;
+}
+
+.path-course-view .course-content .side {
+    padding: 5px 0;
+}
+
+#page-course-view-weeks .weekdates {
+    font-size: 1em;
+    font-weight: normal;
+    color: #777;
+    padding: 2px;
+}
+
+.course-content .main {
+  background:transparent;
+ }
+
+/*current topic hightlight */
+.course-content .current {
+  background:#ffffcc;
+ }
+
+.course-content .current .left.side {
+	color: #333;
+} 
+ 
+.course-content .main .content {
+    padding: 10px;
+    background:transparent;
+}
+
+.course-content .section li.activity {
+	padding: 3px 0px;
+}
+
+span.completionprogress {
+    font-size: 11px;
+    font-weight: 200;
+    padding-top: 3px;
+}
+
+.path-course-view li.activity span.autocompletion, .path-course-view li.activity form.togglecompletion {
+    right: -10px;
+}
+
+.path-course-view .headingwrap1 {
+	margin-bottom: 15px;
+	background: [[setting:bgcolordefault]] url([[pix:theme|section-box-bg]]) no-repeat top left;
+	border: 1px solid #fff;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+}
+/*additional background colors */
+.path-course-view.bgcolor1 .headingwrap1 {
+	background-color: [[setting:bgcolor1]];
+}
+
+.path-course-view.bgcolor2 .headingwrap1 {
+	background-color: [[setting:bgcolor2]];
+}
+
+.path-course-view.bgcolor3 .headingwrap1 {
+	background-color: [[setting:bgcolor3]];
+}
+
+.path-course-view.bgcolor4 .headingwrap1 {
+	background-color: [[setting:bgcolor4]];
+}
+
+.path-course-view .headingwrap2 {
+	background: url([[pix:theme|catsection-icon]]) no-repeat 12px 50%;
+	padding-left: 43px;
+}
+
+h3.sectionname, .course-content .section-summary h3.section-title {
+	background: #dadbdb url([[pix:theme|h3sections]]) repeat-x top left; 
+	font-size: 20px;
+	color: #000;
+	font-weight: normal;
+	margin-bottom: 0px;
+	margin: 0 0;
+	padding: 10px 15px;
+}
+
+.section ul.section, .section div.summarytext {
+	display: block;
+	padding: 15px 20px; 
+	border: 1px solid #fff;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+	background: url([[pix:theme|section-grad]]) repeat-x top left;
+	font-size: 90%;
+}
+
+#section-0 ul.section {
+	box-shadow: none;
+	border: 0px;
+	padding: auto;
+	display: inherit;
+	background: transparent;
+}
+
+.course-content .section-summary .summarytext {
+    margin: 0 0 2px;
+}
+
+/*single section style for 2.3 */
+.course-content .single-section .section-navigation {
+    padding: 0;
+}
+
+.course-content .single-section .main .content {
+	padding: 5px 0px;
+}
+
+.course-content .header .mdl-right a, .course-content .header .mdl-left a, .mdl-bottom .mdl-left a, .mdl-bottom .mdl-right a{
+	color: transparent;
+	font-size: 1px;
+}
+
+.course-content .header .mdl-right a span, .mdl-bottom .mdl-right a span, .mdl-bottom .mdl-left a span {
+	color: #3344AA;
+	font-size: 13px;
+}
+
+.course-content .header .mdl-left a span,  .mdl-bottom .mdl-left a span {
+	color: #3344AA;
+	font-size: 16px;
+}
+
+.course-content .single-section .section-navigation.headingblock {
+	margin-bottom: 10px;
+	border: 1px solid #fff;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+	position: relative;
+}
+
+.course-content .single-section .section-navigation .mdl-align.title {
+	background: #dadbdb url([[pix:theme|h3sections]]) repeat-x top left; 
+	font-size: 20px;
+	color: #000;
+	font-weight: normal;
+	margin-bottom: 0px;
+	margin: 0 0;
+	padding: 10px 15px;
+	text-align: left;
+}
+
+/* arrows in section */
+.course-content .single-section .header .mdl-left a span {
+	color: transparent;
+	background: url([[pix:theme|section-arrow-left]]) no-repeat 50% 50%;
+	position: absolute;
+	right: 10px;
+	top: 5px;
+	height: 30px;
+	width: 30px;
+	margin: 0 0;
+	border-right: 1px solid #ccc;
+}
+
+.course-content .single-section .header .mdl-left a {
+	display: block;
+}
+
+.course-content .single-section .header .mdl-left {
+	position: absolute;
+	display: block;
+	right: 23px;
+	top: 5px;
+	height: 20px;
+	width: 20px;
+	float: none;
+	margin: 0 0;
+}
+
+.course-content .single-section .header .mdl-right a span {
+	color: transparent;
+	background: url([[pix:theme|section-arrow-right]]) no-repeat 50% 50%;
+	height: 30px;
+	width: 30px;
+	display: block;
+	margin: 0 0;
+}
+
+.course-content .single-section .header .mdl-right a {
+	display: block;
+}
+
+.course-content .single-section .header .mdl-right {
+	position: absolute;
+	display: block;
+	right: 15px;
+	top: 8px;
+	height: 20px;
+	width: 20px;
+	float: none;
+	margin: 0 0;
+}
+
+.course-content .header .mdl-right a span {
+	color: transparent;
+	background: #ccc url([[pix:theme|Arrow-Right]]) no-repeat 50% 50%;
+	height: 20px;
+	width: 20px;
+	display: block;
+	margin: 0 0;
+}
+
+.course-content .single-section .section-navigation .mdl-right .rarrow {
+	position: absolute;
+	top: 2px;
+}
+
+.course-content .single-section .section-navigation .mdl-left .larrow {
+	margin-right: 0px;
+}
+
+.course-content .single-section .section-navigation.mdl-bottom, #completionprogressid {
+	display: none;
+}
+
+#dndupload-status {
+	z-index: 1;
+}
+
+/*category stuff */
+#page-course-index-category .generalbox {
+    margin: 0px auto 10px;
+    padding: 0px 0px;
+    width: auto;
+    border: 0px solid transparent;
+    font-size: 90%;
+}
+
+#page-course-index-category .coursebox {
+	border-bottom: 0px solid transparent;
+}
+
+#page-course-index-category .generalbox h3, #page-course-index-category .generalbox h2 {
+	color: #000;
+	font-weight: normal;
+}
+
+#page-course-index-category .categorypicker, #page-course-index-category ul.teachers {
+    display: none;
+}
+
+#page-course-index-category .coursebox .info {
+    float: none;
+    text-align: left;
+    width: auto;
+}
+
+#page-course-index-category .coursebox div.info {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+#page-course-index-category .coursebox .summary {
+    float: none;
+    text-align: left;
+    width: auto;
+    
+    display: block;
+	padding: 15px 20px; 
+	border: 1px solid #fff;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+	background: url([[pix:theme|section-grad]]) repeat-x top left;
+	font-size: 90%;
+}
+
+#page-course-index-category .coursebox .enrolmenticons {
+	display: none;
+}
+
+#page-course-index-category table.generalbox {
+    border: 0 solid transparent;
+    font-size: 90%;
+    margin: 0 auto 10px;
+    padding: 0;
+    width: 100%;
+}
+
+#page-course-index-category .category_subcategories thead {
+	background: 
+	url([[pix:theme|subcats]]) no-repeat 8px 50%,
+	url([[pix:theme|section-box-bg]]) no-repeat top left;
+	background-color: [[setting:bgcolordefault]];
+	margin: 0 0;
+	border: 1px solid #fff;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+}
+
+/*additional color */
+#page-course-index-category.bgcolor1 .category_subcategories thead {
+	background-color: [[setting:bgcolor1]];
+}
+
+#page-course-index-category.bgcolor2 .category_subcategories thead {
+	background-color: [[setting:bgcolor2]];
+}
+
+#page-course-index-category.bgcolor3 .category_subcategories thead {
+	background-color: [[setting:bgcolor3]];
+}
+
+#page-course-index-category.bgcolor4 .category_subcategories thead {
+	background-color: [[setting:bgcolor4]];
+}
+
+#page-course-index-category .category_subcategories thead th {
+	background: #dadbdb url([[pix:theme|h3sections]]) repeat-x top left;
+	font-size: 20px;
+	text-align: left;
+	font-weight: normal;
+	display: block;
+	padding: 8px 15px;
+	margin: 0 0;
+	margin-left: 43px;
+}
+
+
+
+#page-course-index-category .category_subcategories tbody, #page-course-index-category #movecourses tbody {
+	display: block;
+	padding: 15px 20px; 
+	border: 1px solid #fff;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+	background: url([[pix:theme|section-grad]]) repeat-x top left;
+	margin-top: 15px;
+}
+
+#page-course-index-category #movecourses tbody {
+	position: relative;
+	margin-top: 70px;
+}
+
+#page-course-index-category #movecourses th.header {
+	display: none;
+}
+
+#page-course-index-category #movecourses .catheadwrap {
+	background: 
+	url([[pix:theme|catsection-icon]]) no-repeat 12px 50%,
+	url([[pix:theme|section-box-bg]]) no-repeat top left;
+	background-color: [[setting:bgcolordefault]];
+	margin: 0 0;
+	border: 1px solid #fff;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+	position: absolute;
+	top: -62px;
+	left: 0px;
+	width: 100%;
+}
+
+/*additional color */
+#page-course-index-category.bgcolor1 #movecourses .catheadwrap {
+	background-color: [[setting:bgcolor1]];
+}
+
+#page-course-index-category.bgcolor2 #movecourses .catheadwrap {
+	background-color: [[setting:bgcolor2]];
+}
+
+#page-course-index-category.bgcolor3 #movecourses .catheadwrap {
+	background-color: [[setting:bgcolor3]];
+}
+
+#page-course-index-category.bgcolor4 #movecourses .catheadwrap {
+	background-color: [[setting:bgcolor4]];
+}
+
+#page-course-index-category #movecourses .catheadwrap th.header {
+	background: #dadbdb url([[pix:theme|h3sections]]) repeat-x top left;
+	font-size: 20px;
+	text-align: left;
+	font-weight: normal;
+	display: block;
+	padding: 8px 15px;
+	margin: 0 0;
+	margin-left: 43px;
+	border-right: 1px solid #fff;
+}
+
+/*my moodle page stuff */
+#page-my-index .block_course_overview.block .header {
+    padding: 0px 0;
+	background: url([[pix:theme|section-box-bg]]) no-repeat top left;
+	background-color: [[setting:bgcolordefault]];
+	margin: 0 0;
+	border: 1px solid #fff;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+}
+
+/*additional color */
+#page-my-index.bgcolor1 .block_course_overview.block .header {
+	background-color: [[setting:bgcolor1]];
+}
+
+#page-my-index.bgcolor2 .block_course_overview.block .header {
+	background-color: [[setting:bgcolor2]];
+}
+
+#page-my-index.bgcolor3 .block_course_overview.block .header {
+	background-color: [[setting:bgcolor3]];
+}
+
+#page-my-index.bgcolor4 .block_course_overview.block .header {
+	background-color: [[setting:bgcolor4]];
+}
+
+#page-my-index .block_course_overview.block .block_action {
+	display: none;
+}
+
+#page-my-index .block_course_overview.block .header .title {
+	background: url([[pix:theme|subcats]]) no-repeat 8px 50%;
+	padding-left: 43px;
+}
+
+#page-my-index .block_course_overview.block .header .title h2 {
+	background: #dadbdb url([[pix:theme|h3sections]]) repeat-x top left;
+	font-size: 20px;
+	text-align: left;
+	font-weight: bold;
+	display: block;
+	padding: 8px 15px;
+	margin: 0 0;
+	font-family: "SourceSansPro","Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#page-my-index .block_course_overview.block .content {
+   	display: block;
+	padding: 15px 0px; 
+	border: 1px solid #fff;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+	background: url([[pix:theme|section-grad]]) repeat-x top left;
+	font-size: 90%;
+	margin-top: 15px;
+}
+
+#page-my-index .block_course_overview.block .content .overview {
+	margin-bottom: 0px;
+	padding: 20px 15px;
+	border-top: 1px solid #ddd;
+	clear: both;
+	float: none;
+	display: block;
+	min-height: 10px;
+	text-indent: 30px;
+}
+
+#page-my-index .block_course_overview.block .content .headingwrap1 h3{
+	padding: 10px 15px;
+	font-size: 16px;	
+}
+
+.path-my .coursebox .overview .name {
+	margin-left: 0px;
+	float: left;
+	margin-right: 40px;
+	text-transform: uppercase;
+}
+
+.path-my .coursebox .overview .info {
+    float: right;
+    margin-left: 0px;
+    width: auto;
+    padding-bottom: 10px;
+}
+
+.path-my .coursebox .overview .details {
+    clear: both;
+    margin-left: 0;
+}
+
+/*database view */
+.path-mod-data #page hr {
+   background: transparent;
+   border: none;
+   border-top: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+div.datapreferences {
+	background: #dadbdb url([[pix:theme|h3sections]]) repeat-x top left;
+	text-align: left;	
+	padding: 8px 15px;
+	margin: 10px 0px 5px;
+	border: 1px solid #fff;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+	font-size: 80%;
+}
+
+/*label and image floating in course */
+.section .activity .no-overflow {
+	overflow: inherit;
+}
+
+[[setting:customcss]]

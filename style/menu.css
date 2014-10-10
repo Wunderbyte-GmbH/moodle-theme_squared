@@ -1,0 +1,289 @@
+/*overrides for custom menu. don't touch */
+/*YUI Reset */
+.yui3-skin-sam #page .yui3-menu-horizontal .yui3-menu-content{ background-position: -10000px -10000px; border: none;
+	border-top: none;}
+
+.yui3-skin-sam #page .yui3-menu-horizontal .yui3-menu-label{ background-position: -10000px -10000px; border: none;
+	border-top: none; }
+
+.yui3-skin-sam #page .yui3-menu-horizontal .yui3-menu-label-active,.yui3-skin-sam #page .yui3-menu-horizontal .yui3-menuitem-active .yui3-menuitem-content,.yui3-skin-sam #page .yui3-menu-horizontal .yui3-menu-label-menuvisible{ background-position: -10000px -10000px; border: none;
+	border-top: none; }
+
+.yui3-skin-sam #page .yui3-menu-label,
+.yui3-skin-sam #page .yui3-menu .yui3-menu .yui3-menu-label { background-position: right center; border: none;
+	border-top: none;}
+
+.yui3-skin-sam #page .yui3-menubuttonnav .yui3-menu-label em { background-position: right center; border: none;
+	border-top: none;}
+
+.yui3-skin-sam #page .yui3-splitbuttonnav .yui3-menu-label .yui3-menu-toggle { background-position: 3px center;	border: none;
+	border-top: none; }
+
+.yui3-skin-sam #page .yui3-splitbuttonnav .yui3-menu-label-menuvisible .yui3-menu-toggle { background-position: 0% 50%; border: none;
+	border-top: none;}
+
+.yui3-skin-sam #page .yui3-menu-content, .yui3-skin-sam #page .yui3-menu .yui3-menu .yui3-menu-content, .yui3-skin-sam #page .yui3-menu ul.first-of-type, .yui3-skin-sam #page .yui3-menu-horizontal ul  {
+	border: none;
+	border-top: none;
+}
+
+.yui3-skin-sam .yui3-menu-horizontal .yui3-menu-label, .yui3-skin-sam .yui3-menu-horizontal .yui3-menuitem-content {
+	margin: 0 0 !important;
+}
+
+/*end overrides for custom menu. don't touch */
+
+/* menu bar background */
+#menuwrap {
+	display: none;
+}
+
+#navbox:hover {
+	z-index: 99998;
+}
+
+#navbox:hover #navover {
+	background: #C2C2C2;
+	box-shadow: none;
+	border: 1px solid #c2c2c2;
+	padding: 0.38em 5px 24px;
+}
+
+#navover.ioshover  {
+	background: #fafafa !important;
+	border: 1px solid #ddd !important;
+	padding: 4px 4px 7px !important;
+}
+
+#navbox:hover #menuwrap {
+	display: block;
+	position: absolute;
+}
+
+.ios #navbox:hover #menuwrap, .android #navbox:hover #menuwrap {
+	display: none;
+	position: absolute;
+}
+
+#menuwrap {
+	background: none repeat scroll 0 0 transparent;
+    left: 0;
+    min-width: 800px;
+    padding-left: 0px;
+    padding-top: 16px;
+    top: 23px;
+    z-index: 10000;
+}
+
+.coursepage #menuwrap {
+	top: 23px;
+}
+
+#custommenu {
+	font-size: 13px;
+	font-weight: 600;
+	background: transparent !important;
+}
+
+#custommenu * {
+	border: none ;
+}
+
+/*bar menu item */
+.yui3-menu-content li {
+	width: 175px !important;
+	height: 174px;
+	display: table !important;
+	border-spacing:0px;
+  	border-collapse:collapse;
+  	margin-right: -1px !important;
+}
+
+.safari .yui3-menu-content li.baritem:last-child {
+	width: 175px !important;
+}
+
+.yui3-menu-content li a {
+	font-size: 22px;
+	font-family: "SourceSansPro","Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	line-height: 22px;
+	
+	white-space: normal !important;
+	cursor: pointer;
+	border: 0px solid transparent !important;
+	color: #fff !important;
+	text-transform: uppercase;
+	text-align: center;
+	
+	vertical-align: middle !important; 
+	display: table-cell !important;
+	padding: 0px !important;
+	
+	float: none !important;
+	width: 174px !important;
+	background:#11847d url([[pix:theme|blockback]]) no-repeat top right !important;
+}
+
+.safari .yui3-menu-content li.baritem:last-child a {
+	width: 175px !important;
+}
+
+.yui3-menu-content li.baritem:nth-child(2) a {
+	background: #d54d12 url([[pix:theme|blockback]]) no-repeat top right !important;
+}
+
+.yui3-menu-content li.baritem:nth-child(3) a {
+	background:#ffba32 url([[pix:theme|blockback]]) no-repeat top right !important;
+}
+
+/*bar menu item hover background color */
+.yui3-menu-content li:hover {
+	background: transparent !important;
+}
+
+div.yui3-menu.custom_menu_submenu {
+	background:#11847d !important;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px -5px 30px rgba(0, 0, 0, 0.25) inset;
+	padding: 10px 0px 14px !important;
+	width: 174px !important;
+	height:auto !important;
+	min-height: 150px !important;
+}
+
+.yui3-menu-content li.baritem:nth-child(2) div.yui3-menu.custom_menu_submenu {
+	background:#d54d12 !important;
+}
+
+.yui3-menu-content li.baritem:nth-child(3) div.yui3-menu.custom_menu_submenu {
+	background:#ffba32 !important;
+}
+
+/*end backgrounds top: sub sub menus and align 0px !important; from below*/
+.yui3-menu-content li {
+	position: relative;
+}
+
+div.yui3-menu.custom_menu_submenu div.yui3-menu.custom_menu_submenu {
+	left: 174px !important;
+	top:  -13px !important;
+}
+
+div.yui3-menu5.custom_menu_submenu div.yui3-menu.custom_menu_submenu .yui3-menu-content {
+	margin-top: -30px !important;
+	position: relative;
+}
+
+/* sub sub sub sub menu */
+div.yui3-menu.custom_menu_submenu div.yui3-menu.custom_menu_submenu div.yui3-menu.custom_menu_submenu div.yui3-menu.custom_menu_submenu div.yui3-menu.custom_menu_submenu, div.yui3-menu.custom_menu_submenu div.yui3-menu.custom_menu_submenu.yui3-menu-hidden div.yui3-menu.custom_menu_submenu.yui3-menu-hidden div.yui3-menu.custom_menu_submenu.yui3-menu-hidden div.yui3-menu.custom_menu_submenu.yui3-menu-hidden {
+	display: block !important;
+    left: 0 !important;
+    opacity: 1 !important;
+    padding: 0px 10px !important;
+    position: relative !important;
+    text-align: left;
+    top: 0 !important;
+    visibility: visible !important;
+  
+    
+    background: transparent !important;
+    box-shadow: none;
+}
+
+
+
+/*submenu background color */
+div.yui3-menu.custom_menu_submenu div.yui3-menu-content {
+	background:transparent !important;
+}
+
+div.yui3-menu.custom_menu_submenu div.yui3-menu-content {
+	padding-bottom: 0 !important;
+}
+
+div.yui3-menu.custom_menu_submenu .yui3-menu-content li {
+	border-left: none;
+	background: none !important;
+	height: auto !important;
+	width: auto !important;
+	display: inherit !important;
+}
+
+
+/*submenu link color and size */
+div.yui3-menu.custom_menu_submenu .yui3-menu-content li a {
+	border-right: 0px solid transparent !important;
+	font-size: 12px;
+	text-transform: none;
+	background: url([[pix:theme|arrow-r]]) no-repeat 10px 11px !important;
+	text-decoration: none !important;
+	line-height: 20px;
+	height: auto;
+	width: 144px !important;
+	text-align: left;
+	padding: 5px 10px 5px 20px !important;
+	display: inherit !important;
+	word-wrap: break-word !important;
+}
+
+/*fixes for chrome/safari */
+.safari .yui3-menu-content li.baritem:last-child div.yui3-menu.custom_menu_submenu .yui3-menu-content li {
+	width: auto !important;
+}
+
+.safari .yui3-menu-content li.baritem:last-child div.yui3-menu.custom_menu_submenu a {
+	width: 144px !important;
+}
+
+div.yui3-menu.custom_menu_submenu .yui3-menu-content li a.yui3-menu-label {
+	background: url([[pix:theme|arrow-d]]) no-repeat 10px 11px !important;
+}
+
+/*submenu hover */
+div.yui3-menu.custom_menu_submenu .yui3-menu-content li a:hover, div.yui3-menu.custom_menu_submenu li a.yui3-menu-label:hover {
+	background-color: transparent !important;
+	text-decoration: underline !important;
+}
+/*ios and touch changes */
+.ios li.baritem, .android li.baritem {
+	position: relative;
+}
+
+.iosnothidden.custom_menu_submenu {
+	top: 174px !important;
+	left: 0px;
+	width: 174px;
+}
+
+.ios #custommenu li div.custom_menu_submenu div.custom_menu_submenu, .android #custommenu li div.custom_menu_submenu div.custom_menu_submenu {
+	display: block !important;
+	visibility: visible;
+	position: relative !important;
+	left: auto !important;
+	top: auto !important;
+	height: auto !important;
+	min-height: inherit !important;
+	opacity: 1 !important;
+	padding-left: 10px !important;
+	background: transparent !important;
+	box-shadow: none;
+}
+
+/* un-do styles for menus used in grading and the like */
+.generaltable .yui3-menu-content li, .generaltable .yui3-menu-content li a {
+	width: 100% !important;
+	height: auto !important;
+	line-height: 20px !important;
+	background: #fff !important;
+	display: block !important;
+	font-size: 13px !important;
+	text-align: left !important;
+	float: left !important;
+	clear: both !important;
+	cursor: pointer;
+	
+}
+
+.generaltable .yui3-menu-content li li:hover a {
+	background: #eee !important;
+}

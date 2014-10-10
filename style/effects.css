@@ -1,0 +1,757 @@
+/*css3 transition effects for various moodle areas */
+/*blocks */
+.gecko .block.hidden2 .content, .safari .block.hidden2 .content {
+    display: block;
+    
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 0px;
+       
+    opacity: 0.0;
+    -webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+ }
+
+.gecko .block22 .content, .safari .block22 .content {
+	height: 100%;
+	min-height:10px;
+    max-height:5000px;
+    
+	opacity: 1.0;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+}
+
+/*custom menu, may not work in all situations */
+.custom_menu_submenu.yui3-menu-hidden {
+	opacity: 0.0;
+}
+
+.custom_menu_submenu {
+	opacity: 1.0;
+	-webkit-transition: opacity 0.3s ease-in-out;
+	-moz-transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out;
+}
+
+.yui3-menu-content li:hover {
+	-moz-transition:background-color 0.3s ease-in-out;
+	-webkit-transition:background-color 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
+
+/*settings and nav and categories tree effects */
+.gecko.jsenabled .block_settings .block_tree .collapsed ul, .gecko.jsenabled .block_navigation .block_tree .collapsed ul,  
+.safari.jsenabled .block_settings .block_tree .collapsed ul, .safari.jsenabled .block_navigation .block_tree .collapsed ul,
+.gecko.jsenabled .course_category_tree .category.with_children.collapsed .subcategories, .gecko.jsenabled .course_category_tree .category.with_children.collapsed .courses, .safari.jsenabled .course_category_tree .category.with_children.collapsed .subcategories, .safari.jsenabled .course_category_tree .category.with_children.collapsed .courses
+{
+   display: block;
+   padding-top: 0px;
+   padding-bottom: 0px;
+   
+   height: 0px;
+   min-height:0px;
+   max-height:0px;
+   
+   overflow: hidden;
+   
+    opacity: 0.0;
+    -webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+
+}
+
+.gecko .block_settings .block_tree li ul,  .gecko .block_navigation .block_tree li.depth_2 ul, .safari .block_settings .block_tree li ul,  .safari .block_navigation .block_tree li.depth_2 ul,
+.gecko .course_category_tree .category .courses, .safari .course_category_tree .category .courses  {
+
+	height: auto;
+	min-height:10px;
+    max-height:5000px;
+    
+	opacity: 1.0;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+}
+
+.tree_item, .tree_item span {
+	outline:none;
+}
+
+/*overlay effects */
+.yui3-overlay-hidden {
+    opacity: 0.0;
+	-webkit-transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+}
+
+/*page content effects */
+#page-content #region-main, .side-pre-only #page-content #region-post {
+    -webkit-transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+}
+
+/*dock effects */
+.gecko #dockeditempanel.dockitempanel_hidden, .safari #dockeditempanel.dockitempanel_hidden {
+    display: block;
+   	left: -300px;
+   	
+    opacity: 0.0;
+    -webkit-transition: opacity 0.4s ease-in-out;
+	-moz-transition: opacity 0.4s ease-in-out;
+	transition: opacity 0.4s ease-in-out;
+}
+
+.gecko #dockeditempanel, .safari #dockeditempanel {
+	opacity: 1.0;
+	-webkit-transition: opacity 0.4s ease-in-out;
+	-moz-transition: opacity 0.4s ease-in-out;
+	transition: opacity 0.4s ease-in-out;
+}
+
+body.has_dock {
+    -webkit-transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+}
+
+.gecko #dock, .safari #dock {
+	-webkit-transition: all 0.7s ease-in-out;
+	-moz-transition: all 0.7s ease-in-out;
+	transition: all 0.7s ease-in-out;
+	height: 100%;
+	min-height:10px;
+    max-height:5000px;
+}
+
+.gecko #dock.nothingdocked, .safari #dock.nothingdocked {
+	display: block;
+	background-color: transparent;
+	height: 0px;
+	min-height:0px;
+    max-height:0px;
+	width: 0px;
+	left: -9em;
+	
+	-webkit-transition: all 0.9s ease-in-out;
+	-moz-transition: all 0.9s ease-in-out;
+	transition: all 0.9s ease-in-out;
+}	
+
+/** blocks **/
+.block .header .commands {
+   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+  -moz-opacity: 0.15;
+  opacity: 0.15;
+  line-height: 1.2;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.block .header .commands .icon {
+	padding-right: 0;
+}
+
+.block:hover .header .commands {
+   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  -moz-opacity: 1.0;
+  opacity: 1.0;
+   -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+/** course items **/
+.editing .section .content li .commands{
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+  -moz-opacity: 0.15;
+  opacity: 0.15;
+   -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.editing .section .content li:hover .commands{
+   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  -moz-opacity: 1.0;
+  opacity: 1.0;
+   -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.editing .section .content li.activity:hover {
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+	border: 1px dashed #ccc;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.editing .section .content li.activity {
+	-webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+    border: 1px solid transparent;
+}
+
+.editing .section .content .summary a .icon.edit{
+   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+  -moz-opacity: 0.15;
+  opacity: 0.15;
+   -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.editing .section .content:hover .summary a .icon.edit{
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  -moz-opacity: 1.0;
+  opacity: 1.0;
+   -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+/*section icons */
+.editing .section .right.side div img, .editing .section .left.side a img, .editing .section .summary a img.iconsmall.edit, .section.main .section_add_menus {
+   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+  -moz-opacity: 0.15;
+  opacity: 0.15;
+   -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.editing .section:hover .right.side div img, .editing .section:hover .left.side a img, .editing .section:hover .summary a img.iconsmall.edit, .section.main:hover .section_add_menus {
+   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  -moz-opacity: 1.0;
+  opacity: 1.0;
+   -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.tablettheme.editing .block .header .commands, .tablettheme.editing .section .content li .commands, .tablettheme.editing .section .content .summary a .icon.edit, .tablettheme.editing .section .summary a img.iconsmall.edit, .section.main .section_add_menus {
+	 -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  opacity: 0.8;
+}
+
+/*base style for alerts and messages*/
+
+/*red for problems */
+.notifyproblem {
+	background: red;
+	color: #fff;
+	padding: 5px;
+	width: 75%;
+	margin: .5em auto;
+}
+
+/*green for go*/
+.notifysuccess {
+	background: green;
+	color: #fff;
+	padding: 5px;
+	width: 75%;
+	margin: .5em auto;
+}
+
+/*yellow for highlight */
+.felement.error {
+	background-color: #ffffcc;
+}
+
+/*box shadow for elements */
+.yui3-overlay-focused, .notifysuccess, .notifyproblem {
+ 	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+}
+
+.animated, .notifyproblem, .notifysuccess, .pagelayout-redirect #content, .yui3-overlay-focused, .yui3-overlay-hidden, .felement.error, #logo, .flex-active-slide .headerblock {
+	-webkit-animation-fill-mode: both;
+	-moz-animation-fill-mode: both;
+	-ms-animation-fill-mode: both;
+	-o-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-duration: 1s;
+	-moz-animation-duration: 1s;
+	-ms-animation-duration: 1s;
+	-o-animation-duration: 1s;
+	animation-duration: 1s;
+}
+
+@-webkit-keyframes shake {
+	0%, 100% {-webkit-transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {-webkit-transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {-webkit-transform: translateX(10px);}
+}
+
+@-moz-keyframes shake {
+	0%, 100% {-moz-transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {-moz-transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {-moz-transform: translateX(10px);}
+}
+
+@-ms-keyframes shake {
+	0%, 100% {-ms-transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {-ms-transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {-ms-transform: translateX(10px);}
+}
+
+@-o-keyframes shake {
+	0%, 100% {-o-transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {-o-transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {-o-transform: translateX(10px);}
+}
+
+@keyframes shake {
+	0%, 100% {transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {transform: translateX(10px);}
+}
+
+.shake, .notifyproblem, .felement.error {
+	-webkit-animation-name: shake;
+	-moz-animation-name: shake;
+	-ms-animation-name: shake;
+	-o-animation-name: shake;
+	animation-name: shake;
+}
+
+@-webkit-keyframes bounceInDown {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateY(-2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		-webkit-transform: translateY(30px);
+	}
+	
+	80% {
+		-webkit-transform: translateY(-10px);
+	}
+	
+	100% {
+		-webkit-transform: translateY(0);
+	}
+}
+
+@-moz-keyframes bounceInDown {
+	0% {
+		opacity: 0;
+		-moz-transform: translateY(-2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		-moz-transform: translateY(30px);
+	}
+	
+	80% {
+		-moz-transform: translateY(-10px);
+	}
+	
+	100% {
+		-moz-transform: translateY(0);
+	}
+}
+
+@-ms-keyframes bounceInDown {
+	0% {
+		opacity: 0;
+		-ms-transform: translateY(-2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		-ms-transform: translateY(30px);
+	}
+	
+	80% {
+		-ms-transform: translateY(-10px);
+	}
+	
+	100% {
+		-ms-transform: translateY(0);
+	}
+}
+
+@-o-keyframes bounceInDown {
+	0% {
+		opacity: 0;
+		-o-transform: translateY(-2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		-o-transform: translateY(30px);
+	}
+	
+	80% {
+		-o-transform: translateY(-10px);
+	}
+	
+	100% {
+		-o-transform: translateY(0);
+	}
+}
+
+@keyframes bounceInDown {
+	0% {
+		opacity: 0;
+		transform: translateY(-2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		transform: translateY(30px);
+	}
+	
+	80% {
+		transform: translateY(-10px);
+	}
+	
+	100% {
+		transform: translateY(0);
+	}
+}
+
+.bounceInDown, .notifysuccess {
+	-webkit-animation-name: bounceInDown;
+	-moz-animation-name: bounceInDown;
+	-ms-animation-name: bounceInDown;
+	-o-animation-name: bounceInDown;
+	animation-name: bounceInDown;
+}
+
+@-webkit-keyframes fadeInUpBig {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateY(2000px);
+	}
+	
+	100% {
+		opacity: 1;
+		-webkit-transform: translateY(0);
+	}
+}
+
+@-moz-keyframes fadeInUpBig {
+	0% {
+		opacity: 0;
+		-moz-transform: translateY(2000px);
+	}
+	
+	100% {
+		opacity: 1;
+		-moz-transform: translateY(0);
+	}
+}
+
+@-ms-keyframes fadeInUpBig {
+	0% {
+		opacity: 0;
+		-ms-transform: translateY(2000px);
+	}
+	
+	100% {
+		opacity: 1;
+		-ms-transform: translateY(0);
+	}
+}
+
+@-o-keyframes fadeInUpBig {
+	0% {
+		opacity: 0;
+		-o-transform: translateY(2000px);
+	}
+	
+	100% {
+		opacity: 1;
+		-o-transform: translateY(0);
+	}
+}
+
+@keyframes fadeInUpBig {
+	0% {
+		opacity: 0;
+		transform: translateY(2000px);
+	}
+	
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.fadeInUpBig, .pagelayout-redirect #content, .yui3-overlay-focused2 {
+	-webkit-animation-name: fadeInUpBig;
+	-moz-animation-name: fadeInUpBig;
+	-ms-animation-name: fadeInUpBig;
+	-o-animation-name: fadeInUpBig;
+	animation-name: fadeInUpBig;
+}
+
+@-webkit-keyframes tada {
+
+	0% {-webkit-transform: scale(1);}	
+
+	10%, 20% {-webkit-transform: scale(0.9) rotate(-3deg);}
+
+	30%, 50%, 70%, 90% {-webkit-transform: scale(1.1) rotate(3deg);}
+
+	40%, 60%, 80% {-webkit-transform: scale(1.1) rotate(-3deg);}
+
+	100% {-webkit-transform: scale(1) rotate(0);}
+
+}
+
+
+
+@-moz-keyframes tada {
+
+	0% {-moz-transform: scale(1);}	
+
+	10%, 20% {-moz-transform: scale(0.9) rotate(-3deg);}
+
+	30%, 50%, 70%, 90% {-moz-transform: scale(1.1) rotate(3deg);}
+
+	40%, 60%, 80% {-moz-transform: scale(1.1) rotate(-3deg);}
+
+	100% {-moz-transform: scale(1) rotate(0);}
+
+}
+
+
+
+@-o-keyframes tada {
+
+	0% {-o-transform: scale(1);}	
+
+	10%, 20% {-o-transform: scale(0.9) rotate(-3deg);}
+
+	30%, 50%, 70%, 90% {-o-transform: scale(1.1) rotate(3deg);}
+
+	40%, 60%, 80% {-o-transform: scale(1.1) rotate(-3deg);}
+
+	100% {-o-transform: scale(1) rotate(0);}
+
+}
+
+
+
+@keyframes tada {
+
+	0% {transform: scale(1);}	
+
+	10%, 20% {transform: scale(0.9) rotate(-3deg);}
+
+	30%, 50%, 70%, 90% {transform: scale(1.1) rotate(3deg);}
+
+	40%, 60%, 80% {transform: scale(1.1) rotate(-3deg);}
+
+	100% {transform: scale(1) rotate(0);}
+
+}
+
+
+
+.tada {
+
+	-webkit-animation-name: tada;
+
+	-moz-animation-name: tada;
+
+	-o-animation-name: tada;
+
+	animation-name: tada;
+
+}
+
+.animated.hinge {
+	-webkit-animation-duration: 2s;
+	-moz-animation-duration: 2s;
+	-ms-animation-duration: 2s;
+	-o-animation-duration: 2s;
+	animation-duration: 2s;
+}
+
+@-webkit-keyframes hinge {
+
+	0% { -webkit-transform: rotate(0); -webkit-transform-origin: top left; -webkit-animation-timing-function: ease-in-out; }	
+
+	20%, 60% { -webkit-transform: rotate(80deg); -webkit-transform-origin: top left; -webkit-animation-timing-function: ease-in-out; }	
+
+	40% { -webkit-transform: rotate(60deg); -webkit-transform-origin: top left; -webkit-animation-timing-function: ease-in-out; }	
+
+	80% { -webkit-transform: rotate(60deg) translateY(0); opacity: 1; -webkit-transform-origin: top left; -webkit-animation-timing-function: ease-in-out; }	
+
+	100% { -webkit-transform: translateY(700px); opacity: 0; }
+
+}
+
+
+
+@-moz-keyframes hinge {
+
+	0% { -moz-transform: rotate(0); -moz-transform-origin: top left; -moz-animation-timing-function: ease-in-out; }	
+
+	20%, 60% { -moz-transform: rotate(80deg); -moz-transform-origin: top left; -moz-animation-timing-function: ease-in-out; }	
+
+	40% { -moz-transform: rotate(60deg); -moz-transform-origin: top left; -moz-animation-timing-function: ease-in-out; }	
+
+	80% { -moz-transform: rotate(60deg) translateY(0); opacity: 1; -moz-transform-origin: top left; -moz-animation-timing-function: ease-in-out; }	
+
+	100% { -moz-transform: translateY(700px); opacity: 0; }
+
+}
+
+
+
+@-o-keyframes hinge {
+
+	0% { -o-transform: rotate(0); -o-transform-origin: top left; -o-animation-timing-function: ease-in-out; }	
+
+	20%, 60% { -o-transform: rotate(80deg); -o-transform-origin: top left; -o-animation-timing-function: ease-in-out; }	
+
+	40% { -o-transform: rotate(60deg); -o-transform-origin: top left; -o-animation-timing-function: ease-in-out; }	
+
+	80% { -o-transform: rotate(60deg) translateY(0); opacity: 1; -o-transform-origin: top left; -o-animation-timing-function: ease-in-out; }	
+
+	100% { -o-transform: translateY(700px); opacity: 0; }
+
+}
+
+
+
+@keyframes hinge {
+
+	0% { transform: rotate(0); transform-origin: top left; animation-timing-function: ease-in-out; }	
+
+	20%, 60% { transform: rotate(80deg); transform-origin: top left; animation-timing-function: ease-in-out; }	
+
+	40% { transform: rotate(60deg); transform-origin: top left; animation-timing-function: ease-in-out; }	
+
+	80% { transform: rotate(60deg) translateY(0); opacity: 1; transform-origin: top left; animation-timing-function: ease-in-out; }	
+
+	100% { transform: translateY(700px); opacity: 0; }
+
+}
+
+.hinge {
+
+	-webkit-animation-name: hinge;
+
+	-moz-animation-name: hinge;
+
+	-o-animation-name: hinge;
+
+	animation-name: hinge;
+
+}
+
+@-webkit-keyframes bounceInDown {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateY(-2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		-webkit-transform: translateY(30px);
+	}
+	
+	80% {
+		-webkit-transform: translateY(-10px);
+	}
+	
+	100% {
+		-webkit-transform: translateY(0);
+	}
+}
+
+@-moz-keyframes bounceInDown {
+	0% {
+		opacity: 0;
+		-moz-transform: translateY(-2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		-moz-transform: translateY(30px);
+	}
+	
+	80% {
+		-moz-transform: translateY(-10px);
+	}
+	
+	100% {
+		-moz-transform: translateY(0);
+	}
+}
+
+@-o-keyframes bounceInDown {
+	0% {
+		opacity: 0;
+		-o-transform: translateY(-2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		-o-transform: translateY(30px);
+	}
+	
+	80% {
+		-o-transform: translateY(-10px);
+	}
+	
+	100% {
+		-o-transform: translateY(0);
+	}
+}
+
+@keyframes bounceInDown {
+	0% {
+		opacity: 0;
+		transform: translateY(-2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		transform: translateY(30px);
+	}
+	
+	80% {
+		transform: translateY(-10px);
+	}
+	
+	100% {
+		transform: translateY(0);
+	}
+}
+
+.bounceInDown, .flex-active-slide .headerblock {
+	-webkit-animation-name: bounceInDown;
+	-moz-animation-name: bounceInDown;
+	-o-animation-name: bounceInDown;
+	animation-name: bounceInDown;
+}

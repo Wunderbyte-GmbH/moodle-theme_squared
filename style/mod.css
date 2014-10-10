@@ -1,0 +1,45 @@
+/* mod_datalynx */
+
+#page-mod-datalynx-filter-index .region-content {
+  overflow: auto;	
+}
+
+/* mod_glossary */
+
+table.glossarypost th {
+	text-align: left;
+}
+table.glossarypost h3 {	
+	color: #11847D;
+    padding: 5px 0;
+    font-size: 1.5em;
+    text-shadow: none;
+    line-height: 1.2em;
+}
+table.glossarypost .time {
+		display: none;
+}
+
+table.glossarycategoryheader {
+	width: 100%;
+	text-align: center;
+}
+table.glossarycategoryheader th h2.main {
+		padding: 0.3em 0.8em;
+		font-size: 0.95em;
+		cursor: pointer;
+		border: 1px solid #FFF;
+		text-shadow: none;
+		text-transform: uppercase;
+		color: #000;
+		background: none repeat scroll 0% 0% #DDD;
+		text-align: center;
+}
+
+.path-mod-glossary .glossarypost, #page-mod-glossary-view table.glossarycategoryheader {
+	width: 85%;
+}
+.path-mod-glossary .glossarypost {
+		border-bottom: 5px solid #ddd;
+		margin-bottom: -7px;	
+}

@@ -1,0 +1,156 @@
+.path-mod-quiz .que {
+	overflow: hidden;
+	background: url([[pix:theme|quiz/qdash]]) repeat-y 7em 0;
+	border-bottom: 5px dashed #dadada;
+	
+	margin: 0 auto 0em;
+	padding-bottom: 1em;
+	padding-top: 1em;	
+}
+
+.que .formulation {
+    background: transparent;
+    padding: .5em 1em;
+}    
+
+.que .info {
+    background: transparent;
+}    
+
+.que span.qno {
+    float: right;
+    font-size: 3em;
+    font-weight: 800;
+    text-shadow: 0 1px 1px #fff;
+    
+    color: #000;
+    font-family: Georgia, serif;
+}
+
+/* responses to answers */
+.que .incorrect, .que .correct {
+	font-weight: bold;
+    text-align: center;
+   }
+#page-mod-quiz-review .incorrect, #page-mod-quiz-review .que .correct {    
+	text-align: left;
+}
+
+.que .incorrect {
+    background-color: red;
+    color: #FFFFFF;
+}
+
+.que .correct {
+	background-color: green;
+	color: #FFFFFF;
+}
+
+.que .outcome {
+    background: none repeat scroll 0 0 #FFFFCC;
+    box-shadow: 1px 1px 5px #666666;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+.path-mod-quiz .gradingdetails {
+    font-size: 0.9em;
+    padding-top: 0.7em;
+    text-align: center;
+}
+
+
+
+/* nav block and buttons 
+.path-mod-quiz #mod_quiz_navblock {
+	position: fixed;
+	min-width: 210px;
+	max-width: 210px;
+}
+.path-mod-quiz #mod_quiz_navblock .content {
+	max-height: 350px;
+	overflow: auto;
+	z-index: 9;
+	position: relative;
+	background: #fff;
+}
+*/
+.path-mod-quiz #mod_quiz_navblock {
+	
+	min-width: 210px;
+	max-width: 210px;
+}
+.path-mod-quiz #mod_quiz_navblock .content {
+
+	background: #fff;
+}
+
+
+.path-mod-quiz #mod_quiz_navblock .header {
+	z-index: 9;
+	position: relative;
+}
+
+.path-mod-quiz .submitbtns input, .path-mod-quiz .submitbtns a {
+	font-size: 1.5em;
+	padding: 6px 20px;
+}
+
+#page-mod-quiz-attempt .submitbtns, #page-mod-quiz-review .submitbtns {
+	text-align: right;
+}
+
+.path-mod-quiz .submitbtns input[name~=next] {
+	padding-right: 30px;
+	background-image: url([[pix:theme|quiz/arrow]]);
+	background-repeat: no-repeat;
+	background-position: 95% 49%;
+}
+
+
+/*nav buttons */
+.path-mod-quiz .qnbutton.notyetanswered, .path-mod-quiz .qnbutton.requiresgrading, .path-mod-quiz .qnbutton.invalidanswer, .path-mod-quiz .qnbutton {
+    padding: 0.3em;
+}
+
+.path-mod-quiz .qnbutton.thispage {
+    border-color: #000;
+}
+
+.path-mod-quiz .qnbutton.thispage .thispageholder, .path-mod-quiz a.qnbutton:hover .thispageholder {
+    border: 2px solid #FFFF33;
+}
+
+.path-mod-quiz .qnbutton.answersaved[title~=Correct], .path-mod-quiz .qnbutton[title~=Correct] {
+	background-color: #c4fec8;
+	background-image: url([[pix:theme|quiz/qcheck]]);
+	background-repeat: no-repeat;
+}
+
+.path-mod-quiz .qnbutton[title~=Incorrect] {
+	background-color: #faa9a9;
+	background-image: url([[pix:theme|quiz/qwrong]]);
+	background-repeat: no-repeat;
+}
+
+.path-mod-quiz .qnbutton[title~=Partially] {
+	background-color: #c4fec8;
+	background-image: url([[pix:theme|quiz/qwhite]]);
+	background-repeat: no-repeat;
+	background-position: 0 0px;
+}
+
+.path-mod-quiz .qnbutton.notyetanswered[title~=Incorrect] {
+	background-color: #faa9a9;
+}
+
+
+/*misc */
+tr.notyetanswered td.cell{
+	background-color: #ffffcc;
+}
+
+.answer .specificfeedback {
+	color: #333;
+}

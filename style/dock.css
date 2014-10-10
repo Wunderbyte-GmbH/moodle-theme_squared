@@ -1,0 +1,205 @@
+/*new idock */
+.idock #page-content #region-pre {
+    left: 0 !important;
+    width: 29px !important;
+    -webkit-transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+}
+
+#region-pre {
+	-webkit-transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+}
+
+.side-pre-only.idock #page-content #region-main {
+	margin-left: 25px;
+}
+
+.idock.side-pre-only .navbar {
+	margin-left: 29px;
+}
+
+/*change block styles now */
+.idock .coursepage .block.hidden.vclass, .idock .coursepage .block_html.block.vclass, .idock .coursepage .block.hidden.vclass.block2, .idock .coursepage .block_html.block.vclass.block2, .idock .coursepage .block.hidden.vclass.block3, .idock .coursepage .block_html.block.vclass.block3, .idock .coursepage .block.vclass.block-hider-show {
+	width: 29px;
+	display: block;
+	float: none;
+}
+
+.idock .coursepage .block.hidden.vclass .header, .idock .coursepage .block.vclass.block-hider-show .header {
+	height: 29px;
+    line-height: 1.2;
+	width: 29px;
+	padding: 0 0;
+	display: block;	
+	-webkit-transition: none;
+	-moz-transition: none;
+	transition: none;
+}
+
+.idock .coursepage #region-pre .rightblock {
+	float: none;
+	width: 29px;
+	clear: both;
+}
+
+.idock .coursepage .block .title h2 {
+	display: none;
+}
+
+.idock .coursepage .block.hidden.vclass .block-hider-show, .idock .coursepage .block.vclass .block-hider-hide {
+	height: 29px;
+}
+
+.idock .coursepage .block.hidden.vclass.rightblock:hover .content, .idock .coursepage .block.vclass.block-hider-show.rightblock .content {
+	margin-left: 0px;
+}
+
+.idock .coursepage .block.hidden.vclass:hover .content, .idock .coursepage .block.vclass.block-hider-show .content {
+	position: absolute;
+	left: 29px;
+	margin-top: -29px;
+}
+
+.idock .coursepage .courseblock-icon {
+	background-size: 26px 26px;
+}
+
+.idock .coursepage .courseblock-icon {
+	top: 0px;
+	left: 0px;
+}
+
+#dock-control {
+	background: [[setting:bgcolordefault]] url([[pix:theme|section-box-bg]]) no-repeat 0% 0%;
+    height: 29px;
+    left: 0px;
+    position: absolute;
+    width: 30px;
+    cursor: pointer;
+}
+
+#dock-control-inner {
+	height: 29px;
+	width: 30px;
+	background: url([[pix:theme|white_arrow-l]]) no-repeat 50% 50%;
+}
+
+.idock #dock-control-inner {
+	background: url([[pix:theme|white_arrow]]) no-repeat 50% 50%;
+}
+
+.content-only #dock-control {
+	display: none;
+}
+
+.idock.editing .block .header .commands {
+	display: none;
+	background: [[setting:bgcolordefault]];
+
+}
+
+.idock.editing .coursepage .block.hidden.vclass:hover .header .commands {
+	display: block;
+	left: 108px;
+    position: absolute;
+    top:  0px;
+    min-width: 100px;
+    z-index: 99998;    
+}
+
+/*additional colors */
+.bgcolor1 #dock-control, .bgcolor1.idock.editing .block .header .commands {
+	background-color: [[setting:bgcolor1]];
+}
+
+.bgcolor2 #dock-control,  .bgcolor2.idock.editing .block .header .commands{
+	background-color: [[setting:bgcolor2]];
+}
+
+.bgcolor3 #dock-control, .bgcolor3.idock.editing .block .header .commands {
+	background-color: [[setting:bgcolor3]];
+}
+
+.bgcolor4 #dock-control, .bgcolor4.idock.editing .block .header .commands {
+	background-color: [[setting:bgcolor4]];
+}
+
+/*end new dock */
+
+#dock {
+    padding-top: 0px;
+    width: 30px;
+    background: #666;
+}
+
+div.dockeditem_container div.dockeditem {
+    background: url([[pix:theme|mbar]]) repeat-y;
+    border: none;
+    color: #fff;
+    font: 100% Constantia, Lucidabright, Lucida, Georgia, serif;
+}
+
+div.dockeditem_container.firstdockitem {
+    border-top: none;
+}
+
+#dock .dockedtitle {
+	padding-top: 3px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #000000;
+    border-top: 0px solid #000000;
+    cursor: pointer;
+}
+
+.dockedtitle h2 {
+    font-weight: 200 !important;
+}
+
+div.dockeditempanel_content {
+    border: 1px solid #dadada !important;
+    border-left: none !important;
+    font-size: 90%;
+}
+
+div.dockeditempanel_content a {
+    text-decoration: none;
+}
+
+div.dockeditempanel_hd {
+    text-align: left;
+    font-size: 12px;
+}
+
+div.dockeditempanel_hd {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background: #eee;
+    border-bottom: 1px solid #dadada !important;
+}
+
+div.dockeditempanel_hd h2 {
+    font-weight: 600;
+    font-size: 12px;
+}
+
+div.dockeditempanel_bd ul, div.dockeditempanel_bd li {
+    list-style-type: none;
+    padding: 0;
+}
+
+div.dockeditempanel_bd {
+    font-weight: 200;
+}
+
+#dockeditempanel {
+    margin-left: 1px;
+}
+
+#dock div.controls {
+    margin-top: 20px;
+    padding-top: 0px;
+    position: relative;
+}
