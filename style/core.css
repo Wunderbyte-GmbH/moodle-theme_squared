@@ -801,18 +801,16 @@ table.user-grade {
 #newright-column .nc1, #newright-column .nc2 {
 	width: 175px;
 	min-height: 100px;
-	background: #ccc;
 	float: right;
 	padding-top: 100px;
 }
 
 #newright-column .nc1 {
-	background: url([[pix:theme|glossar]]) no-repeat top left;
+
 }
 
 #newright-column .nc2 {
 	margin-left: 25px;
-	background: url([[pix:theme|katalog]]) no-repeat top left;
 }
 
 #newright-column .nc1 p {
