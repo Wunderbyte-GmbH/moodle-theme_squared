@@ -362,3 +362,10 @@ function squared_set_customcss($css, $customcss) {
  $css = str_replace($tag, $replacement, $css);
  return $css;
 }
+
+function theme_squared_page_init(moodle_page $page) {
+    $page->requires->jquery();
+    $page->requires->jquery_plugin('jqueryflexslider', 'theme_squared');
+    $page->requires->jquery_plugin('jqueryeasing', 'theme_squared');
+    $page->requires->jquery_plugin('custom', 'theme_squared');
+}
