@@ -11,8 +11,11 @@ html {
 
 [[setting:fontface]]
 
-html,body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,input,textarea {
+html,body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,input,textarea, div {
 	font-family: "SourceSansPro","Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h3 {
+	line-height: normal;
 }
 
 /* background: #f1eee7 url([[pix:theme|bkg]]) no-repeat 100% 0; */

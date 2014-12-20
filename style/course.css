@@ -67,7 +67,6 @@ span.completionprogress {
 }
 
 .path-course-view .headingwrap1 {
-	margin-bottom: 15px;
 	background: [[setting:bgcolordefault]] url([[pix:theme|section-box-bg]]) no-repeat top left;
 	border: 1px solid #fff;
 	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
@@ -92,6 +91,10 @@ span.completionprogress {
 .path-course-view .headingwrap2 {
 	background: url([[pix:theme|catsection-icon]]) no-repeat 12px 50%;
 	padding-left: 43px;
+}
+
+.single-section h3.sectionname {
+	text-align: left;
 }
 
 h3.sectionname, .course-content .section-summary h3.section-title {
@@ -125,7 +128,7 @@ h3.sectionname, .course-content .section-summary h3.section-title {
     margin: 0 0 2px;
 }
 
-/*single section style for 2.3 */
+/*single section style for 2.7+ */
 .course-content .single-section .section-navigation {
     padding: 0;
 }
@@ -134,23 +137,19 @@ h3.sectionname, .course-content .section-summary h3.section-title {
 	padding: 5px 0px;
 }
 
-.course-content .header .mdl-right a, .course-content .header .mdl-left a, .mdl-bottom .mdl-left a, .mdl-bottom .mdl-right a{
+/*
+.course-content .section-navigation .mdl-right a, .course-content .section-navigation .mdl-left a, .mdl-bottom .mdl-left a, .mdl-bottom .mdl-right a{
 	color: transparent;
 	font-size: 1px;
 }
+*/
 
-.course-content .header .mdl-right a span, .mdl-bottom .mdl-right a span, .mdl-bottom .mdl-left a span {
+.course-content .section-navigation .mdl-left a span, .course-content .section-navigation .mdl-right a span, .mdl-bottom .mdl-right a span, .mdl-bottom .mdl-left a span {
 	color: #3344AA;
 	font-size: 13px;
 }
 
-.course-content .header .mdl-left a span,  .mdl-bottom .mdl-left a span {
-	color: #3344AA;
-	font-size: 16px;
-}
-
-.course-content .single-section .section-navigation.headingblock {
-	margin-bottom: 10px;
+.course-content .single-section .section-navigation.navigationtitle {
 	border: 1px solid #fff;
 	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
 	position: relative;
@@ -168,9 +167,9 @@ h3.sectionname, .course-content .section-summary h3.section-title {
 }
 
 /* arrows in section */
-.course-content .single-section .header .mdl-left a span {
-	color: transparent;
-	background: url([[pix:theme|section-arrow-left]]) no-repeat 50% 50%;
+/*
+.course-content .single-section .section-navigation .mdl-left a span {
+	//background: url([[pix:theme|section-arrow-left]]) no-repeat 50% 50%;
 	position: absolute;
 	right: 10px;
 	top: 5px;
@@ -179,23 +178,26 @@ h3.sectionname, .course-content .section-summary h3.section-title {
 	margin: 0 0;
 	border-right: 1px solid #ccc;
 }
-
-.course-content .single-section .header .mdl-left a {
+*/
+.course-content .single-section .section-navigation a {
 	display: block;
+	width: 200px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.course-content .single-section .header .mdl-left {
+.course-content .single-section .section-navigation .mdl-left {
 	position: absolute;
 	display: block;
-	right: 23px;
-	top: 5px;
+	top: -24px;
 	height: 20px;
-	width: 20px;
-	float: none;
+	max-width: 200px;
 	margin: 0 0;
 }
 
-.course-content .single-section .header .mdl-right a span {
+/*
+.course-content .single-section .section-navigation .mdl-right a span {
 	color: transparent;
 	background: url([[pix:theme|section-arrow-right]]) no-repeat 50% 50%;
 	height: 30px;
@@ -203,23 +205,32 @@ h3.sectionname, .course-content .section-summary h3.section-title {
 	display: block;
 	margin: 0 0;
 }
+*/
 
-.course-content .single-section .header .mdl-right a {
-	display: block;
-}
 
-.course-content .single-section .header .mdl-right {
+.course-content .single-section .section-navigation .mdl-right {
 	position: absolute;
 	display: block;
-	right: 15px;
-	top: 8px;
-	height: 20px;
-	width: 20px;
-	float: none;
+	right: 3px;
+	top: -24px;
+	max-width: 200px;
 	margin: 0 0;
+	padding-right: 14px;
 }
 
-.course-content .header .mdl-right a span {
+.course-content .single-section .section-navigation .mdl-left a {
+	padding-left: 16px;
+}
+
+.course-content .single-section .section-navigation .mdl-right .rarrow {
+	top: 1px;
+	right: -2px;
+	display: block;
+	position: absolute;
+}
+
+/*
+.course-content .section-navigation .mdl-right a span {
 	color: transparent;
 	background: #ccc url([[pix:theme|Arrow-Right]]) no-repeat 50% 50%;
 	height: 20px;
@@ -227,14 +238,13 @@ h3.sectionname, .course-content .section-summary h3.section-title {
 	display: block;
 	margin: 0 0;
 }
-
-.course-content .single-section .section-navigation .mdl-right .rarrow {
-	position: absolute;
-	top: 2px;
-}
+*/
 
 .course-content .single-section .section-navigation .mdl-left .larrow {
-	margin-right: 0px;
+	top: 1px;
+	display: block;
+	position: absolute;
+	left: 0;
 }
 
 .course-content .single-section .section-navigation.mdl-bottom, #completionprogressid {
@@ -282,13 +292,24 @@ h3.sectionname, .course-content .section-summary h3.section-title {
     float: none;
     text-align: left;
     width: auto;
-    
     display: block;
 	padding: 15px 20px; 
 	border: 1px solid #fff;
 	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
 	background: url([[pix:theme|section-grad]]) repeat-x top left;
 	font-size: 90%;
+}
+
+.path-course-view .section .summary {
+    line-height: normal;
+    margin-top: 20px;
+    padding-left: 6px;
+}
+
+.course-content ul.topics li.section .left, .course-content ul.topics li.section .right {
+    width: 40px;
+    text-align: center;
+    padding: 20px 0px;
 }
 
 #page-course-index-category .coursebox .enrolmenticons {
@@ -340,8 +361,6 @@ h3.sectionname, .course-content .section-summary h3.section-title {
 	margin: 0 0;
 	margin-left: 43px;
 }
-
-
 
 #page-course-index-category .category_subcategories tbody, #page-course-index-category #movecourses tbody {
 	display: block;
