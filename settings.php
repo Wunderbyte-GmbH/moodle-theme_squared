@@ -92,12 +92,27 @@ if ($ADMIN->fulltree) {
 
 	// inside page header image setting
  
-	$name = 'theme_squared/headerbackcourse';
-	$title = get_string('headerbackcourse','theme_squared');
-	$description = get_string('headerbackcoursedesc', 'theme_squared');
-	$setting = new admin_setting_configstoredfile($name, $title, $description, 'headerbackcourse');
+	$name = 'theme_squared/headerimagecourse';
+	$title = get_string('headerimagecourse','theme_squared');
+	$description = get_string('headerimagecoursedesc', 'theme_squared');
+	$setting = new admin_setting_configstoredfile($name, $title, $description, 'headerimagecourse');
 	$setting->set_updatedcallback('theme_reset_all_caches');
 	$settings->add($setting);
+	
+	$name = 'theme_squared/numberofslides';
+	$title = get_string('numberofslides','theme_squared');
+	$description = get_string('numberofslidesdesc', 'theme_squared');
+	$default = 3;
+	$choices = array(
+	        1 => 1,
+	        2 => 2,
+	        3 => 3,
+	        4 => 4,
+	        5 => 5
+	);
+	$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+	$settings->add($setting);
+	
 	
     // slideshow settings
 	for($i = 1; $i < 6; $i++){
@@ -108,31 +123,36 @@ if ($ADMIN->fulltree) {
 	    $setting = new admin_setting_heading($name, $heading, $information);
 	    $settings->add($setting);
 	    
-	    $name = 'theme_squared/headerback'.$i;
-	    $title = get_string('headerback','theme_squared') ." $i";
-	    $description = get_string('headerbackdesc', 'theme_squared');
-	    $setting = new admin_setting_configstoredfile($name, $title, $description, 'headerback'.$i);
-	    $setting->set_updatedcallback('theme_reset_all_caches');
-	    $settings->add($setting);
-	    
-	    $name = 'theme_squared/headerback'.$i;
-	    $title = get_string('headerback','theme_squared'). " $i";
-	    $description = get_string('headerbackdesc', 'theme_squared');
-	    $setting = new admin_setting_configstoredfile($name, $title, $description, 'headerback'.$i);
+	    $name = 'theme_squared/slideimage'.$i;
+	    $title = get_string('slideimage','theme_squared'). " $i";
+	    $description = get_string('slideimagedesc', 'theme_squared');
+	    $setting = new admin_setting_configstoredfile($name, $title, $description, 'slideimage'.$i);
 	    $setting->set_updatedcallback('theme_reset_all_caches');
 	    $settings->add($setting);
 	    
 	    $name = 'theme_squared/fptitle'.$i;
 	    $title = get_string('fptitle','theme_squared'). " $i";
 	    $description = get_string('fptitledesc', 'theme_squared');
-	    $default = 'Block Title';
+	    $default = 'Photo from';
 	    $setting = new admin_setting_configtext($name, $title, $description, $default);
 	    $settings->add($setting);
 	    
 	    $name = 'theme_squared/fptext'.$i;
 	    $title = get_string('fptext','theme_squared'). " $i";
 	    $description = get_string('fptextdesc', 'theme_squared');
-	    $default = 'Here is some text';
+        switch ($i) {
+            case 1:
+                $default = 'Dave Clark flickr.com/photos/fotobydave CreativeCommmons';
+                break;
+            case 2:
+                $default = 'eldeem flickr.com/photos/ltdemartinet CreativeCommmons';
+                break;
+            case 3:
+                $default = ' Georgie Pauwels flickr.com/photos/frosch50 CreativeCommmons';
+                break;
+            default:
+                $default = "Change me in the theme settings";
+        }
 	    $setting = new admin_setting_configtextarea($name, $title, $description, $default, PARAM_RAW);
 	    $settings->add($setting);
 	    

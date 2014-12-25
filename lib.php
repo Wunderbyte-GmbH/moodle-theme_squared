@@ -37,52 +37,23 @@ function squared_process_css($css, $theme) {
  $css = squared_set_bgcolordefault($css, $bgcolordefault);
 
  // Set the frontpage header image
- if (!empty($theme->settings->headerback1)) {
-  $headerback = $theme->setting_file_url('headerback1', 'headerback1');
- } else {
-  $headerback = null;
+ for($i = 1; $i < 6; $i++){
+     $setting = 'slideimage' . $i;
+     if (!empty($theme->settings->$setting)) {
+      $slideimage = $theme->setting_file_url('$setting', '$setting');
+     } else {
+      $slideimage = null;
+     }
+     $css = squared_set_slideimage($css, $slideimage, $setting);
  }
- $css = squared_set_headerback1($css, $headerback);
-
- // Set the frontpage header image
- if (!empty($theme->settings->headerback2)) {
-  $headerback = $theme->setting_file_url('headerback2', 'headerback2');
- } else {
-  $headerback = null;
- }
- $css = squared_set_headerback2($css, $headerback);
-
- // Set the frontpage header image
- if (!empty($theme->settings->headerback3)) {
-  $headerback = $theme->setting_file_url('headerback3', 'headerback3');
- } else {
-  $headerback = null;
- }
- $css = squared_set_headerback3($css, $headerback);
-
- // Set the frontpage header image
- if (!empty($theme->settings->headerback4)) {
-  $headerback = $theme->setting_file_url('headerback4', 'headerback4');
- } else {
-  $headerback = null;
- }
- $css = squared_set_headerback4($css, $headerback);
-
- // Set the frontpage header image
- if (!empty($theme->settings->headerback5)) {
-  $headerback = $theme->setting_file_url('headerback5', 'headerback5');
- } else {
-  $headerback = null;
- }
- $css = squared_set_headerback5($css, $headerback);
 
  // Set the inside header image
- if (!empty($theme->settings->headerbackcourse)) {
-  $headerbackcourse = $theme->setting_file_url('headerbackcourse', 'headerbackcourse');
+ if (!empty($theme->settings->headerimagecourse)) {
+  $headerimagecourse = $theme->setting_file_url('headerimagecourse', 'headerimagecourse');
  } else {
-  $headerbackcourse = null;
+  $headerimagecourse = null;
  }
- $css = squared_set_headerbackcourse($css, $headerbackcourse);
+ $css = squared_set_headerimagecourse($css, $headerimagecourse);
  
  if (!empty($theme->settings->customcss)) {
   $customcss = $theme->settings->customcss;
@@ -208,65 +179,21 @@ function squared_set_bgcolordefault($css, $bgcolordefault) {
  return $css;
 }
 
-function squared_set_headerback1($css, $headerback) {
+function squared_set_slideimage($css, $slideimage, $setting) {
  global $OUTPUT;
- $tag = '[[setting:headerback1]]';
- $replacement = $headerback;
+ $tag = "[[setting:$setting]]";
+ $replacement = $slideimage;
  if (is_null($replacement)) {
-  $replacement = $OUTPUT->pix_url('header-frontpage', 'theme');
+  $replacement = $OUTPUT->pix_url($setting, 'theme');
  }
  $css = str_replace($tag, $replacement, $css);
  return $css;
 }
 
-function squared_set_headerback2($css, $headerback) {
+function squared_set_headerimagecourse($css, $headerimagecourse) {
  global $OUTPUT;
- $tag = '[[setting:headerback2]]';
- $replacement = $headerback;
- if (is_null($replacement)) {
-  $replacement = $OUTPUT->pix_url('header-frontpage', 'theme');
- }
- $css = str_replace($tag, $replacement, $css);
- return $css;
-}
-
-function squared_set_headerback3($css, $headerback) {
- global $OUTPUT;
- $tag = '[[setting:headerback3]]';
- $replacement = $headerback;
- if (is_null($replacement)) {
-  $replacement = $OUTPUT->pix_url('header-frontpage', 'theme');
- }
- $css = str_replace($tag, $replacement, $css);
- return $css;
-}
-
-function squared_set_headerback4($css, $headerback) {
- global $OUTPUT;
- $tag = '[[setting:headerback4]]';
- $replacement = $headerback;
- if (is_null($replacement)) {
-  $replacement = $OUTPUT->pix_url('header-frontpage', 'theme');
- }
- $css = str_replace($tag, $replacement, $css);
- return $css;
-}
-
-function squared_set_headerback5($css, $headerback) {
- global $OUTPUT;
- $tag = '[[setting:headerback5]]';
- $replacement = $headerback;
- if (is_null($replacement)) {
-  $replacement = $OUTPUT->pix_url('header-frontpage', 'theme');
- }
- $css = str_replace($tag, $replacement, $css);
- return $css;
-}
-
-function squared_set_headerbackcourse($css, $headerbackcourse) {
- global $OUTPUT;
- $tag = '[[setting:headerbackcourse]]';
- $replacement = $headerbackcourse;
+ $tag = '[[setting:headerimagecourse]]';
+ $replacement = $headerimagecourse;
  if (is_null($replacement)) {
   $replacement = $OUTPUT->pix_url('header-course', 'theme');
  }

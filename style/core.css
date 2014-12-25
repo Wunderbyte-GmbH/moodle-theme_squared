@@ -172,22 +172,22 @@ a:focus {
 }
 
 .frontpage .scroll1 {
-	background: transparent url([[setting:headerback1]]) no-repeat 0px 100%;
+	background: transparent url([[setting:slideimage1]]) no-repeat 0px 100%;
 }
 
 .frontpage .scroll2 {
-	background: transparent url([[setting:headerback2]]) no-repeat 0px 100%;
+	background: transparent url([[setting:slideimage2]]) no-repeat 0px 100%;
 }
 
 .frontpage .scroll3 {
-	background: transparent url([[setting:headerback3]]) no-repeat 0px 100%;
+	background: transparent url([[setting:slideimage3]]) no-repeat 0px 100%;
 }
 
 .frontpage .scroll4 {
-	background: transparent url([[setting:headerback4]]) no-repeat 0px 100%;
+	background: transparent url([[setting:slideimage4]]) no-repeat 0px 100%;
 }
 .frontpage .scroll5 {
-	background: transparent url([[setting:headerback5]]) no-repeat 0px 100%;
+	background: transparent url([[setting:slideimage5]]) no-repeat 0px 100%;
 }
 
 #main-slider .scroll2, #main-slider .scroll3, #main-slider .scroll4, #main-slider .scroll5 {
@@ -196,11 +196,11 @@ a:focus {
 
 #preloader {
 	background: 
-	url([[setting:headerback1]]) no-repeat 0px 100%,
-	url([[setting:headerback2]]) no-repeat 0px 100%,
-	url([[setting:headerback3]]) no-repeat 0px 100% ,
-	url([[setting:headerback4]]) no-repeat 0px 100%,
-	url([[setting:headerback5]]) no-repeat 0px 100%;
+	url([[setting:slideimage1]]) no-repeat 0px 100%,
+	url([[setting:slideimage2]]) no-repeat 0px 100%,
+	url([[setting:slideimage3]]) no-repeat 0px 100% ,
+	url([[setting:slideimage4]]) no-repeat 0px 100%,
+	url([[setting:slideimage5]]) no-repeat 0px 100%;
 	display: none;
 }
 
@@ -223,7 +223,7 @@ a:focus {
 
 .coursepage1 #page-header2 {
 	height: 174px;
-	background: url([[setting:headerbackcourse]]) no-repeat 174px 100%;
+	background: url([[setting:headerimagecourse]]) no-repeat 174px 100%;
 }
 
 /*logo if any*/

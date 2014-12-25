@@ -440,7 +440,7 @@ class theme_squared_core_renderer extends core_renderer {
      $settings = $this->page->theme->settings;
      
      $slides = array();
-     for ($i=1; $i<=5; $i++){
+     for ($i=1; $i<=$settings->numberofslides; $i++){
         $link = "fplink$i";
         $text =  "fptext$i";
         $title =  "fptitle$i";

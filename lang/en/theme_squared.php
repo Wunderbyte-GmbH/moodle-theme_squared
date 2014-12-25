@@ -7,8 +7,7 @@ $string['configtitle'] = 'squared theme';
 $string['hi'] = 'Hi';
 $string['welcometext'] = 'Herzlich willkommen auf der Plattform des';
 $string['footer'] = 'define footer links';
-$string['footerdesc'] = 'Description followed by link, separeted by comma, next item separated by semicolon:
-Über sqa, http://www.sqa.at; Für Lehrpersonen,/; Für die Schulleitung,/; Für die Schulaufsicht,/;';
+$string['footerdesc'] = 'Description followed by link, separeted by comma, next item separated by semicolon: Über sqa, http://www.sqa.at; Für Lehrpersonen,/; Für die Schulleitung,/; Für die Schulaufsicht,/;';
 $string['youtubelink'] = 'Link to your YouTube channel (optional)';
 $string['youtubelinkdesc'] = 'The link should look like this: http://www.youtube.com/yourchannel';
 $string['twitterlink'] = 'Link to your twitter account (optional)';
@@ -17,6 +16,10 @@ $string['facebooklink'] = 'Link to your facebook page (optional)';
 $string['facebooklinkdesc'] = 'The link should look like this: http://www.facebook.com/yourpage';
 $string['googlepluslink'] = 'Link to your google+ page (optional)';
 $string['googlepluslinkdesc'] = 'The link should look like this: https://plus.google.com/+youracount/posts';
+$string['numberofslides'] = 'Number of slides';
+$string['numberofslidesdesc'] = 'Number of slides to use for the slideshow on the frontpage';
+
+
 
 $string['logo'] = 'Logo on frontpage';
 $string['logodesc'] = 'Please upload your custom logo for the frontpage here (optional).';
@@ -34,8 +37,8 @@ $string['bgcolorcat'] = 'Background color of category blocks';
 
 $string['bgcolorcatdesc'] = 'Background color of category blocks';
 
-$string['headerbackcourse'] = 'Inside page header background image';
-$string['headerbackcoursedesc'] = 'Set the inside page header background image URL';
+$string['headerimagecourse'] = 'Inside page header background image';
+$string['headerimagecoursedesc'] = 'Set the inside page header background image URL';
 
 $string['fpposleft'] = 'Left text position';
 $string['fpposright'] = 'Right text position';
@@ -59,8 +62,8 @@ $string['fpwelcome'] = 'Welcome User text';
 $string['fpwelcomedesc'] = 'Set the Welcome User text';
 
 
-$string['headerback'] = 'Frontpage header background image';
-$string['headerbackdesc'] = 'Set the frontpage header background image URL. Image size has to be 870px × 348px.';
+$string['slideimage'] = 'Frontpage header background image';
+$string['slideimagedesc'] = 'Set the frontpage header background image URL. Image size has to be 870px × 348px.';
 
 
 $string['alternateloginurl'] = 'Alternate MNET login url';

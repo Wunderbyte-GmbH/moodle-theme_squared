@@ -86,7 +86,7 @@ echo $OUTPUT->doctype(); ?>
 	if(!empty($PAGE->theme->settings->logo)) {
 		echo $PAGE->theme->setting_file_url('logo', 'logo');
 	} else {
-		echo $OUTPUT->pix_url('logo1', 'theme');
+		echo $OUTPUT->pix_url('logo', 'theme');
     }
 	 ?>" id="logo" />
 	</a>
@@ -185,7 +185,7 @@ echo $OUTPUT->standard_footer_html();
 <?php
 echo $OUTPUT->squared_socialicons();
 ?>
-</div>
+</div>$css
 
 </div>
 <!-- end of footer -->	
