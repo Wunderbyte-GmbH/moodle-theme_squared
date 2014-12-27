@@ -5,7 +5,6 @@ $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
 $showsidepre = $hassidepre && !$PAGE->blocks->region_completely_docked('side-pre', $OUTPUT);
 $showsidepost = $hassidepost && !$PAGE->blocks->region_completely_docked('side-post', $OUTPUT);
-$hascolorguide = $OUTPUT->squared_colorguide();
 $custommenu = $OUTPUT->custom_menu();
 $hascustommenu = (empty($PAGE->layout_options['nocustommenu']) && !empty($custommenu));
 
@@ -30,9 +29,6 @@ if ($hascustommenu) {
 }
 if ($hascustommenu) {
     $bodyclasses[] = 'has_navbar';
-}
-if ($hascolorguide) {
-	$bodyclasses[] = "bgcolor$hascolorguide";
 }
 if(isguestuser()){
 	$bodyclasses[] = 'guestuser';

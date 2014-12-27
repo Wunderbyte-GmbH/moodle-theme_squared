@@ -300,23 +300,6 @@ a:focus {
     padding-bottom: 6px;
 }
 
-/*additional colors */
-.bgcolor1 .breadcrumb li:last-child a {
-	border-bottom-color: [[setting:bgcolor1]];
-}
-
-.bgcolor2 .breadcrumb li:last-child a {
-	border-bottom-color: [[setting:bgcolor2]];
-}
-
-.bgcolor3 .breadcrumb li:last-child a {
-	border-bottom-color: [[setting:bgcolor3]];
-}
-
-.bgcolor4 .breadcrumb li:last-child a {
-	border-bottom-color: [[setting:bgcolor4]];
-}
-
 /* footer */
 #page-footer {
 	float: none;
@@ -480,22 +463,6 @@ div.redirectmessage {
 	color: #fff;
 }
 
-/*additional colors */
-.bgcolor1 .tabtree .tabrow0 .here a, .bgcolor1 .tabtree .tabrow0 li a:hover {
-	background-color: [[setting:bgcolor1]];
-}
-
-.bgcolor2 .tabtree .tabrow0 .here a, .bgcolor2 .tabtree .tabrow0 li a:hover {
-	background-color: [[setting:bgcolor2]];
-}
-
-.bgcolor3 .tabtree .tabrow0 .here a, .bgcolor3 .tabtree .tabrow0 li a:hover {
-	background-color: [[setting:bgcolor3]];
-}
-
-.bgcolor4 .tabtree .tabrow0 .here a, .bgcolor4 .tabtree .tabrow0 li a:hover {
-	background-color: [[setting:bgcolor4]];
-}
 
 .tabtree .tabrow0 li a, .tabtree .tabrow0 li a:hover {
     border-color: #fff;
@@ -661,22 +628,6 @@ input[type="submit"], input[type="button"], #searchform_button, .standardbutton 
 	color: #fff;
 	text-shadow: none;
 	text-transform: uppercase;
-}
-
-.bgcolor1 input[type="submit"], .bgcolor1 input[type="button"] {
-	background: [[setting:bgcolor1]];
-}
-
-.bgcolor2 input[type="submit"], .bgcolor2 input[type="button"] {
-	background: [[setting:bgcolor2]];
-}
-
-.bgcolor3 input[type="submit"], .bgcolor3 input[type="button"] {
-	background: [[setting:bgcolor3]];
-}
-
-.bgcolor4 input[type="submit"], .bgcolor4 input[type="button"] {
-	background: [[setting:bgcolor4]];
 }
 
 input[type="submit"]:hover, input[type="button"]:hover, #searchform_button:hover, .standardbutton:hover{

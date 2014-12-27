@@ -71,22 +71,6 @@ span.completionprogress {
 	border: 1px solid #fff;
 	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
 }
-/*additional background colors */
-.path-course-view.bgcolor1 .headingwrap1 {
-	background-color: [[setting:bgcolor1]];
-}
-
-.path-course-view.bgcolor2 .headingwrap1 {
-	background-color: [[setting:bgcolor2]];
-}
-
-.path-course-view.bgcolor3 .headingwrap1 {
-	background-color: [[setting:bgcolor3]];
-}
-
-.path-course-view.bgcolor4 .headingwrap1 {
-	background-color: [[setting:bgcolor4]];
-}
 
 .path-course-view .headingwrap2 {
 	background: url([[pix:theme|catsection-icon]]) no-repeat 12px 50%;
@@ -334,23 +318,6 @@ h3.sectionname, .course-content .section-summary h3.section-title {
 	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
 }
 
-/*additional color */
-#page-course-index-category.bgcolor1 .category_subcategories thead {
-	background-color: [[setting:bgcolor1]];
-}
-
-#page-course-index-category.bgcolor2 .category_subcategories thead {
-	background-color: [[setting:bgcolor2]];
-}
-
-#page-course-index-category.bgcolor3 .category_subcategories thead {
-	background-color: [[setting:bgcolor3]];
-}
-
-#page-course-index-category.bgcolor4 .category_subcategories thead {
-	background-color: [[setting:bgcolor4]];
-}
-
 #page-course-index-category .category_subcategories thead th {
 	background: #dadbdb url([[pix:theme|h3sections]]) repeat-x top left;
 	font-size: 20px;
@@ -394,23 +361,6 @@ h3.sectionname, .course-content .section-summary h3.section-title {
 	width: 100%;
 }
 
-/*additional color */
-#page-course-index-category.bgcolor1 #movecourses .catheadwrap {
-	background-color: [[setting:bgcolor1]];
-}
-
-#page-course-index-category.bgcolor2 #movecourses .catheadwrap {
-	background-color: [[setting:bgcolor2]];
-}
-
-#page-course-index-category.bgcolor3 #movecourses .catheadwrap {
-	background-color: [[setting:bgcolor3]];
-}
-
-#page-course-index-category.bgcolor4 #movecourses .catheadwrap {
-	background-color: [[setting:bgcolor4]];
-}
-
 #page-course-index-category #movecourses .catheadwrap th.header {
 	background: #dadbdb url([[pix:theme|h3sections]]) repeat-x top left;
 	font-size: 20px;
@@ -431,23 +381,6 @@ h3.sectionname, .course-content .section-summary h3.section-title {
 	margin: 0 0;
 	border: 1px solid #fff;
 	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
-}
-
-/*additional color */
-#page-my-index.bgcolor1 .block_course_overview.block .header {
-	background-color: [[setting:bgcolor1]];
-}
-
-#page-my-index.bgcolor2 .block_course_overview.block .header {
-	background-color: [[setting:bgcolor2]];
-}
-
-#page-my-index.bgcolor3 .block_course_overview.block .header {
-	background-color: [[setting:bgcolor3]];
-}
-
-#page-my-index.bgcolor4 .block_course_overview.block .header {
-	background-color: [[setting:bgcolor4]];
 }
 
 #page-my-index .block_course_overview.block .block_action {

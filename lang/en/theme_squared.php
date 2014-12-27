@@ -30,8 +30,8 @@ $string['pagelogodesc'] = 'Upload your custom logo, that will appear on all page
 $string['bgcolordefault'] = 'Default Background color';
 $string['bgcolordefaultdesc'] = 'Set the default background color of blocks,buttons, etc.';
 
-$string['bgcolor'] = 'Background color';
-$string['bgcolordesc'] = 'Set the background color of blocks';
+$string['bgcolor'] = 'Category color for';
+$string['bgcolordesc'] = 'Set the background color of the blocks and headings for the displayed category';
 
 $string['bgcolorcat'] = 'Background color of category blocks';
 

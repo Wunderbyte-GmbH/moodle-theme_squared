@@ -60,33 +60,22 @@ if ($ADMIN->fulltree) {
 	// category color settings 1
 
 	$categorytree = coursecat::get(0)->get_children();
-	$i = 0;
-	foreach($categorytree as $key => $value){
-	    
-		$i++;
-		$choices = array();
+	foreach($categorytree as $categoryid => $value){
+	    $choices = array();
 		
-		$name = 'theme_squared/bgcolorheading'.$i;
+		$name = 'theme_squared/bgcolorheading';
 		$heading = get_string('catcolorheading', 'theme_squared');
 		$information = get_string('catcolorheadingdesc', 'theme_squared');
 		$setting = new admin_setting_heading($name, $heading, $information);
 		$settings->add($setting);
 		
-		$choices[$key] = $value->name;
-		$name = 'theme_squared/bgcolor'.$i;
-		$title = get_string('bgcolor','theme_squared',$choices[$key]);
-		$description = get_string('bgcolordesc', 'theme_squared',$choices[$key]);
+		$choices[$categoryid] = $value->name;
+		$name = 'theme_squared/bgcolor_'.$categoryid;
+		$title = get_string('bgcolor','theme_squared') . ": $choices[$categoryid]";
+		$description = get_string('bgcolordesc', 'theme_squared');
 		$default = '#11847D';
 		$previewconfig = NULL;
 		$setting = new admin_setting_configcolourpicker($name, $title, $description, $default, $previewconfig);
-		$settings->add($setting);
-
-		$name = "theme_squared/bgcolorcat".$key;
-		$title = get_string('bgcolorcat','theme_squared');
-		$description =  get_string('bgcolorcatdesc', 'theme_squared');
-		$default = $i;
-		$choices = array($i => $value->name);
-		$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
 		$settings->add($setting);
 	}
 

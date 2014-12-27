@@ -96,22 +96,7 @@
 	padding: 0px 0px;
 }
 
-/*set additional small course block colors here, like the below */
-.bgcolor1 .coursepage .block.vclass .header, .bgcolor1 .coursepage .block.vclass.block2 .header, .bgcolor1 .coursepage .block.vclass.block3 .header, .bgcolor1 .coursepage .block.vclass.block-hider-show.hidden .header {
-	background-color: [[setting:bgcolor1]] !important;
-}
 
-.bgcolor2 .coursepage .block.vclass .header, .bgcolor2 .coursepage .block.vclass.block2 .header, .bgcolor2 .coursepage .block.vclass.block3 .header, .bgcolor2 .coursepage .block.vclass.block-hider-show.hidden .header {
-	background-color: [[setting:bgcolor2]] !important;
-}
-
-.bgcolor3 .coursepage .block.vclass .header, .bgcolor3 .coursepage .block.vclass.block2 .header, .bgcolor3 .coursepage .block.vclass.block3 .header, .bgcolor3 .coursepage .block.vclass.block-hider-show.hidden .header {
-	background-color: [[setting:bgcolor3]] !important;
-}
-
-.bgcolor4 .coursepage .block.vclass .header, .bgcolor4 .coursepage .block.vclass.block2 .header, .bgcolor4 .coursepage .block.vclass.block3 .header, .bgcolor4 .coursepage .block.vclass.block-hider-show.hidden .header {
-	background-color: [[setting:bgcolor4]] !important;
-}
 
 /*if pinned, then just the color, not the image also block hover for header */
 .coursepage .block.vclass.block-hider-show .header, .coursepage .block.hidden.vclass:hover .header {
@@ -163,23 +148,6 @@
 
 .coursepage .block.rightblock.vclass:hover .content {
 	width: 154px !important;
-}
-
-/*set additional colors for small blocks here, like the below. you need rgb for opacity */
-.bgcolor1 .coursepage .block.hidden.vclass:hover .content, .bgcolor1 .coursepage .block.vclass.block-hider-show .content {
-	background: [[setting:bgcolor1]];
-}
-
-.bgcolor2 .coursepage .block.hidden.vclass:hover .content, .bgcolor2 .coursepage .block.vclass.block-hider-show .content {
-	background: [[setting:bgcolor2]];
-}
-
-.bgcolor3 .coursepage .block.hidden.vclass:hover .content, .bgcolor3 .coursepage .block.vclass.block-hider-show .content {
-	background: [[setting:bgcolor3]];
-}
-
-.bgcolor4 .coursepage .block.hidden.vclass:hover .content, .bgcolor4 .coursepage .block.vclass.block-hider-show .content {
-	background: [[setting:bgcolor4]];
 }
 
 .coursepage .block.hidden.vclass:hover .content {

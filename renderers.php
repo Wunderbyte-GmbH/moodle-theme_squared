@@ -117,11 +117,9 @@ class theme_squared_core_renderer extends core_renderer {
 		$custommenu = $menu->get_children();
 		
 		// get all the categories and courses from the navigation node
-		$categorytree = coursecat::get(0)->get_children();// get_course_category_tree();
-		//print_object($categorytree);
+		$categorytree = coursecat::get(0)->get_children();
 
-		// Here we build the menu.		
-			
+		// Here we build the menu.					
 		foreach ($categorytree as $categorytreeitem) {
 			foreach ($custommenu as $custommenuitem) {
 				if (($categorytreeitem->name == $custommenuitem->get_title())) {
@@ -273,19 +271,6 @@ class theme_squared_core_renderer extends core_renderer {
 		return $content;
 	}
 
-	public function squared_colorguide(){
-		$cat = $this->page->categories;
-		if(!empty($cat)) {
-			$classid = "bgcolorcat".end($cat)->id;
-			if($this->page->theme->settings->$classid){
-				return $this->page->theme->settings->$classid;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
 
 	/**
 	 * Return the navbar content so that it can be echoed out by the layout

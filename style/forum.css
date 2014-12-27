@@ -24,22 +24,6 @@
 	background-color: [[setting:bgcolordefault]];
 }
 
-.bgcolor1 .forumpost .row .left.picture {
-	background: [[setting:bgcolor1]];
-}
-
-.bgcolor2 .forumpost .row .left.picture {
-	background: [[setting:bgcolor2]];
-}
-
-.bgcolor3 .forumpost .row .left.picture {
-	background: [[setting:bgcolor3]];
-}
-
-.bgcolor4 .forumpost .row .left.picture {
-	background: [[setting:bgcolor4]];
-}
-
 .forumpost .row .topic {
 	padding: 5px 10px;
 }
@@ -174,20 +158,4 @@ div.subscribelink {
 
 .forumpost.unread .maincontent {
     border: 2px solid red;
-}
-
-.bgcolor1 .forumpost.unread .maincontent {
-	 border: 2px solid [[setting:bgcolor1]];
-}
-
-.bgcolor2 .forumpost.unread .maincontent {
-	 border: 2px solid [[setting:bgcolor2]];
-}
-
-.bgcolor3 .forumpost.unread .maincontent {
-	 border: 2px solid [[setting:bgcolor3]];
-}
-
-.bgcolor4 .forumpost.unread .maincontent {
-	 border: 2px solid [[setting:bgcolor4]];
 }
