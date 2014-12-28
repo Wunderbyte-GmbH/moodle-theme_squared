@@ -35,8 +35,8 @@ $string['bgcolorcat'] = 'Background color of category blocks';
 
 $string['bgcolorcatdesc'] = 'Background color of category blocks';
 
-$string['headerimagecourse'] = 'Inside page header background image';
-$string['headerimagecoursedesc'] = 'Set the inside page header background image URL';
+$string['headerimagecourse'] = 'Background image for course and modules header';
+$string['headerimagecoursedesc'] = 'Set the header background image for courses and modules. Has to be 718px x 174px';
 
 $string['fpposleft'] = 'Left text position';
 $string['fpposright'] = 'Right text position';

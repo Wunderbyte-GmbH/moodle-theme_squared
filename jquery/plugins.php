@@ -15,11 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Campus theme with the underlying Bootstrap theme.
+ * squared theme
  *
  * @package    theme
  * @subpackage squared
- * @copyright  David Bogner, John Stabinger, Contemas.at 2013 onwards
+ * @copyright  Onlinecampus Virtuelle PH, David Bogner, John Stabinger, Contemas.at 2013 onwards
  * @author     David Bogner and John Stabinger
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

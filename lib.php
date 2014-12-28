@@ -224,12 +224,19 @@ function squared_add_categorycolorguide_css($bgcolorsettings) {
         $css .= ".category-$categoryid .forumpost .row .left.picture {
 	           background: $color; }
         ";
-        
+
         /**
          * forum.css forumpost *
          */
         $css .= ".category-$categoryid .forumpost.unread .maincontent {
-	            border: 2px solid $color; }
+        border: 2px solid $color; }
+        ";
+              
+        /**
+         * menu.css background color for top level elements in custom menu (quicknavi) *
+         */
+        $css .= ".category-$categoryid #custommenu .yui3-menu-content li a {
+	            background-color: $color; }
         ";
     }
     
@@ -250,7 +257,7 @@ function squared_set_slideimage($css, $slideimage, $setting) {
     $tag = "[[setting:$setting]]";
     $replacement = $slideimage;
     if (is_null ( $replacement )) {
-        $replacement = $OUTPUT->pix_url ( $setting, 'theme' );
+        $replacement = $OUTPUT->pix_url ( $setting, 'theme_squared' );
     }
     $css = str_replace ( $tag, $replacement, $css );
     return $css;
@@ -260,7 +267,7 @@ function squared_set_headerimagecourse($css, $headerimagecourse) {
     $tag = '[[setting:headerimagecourse]]';
     $replacement = $headerimagecourse;
     if (is_null ( $replacement )) {
-        $replacement = $OUTPUT->pix_url ( 'header-course', 'theme' );
+        $replacement = $OUTPUT->pix_url ( 'header-course', 'theme_squared' );
     }
     $css = str_replace ( $tag, $replacement, $css );
     return $css;
