@@ -134,7 +134,7 @@ class theme_squared_core_renderer extends core_renderer {
 	}
 
 
-	// Added by Georg Maißer, based on work of Sam Hemelryk
+	// Added by Georg Maißer and David Bogner, based on work of Sam Hemelryk
 	protected function add_category_to_custommenu(custom_menu_item $parent, coursecat $category) {
 
 		// This value allows you to change the depth of the menu you want to show (reducing the depth may help with performance issues)
@@ -199,6 +199,61 @@ class theme_squared_core_renderer extends core_renderer {
 
 	}
 
+	/**
+	 * Renders a custom menu node as part of a submenu
+	 *
+	 * The custom menu this method produces makes use of the YUI3 menunav widget
+	 * and requires very specific html elements and classes.
+	 *
+	 * @see core:renderer::render_custom_menu()
+	 *
+	 * @staticvar int $submenucount
+	 * @param custom_menu_item $menunode
+	 * @return string
+	 */
+	protected function render_custom_menu_item(custom_menu_item $menunode) {
+	    // Required to ensure we get unique trackable id's
+	    static $submenucount = 0;
+	    if ($menunode->has_children()) {
+	        // If the child has menus render it as a sub menu
+	        $submenucount++;
+	        if ($menunode->get_url() !== null) {
+	            $url = $menunode->get_url();
+	            $categoryid = $url->get_param('categoryid');
+	            if(!empty($categoryid)){
+	                $cssclass = ' category-' . $categoryid;
+	            } else {
+	                $cssclass = '';
+	            }
+	        } else {
+	            $url = '#cm_submenu_'.$submenucount;
+	        }
+	        $content = html_writer::start_tag('li', array('class' => $cssclass));
+	        $content .= html_writer::link($url, $menunode->get_text(), array('class'=>'yui3-menu-label' . $cssclass, 'title'=>$menunode->get_title()));
+	        $content .= html_writer::start_tag('div', array('id'=>'cm_submenu_'.$submenucount, 'class'=>'yui3-menu custom_menu_submenu'));
+	        $content .= html_writer::start_tag('div', array('class'=>'yui3-menu-content'));
+	        $content .= html_writer::start_tag('ul');
+	        foreach ($menunode->get_children() as $menunode) {
+	            $content .= $this->render_custom_menu_item($menunode);
+	        }
+	        $content .= html_writer::end_tag('ul');
+	        $content .= html_writer::end_tag('div');
+	        $content .= html_writer::end_tag('div');
+	        $content .= html_writer::end_tag('li');
+	    } else {
+	        // The node doesn't have children so produce a final menuitem
+	        $content = html_writer::start_tag('li', array('class'=>'yui3-menuitem'));
+	        if ($menunode->get_url() !== null) {
+	            $url = $menunode->get_url();
+	        } else {
+	            $url = '#';
+	        }
+	        $content .= html_writer::link($url, $menunode->get_text(), array('class'=>'yui3-menuitem-content', 'title'=>$menunode->get_title()));
+	        $content .= html_writer::end_tag('li');
+	    }
+	    // Return the sub menu
+	    return $content;
+	}
 
 	protected function squared_prepare_textlinks($textlinks){
 		$textsnippets = explode(';',$textlinks);

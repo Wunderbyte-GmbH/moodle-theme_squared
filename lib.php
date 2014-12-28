@@ -235,8 +235,8 @@ function squared_add_categorycolorguide_css($bgcolorsettings) {
         /**
          * menu.css background color for top level elements in custom menu (quicknavi) *
          */
-        $css .= ".category-$categoryid #custommenu .yui3-menu-content li a {
-	            background-color: $color; }
+        $css .= "#custommenu .yui3-menu-content li.category-$categoryid a, #custommenu .yui3-menu-content li.category-$categoryid .custom_menu_submenu {
+	            background-color: $color !important; }
         ";
     }
     

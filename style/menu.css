@@ -126,14 +126,6 @@
 	width: 175px !important;
 }
 
-#custommenu .yui3-menu-content li.baritem:nth-child(2) a {
-	background: #d54d12 url([[pix:theme|blockback]]) no-repeat top right !important;
-}
-
-#custommenu .yui3-menu-content li.baritem:nth-child(3) a {
-	background:#ffba32 url([[pix:theme|blockback]]) no-repeat top right !important;
-}
-
 /*bar menu item hover background color */
 #custommenu .yui3-menu-content li:hover {
 	background: transparent !important;
@@ -146,14 +138,6 @@
 	width: 174px !important;
 	height:auto !important;
 	min-height: 150px !important;
-}
-
-.yui3-menu-content li.baritem:nth-child(2) div.yui3-menu.custom_menu_submenu {
-	background:#d54d12 !important;
-}
-
-.yui3-menu-content li.baritem:nth-child(3) div.yui3-menu.custom_menu_submenu {
-	background:#ffba32 !important;
 }
 
 /*end backgrounds top: sub sub menus and align 0px !important; from below*/
@@ -214,6 +198,7 @@ div.yui3-menu.custom_menu_submenu .yui3-menu-content li {
 	text-decoration: none !important;
 	line-height: 20px;
 	height: auto;
+	min-height: 30px;
 	width: 144px !important;
 	text-align: left;
 	padding: 5px 10px 5px 23px !important;
@@ -237,7 +222,7 @@ div.yui3-menu.custom_menu_submenu .yui3-menu-content li {
 
 /*submenu hover */
 #custommenu div.yui3-menu.custom_menu_submenu .yui3-menu-content li a:hover,#custommenu div.yui3-menu.custom_menu_submenu li a.yui3-menu-label:hover {
-	background-color: transparent !important;
+	background-color: rgba(40,40,40,0.1) !important;
 	text-decoration: underline !important;
 }
 /*ios and touch changes */

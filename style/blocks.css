@@ -155,7 +155,7 @@
 }
 
 .coursepage .block.vclass.block-hider-show .content {
-	z-index: 99998;
+	z-index: 99000;
 }
 
 .coursepage .block.hidden.vclass.rightblock:hover .content, .coursepage .block.vclass.block-hider-show.rightblock .content {
