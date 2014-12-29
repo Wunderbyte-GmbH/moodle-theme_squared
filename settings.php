@@ -1,53 +1,110 @@
 <?php
-require_once("$CFG->libdir/coursecatlib.php");
+
+$settings = null;
+
+
 defined('MOODLE_INTERNAL') || die;
-
-if ($ADMIN->fulltree) {
-
+if (is_siteadmin()) {
+    require_once("$CFG->libdir/coursecatlib.php");
+    
+    $ADMIN->add('themes', new admin_category('theme_squared', 'squared'));
+    
+    $settingpage = new admin_settingpage('theme_squared_basic', get_string('basicsettings', 'theme_squared'));
+    
 	$name = 'theme_squared/logo';
 	$title = get_string('logo','theme_squared');
 	$description = get_string('logodesc', 'theme_squared');
 	$setting = new admin_setting_configstoredfile($name, $title, $description, 'logo');
 	$setting->set_updatedcallback('theme_reset_all_caches');
-	$settings->add($setting);
+	$settingpage->add($setting);
 	
 	$name = 'theme_squared/pagelogo';
 	$title = get_string('pagelogo','theme_squared');
 	$description = get_string('pagelogodesc', 'theme_squared');
 	$setting = new admin_setting_configstoredfile($name, $title, $description, 'pagelogo');
 	$setting->set_updatedcallback('theme_reset_all_caches');
-	$settings->add($setting);
+	$settingpage->add($setting);
 	
 	$name = 'theme_squared/footertext';
 	$title = get_string('footer','theme_squared');
 	$description = get_string('footerdesc', 'theme_squared');
 	$setting = new admin_setting_configtext($name, $title, $description, '', PARAM_TEXT);
-	$settings->add($setting);
+	$settingpage->add($setting);
 
 	$name = 'theme_squared/youtubelink';
 	$title = get_string('youtubelink','theme_squared');
 	$description = get_string('youtubelinkdesc', 'theme_squared');
 	$setting = new admin_setting_configtext($name, $title, $description, '', PARAM_TEXT);
-	$settings->add($setting);
+	$settingpage->add($setting);
 
 	$name = 'theme_squared/googlepluslink';
 	$title = get_string('googlepluslink','theme_squared');
 	$description = get_string('googlepluslinkdesc', 'theme_squared');
 	$setting = new admin_setting_configtext($name, $title, $description, '', PARAM_TEXT);
-	$settings->add($setting);
+	$settingpage->add($setting);
 
 	$name = 'theme_squared/facebooklink';
 	$title = get_string('facebooklink','theme_squared');
 	$description = get_string('facebooklinkdesc', 'theme_squared');
 	$setting = new admin_setting_configtext($name, $title, $description, '', PARAM_TEXT);
-	$settings->add($setting);
+	$settingpage->add($setting);
 
 	$name = 'theme_squared/twitterlink';
 	$title = get_string('twitterlink','theme_squared');
 	$description = get_string('twitterlinkdesc', 'theme_squared');
 	$setting = new admin_setting_configtext($name, $title, $description, '', PARAM_TEXT);
-	$settings->add($setting);
+	$settingpage->add($setting);
     
+	$name = 'theme_squared/fpnews';
+	$title = get_string('fpnews','theme_squared');
+	$description = get_string('fpnewsdesc', 'theme_squared');
+	$default = 'Change me in the theme settins';
+	$setting = new admin_setting_configtextarea($name, $title, $description, $default, PARAM_CLEANHTML);
+	$settingpage->add($setting);
+	
+	$name = 'theme_squared/alternateloginurl';
+	$title = get_string('alternateloginurl','theme_squared');
+	$description = get_string('alternateloginurldesc', 'theme_squared');
+	$default = 0;
+	$sql = "SELECT DISTINCT h.id, h.wwwroot, h.name, a.sso_jump_url, a.name as application
+			FROM {mnet_host} h
+			JOIN {mnet_host2service} m ON h.id = m.hostid
+			JOIN {mnet_service} s ON s.id = m.serviceid
+			JOIN {mnet_application} a ON h.applicationid = a.id
+			WHERE s.name = ? AND h.deleted = ? AND m.publish = ?";
+	$params = array('sso_sp', 0, 1);
+	
+	if (!empty($CFG->mnet_all_hosts_id)) {
+	    $sql .= " AND h.id <> ?";
+	    $params[] = $CFG->mnet_all_hosts_id;
+	}
+	
+	if ($hosts = $DB->get_records_sql($sql, $params)) {
+	    $choices = array();
+	    $choices[0] = 'notset';
+	    foreach ($hosts as $id => $host){
+	        $choices[$id] = $host->name;
+	    }
+	} else {
+	    $choices = array();
+	    $choices[0] = 'notset';
+	}
+	$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+	$settingpage->add($setting);
+	
+	// Custom CSS
+	$name = 'theme_squared/customcss';
+	$title = get_string('customcss', 'theme_squared');
+	$description = get_string('customcssdesc', 'theme_squared');
+	$setting = new admin_setting_configtextarea($name, $title, $description, '');
+	$settingpage->add($setting);
+	
+	$ADMIN->add('theme_squared', $settingpage);
+	
+	//Category color guide settings
+	$settingpage = new admin_settingpage('theme_squared_catcolor', get_string('catcolorsettings', 'theme_squared'));
+	
+	
 	// default block color setting
 	$name = 'theme_squared/bgcolordefault';
 	$title = get_string('bgcolordefault','theme_squared');
@@ -55,7 +112,7 @@ if ($ADMIN->fulltree) {
 	$default = '#11847D';
 	$previewconfig = NULL;
 	$setting = new admin_setting_configcolourpicker($name, $title, $description, $default, 	$previewconfig);
-	$settings->add($setting);
+	$settingpage->add($setting);
 	
 	// category color settings 1
 
@@ -67,7 +124,7 @@ if ($ADMIN->fulltree) {
 		$heading = get_string('catcolorheading', 'theme_squared');
 		$information = get_string('catcolorheadingdesc', 'theme_squared');
 		$setting = new admin_setting_heading($name, $heading, $information);
-		$settings->add($setting);
+		$settingpage->add($setting);
 		
 		$choices[$categoryid] = $value->name;
 		$name = 'theme_squared/bgcolor_'.$categoryid;
@@ -76,7 +133,7 @@ if ($ADMIN->fulltree) {
 		$default = '#11847D';
 		$previewconfig = NULL;
 		$setting = new admin_setting_configcolourpicker($name, $title, $description, $default, $previewconfig);
-		$settings->add($setting);
+		$settingpage->add($setting);
 	}
 
 	// inside page header image setting
@@ -86,7 +143,12 @@ if ($ADMIN->fulltree) {
 	$description = get_string('headerimagecoursedesc', 'theme_squared');
 	$setting = new admin_setting_configstoredfile($name, $title, $description, 'headerimagecourse');
 	$setting->set_updatedcallback('theme_reset_all_caches');
-	$settings->add($setting);
+	$settingpage->add($setting);
+	
+	$ADMIN->add('theme_squared', $settingpage);
+	
+	//frontpage slideshow settings
+	$settingpage = new admin_settingpage('theme_squared_slideshow', get_string('slideshowsettings', 'theme_squared'));
 	
 	$name = 'theme_squared/numberofslides';
 	$title = get_string('numberofslides','theme_squared');
@@ -100,8 +162,7 @@ if ($ADMIN->fulltree) {
 	        5 => 5
 	);
 	$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-	$settings->add($setting);
-	
+	$settingpage->add($setting);
 	
     // slideshow settings
 	for($i = 1; $i < 6; $i++){
@@ -110,21 +171,21 @@ if ($ADMIN->fulltree) {
 	    $heading = get_string('slideheading', 'theme_squared') ." $i";
 	    $information = get_string('slideheadingdesc', 'theme_squared'). " $i";
 	    $setting = new admin_setting_heading($name, $heading, $information);
-	    $settings->add($setting);
+	    $settingpage->add($setting);
 	    
 	    $name = 'theme_squared/slideimage'.$i;
 	    $title = get_string('slideimage','theme_squared'). " $i";
 	    $description = get_string('slideimagedesc', 'theme_squared');
 	    $setting = new admin_setting_configstoredfile($name, $title, $description, 'slideimage'.$i);
 	    $setting->set_updatedcallback('theme_reset_all_caches');
-	    $settings->add($setting);
+	    $settingpage->add($setting);
 	    
 	    $name = 'theme_squared/fptitle'.$i;
 	    $title = get_string('fptitle','theme_squared'). " $i";
 	    $description = get_string('fptitledesc', 'theme_squared');
-	    $default = 'Photo from';
+	    $default = 'Photo credits';
 	    $setting = new admin_setting_configtext($name, $title, $description, $default);
-	    $settings->add($setting);
+	    $settingpage->add($setting);
 	    
 	    $name = 'theme_squared/fptext'.$i;
 	    $title = get_string('fptext','theme_squared'). " $i";
@@ -143,7 +204,7 @@ if ($ADMIN->fulltree) {
                 $default = "Change me in the theme settings";
         }
 	    $setting = new admin_setting_configtextarea($name, $title, $description, $default, PARAM_RAW);
-	    $settings->add($setting);
+	    $settingpage->add($setting);
 	    
 	    $name = 'theme_squared/fppos'.$i;
 	    $title = get_string('fppos','theme_squared'). " $i";
@@ -154,58 +215,14 @@ if ($ADMIN->fulltree) {
 	            '1' => get_string('fpposright', 'theme_squared')
 	    );
 	    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-	    $settings->add($setting);
+	    $settingpage->add($setting);
 	    
 	    $name = 'theme_squared/fplink'.$i;
 	    $title = get_string('fplink','theme_squared'). " $i";
 	    $description = get_string('fplinkdesc', 'theme_squared');
 	    $setting = new admin_setting_configtext($name, $title, $description, '', PARAM_URL);
-	    $settings->add($setting);
-	     
+	    $settingpage->add($setting);   
 	}
-
-	$name = 'theme_squared/fpnews';
-	$title = get_string('fpnews','theme_squared');
-	$description = get_string('fpnewsdesc', 'theme_squared');
-	$default = 'Here is some text';
-	$setting = new admin_setting_configtextarea($name, $title, $description, $default, PARAM_CLEANHTML);
-	$settings->add($setting);
-
-	$name = 'theme_squared/alternateloginurl';
-	$title = get_string('alternateloginurl','theme_squared');
-	$description = get_string('alternateloginurldesc', 'theme_squared');
-	$default = 0;
-	$sql = "SELECT DISTINCT h.id, h.wwwroot, h.name, a.sso_jump_url, a.name as application
-			FROM {mnet_host} h
-			JOIN {mnet_host2service} m ON h.id = m.hostid
-			JOIN {mnet_service} s ON s.id = m.serviceid
-			JOIN {mnet_application} a ON h.applicationid = a.id
-			WHERE s.name = ? AND h.deleted = ? AND m.publish = ?";
-	$params = array('sso_sp', 0, 1);
-
-	if (!empty($CFG->mnet_all_hosts_id)) {
-		$sql .= " AND h.id <> ?";
-		$params[] = $CFG->mnet_all_hosts_id;
-	}
-
-	if ($hosts = $DB->get_records_sql($sql, $params)) {
-		$choices = array();
-		$choices[0] = 'notset';
-		foreach ($hosts as $id => $host){
-			$choices[$id] = $host->name;
-		}	
-	} else {
-		$choices = array();
-		$choices[0] = 'notset';
-	}
-	$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-	$settings->add($setting);
-	
-	// Custom CSS
-	$name = 'theme_squared/customcss';
-	$title = get_string('customcss', 'theme_squared');
-	$description = get_string('customcssdesc', 'theme_squared');
-	$setting = new admin_setting_configtextarea($name, $title, $description, '');
-	$settings->add($setting);
+	$ADMIN->add('theme_squared', $settingpage);
 
 }
