@@ -86,7 +86,7 @@ echo $OUTPUT->doctype() ?>
 			 if(!empty($PAGE->theme->settings->pagelogo)) {
 			 	echo $PAGE->theme->setting_file_url('pagelogo', 'pagelogo');
 			 } else {
-			 	echo $OUTPUT->pix_url('generallogo', 'theme');
+			 	echo $OUTPUT->pix_url('moodle-logo', 'theme_squared');
 			 } ?>" id="logo" /></a>
 
 				

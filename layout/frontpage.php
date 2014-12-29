@@ -36,7 +36,7 @@ echo $OUTPUT->doctype(); ?>
 <html <?php echo $OUTPUT->htmlattributes() ?>>
 <head>
     <title><?php echo $PAGE->title ?></title>
-    <link rel="shortcut icon" href="<?php echo $OUTPUT->pix_url('favicon', 'theme')?>" />
+    <link rel="shortcut icon" href="<?php echo $OUTPUT->pix_url('favicon', 'theme_squared')?>" />
     <meta name="viewport" content="width=1218">
     <?php echo $OUTPUT->standard_head_html() ?>    
 </head>
@@ -86,7 +86,7 @@ echo $OUTPUT->doctype(); ?>
 	if(!empty($PAGE->theme->settings->logo)) {
 		echo $PAGE->theme->setting_file_url('logo', 'logo');
 	} else {
-		echo $OUTPUT->pix_url('logo', 'theme');
+		echo $OUTPUT->pix_url('moodle-logo', 'theme_squared');
     }
 	 ?>" id="logo" />
 	</a>

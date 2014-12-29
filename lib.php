@@ -184,9 +184,9 @@ function squared_add_categorycolorguide_css($bgcolorsettings) {
         ";
         
         /**
-         * course.css FIXME *
+         * course.css table header *
          */
-        $css .= "#page-course-index-category.category-$categoryid .category_subcategories thead {
+        $css .= "#page-course-index-category.category-$categoryid .category_subcategories th {
 	           background-color: $color; }
         ";
         
@@ -198,9 +198,9 @@ function squared_add_categorycolorguide_css($bgcolorsettings) {
         ";
         
         /**
-         * course.css FIXME *
+         * course.css table header *
          */
-        $css .= "#page-course-index-category.category-$categoryid .category_subcategories thead {
+        $css .= "#page-course-index-category.category-$categoryid .category_subcategories th {
 	           background-color: $color; }
         ";
         
@@ -314,10 +314,10 @@ function squared_get_login_url() {
 }
 
 /**
- * unused at the moment
+ * set the logo in the header
  * 
- * @param unknown $css            
- * @param unknown $logo            
+ * @param string $css            
+ * @param string $logo            
  * @return mixed
  */
 function squared_set_logo($css, $logo) {
@@ -325,11 +325,12 @@ function squared_set_logo($css, $logo) {
     $tag = '[[setting:logo]]';
     $replacement = $logo;
     if (is_null ( $replacement )) {
-        $replacement = $OUTPUT->pix_url ( '/header', 'theme' );
+        $replacement = $OUTPUT->pix_url ( 'moodle-logo', 'theme_squared' );
     }
     $css = str_replace ( $tag, $replacement, $css );
     return $css;
 }
+
 function theme_squared_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
     if ($context->contextlevel == CONTEXT_SYSTEM and $filearea) {
         $theme = theme_config::load ( 'squared' );

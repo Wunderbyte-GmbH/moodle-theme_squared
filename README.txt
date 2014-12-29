@@ -9,12 +9,17 @@ the users do not recognize it was made for moodle ;-). The authors even pretend 
 
 About the theme.
  - It uses a lot of squares: blocks are squared, some heading elements are squared and so on.
- - It is not yet responsive. If you would like it to have responsive, we are square enough to accept money to do that write to info@edulabs.org
+ - It is not yet responsive. If you would like it to have responsive, we are square enough to accept money to do that. Just write to info@edulabs.org
  - The frontpage slideshow is completely customizable concerning text and images. Changing animation style: you have to be a coder.
  - Your social icons appear as squares on the bottom of the theme
  - Blocks are collapsed per default
  - The theme uses the font Source Sans Pro from Adobe, which is optimised for web reading
- - There are some theme settings
+ - There is a super dropdown custom menu. You can add categories to the custom menu. The menu adds all content of the category
+   to the custom menu according to the rights of the user.
+   Example setting in the general them settings /admin/settings.php?section=themesettings :
+   My category name|http://example.com/moodle/course/index.php?categoryid=2
+   My other category name|http://example.com/moodle/course/index.php?categoryid=1
+   Third category name|http://example.com/moodle/course/index.php?categoryid=3
  - You are not allowed to copy the frontpage and colors of www.virtuelle-ph.at 
  
 Copyright notice
@@ -22,9 +27,9 @@ Copyright notice
 The theme is copyrighted by "Onlinecampus Virtuelle PH" http://www.virtuelle-ph.at
 
 Created by
-David Bogner             | project lead     | http://www.edulabs.org
-John Stabinger           | programming      
-contemas websolutions OG | design           | http://www.contemas.net
+David Bogner             | project lead and programming    | http://www.edulabs.org
+John Stabinger           | programming                     | https://moodle.org/user/profile.php?id=691370
+contemas websolutions OG | design                          | http://www.contemas.net
 
 Maintained by
 =============
@@ -32,7 +37,7 @@ David Bogner | http://www.edulabs.org
 
 Free Software
 =============
-The squared theme is 'free' software under the terms of the GNU GPLv3 License, please see 'COPYING.txt'.
+The squared theme is 'free' software under the terms of the GNU GPLv3 License.
 
 It can be obtained for free from:
 http://moodle.org/plugins/view.php?plugin=theme_squared

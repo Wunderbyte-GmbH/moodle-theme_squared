@@ -229,6 +229,12 @@ a:focus {
 /*logo if any*/
 #logo {
 	position: absolute;
+    right: 0;
+    top: -16px;
+}
+
+.www-virtuelle-ph-at #logo {
+	position: absolute;
     right: 100px;
     top: -16px;
 }
@@ -238,6 +244,10 @@ a:focus {
 }
 
 .coursepage #logo {
+	right: 0;
+}
+
+.www-virtuelle-ph-at .coursepage #logo {
 	right: 90px;
 }
 
