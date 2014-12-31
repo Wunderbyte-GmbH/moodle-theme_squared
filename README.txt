@@ -9,6 +9,7 @@ the users do not recognize it was made for moodle ;-). The authors even pretend 
 
 About the theme.
  - It uses a lot of squares: blocks are squared, some heading elements are squared and so on.
+ - New icon set created.
  - It is not yet responsive. If you would like it to have responsive, we are square enough to accept money to do that. Just write to info@edulabs.org
  - The frontpage slideshow is completely customizable concerning text and images. Changing animation style: you have to be a coder.
  - Your social icons appear as squares on the bottom of the theme
@@ -63,21 +64,21 @@ next release.
 
 Installation
 ============
- 1. Ensure you have the version of Moodle as stated above in 'Required version of Moodle'.  This is essential as the
+ 1. Ensure you have the version of Moodle as stated above in 'Required version of Moodle'.  This is important as the
     theme relies on underlying core code that is out of our control.
  2. Login as an administrator and put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
- 3. Copy the extracted 'essential' folder to the '/theme/' folder.
+ 3. Copy the extracted 'squared' folder to the '/theme/' folder.
  4. Go to 'Site administration' -> 'Notifications' and follow standard the 'plugin' update notification.
  5. Select as the theme for the site.
  6. Put Moodle out of Maintenance Mode.
 
 Upgrading
 =========
- 1. Ensure you have the version of Moodle as stated above in 'Required version of Moodle'.  This is essential as the
+ 1. Ensure you have the version of Moodle as stated above in 'Required version of Moodle'.  This is important as the
     theme relies on underlying core code that is out of our control.
  2. Login as an administrator and put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
- 3. Make a backup of your old 'essential' folder in '/theme/' and then delete the folder.
- 4. Copy the replacement extracted 'essential' folder to the '/theme/' folder.
+ 3. Make a backup of your old 'squared' folder in '/theme/' and then delete the folder.
+ 4. Copy the replacement extracted 'squared' folder to the '/theme/' folder.
  5. Go to 'Site administration' -> 'Notifications' and follow standard the 'plugin' update notification.
  6. If automatic 'Purge all caches' appears not to work by lack of display etc. then perform a manual 'Purge all caches'
     under 'Home -> Site administration -> Development -> Purge all caches'.
@@ -87,18 +88,18 @@ Uninstallation
 ==============
  1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
  2. Change the theme to another theme of your choice.
- 3. In '/theme/' remove the folder 'essential'.
+ 3. In '/theme/' remove the folder 'squared'.
  4. Put Moodle out of Maintenance Mode.
 
 Reporting issues
 ================
-Before reporting an issue, please ensure that you are running the latest version for your release of Moodle.  It is essential
+Before reporting an issue, please ensure that you are running the latest version for your release of Moodle.  It is important
 that you are operating the required version of Moodle as stated at the top - this is because the theme relies on core
 functionality that is out of its control.
 
 When reporting an issue you can check he issue list https://github.com/dasistwas/moodle-theme_squared/issues and if the problem
  does not exist, create an issue.
 
-It is essential that you provide as much information as possible, the critical information being the contents of the theme's 
+It is important that you provide as much information as possible, the critical information being the contents of the theme's 
 'version.php' file.  Other version information such as specific Moodle version, theme name and version also helps.  A screen shot
 can be really useful in visualising the issue along with any files you consider to be relevant.
