@@ -528,5 +528,34 @@ class theme_squared_core_renderer extends core_renderer {
      return $o;
     }
     
+    function squared_render_searchform () {
+        global $CFG;
+        $settings = $this->page->theme->settings;
+        $domain = preg_replace("(^https?://)", "", $CFG->wwwroot );
+        if(!empty($settings->searchurl)){
+            $url = new moodle_url($settings->searchurl);
+            $hiddenfields = html_writer::input_hidden_params($url);
+            $formaction = $url->out_omit_querystring();
+        } else {
+            $hiddenfields ='';
+            $formaction = 'http://www.google.com/search';
+        }
+        if (!empty($this->page->theme->settings->searchfield)){
+            $searchfield = $settings->searchfield;
+        } else {
+            $searchfield ="q";
+        }
+        
+        $o = '';
+        $o .= html_writer::start_tag('form', array( 'accept-charset' => 'UTF-8', 'action' => $formaction, 'id' => 'newsearchform' ));
+        $o .= html_writer::start_div('');
+        $o .= html_writer::tag('label', get_string('search'), array( 'for' => 'newsearchfield'));
+        $o .= html_writer::start_tag('input', array( 'id' => 'newsearchfield', 'type' => 'text', 'name' => $searchfield));
+        $o .= $hiddenfields;
+        $o .= html_writer::empty_tag('input', array( 'type' => 'submit', 'value' => '', 'id' => 'newsearchbutton'));
+        $o .= html_writer::end_div();
+        $o .= html_writer::end_tag('form');
+        return $o;
+    }
 	//end class
 }

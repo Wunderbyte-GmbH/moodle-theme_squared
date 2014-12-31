@@ -10,7 +10,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2014122904; // The current module version (Date: YYYYMMDDXX)
+$plugin->version   = 2014123100; // The current module version (Date: YYYYMMDDXX)
 $plugin->requires  = 2013050100; // Requires this Moodle version
 $plugin->release   = "Red Square 1.0"; //Release name: famous squares around the world
 $plugin->component = 'theme_squared'; // Full name of the plugin (used for diagnostics)

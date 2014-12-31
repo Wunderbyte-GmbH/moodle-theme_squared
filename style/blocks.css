@@ -15,7 +15,7 @@
 
 .block .header {
 	padding: 5px 0px;
-	background-color: transparent !important;
+	background-color: transparent;
 }
 .header {
 	background-color: transparent !important;
@@ -24,16 +24,21 @@
 
 /* frontpage blocks */
 #page-site-index .block .header {
-	background: [[setting:bgcolordefault]] url([[pix:theme|blockback]]) no-repeat top left;
+	background: url([[pix:theme|blockback]]) no-repeat top left;
+	background-color: transparent !important;
+	}
+
+#page-site-index .block {
+	background-color:  [[setting:bgcolordefault]] !important;
 	}
 
 #page-site-index .block_html.block {
 	cursor: pointer;
-	background: #11847d url([[pix:theme|blockback]]) no-repeat top left;
+	background: url([[pix:theme|blockback]]) no-repeat top left;
 	min-height: 174px;
+	background-color: [[setting:bgcolordefault]];
 }
 #page-site-index .block_html.block .header, #page-site-index .block_html.block .content {
-	background-color: transparent !important;
 	background-image: none;
 }
 

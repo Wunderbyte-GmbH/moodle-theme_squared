@@ -58,8 +58,23 @@ if (is_siteadmin()) {
 	$name = 'theme_squared/fpnews';
 	$title = get_string('fpnews','theme_squared');
 	$description = get_string('fpnewsdesc', 'theme_squared');
-	$default = 'Change me in the theme settins';
+	$default = 'Change me in the theme settings';
 	$setting = new admin_setting_configtextarea($name, $title, $description, $default, PARAM_CLEANHTML);
+	$settingpage->add($setting);
+
+	$name = 'theme_squared/searchurl';
+	$title = get_string('searchurl','theme_squared');
+	$description = get_string('searchurldesc', 'theme_squared');
+	$domain = preg_replace("(^https?://)", "", $CFG->wwwroot );
+	$default = 'https://www.google.com/search?as_sitesearch=' . $domain;
+	$setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_URL);
+	$settingpage->add($setting);
+	
+	$name = 'theme_squared/searchfield';
+	$title = get_string('searchfield','theme_squared');
+	$description = get_string('searchfielddesc', 'theme_squared');
+	$default = 'q';
+	$setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_ALPHANUM);
 	$settingpage->add($setting);
 	
 	$name = 'theme_squared/alternateloginurl';
