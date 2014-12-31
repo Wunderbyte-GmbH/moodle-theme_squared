@@ -59,14 +59,9 @@ echo $OUTPUT->doctype(); ?>
 <!-- end of menu -->
 	
 	</div>
-	<form id="newsearchform" accept-charset="UTF-8" action="http://www.virtuelle-ph.at/mod/page/view.php">
-	<div>
-    <label for="newsearchfield"><?php echo get_string('search'); ?></label>
-    <input id="newsearchfield" type="text" value="" name="newsearchfield"/>
-    <input type="hidden" value="10375" name="id"/>
-    <input type="submit" value="" id="newsearchbutton"/>
-    </div>
-    </form>
+	<?php 
+	echo $OUTPUT->squared_render_searchform();
+	?>
 	</div>
 
 		<div class="headermenu">
