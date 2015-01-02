@@ -13,15 +13,17 @@
 	border: 1px solid #fff;
 	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
 	width: auto;
+	max-height: 43px;
 }
 
 .forumpost .row .left.picture {
     float: left;
     overflow: hidden;
     width: 43px;
-    padding-top: 5px;
+    padding: 0;
     background: url([[pix:theme|section-box-bg]]) no-repeat top left;
 	background-color: [[setting:bgcolordefault]];
+	max-height: 43px;
 }
 
 .forumpost .row .topic {
