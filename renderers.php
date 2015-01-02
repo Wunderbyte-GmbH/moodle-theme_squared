@@ -270,15 +270,11 @@ class theme_squared_core_renderer extends core_renderer {
 			if(empty($value[0])){
 				continue;
 			}
-			/*
-			 if($lastelement[0] == $value[0]){
-			$attributes = array('class' => 'lastelement');
-			}
-			*/
 			$renderedtext .= html_writer::start_tag('span',$attributes);
 			$renderedtext .= html_writer::tag('a',trim($value[0]), array('href' => trim($value[1])));
 			$renderedtext .= html_writer::end_tag('span');
 		}
+		$renderedtext .= html_writer::tag('span','Theme by <a href="http://www.edulabs.org" target="_blank">edulabs.org - e-learning solutions</a>');
 		$renderedtext .= html_writer::tag('span',$this->login_info(), array('class' => 'lastelement'));
 		return $renderedtext;
 	}
@@ -288,15 +284,16 @@ class theme_squared_core_renderer extends core_renderer {
 	 * @return string
 	 */
 	public function squared_textlinks($position) {
-		$textlinks = ' ';
-		if($position == 'footer'){
-			if (!empty($this->page->theme->settings->footertext)) {
-				$textlinks = $this->squared_prepare_textlinks($this->page->theme->settings->footertext);
-			}
+		$textlinks = '';
+		if (empty($this->page->theme->settings->footertext)) {
+		    $setting = '';
 		} else {
-			if (!empty($this->page->theme->settings->headerlinks)) {
-				$textlinks = $this->squared_prepare_textlinks($this->page->theme->settings->headerlinks);
-			}
+		    $setting = $this->page->theme->settings->footertext;
+		}
+		if($position == 'footer'){
+				$textlinks = $this->squared_prepare_textlinks($setting);
+		} else {
+				$textlinks = $this->squared_prepare_textlinks($setting);
 		}
 		$content = html_writer::tag('div',$textlinks, array('class' => 'footercontent'));
 		return $content;

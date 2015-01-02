@@ -9,7 +9,7 @@ the users do not recognize it was made for moodle ;-). The authors even pretend 
 
 About the theme.
  - It uses a lot of squares: blocks are squared, some heading elements are squared and so on.
- - New icon set created.
+ - New icon set for moodle standard activities and plugins. If you want the source (vector), just contact info@edulabs.org
  - It is not yet responsive. If you would like it to have responsive, we are square enough to accept money to do that. Just write to info@edulabs.org
  - The frontpage slideshow is completely customizable concerning text and images. Changing animation style: you have to be a coder.
  - Your social icons appear as squares on the bottom of the theme
@@ -101,5 +101,5 @@ When reporting an issue you can check he issue list https://github.com/dasistwas
  does not exist, create an issue.
 
 It is important that you provide as much information as possible, the critical information being the contents of the theme's 
-'version.php' file.  Other version information such as specific Moodle version, theme name and version also helps.  A screen shot
+'version.php' file.  Other version information such as specific Moodle version, theme name and version also helps. A screen shot
 can be really useful in visualising the issue along with any files you consider to be relevant.

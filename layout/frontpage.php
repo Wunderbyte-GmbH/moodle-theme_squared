@@ -180,7 +180,7 @@ echo $OUTPUT->standard_footer_html();
 <?php
 echo $OUTPUT->squared_socialicons();
 ?>
-</div>$css
+</div>
 
 </div>
 <!-- end of footer -->	
