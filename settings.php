@@ -2,7 +2,6 @@
 
 $settings = null;
 
-
 defined('MOODLE_INTERNAL') || die;
 if (is_siteadmin()) {
     require_once("$CFG->libdir/coursecatlib.php");
@@ -68,6 +67,7 @@ if (is_siteadmin()) {
 	$domain = preg_replace("(^https?://)", "", $CFG->wwwroot );
 	$default = 'https://www.google.com/search?as_sitesearch=' . $domain;
 	$setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_URL);
+	$setting->set_updatedcallback('theme_reset_all_caches');
 	$settingpage->add($setting);
 	
 	$name = 'theme_squared/searchfield';
@@ -105,6 +105,7 @@ if (is_siteadmin()) {
 	    $choices[0] = 'notset';
 	}
 	$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+	$setting->set_updatedcallback('theme_reset_all_caches');
 	$settingpage->add($setting);
 	
 	// Custom CSS
@@ -112,6 +113,7 @@ if (is_siteadmin()) {
 	$title = get_string('customcss', 'theme_squared');
 	$description = get_string('customcssdesc', 'theme_squared');
 	$setting = new admin_setting_configtextarea($name, $title, $description, '');
+	$setting->set_updatedcallback('theme_reset_all_caches');
 	$settingpage->add($setting);
 	
 	$ADMIN->add('theme_squared', $settingpage);
@@ -124,14 +126,17 @@ if (is_siteadmin()) {
 	$name = 'theme_squared/bgcolordefault';
 	$title = get_string('bgcolordefault','theme_squared');
 	$description = get_string('bgcolordefaultdesc', 'theme_squared');
-	$default = '#11847D';
+	$default = '#0E00AF';
 	$previewconfig = NULL;
 	$setting = new admin_setting_configcolourpicker($name, $title, $description, $default, 	$previewconfig);
+	$setting->set_updatedcallback('theme_reset_all_caches');
 	$settingpage->add($setting);
 	
-	// category color settings 1
+	// category color settings
 
 	$categorytree = coursecat::get(0)->get_children();
+	$defaultvalues = array( 0 => '#EF001C', 1 => '#4B88FB', 2 => '#A89E00', 3 => '#013855');
+	$i = 0;
 	foreach($categorytree as $categoryid => $value){
 	    $choices = array();
 		
@@ -145,10 +150,17 @@ if (is_siteadmin()) {
 		$name = 'theme_squared/bgcolor_'.$categoryid;
 		$title = get_string('bgcolor','theme_squared') . ": $choices[$categoryid]";
 		$description = get_string('bgcolordesc', 'theme_squared');
-		$default = '#11847D';
+		if(!empty($defaults[$i])){
+		    $default = $defaultvalues[$i];
+		} else {
+		    $default = "#015A3F";
+		}
+		
 		$previewconfig = NULL;
 		$setting = new admin_setting_configcolourpicker($name, $title, $description, $default, $previewconfig);
+		$setting->set_updatedcallback('theme_reset_all_caches');
 		$settingpage->add($setting);
+		$i++;
 	}
 
 	// inside page header image setting
@@ -177,6 +189,7 @@ if (is_siteadmin()) {
 	        5 => 5
 	);
 	$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+	$setting->set_updatedcallback('theme_reset_all_caches');
 	$settingpage->add($setting);
 	
     // slideshow settings
@@ -186,6 +199,7 @@ if (is_siteadmin()) {
 	    $heading = get_string('slideheading', 'theme_squared') ." $i";
 	    $information = get_string('slideheadingdesc', 'theme_squared'). " $i";
 	    $setting = new admin_setting_heading($name, $heading, $information);
+	    $setting->set_updatedcallback('theme_reset_all_caches');
 	    $settingpage->add($setting);
 	    
 	    $name = 'theme_squared/slideimage'.$i;
@@ -200,6 +214,7 @@ if (is_siteadmin()) {
 	    $description = get_string('fptitledesc', 'theme_squared');
 	    $default = 'Photo credits';
 	    $setting = new admin_setting_configtext($name, $title, $description, $default);
+	    $setting->set_updatedcallback('theme_reset_all_caches');
 	    $settingpage->add($setting);
 	    
 	    $name = 'theme_squared/fptext'.$i;
@@ -219,6 +234,7 @@ if (is_siteadmin()) {
                 $default = "Change me in the theme settings";
         }
 	    $setting = new admin_setting_configtextarea($name, $title, $description, $default, PARAM_RAW);
+	    $setting->set_updatedcallback('theme_reset_all_caches');
 	    $settingpage->add($setting);
 	    
 	    $name = 'theme_squared/fppos'.$i;
@@ -230,12 +246,14 @@ if (is_siteadmin()) {
 	            '1' => get_string('fpposright', 'theme_squared')
 	    );
 	    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+	    $setting->set_updatedcallback('theme_reset_all_caches');
 	    $settingpage->add($setting);
 	    
 	    $name = 'theme_squared/fplink'.$i;
 	    $title = get_string('fplink','theme_squared'). " $i";
 	    $description = get_string('fplinkdesc', 'theme_squared');
 	    $setting = new admin_setting_configtext($name, $title, $description, '', PARAM_URL);
+	    $setting->set_updatedcallback('theme_reset_all_caches');
 	    $settingpage->add($setting);   
 	}
 	$ADMIN->add('theme_squared', $settingpage);
