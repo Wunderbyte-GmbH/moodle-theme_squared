@@ -1,17 +1,26 @@
 <?php
-function squared_process_css($css, $theme) {
+/**
+ * Parses CSS before it is cached.
+ *
+ * This function can make alterations and replace patterns within the CSS.
+ *
+ * @param string $css The CSS
+ * @param theme_config $theme The theme config object.
+ * @return string The parsed CSS The parsed CSS.
+ */
+function theme_squared_process_css($css, $theme) {
     global $CFG;
-    $css = squared_include_fonts ( $css, $theme );
+    $css = theme_squared_include_fonts ( $css, $theme );
     
-    $bgcolorsettings = squared_get_backgroundcolorsettings_array ( '/bgcolor_.+/', $theme->settings );
-    $css .= squared_add_categorycolorguide_css ( $bgcolorsettings );
+    $bgcolorsettings = theme_squared_get_backgroundcolorsettings_array ( '/bgcolor_.+/', $theme->settings );
+    $css .= theme_squared_add_categorycolorguide_css ( $bgcolorsettings );
     
     if (! empty ( $theme->settings->bgcolordefault )) {
         $bgcolordefault = $theme->settings->bgcolordefault;
     } else {
         $bgcolordefault = null;
     }
-    $css = squared_set_bgcolordefault ( $css, $bgcolordefault );
+    $css = theme_squared_set_bgcolordefault ( $css, $bgcolordefault );
     
     // Set the frontpage header image
     for($i = 1; $i < 6; $i ++) {
@@ -21,7 +30,7 @@ function squared_process_css($css, $theme) {
         } else {
             $slideimage = null;
         }
-        $css = squared_set_slideimage ( $css, $slideimage, $setting );
+        $css = theme_squared_set_slideimage ( $css, $slideimage, $setting );
     }
     
     // Set the inside header image
@@ -30,7 +39,7 @@ function squared_process_css($css, $theme) {
     } else {
         $headerimagecourse = null;
     }
-    $css = squared_set_headerimagecourse ( $css, $headerimagecourse );
+    $css = theme_squared_set_headerimagecourse ( $css, $headerimagecourse );
     
     if (! empty ( $theme->settings->customcss )) {
         $customcss = $theme->settings->customcss;
@@ -38,11 +47,18 @@ function squared_process_css($css, $theme) {
         $customcss = null;
     }
     
-    $css = squared_set_customcss ( $css, $customcss );
+    $css = theme_squared_set_customcss ( $css, $customcss );
     // Return the CSS
     return $css;
 }
-function squared_include_fonts($css) {
+
+/**
+ * include local fonts
+ *
+ * @param string $css            
+ * @return string CSS with local font
+ */
+function theme_squared_include_fonts($css) {
     global $CFG, $PAGE;
     if (empty ( $CFG->themewww )) {
         $themewww = $CFG->wwwroot . "/theme";
@@ -103,6 +119,7 @@ function squared_include_fonts($css) {
     $css = str_replace ( $tag, $replacement, $css );
     return $css;
 }
+
 /**
  * Returns an array of the all settings used to define background color for a specified category
  *
@@ -113,18 +130,19 @@ function squared_include_fonts($css) {
  * @param number $flags            
  * @return array matching key/value pairs as array:
  */
-function squared_get_backgroundcolorsettings_array($pattern, $input, $flags = 0) {
-    $varnames = get_object_vars($input);
-    $settings = array_flip (preg_grep ( $pattern, array_flip ( $varnames ), $flags ));
+function theme_squared_get_backgroundcolorsettings_array($pattern, $input, $flags = 0) {
+    $varnames = get_object_vars ( $input );
+    $settings = array_flip ( preg_grep ( $pattern, array_flip ( $varnames ), $flags ) );
     return $settings;
 }
 
 /**
  * Add CSS for the category color guide defined in the theme settings
- * @param array $bgcolorsettings
+ * 
+ * @param array $bgcolorsettings            
  * @return string
  */
-function squared_add_categorycolorguide_css($bgcolorsettings) {
+function theme_squared_add_categorycolorguide_css($bgcolorsettings) {
     $css = "";
     foreach ( $bgcolorsettings as $settingname => $color ) {
         if (! isset ( $color ) || $color == '') {
@@ -224,14 +242,14 @@ function squared_add_categorycolorguide_css($bgcolorsettings) {
         $css .= ".category-$categoryid .forumpost .row .left.picture {
 	           background: $color; }
         ";
-
+        
         /**
          * forum.css forumpost *
          */
         $css .= ".category-$categoryid .forumpost.unread .maincontent {
         border: 2px solid $color; }
         ";
-              
+        
         /**
          * menu.css background color for top level elements in custom menu (quicknavi) *
          */
@@ -243,7 +261,16 @@ function squared_add_categorycolorguide_css($bgcolorsettings) {
     return $css;
 }
 
-function squared_set_bgcolordefault($css, $bgcolordefault) {
+/**
+ * Sets the default background color for the blocks.
+ * Used of no color is set
+ * and on all admin pages and pages that do not belong to a course category
+ *
+ * @param string $css            
+ * @param string $bgcolordefault            
+ * @return string parsed CSS
+ */
+function theme_squared_set_bgcolordefault($css, $bgcolordefault) {
     $tag = '[[setting:bgcolordefault]]';
     $replacement = $bgcolordefault;
     if (is_null ( $replacement )) {
@@ -252,7 +279,18 @@ function squared_set_bgcolordefault($css, $bgcolordefault) {
     $css = str_replace ( $tag, $replacement, $css );
     return $css;
 }
-function squared_set_slideimage($css, $slideimage, $setting) {
+
+/**
+ * sets the slideimage in the frontpage slideshow
+ *
+ * @param string $css            
+ * @param string $slideimage
+ *            file_url
+ * @param string $setting
+ *            theme setting string to replace
+ * @return string parsed CSS
+ */
+function theme_squared_set_slideimage($css, $slideimage, $setting) {
     global $OUTPUT;
     $tag = "[[setting:$setting]]";
     $replacement = $slideimage;
@@ -262,7 +300,15 @@ function squared_set_slideimage($css, $slideimage, $setting) {
     $css = str_replace ( $tag, $replacement, $css );
     return $css;
 }
-function squared_set_headerimagecourse($css, $headerimagecourse) {
+
+/**
+ * sets the header image for all pages except the frontpage
+ *
+ * @param string $css            
+ * @param string $headerimagecourse            
+ * @return sting
+ */
+function theme_squared_set_headerimagecourse($css, $headerimagecourse) {
     global $OUTPUT;
     $tag = '[[setting:headerimagecourse]]';
     $replacement = $headerimagecourse;
@@ -272,6 +318,7 @@ function squared_set_headerimagecourse($css, $headerimagecourse) {
     $css = str_replace ( $tag, $replacement, $css );
     return $css;
 }
+
 /**
  * Returns MNET Login URL instead of standard login URL.
  * Checks the wanted url
@@ -279,7 +326,7 @@ function squared_set_headerimagecourse($css, $headerimagecourse) {
  *
  * @return string login url
  */
-function squared_get_login_url() {
+function theme_squared_get_login_url() {
     global $PAGE, $DB, $SESSION, $CFG;
     if ($PAGE->url->out () === $CFG->wwwroot . "/login/index.php") {
         $urltogo = $SESSION->wantsurl;
@@ -315,12 +362,12 @@ function squared_get_login_url() {
 
 /**
  * set the logo in the header
- * 
+ *
  * @param string $css            
  * @param string $logo            
  * @return mixed
  */
-function squared_set_logo($css, $logo) {
+function theme_squared_set_logo($css, $logo) {
     global $OUTPUT;
     $tag = '[[setting:logo]]';
     $replacement = $logo;
@@ -331,6 +378,18 @@ function squared_set_logo($css, $logo) {
     return $css;
 }
 
+/**
+ * Serves any files associated with the theme settings.
+ *
+ * @param stdClass $course            
+ * @param stdClass $cm            
+ * @param context $context            
+ * @param string $filearea            
+ * @param array $args            
+ * @param bool $forcedownload            
+ * @param array $options            
+ * @return boolean
+ */
 function theme_squared_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
     if ($context->contextlevel == CONTEXT_SYSTEM and $filearea) {
         $theme = theme_config::load ( 'squared' );
@@ -340,11 +399,22 @@ function theme_squared_pluginfile($course, $cm, $context, $filearea, $args, $for
     }
 }
 
-// user defined columns to show or now
-function squared_initialise_colpos(moodle_page $page) {
+/**
+ * user defined columns to show or not
+ *
+ * @param moodle_page $page            
+ */
+function theme_squared_initialise_colpos(moodle_page $page) {
     user_preference_allow_ajax_update ( 'theme_squared_chosen_colpos', PARAM_ALPHA );
 }
-function squared_get_colpos($default = 'noidock') {
+
+/**
+ * get user preference
+ *
+ * @param string $default            
+ * @return string|mixed|null A string containing the value of a single preference. An array with all of the preferences or null
+ */
+function theme_squared_get_colpos($default = 'noidock') {
     return get_user_preferences ( 'theme_squared_chosen_colpos', $default );
 }
 
@@ -355,7 +425,7 @@ function squared_get_colpos($default = 'noidock') {
  * @param mixed $customcss            
  * @return string
  */
-function squared_set_customcss($css, $customcss) {
+function theme_squared_set_customcss($css, $customcss) {
     $tag = '[[setting:customcss]]';
     $replacement = $customcss;
     if (is_null ( $replacement )) {
@@ -365,6 +435,11 @@ function squared_set_customcss($css, $customcss) {
     return $css;
 }
 
+/**
+ * include jquery and custom javascript
+ *
+ * @param moodle_page $page            
+ */
 function theme_squared_page_init(moodle_page $page) {
     $page->requires->jquery ();
     $page->requires->jquery_plugin ( 'jqueryflexslider', 'theme_squared' );

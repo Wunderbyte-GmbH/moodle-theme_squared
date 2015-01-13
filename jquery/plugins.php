@@ -17,8 +17,7 @@
 /**
  * squared theme
  *
- * @package    theme
- * @subpackage squared
+ * @package    theme_squared
  * @copyright  Onlinecampus Virtuelle PH, David Bogner, John Stabinger, Contemas.at 2013 onwards
  * @author     David Bogner and John Stabinger
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
