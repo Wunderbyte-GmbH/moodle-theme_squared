@@ -187,7 +187,6 @@ echo $OUTPUT->squared_render_searchform ();
 				<div id="footer-left">
 <?php
 echo $OUTPUT->squared_textlinks ( 'footer' );
-echo $OUTPUT->standard_footer_html ();
 ?>
 </div>
 
@@ -196,7 +195,9 @@ echo $OUTPUT->standard_footer_html ();
 echo $OUTPUT->squared_socialicons ();
 ?>
 </div>
-
+                <?php
+                echo $OUTPUT->standard_footer_html ();
+                ?>
 			</div>
 			<!-- end of footer -->
 
@@ -207,6 +208,6 @@ echo $OUTPUT->squared_socialicons ();
 	</div>
 	<!-- end #page -->	
 
-<?php echo $OUTPUT->standard_end_of_body_html() ?>
+<?php echo $OUTPUT->standard_end_of_body_html()?>
 </body>
 </html>

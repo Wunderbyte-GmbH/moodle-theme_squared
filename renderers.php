@@ -322,11 +322,11 @@ class theme_squared_core_renderer extends core_renderer {
             ) );
             $renderedtext .= html_writer::end_tag ( 'span' );
         }
-        $renderedtext .= html_writer::tag ( 'span', 'Theme by <a href="http://www.edulabs.org" target="_blank">edulabs.org - e-learning solutions</a>', array (
-                'class' => 'squared-themeby' 
+        $renderedtext .= html_writer::tag ( 'span', page_doc_link(get_string('moodledocslink')), array (
+                'class' => 'helplink'
         ) );
-        $renderedtext .= html_writer::tag ( 'span', $this->login_info (), array (
-                'class' => 'lastelement' 
+        $renderedtext .= html_writer::tag ( 'span', 'Theme by <a href="http://www.edulabs.org" target="_blank">edulabs.org - e-learning solutions</a>', array (
+                'class' => 'squared-themeby lastelement' 
         ) );
         return $renderedtext;
     }

@@ -21,17 +21,7 @@ function theme_squared_process_css($css, $theme) {
         $bgcolordefault = null;
     }
     $css = theme_squared_set_bgcolordefault ( $css, $bgcolordefault );
-    
-    // Set the frontpage header image
-    for($i = 1; $i < 6; $i ++) {
-        $setting = 'slideimage' . $i;
-        if (! empty ( $theme->settings->$setting )) {
-            $slideimage = $theme->setting_file_url ( '$setting', '$setting' );
-        } else {
-            $slideimage = null;
-        }
-        $css = theme_squared_set_slideimage ( $css, $slideimage, $setting );
-    }
+    $css = theme_squared_set_slideimage ( $css, $theme );
     
     // Set the inside header image
     if (! empty ( $theme->settings->headerimagecourse )) {
@@ -138,7 +128,7 @@ function theme_squared_get_backgroundcolorsettings_array($pattern, $input, $flag
 
 /**
  * Add CSS for the category color guide defined in the theme settings
- * 
+ *
  * @param array $bgcolorsettings            
  * @return string
  */
@@ -290,14 +280,18 @@ function theme_squared_set_bgcolordefault($css, $bgcolordefault) {
  *            theme setting string to replace
  * @return string parsed CSS
  */
-function theme_squared_set_slideimage($css, $slideimage, $setting) {
-    global $OUTPUT;
-    $tag = "[[setting:$setting]]";
-    $replacement = $slideimage;
-    if (is_null ( $replacement )) {
-        $replacement = $OUTPUT->pix_url ( $setting, 'theme_squared' );
+function theme_squared_set_slideimage($css, $theme) {
+    global $OUTPUT, $CFG;
+    for($i = 1; $i < 6; $i ++) {
+        $setting = 'slideimage' . $i;
+        $tag = "[[setting:$setting]]";
+        if (! empty ( $theme->settings->$setting )) {
+            $slideimage = $theme->setting_file_url ( $setting, $setting );
+        } else {
+            $slideimage = $OUTPUT->pix_url ( $setting, 'theme_squared' );
+        }
+        $css = str_replace ( $tag, $slideimage, $css );
     }
-    $css = str_replace ( $tag, $replacement, $css );
     return $css;
 }
 
@@ -391,8 +385,12 @@ function theme_squared_set_logo($css, $logo) {
  * @return boolean
  */
 function theme_squared_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
-    if ($context->contextlevel == CONTEXT_SYSTEM and $filearea) {
+    static $theme;
+    if (empty ( $theme )) {
         $theme = theme_config::load ( 'squared' );
+    }
+    
+    if ($context->contextlevel == CONTEXT_SYSTEM and $filearea) {
         return $theme->setting_file_serve ( $filearea, $args, $forcedownload, $options );
     } else {
         send_file_not_found ();

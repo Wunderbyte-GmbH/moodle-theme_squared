@@ -845,3 +845,6 @@ table.user-grade {
 .moodle-dialogue-base .moodle-dialogue {
 	z-index: 99999;
 }
+#page-footer .performanceinfo.siteinfo {
+	margin: 77px 20% 0;
+}
