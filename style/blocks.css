@@ -15,20 +15,35 @@
 
 .block .header {
 	padding: 5px 0px;
+	background-color: transparent;
+}
+.header {
+	background-color: transparent !important;
+	border: none !important;
 }
 
 /* frontpage blocks */
 #page-site-index .block .header {
-	background: [[setting:bgcolordefault]] url([[pix:theme|blockback]]) no-repeat top left;
+	background: url([[pix:theme|blockback]]) no-repeat top left;
+	background-color: transparent !important;
+	}
+
+#page-site-index .block {
+	background-color:  [[setting:bgcolordefault]] !important;
 	}
 
 #page-site-index .block_html.block {
 	cursor: pointer;
-	background: #11847d url([[pix:theme|blockback]]) no-repeat top left;
+	background: url([[pix:theme|blockback]]) no-repeat top left;
+	min-height: 174px;
+	background-color: [[setting:bgcolordefault]];
 }
 #page-site-index .block_html.block .header, #page-site-index .block_html.block .content {
-	background-color: transparent;
 	background-image: none;
+}
+
+#page-site-index .header, .cell {
+	border: none;
 }
 #page-site-index .sqclear {
 	display: none;
@@ -81,31 +96,16 @@
 
 /*course page block header if pinned */
 .coursepage .block.vclass .header, .coursepage .block.vclass.block2 .header, .coursepage .block.vclass.block3 .header, .coursepage .block.vclass.block-hider-show.hidden .header{
-	background: [[setting:bgcolordefault]] url([[pix:theme|smallblock]]) no-repeat top left;
+	background: [[setting:bgcolordefault]] url([[pix:theme|smallblock]]) no-repeat top left !important;
 	box-shadow: -1px 1px 1px rgba(255, 255, 255, 0.15) inset;
 	padding: 0px 0px;
 }
 
-/*set additional small course block colors here, like the below */
-.bgcolor1 .coursepage .block.vclass .header, .bgcolor1 .coursepage .block.vclass.block2 .header, .bgcolor1 .coursepage .block.vclass.block3 .header, .bgcolor1 .coursepage .block.vclass.block-hider-show.hidden .header {
-	background-color: [[setting:bgcolor1]];
-}
 
-.bgcolor2 .coursepage .block.vclass .header, .bgcolor2 .coursepage .block.vclass.block2 .header, .bgcolor2 .coursepage .block.vclass.block3 .header, .bgcolor2 .coursepage .block.vclass.block-hider-show.hidden .header {
-	background-color: [[setting:bgcolor2]];
-}
-
-.bgcolor3 .coursepage .block.vclass .header, .bgcolor3 .coursepage .block.vclass.block2 .header, .bgcolor3 .coursepage .block.vclass.block3 .header, .bgcolor3 .coursepage .block.vclass.block-hider-show.hidden .header {
-	background-color: [[setting:bgcolor3]];
-}
-
-.bgcolor4 .coursepage .block.vclass .header, .bgcolor4 .coursepage .block.vclass.block2 .header, .bgcolor4 .coursepage .block.vclass.block3 .header, .bgcolor4 .coursepage .block.vclass.block-hider-show.hidden .header {
-	background-color: [[setting:bgcolor4]];
-}
 
 /*if pinned, then just the color, not the image also block hover for header */
 .coursepage .block.vclass.block-hider-show .header, .coursepage .block.hidden.vclass:hover .header {
-	background-image: none;
+	background-image: none !important;
 	background-position: -1000px -1000px;
 	box-shadow: none;
 }
@@ -125,7 +125,6 @@
 	min-height: 120px !important;
 	opacity: 1;
 	width: auto;
-
 	padding: 5px 10px;
 	background: #f4f4f4;
 }
@@ -156,29 +155,12 @@
 	width: 154px !important;
 }
 
-/*set additional colors for small blocks here, like the below. you need rgb for opacity */
-.bgcolor1 .coursepage .block.hidden.vclass:hover .content, .bgcolor1 .coursepage .block.vclass.block-hider-show .content {
-	background: [[setting:bgcolor1]];
-}
-
-.bgcolor2 .coursepage .block.hidden.vclass:hover .content, .bgcolor2 .coursepage .block.vclass.block-hider-show .content {
-	background: [[setting:bgcolor2]];
-}
-
-.bgcolor3 .coursepage .block.hidden.vclass:hover .content, .bgcolor3 .coursepage .block.vclass.block-hider-show .content {
-	background: [[setting:bgcolor3]];
-}
-
-.bgcolor4 .coursepage .block.hidden.vclass:hover .content, .bgcolor4 .coursepage .block.vclass.block-hider-show .content {
-	background: [[setting:bgcolor4]];
-}
-
 .coursepage .block.hidden.vclass:hover .content {
 	min-height: 67px !important;
 }
 
 .coursepage .block.vclass.block-hider-show .content {
-	z-index: 99998;
+	z-index: 99000;
 }
 
 .coursepage .block.hidden.vclass.rightblock:hover .content, .coursepage .block.vclass.block-hider-show.rightblock .content {
@@ -236,7 +218,7 @@
 
 /*course page block title */
 .coursepage .block.hidden.vclass .header .title h2, .coursepage .block.vclass .header .title h2 {
-	  font-size: 11px;
+	font-size: 11px;
     margin: 28px 2px -10px 1px;
     max-height: 40px;
     overflow: hidden;
@@ -250,7 +232,7 @@
 }
 
 .coursepage .block.vclass:hover .header {
-	 -webkit-transition: none;
+	-webkit-transition: none;
 	-moz-transition: none;
 	transition: none;
 	height: 86px;

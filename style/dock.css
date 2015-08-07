@@ -110,23 +110,6 @@
     z-index: 99998;    
 }
 
-/*additional colors */
-.bgcolor1 #dock-control, .bgcolor1.idock.editing .block .header .commands {
-	background-color: [[setting:bgcolor1]];
-}
-
-.bgcolor2 #dock-control,  .bgcolor2.idock.editing .block .header .commands{
-	background-color: [[setting:bgcolor2]];
-}
-
-.bgcolor3 #dock-control, .bgcolor3.idock.editing .block .header .commands {
-	background-color: [[setting:bgcolor3]];
-}
-
-.bgcolor4 #dock-control, .bgcolor4.idock.editing .block .header .commands {
-	background-color: [[setting:bgcolor4]];
-}
-
 /*end new dock */
 
 #dock {

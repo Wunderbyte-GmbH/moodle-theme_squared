@@ -11,8 +11,11 @@ html {
 
 [[setting:fontface]]
 
-html,body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,input,textarea {
+html,body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,input,textarea, div {
 	font-family: "SourceSansPro","Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h3 {
+	line-height: normal;
 }
 
 /* background: #f1eee7 url([[pix:theme|bkg]]) no-repeat 100% 0; */
@@ -169,22 +172,22 @@ a:focus {
 }
 
 .frontpage .scroll1 {
-	background: transparent url([[setting:headerback1]]) no-repeat 0px 100%;
+	background: transparent url([[setting:slideimage1]]) no-repeat 0px 100%;
 }
 
 .frontpage .scroll2 {
-	background: transparent url([[setting:headerback2]]) no-repeat 0px 100%;
+	background: transparent url([[setting:slideimage2]]) no-repeat 0px 100%;
 }
 
 .frontpage .scroll3 {
-	background: transparent url([[setting:headerback3]]) no-repeat 0px 100%;
+	background: transparent url([[setting:slideimage3]]) no-repeat 0px 100%;
 }
 
 .frontpage .scroll4 {
-	background: transparent url([[setting:headerback4]]) no-repeat 0px 100%;
+	background: transparent url([[setting:slideimage4]]) no-repeat 0px 100%;
 }
 .frontpage .scroll5 {
-	background: transparent url([[setting:headerback5]]) no-repeat 0px 100%;
+	background: transparent url([[setting:slideimage5]]) no-repeat 0px 100%;
 }
 
 #main-slider .scroll2, #main-slider .scroll3, #main-slider .scroll4, #main-slider .scroll5 {
@@ -193,11 +196,11 @@ a:focus {
 
 #preloader {
 	background: 
-	url([[setting:headerback1]]) no-repeat 0px 100%,
-	url([[setting:headerback2]]) no-repeat 0px 100%,
-	url([[setting:headerback3]]) no-repeat 0px 100% ,
-	url([[setting:headerback4]]) no-repeat 0px 100%,
-	url([[setting:headerback5]]) no-repeat 0px 100%;
+	url([[setting:slideimage1]]) no-repeat 0px 100%,
+	url([[setting:slideimage2]]) no-repeat 0px 100%,
+	url([[setting:slideimage3]]) no-repeat 0px 100% ,
+	url([[setting:slideimage4]]) no-repeat 0px 100%,
+	url([[setting:slideimage5]]) no-repeat 0px 100%;
 	display: none;
 }
 
@@ -220,11 +223,17 @@ a:focus {
 
 .coursepage1 #page-header2 {
 	height: 174px;
-	background: url([[setting:headerbackcourse]]) no-repeat 174px 100%;
+	background: url([[setting:headerimagecourse]]) no-repeat 174px 100%;
 }
 
 /*logo if any*/
 #logo {
+	position: absolute;
+    right: 0;
+    top: -16px;
+}
+
+.www-virtuelle-ph-at #logo {
 	position: absolute;
     right: 100px;
     top: -16px;
@@ -235,6 +244,10 @@ a:focus {
 }
 
 .coursepage #logo {
+	right: 0;
+}
+
+.www-virtuelle-ph-at .coursepage #logo {
 	right: 90px;
 }
 
@@ -295,23 +308,6 @@ a:focus {
 	border-bottom: 3px solid [[setting:bgcolordefault]];
     font-weight: 800;
     padding-bottom: 6px;
-}
-
-/*additional colors */
-.bgcolor1 .breadcrumb li:last-child a {
-	border-bottom-color: [[setting:bgcolor1]];
-}
-
-.bgcolor2 .breadcrumb li:last-child a {
-	border-bottom-color: [[setting:bgcolor2]];
-}
-
-.bgcolor3 .breadcrumb li:last-child a {
-	border-bottom-color: [[setting:bgcolor3]];
-}
-
-.bgcolor4 .breadcrumb li:last-child a {
-	border-bottom-color: [[setting:bgcolor4]];
 }
 
 /* footer */
@@ -477,22 +473,6 @@ div.redirectmessage {
 	color: #fff;
 }
 
-/*additional colors */
-.bgcolor1 .tabtree .tabrow0 .here a, .bgcolor1 .tabtree .tabrow0 li a:hover {
-	background-color: [[setting:bgcolor1]];
-}
-
-.bgcolor2 .tabtree .tabrow0 .here a, .bgcolor2 .tabtree .tabrow0 li a:hover {
-	background-color: [[setting:bgcolor2]];
-}
-
-.bgcolor3 .tabtree .tabrow0 .here a, .bgcolor3 .tabtree .tabrow0 li a:hover {
-	background-color: [[setting:bgcolor3]];
-}
-
-.bgcolor4 .tabtree .tabrow0 .here a, .bgcolor4 .tabtree .tabrow0 li a:hover {
-	background-color: [[setting:bgcolor4]];
-}
 
 .tabtree .tabrow0 li a, .tabtree .tabrow0 li a:hover {
     border-color: #fff;
@@ -660,22 +640,6 @@ input[type="submit"], input[type="button"], #searchform_button, .standardbutton 
 	text-transform: uppercase;
 }
 
-.bgcolor1 input[type="submit"], .bgcolor1 input[type="button"] {
-	background: [[setting:bgcolor1]];
-}
-
-.bgcolor2 input[type="submit"], .bgcolor2 input[type="button"] {
-	background: [[setting:bgcolor2]];
-}
-
-.bgcolor3 input[type="submit"], .bgcolor3 input[type="button"] {
-	background: [[setting:bgcolor3]];
-}
-
-.bgcolor4 input[type="submit"], .bgcolor4 input[type="button"] {
-	background: [[setting:bgcolor4]];
-}
-
 input[type="submit"]:hover, input[type="button"]:hover, #searchform_button:hover, .standardbutton:hover{
 	box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -801,18 +765,16 @@ table.user-grade {
 #newright-column .nc1, #newright-column .nc2 {
 	width: 175px;
 	min-height: 100px;
-	background: #ccc;
 	float: right;
 	padding-top: 100px;
 }
 
 #newright-column .nc1 {
-	background: url([[pix:theme|glossar]]) no-repeat top left;
+
 }
 
 #newright-column .nc2 {
 	margin-left: 25px;
-	background: url([[pix:theme|katalog]]) no-repeat top left;
 }
 
 #newright-column .nc1 p {
@@ -882,4 +844,7 @@ table.user-grade {
 
 .moodle-dialogue-base .moodle-dialogue {
 	z-index: 99999;
+}
+#page-footer .performanceinfo.siteinfo {
+	margin: 77px 20% 0;
 }

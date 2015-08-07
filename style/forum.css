@@ -13,31 +13,17 @@
 	border: 1px solid #fff;
 	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
 	width: auto;
+	height: 43px;
 }
 
 .forumpost .row .left.picture {
     float: left;
     overflow: hidden;
     width: 43px;
-    padding-top: 5px;
+    padding: 0;
     background: url([[pix:theme|section-box-bg]]) no-repeat top left;
 	background-color: [[setting:bgcolordefault]];
-}
-
-.bgcolor1 .forumpost .row .left.picture {
-	background: [[setting:bgcolor1]];
-}
-
-.bgcolor2 .forumpost .row .left.picture {
-	background: [[setting:bgcolor2]];
-}
-
-.bgcolor3 .forumpost .row .left.picture {
-	background: [[setting:bgcolor3]];
-}
-
-.bgcolor4 .forumpost .row .left.picture {
-	background: [[setting:bgcolor4]];
+	height: 43px;
 }
 
 .forumpost .row .topic {
@@ -174,20 +160,4 @@ div.subscribelink {
 
 .forumpost.unread .maincontent {
     border: 2px solid red;
-}
-
-.bgcolor1 .forumpost.unread .maincontent {
-	 border: 2px solid [[setting:bgcolor1]];
-}
-
-.bgcolor2 .forumpost.unread .maincontent {
-	 border: 2px solid [[setting:bgcolor2]];
-}
-
-.bgcolor3 .forumpost.unread .maincontent {
-	 border: 2px solid [[setting:bgcolor3]];
-}
-
-.bgcolor4 .forumpost.unread .maincontent {
-	 border: 2px solid [[setting:bgcolor4]];
 }
