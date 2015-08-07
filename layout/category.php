@@ -181,9 +181,9 @@ echo $OUTPUT->squared_render_searchform ();
 <div class="innertube">
 						<a href="<?php p($CFG->wwwroot) ?>/my/"><?php p(get_string('mycourses')); ?></a>
 
-						<a href="<?php p($CFG->wwwroot) ?>/message/"><?php p(get_string('messaging','message')); ?></a>
+						<a href="<?php p($CFG->wwwroot) ?>/message/"><?php p(get_string('messaging', 'message')); ?></a>
 
-						<a href="<?php p($CFG->wwwroot) ?>/user/profile.php"><?php p(get_string('myprofile')); ?></a>
+						<a href="<?php p($CFG->wwwroot) ?>/user/profile.php"><?php p(get_string('myprofile', 'theme_squared')); ?></a>
 					</div>
 <?php } else { ?>
 <div class="innertube">

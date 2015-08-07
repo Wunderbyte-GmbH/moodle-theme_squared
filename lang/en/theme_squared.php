@@ -53,6 +53,7 @@ $string['headerimagecourse'] = 'Background image for course and modules header';
 $string['headerimagecoursedesc'] = 'Set the header background image for courses and modules. Has to be 696px x 174px';
 $string['logo'] = 'Logo on frontpage';
 $string['logodesc'] = 'Please upload your custom logo for the frontpage here (optional).';
+$string['myprofile'] = 'My profile';
 $string['numberofslides'] = 'Number of slides';
 $string['numberofslidesdesc'] = 'Number of slides to use for the slideshow on the frontpage';
 $string['pagelogo'] = 'Logo on course pages';

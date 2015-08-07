@@ -108,4 +108,6 @@ Version Information
 ===================
  7th August 2015 - Version 2.9.0.1.
   1. Implement API and style changes necessary for M2.9 - task #380.
-
+  2. Put back 'html5shiv.js' - task #380.
+  3. Implement own 'myprofile' string as has been depreciated - task #380.  TODO: Need other versions besides English.
+  4. Use class autoloading for core_renderer - task #380.

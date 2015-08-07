@@ -439,8 +439,8 @@ function theme_squared_set_customcss($css, $customcss) {
  * @param moodle_page $page            
  */
 function theme_squared_page_init(moodle_page $page) {
-    /*$page->requires->jquery ();
+    $page->requires->jquery ();
     $page->requires->jquery_plugin ( 'jqueryflexslider', 'theme_squared' );
     $page->requires->jquery_plugin ( 'jqueryeasing', 'theme_squared' );
-    $page->requires->jquery_plugin ( 'custom', 'theme_squared' );*/
+    $page->requires->jquery_plugin ( 'custom', 'theme_squared' );
 }
