@@ -206,10 +206,9 @@ $THEME->layouts = array (
 /**
  * List of javascript files that need to included on each page
  */
-$THEME->javascripts = array (
-        'yui_squared' 
+$THEME->javascripts_footer = array(
+    'squared'
 );
-$THEME->javascripts_footer = array ();
 
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
 $THEME->csspostprocess = 'theme_squared_process_css';

@@ -103,3 +103,9 @@ When reporting an issue you can check he issue list https://github.com/dasistwas
 It is important that you provide as much information as possible, the critical information being the contents of the theme's 
 'version.php' file.  Other version information such as specific Moodle version, theme name and version also helps. A screen shot
 can be really useful in visualising the issue along with any files you consider to be relevant.
+
+Version Information
+===================
+ 7th August 2015 - Version 2.9.0.1.
+  1. Implement API and style changes necessary for M2.9 - task #380.
+
