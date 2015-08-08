@@ -15,11 +15,14 @@ $THEME->sheets = array (
         'course',
         'dock',
         'pagelayout',
-        
+
         // use for two column layouts
         'forum',
         'effects',
-        'mod' 
+        'mod',
+
+        // Grid format override.
+        'grid'
 );
 
 $THEME->enable_dock = false;

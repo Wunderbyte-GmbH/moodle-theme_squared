@@ -1,0 +1,10 @@
+/* Grid format overrides */
+/* As lots of z-index declarations in Squared, make Grid higher and then test content. */
+
+body.format-grid div#gridshadebox_overlay { /* Using more specific selector to ensure used. */
+    z-index: 100000;
+}
+
+body.format-grid div#gridshadebox_content { /* Using more specific selector to ensure used. */
+    z-index: 100000;
+}
