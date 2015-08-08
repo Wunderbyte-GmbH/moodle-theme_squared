@@ -470,4 +470,33 @@ div.datapreferences {
 	overflow: inherit;
 }
 
+/* Category background colours. */
+
+.course_category_tree .category >.info, .course_category_tree .category >.info .categoryname {
+    position: relative;
+}
+
+.course_category_tree .category >.info {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.course_category_tree .category >.info .categoryname {
+    border: 1px solid #fff;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.course_category_tree .category >.info > span.squared {
+    position: absolute;
+    left: 4px;
+    top: 0px;
+    width: 16px;
+    height: 24px;
+    /* background-image: url([[pix:theme|section-box-bg]]) no-repeat top left; */
+}
+
 [[setting:customcss]]

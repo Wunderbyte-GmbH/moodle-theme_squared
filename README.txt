@@ -108,6 +108,7 @@ Version Information
 ===================
  8th August 2015 - Version 2.9.0.2.
   1. Make theme compatible with course format grid view - task #703.
+  2. Implement core course category renderer override - task #388 - Work in progress.
 
  7th August 2015 - Version 2.9.0.1.
   1. Implement API and style changes necessary for M2.9 - task #380.

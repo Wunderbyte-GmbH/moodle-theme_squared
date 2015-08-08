@@ -218,7 +218,14 @@ function theme_squared_add_categorycolorguide_css($bgcolorsettings) {
         $css .= "#page-my-index.category-$categoryid .block_course_overview.block .header {
 	           background-color: $color; }
         ";
-        
+
+        /**
+         * course.css category listing *
+         */
+        $css .= ".course_category_tree .category.categoryid-$categoryid >.info > span.squared {
+               background-color: $color; }
+        ";
+
         /**
          * dock.css dock *
          */
