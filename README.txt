@@ -109,6 +109,7 @@ Version Information
  9th August 2015 - Version 2.9.0.3.
   1. Implement core course category renderer override - task #388 - Work in progress.
   2. When in edit mode and expanding the settings in a block in the left column, the opening panel is not displayed correctly - task #707.
+  3. Front page blocks expanded instead of "squares" - task #706.
 
  8th August 2015 - Version 2.9.0.2.
   1. Make theme compatible with course format grid view - task #703.
