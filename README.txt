@@ -106,6 +106,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+ 9th August 2015 - Version 2.9.0.3.
+  1. Implement core course category renderer override - task #388 - Work in progress.
+
  8th August 2015 - Version 2.9.0.2.
   1. Make theme compatible with course format grid view - task #703.
   2. Implement core course category renderer override - task #388 - Work in progress.
