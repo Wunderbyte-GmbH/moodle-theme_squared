@@ -281,3 +281,11 @@ background-image: linear-gradient(to bottom,#0070a8,#005f8f);
 background-repeat: repeat-x;
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0070a8',endColorstr='#ff005f8f',GradientType=0);
 }
+
+.block-region .moodle-actionmenu[data-enhanced].show .menu {
+    position: relative;
+}
+
+.editing .block-region .block .header .commands, .block-region .block .moodle-actionmenu {
+    text-align: left;
+}
