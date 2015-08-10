@@ -23,7 +23,10 @@ $THEME->sheets = array (
         'mod',
 
         // Grid format override.
-        'grid'
+        'grid',
+
+        // Custom css.
+        'custom'
 );
 
 $THEME->enable_dock = false;

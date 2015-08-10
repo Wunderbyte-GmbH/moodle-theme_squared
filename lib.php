@@ -12,7 +12,7 @@ function theme_squared_process_css($css, $theme) {
     global $CFG;
     
     $bgcolorsettings = theme_squared_get_backgroundcolorsettings_array ( '/bgcolor_.+/', $theme->settings );
-    $css .= theme_squared_add_categorycolorguide_css ( $bgcolorsettings );
+    $css = theme_squared_add_categorycolorguide_css ( $css, $bgcolorsettings );
     
     if (! empty ( $theme->settings->bgcolordefault )) {
         $bgcolordefault = $theme->settings->bgcolordefault;
@@ -60,11 +60,12 @@ function theme_squared_get_backgroundcolorsettings_array($pattern, $input, $flag
 /**
  * Add CSS for the category color guide defined in the theme settings
  *
+ * @param string $css            
  * @param array $bgcolorsettings            
  * @return string
  */
-function theme_squared_add_categorycolorguide_css($bgcolorsettings) {
-    $css = "";
+function theme_squared_add_categorycolorguide_css($css, $bgcolorsettings) {
+    $replacement = "";
     foreach ( $bgcolorsettings as $settingname => $color ) {
         if (! isset ( $color ) || $color == '') {
             $color = "blue";
@@ -75,7 +76,7 @@ function theme_squared_add_categorycolorguide_css($bgcolorsettings) {
         /**
          * blocks.css set additional small course block colors *
          */
-        $css .= ".category-$categoryid .coursepage .block.vclass .header, .category-$categoryid .coursepage .block.vclass.block2 .header, .category-$categoryid .coursepage .block.vclass.block3 .header, .category-$categoryid .coursepage .block.vclass.block-hider-show.hidden .header {
+        $replacement .= ".category-$categoryid .coursepage .block.vclass .header, .category-$categoryid .coursepage .block.vclass.block2 .header, .category-$categoryid .coursepage .block.vclass.block3 .header, .category-$categoryid .coursepage .block.vclass.block-hider-show.hidden .header {
     	background-color: $color !important; }
         ";
         
@@ -83,98 +84,98 @@ function theme_squared_add_categorycolorguide_css($bgcolorsettings) {
          * blocks.css set additional colors for small blocks, like the below.
          * you need rgb for opacity *
          */
-        $css .= ".category-$categoryid .coursepage .block.hidden.vclass:hover .content, .category-$categoryid .coursepage .block.vclass.block-hider-show .content {
+        $replacement .= ".category-$categoryid .coursepage .block.hidden.vclass:hover .content, .category-$categoryid .coursepage .block.vclass.block-hider-show .content {
             background: $color; }
         ";
         
         /**
          * core.css custom breadcrumb color *
          */
-        $css .= ".category-$categoryid .breadcrumb li:last-child a {
+        $replacement .= ".category-$categoryid .breadcrumb li:last-child a {
 	           border-bottom-color: $color; }
         ";
         
         /**
          * core.css tabs color*
          */
-        $css .= ".category-$categoryid .tabtree .tabrow0 .here a, .category-$categoryid .tabtree .tabrow0 li a:hover {
+        $replacement .= ".category-$categoryid .tabtree .tabrow0 .here a, .category-$categoryid .tabtree .tabrow0 li a:hover {
 	           background-color: $color; }
         ";
         
         /**
          * core.css buttons *
          */
-        $css .= ".category-$categoryid input[type=\"submit\"], .category-$categoryid input[type=\"button\"] {
+        $replacement .= ".category-$categoryid input[type=\"submit\"], .category-$categoryid input[type=\"button\"] {
                 background: $color; }
         ";
         
         /**
          * course.css movecourses *
          */
-        $css .= "#page-course-index-category.category-$categoryid #movecourses .catheadwrap {
+        $replacement .= "#page-course-index-category.category-$categoryid #movecourses .catheadwrap {
 	       background-color: $color; }
         ";
         
         /**
          * course.css heading *
          */
-        $css .= ".path-course-view.category-$categoryid .headingwrap1 {
+        $replacement .= ".path-course-view.category-$categoryid .headingwrap1 {
 	           background-color: $color; }
         ";
         
         /**
          * course.css table header *
          */
-        $css .= "#page-course-index-category.category-$categoryid .category_subcategories th {
+        $replacement .= "#page-course-index-category.category-$categoryid .category_subcategories th {
 	           background-color: $color; }
         ";
         
         /**
          * course.css heading wrap *
          */
-        $css .= "#page-course-index-category.category-$categoryid #movecourses .catheadwrap {
+        $replacement .= "#page-course-index-category.category-$categoryid #movecourses .catheadwrap {
 	           background-color: $color; }
         ";
         
         /**
          * course.css table header *
          */
-        $css .= "#page-course-index-category.category-$categoryid .category_subcategories th {
+        $replacement .= "#page-course-index-category.category-$categoryid .category_subcategories th {
 	           background-color: $color; }
         ";
         
         /**
          * course.css buttons *
          */
-        $css .= "#page-my-index.category-$categoryid .block_course_overview.block .header {
+        $replacement .= "#page-my-index.category-$categoryid .block_course_overview.block .header {
 	           background-color: $color; }
         ";
 
         /**
          * dock.css dock *
          */
-        $css .= ".category-$categoryid #dock-control, .category-$categoryid.idock.editing .block .header .commands {
+        $replacement .= ".category-$categoryid #dock-control, .category-$categoryid.idock.editing .block .header .commands {
 	           background-color: $color; }
         ";
         
         /**
          * forum.css userpicture *
          */
-        $css .= ".category-$categoryid .forumpost .row .left.picture {
+        $replacement .= ".category-$categoryid .forumpost .row .left.picture {
 	           background: $color; }
         ";
         
         /**
          * forum.css forumpost *
          */
-        $css .= ".category-$categoryid .forumpost.unread .maincontent {
+        $replacement .= ".category-$categoryid .forumpost.unread .maincontent {
         border: 2px solid $color; }
         ";
         
         /**
          * menu.css background color for top level elements in custom menu (quicknavi) *
          */
-        $css .= "#custommenu .yui3-menu-content li.category-$categoryid a, #custommenu .yui3-menu-content li.category-$categoryid .custom_menu_submenu {
+        $replacement .= "#custommenu .yui3-menu-content li.category-$categoryid a, #custommenu .yui3-menu-content li.category-$categoryid .custom_menu_submenu {
 	            background-color: $color !important; }
         ";
     }
@@ -185,10 +186,12 @@ function theme_squared_add_categorycolorguide_css($bgcolorsettings) {
         /**
          * course.css category listing *
          */
-        $css .= ".course_category_tree .category.topcategoryid-$key >.info > span.squared {
+        $replacement .= ".course_category_tree .category.topcategoryid-$key >.info > span.squared {
                background-color: $color; }
         ";
     }
+
+    $css = str_replace ( '[[setting:categorycolorguidecss]]', $replacement, $css );
 
     return $css;
 }
