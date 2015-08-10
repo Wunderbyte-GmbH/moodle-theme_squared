@@ -504,7 +504,7 @@ body.pagelayout-frontpage .block.vclass .content a {
 .outerleftblocks h3, .innertube h3 {
 	color: #fff;
 	font-weight: bold;
-	font-family: "SourceSansPro","Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 1.6em;
 	text-transform: uppercase;
 }
@@ -672,7 +672,7 @@ body.pagelayout-frontpage .block.vclass .content a {
 	display: block;
 	padding-left: 10px;
 	padding-bottom: 15px;
-	font-family: "SourceSansPro","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #333;
 	background: url([[pix:theme|white-buttlet]]) no-repeat 0px 6px !important;
 }
@@ -795,7 +795,7 @@ body.pagelayout-frontpage .block.vclass .content a {
 .headerblock.text .inner span {
 	color: #fff;
 	font-size: 22px;
-	font-family: "SourceSansPro","Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: bold;
 	text-align: center;
 	vertical-align: middle; 

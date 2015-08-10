@@ -9,6 +9,7 @@ $THEME->parents = array (
 
 // below are our theme's css sheets
 $THEME->sheets = array (
+        'font',
         'core',
         'menu',
         'blocks',

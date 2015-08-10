@@ -10,7 +10,6 @@
  */
 function theme_squared_process_css($css, $theme) {
     global $CFG;
-    $css = theme_squared_include_fonts ( $css, $theme );
     
     $bgcolorsettings = theme_squared_get_backgroundcolorsettings_array ( '/bgcolor_.+/', $theme->settings );
     $css .= theme_squared_add_categorycolorguide_css ( $bgcolorsettings );
@@ -39,74 +38,6 @@ function theme_squared_process_css($css, $theme) {
     
     $css = theme_squared_set_customcss ( $css, $customcss );
     // Return the CSS
-    return $css;
-}
-
-/**
- * include local fonts
- *
- * @param string $css            
- * @return string CSS with local font
- */
-function theme_squared_include_fonts($css) {
-    global $CFG, $PAGE;
-    if (empty ( $CFG->themewww )) {
-        $themewww = $CFG->wwwroot . "/theme";
-    } else {
-        $themewww = $CFG->themewww;
-    }
-    $tag = '[[setting:fontface]]';
-    $replacement = '
-   @font-face {
-   font-family: "SourceSansPro";
-   src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Regular.eot");
-     src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Regular.eot?#iefix") format("embedded-opentype"),
-       url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Regular.otf.woff") format("woff");
-             font-weight: normal;
-             font-style: normal;
-}
-   @font-face {
-   font-family: "SourceSansPro";
-   src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Semibold.eot");
-     src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Semibold.eot?#iefix") format("embedded-opentype"),
-       url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Semibold.otf.woff") format("woff");
-             font-weight: bold;
-             font-style: normal;
-}
-   @font-face {
-   font-family: "SourceSansPro";
-   src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-It.eot");
-     src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-It.eot?#iefix") format("embedded-opentype"),
-       url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-It.otf.woff") format("woff");
-             font-weight: normal;
-             font-style: italic;
-}
-   @font-face {
-   font-family: "SourceSansPro";
-   src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-SemiboldIt.eot");
-     src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-SemiboldIt.eot?#iefix") format("embedded-opentype"),
-       url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-SemiboldIt.otf.woff") format("woff");
-             font-weight: bold;
-             font-style: italic;
-}
-   @font-face {
-   font-family: "SourceSansPro-Light";
-   src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Light.eot");
-     src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Light.eot?#iefix") format("embedded-opentype"),
-       url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Light.otf.woff") format("woff");
-             font-weight: normal;
-             font-style: normal;
-}
-   @font-face {
-   font-family: "SourceSansPro-Light";
-   src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-LightIt.eot");
-     src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-LightIt.eot?#iefix") format("embedded-opentype"),
-       url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-LightIt.otf.woff") format("woff");
-             font-weight: normal;
-             font-style: italic;
-}
-                       ';
-    $css = str_replace ( $tag, $replacement, $css );
     return $css;
 }
 

@@ -9,10 +9,8 @@ html {
     overflow-y: scroll;
 }
 
-[[setting:fontface]]
-
 html,body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,input,textarea, div {
-	font-family: "SourceSansPro","Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 h3 {
 	line-height: normal;
@@ -45,7 +43,7 @@ a:focus {
 
 /* real main headings */
 .headingblock, .sitetopic h2 {
-  font-family: "SourceSansPro","Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #31ABDC;
   border-bottom: 0px solid #eee;
   font-weight: bold;

@@ -111,6 +111,7 @@ Version Information
   2. Frontpage blocks - task #708.
   3. Apply top level bg category colour to all sub-categories and also courses within sub categories - task #709.
   4. Dock blocks on course pages with click on double chevron icon: Does not work anymore - task #711.
+  5. Custom font is not loaded - task #713.
 
  9th August 2015 - Version 2.9.0.3.
   1. Implement core course category renderer override - task #388 - Work in progress.
