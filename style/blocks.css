@@ -29,8 +29,8 @@
 	}
 
 #page-site-index .block {
-	background-color:  [[setting:bgcolordefault]] !important;
-	}
+    background-color:  [[setting:bgcolordefault]];
+}
 
 #page-site-index .block_html.block {
 	cursor: pointer;
@@ -126,7 +126,6 @@
 	opacity: 1;
 	width: auto;
 	padding: 5px 10px;
-	background: #f4f4f4;
 }
 
 .block_html.block.hidden.vclass:hover .content, .block_html.vclass.block-hider-show .content {
@@ -167,8 +166,12 @@
 	margin-left: -87px;
 }
 
-/* coursepage block text color */
-.coursepage .block.hidden.vclass:hover .content, .coursepage .block.hidden.vclass:hover .content li, .coursepage .block.hidden.vclass:hover .content table, .coursepage .block.hidden.vclass:hover .content p, .coursepage .block.vclass.block-hider-show .content {
+/* Block text color */
+.block.hidden.vclass:hover .content,
+.block.hidden.vclass:hover .content li,
+.block.hidden.vclass:hover .content table,
+.block.hidden.vclass:hover .content p,
+.block.vclass.block-hider-show .content {
 	color: #eee;
 }
 
@@ -177,7 +180,11 @@
 	overflow: visible;
 }
 
-.block_html.block .content a, .coursepage .block.hidden.vclass:hover .content a, .coursepage .block.vclass.block-hider-show .content a {
+.block_html.block .content a,
+.coursepage .block.hidden.vclass:hover .content a,
+.coursepage .block.vclass.block-hider-show .content a,
+body.pagelayout-frontpage .block.vclass .content,
+body.pagelayout-frontpage .block.vclass .content a {
 	color: #fff;
 }
 
@@ -214,6 +221,7 @@
 	font-weight: bold;
 	text-transform: uppercase;
 	text-align: center;
+    word-wrap: break-word;
 }
 
 /*course page block title */
@@ -223,7 +231,6 @@
     max-height: 40px;
     overflow: hidden;
     width: 82px;
-    word-wrap: break-word;
 }
 
 .block.vclass:hover .header {
