@@ -274,13 +274,12 @@ class theme_squared_core_renderer extends core_renderer {
         if ($menunode->has_children ()) {
             // If the child has menus render it as a sub menu
             $submenucount ++;
+            $cssclass = '';
             if ($menunode->get_url () !== null) {
                 $url = $menunode->get_url ();
                 $categoryid = $url->get_param ( 'categoryid' );
                 if (! empty ( $categoryid )) {
                     $cssclass = ' category-' . $categoryid;
-                } else {
-                    $cssclass = '';
                 }
             } else {
                 $url = '#cm_submenu_' . $submenucount;
