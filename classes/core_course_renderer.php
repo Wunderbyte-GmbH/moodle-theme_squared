@@ -38,13 +38,14 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     protected function coursecat_category(coursecat_helper $chelper, $coursecat, $depth) {
-        // open category tag
-        $classes = array('category', 'categoryid-'.$coursecat->id);
+        // Open category tag.
+        $toplevelid = (!$coursecat->parent) ? $coursecat->id : $coursecat->parent; 
+        $classes = array('category', 'topcategoryid-'.$toplevelid);
         if (empty($coursecat->visible)) {
             $classes[] = 'dimmed_category';
         }
         if ($chelper->get_subcat_depth() > 0 && $depth >= $chelper->get_subcat_depth()) {
-            // do not load content
+            // Do not load content.
             $categorycontent = '';
             $classes[] = 'notloaded';
             if ($coursecat->get_children_count() ||
@@ -53,7 +54,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $classes[] = 'collapsed';
             }
         } else {
-            // load category content
+            // Load category content.
             $categorycontent = $this->coursecat_category_content($chelper, $coursecat, $depth);
             $classes[] = 'loaded';
             if (!empty($categorycontent)) {
@@ -72,7 +73,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             'data-type' => self::COURSECAT_TYPE_CATEGORY,
         ));
 
-        // category name
+        // Category name.
         $categoryname = $coursecat->get_formatted_name();
         $categoryname = html_writer::link(new moodle_url('/course/index.php',
                 array('categoryid' => $coursecat->id)),
@@ -88,12 +89,12 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $content .= html_writer::tag(($depth > 1) ? 'h4' : 'h3', $categoryname, array('class' => 'categoryname'));
         $content .= html_writer::end_tag('div'); // .info
 
-        // add category content to the output
+        // Add category content to the output.
         $content .= html_writer::tag('div', $categorycontent, array('class' => 'content'));
 
         $content .= html_writer::end_tag('div'); // .category
 
-        // Return the course category tree HTML
+        // Return the course category tree HTML.
         return $content;
     }
 }

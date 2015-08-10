@@ -220,13 +220,6 @@ function theme_squared_add_categorycolorguide_css($bgcolorsettings) {
         ";
 
         /**
-         * course.css category listing *
-         */
-        $css .= ".course_category_tree .category.categoryid-$categoryid >.info > span.squared {
-               background-color: $color; }
-        ";
-
-        /**
          * dock.css dock *
          */
         $css .= ".category-$categoryid #dock-control, .category-$categoryid.idock.editing .block .header .commands {
@@ -254,7 +247,18 @@ function theme_squared_add_categorycolorguide_css($bgcolorsettings) {
 	            background-color: $color !important; }
         ";
     }
-    
+
+    $squaredcategorytree = \theme_squared\toolbox::get_top_level_categories();
+    foreach($squaredcategorytree as $key => $value) {
+        $color = $bgcolorsettings['bgcolor_'.$key];
+        /**
+         * course.css category listing *
+         */
+        $css .= ".course_category_tree .category.topcategoryid-$key >.info > span.squared {
+               background-color: $color; }
+        ";
+    }
+
     return $css;
 }
 

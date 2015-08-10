@@ -109,6 +109,7 @@ Version Information
 10th August 2015 - Version 2.9.0.4.
   1. Fix Notice: Undefined variable: cssclass in /usr/www/users/lernst/laborblank_net/theme/squared/classes/core_renderer.php on line 290 - task #710.
   2. Frontpage blocks - task #708.
+  3. Apply top level bg category colour to all sub-categories and also courses within sub categories - task #709.
 
  9th August 2015 - Version 2.9.0.3.
   1. Implement core course category renderer override - task #388 - Work in progress.

@@ -502,4 +502,13 @@ div.datapreferences {
     /* background-image: url([[pix:theme|section-box-bg]]) no-repeat top left; */
 }
 
+.course_category_tree .category .subcategories .category > .info > span.squared {
+    width: 20px;
+    height: 20px;
+}
+
+.course_category_tree .category .subcategories .category > .info > .categoryname {
+    background-position: 3px;
+}
+
 [[setting:customcss]]
