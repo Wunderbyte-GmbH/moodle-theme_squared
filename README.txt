@@ -106,6 +106,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+11th August 2015 - Version 2.9.0.5.
+  1. Editing mode on course page: admin block stays over settings panel - task #714.
+
 10th August 2015 - Version 2.9.0.4.
   1. Fix Notice: Undefined variable: cssclass in /usr/www/users/lernst/laborblank_net/theme/squared/classes/core_renderer.php on line 290 - task #710.
   2. Frontpage blocks - task #708.

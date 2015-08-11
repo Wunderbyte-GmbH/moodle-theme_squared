@@ -72,12 +72,15 @@
 .coursepage #region-pre .rightblock {
 	margin-right: 1px;
 	margin-top: 0;
-	z-index: 800;
+	z-index: auto;
 	width: 86px;
 	background-color: transparent;
 	margin-bottom: auto;
 	margin-left: auto;
 	float: right;
+}
+.coursepage #region-pre .block .header .commands {
+    z-index: 1000;
 }
 
 .coursepage .block.hidden.vclass, .coursepage .block_html.block.vclass, .coursepage .block.hidden.vclass.block2, .coursepage .block_html.block.vclass.block2, .coursepage .block.hidden.vclass.block3, .coursepage .block_html.block.vclass.block3, .coursepage .block.vclass.block-hider-show {
@@ -217,7 +220,7 @@ body.pagelayout-frontpage .block.vclass .content a {
 .block.hidden.vclass .header .title h2, .block.vclass .header .title h2 {
 	color: #fff;
 	font-size: 22px;
-	font-family: "SourceSansPro","Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: bold;
 	text-transform: uppercase;
 	text-align: center;
