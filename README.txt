@@ -109,6 +109,7 @@ Version Information
 11th August 2015 - Version 2.9.0.5.
   1. Editing mode on course page: admin block stays over settings panel - task #714.
   2. Reduce font-size in h3. sectionname - task #715.
+  3. Frontpage blocks - task #708.
 
 10th August 2015 - Version 2.9.0.4.
   1. Fix Notice: Undefined variable: cssclass in /usr/www/users/lernst/laborblank_net/theme/squared/classes/core_renderer.php on line 290 - task #710.

@@ -225,6 +225,7 @@ body.pagelayout-frontpage .block.vclass .content a {
 	text-transform: uppercase;
 	text-align: center;
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 /*course page block title */
