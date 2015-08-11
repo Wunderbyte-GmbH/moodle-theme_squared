@@ -39,7 +39,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      */
     protected function coursecat_category(coursecat_helper $chelper, $coursecat, $depth) {
         // Open category tag.
-        $toplevelid = (!$coursecat->parent) ? $coursecat->id : $coursecat->parent; 
+        $parents = \coursecat::get($coursecat->id)->get_parents();
+        $toplevelid = (empty($parents)) ? $coursecat->id : $parents[0]; 
         $classes = array('category', 'topcategoryid-'.$toplevelid);
         if (empty($coursecat->visible)) {
             $classes[] = 'dimmed_category';
