@@ -67,8 +67,11 @@ span.completionprogress {
 }
 
 .path-course-view .headingwrap1 {
-	background: [[setting:bgcolordefault]] url([[pix:theme|section-box-bg]]) no-repeat top left;
-	border: 1px solid #fff;
+    background: -webkit-linear-gradient(left top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(bottom right, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(bottom right, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)); /* Standard syntax */
+    border: 1px solid #fff;
 	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
 }
 
@@ -82,13 +85,13 @@ span.completionprogress {
 }
 
 h3.sectionname, .course-content .section-summary h3.section-title {
-	background: #dadbdb url([[pix:theme|h3sections]]) repeat-x top left; 
-	font-size: 20px;
-	color: #000;
-	font-weight: normal;
-	margin-bottom: 0px;
-	margin: 0 0;
-	padding: 10px 15px;
+    background: #dadbdb url([[pix:theme|h3sections]]) repeat-x top left; 
+    font-size: 18px;
+    color: #000;
+    font-weight: normal;
+    margin-bottom: 0px;
+    margin: 0 0;
+    padding: 10px 15px;
 }
 
 .section ul.section, .section div.summarytext {

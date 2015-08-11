@@ -120,9 +120,9 @@ function theme_squared_add_categorycolorguide_css($css, $bgcolorsettings) {
          * course.css heading *
          */
         $replacement .= ".path-course-view.category-$categoryid .headingwrap1 {
-	           background-color: $color; }
+            background-color: $color; }
         ";
-        
+
         /**
          * course.css table header *
          */
