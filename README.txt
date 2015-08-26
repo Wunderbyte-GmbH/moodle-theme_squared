@@ -106,6 +106,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+26th August 2015 - Version 2.9.1.
+  1. First stable release for Moodle 2.9 - task #722.
+  2. Notification for not filling out required fields in mod questionnaire is white font on white background - task #721.
+
 11th August 2015 - Version 2.9.0.5.
   1. Editing mode on course page: admin block stays over settings panel - task #714.
   2. Reduce font-size in h3. sectionname - task #715.

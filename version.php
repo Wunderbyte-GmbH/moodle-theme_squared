@@ -26,10 +26,10 @@
  */
 defined ( 'MOODLE_INTERNAL' ) || die ();
 
-$plugin->version = 2015080704; // The current module version (Date: YYYYMMDDXX)
+$plugin->version = 2015080705; // The current module version (Date: YYYYMMDDXX)
 $plugin->requires  = 2015051100.00; // 2.9 (Build: 20150511).
-$plugin->release = "Red Square 2.9.0.5"; // Release name: famous squares around the world followed by Moodle version followed by number
-$plugin->maturity = MATURITY_BETA;
+$plugin->release = "Heldenplatz Square 2.9.1"; // Release name: famous squares around the world followed by Moodle version followed by number.
+$plugin->maturity = MATURITY_STABLE;
 $plugin->component = 'theme_squared'; // Full name of the plugin (used for diagnostics)
 $plugin->dependencies = array (
         'theme_canvas' => 2015051100,

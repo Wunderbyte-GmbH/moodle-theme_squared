@@ -43,3 +43,9 @@ table.glossarycategoryheader th h2.main {
 		border-bottom: 5px solid #ddd;
 		margin-bottom: -7px;	
 }
+
+/* mod_questionnaire */
+#page-mod-questionnaire-complete .notifyproblem, #page-mod-questionnaire-preview .notifyproblem {
+    border-color: red;
+    background-color: red;
+}
