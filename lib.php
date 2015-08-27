@@ -274,11 +274,16 @@ function theme_squared_get_login_url() {
     }
     $authplugin = get_auth_plugin ( 'mnet' );
     $authurl = $authplugin->loginpage_idp_list ( $urltogo );
-    // check the id of the MNET host for the idp
-    $host = $DB->get_field ( 'mnet_host', 'name', array (
-            'id' => $PAGE->theme->settings->alternateloginurl 
-    ) );
+
     if (! empty ( $authurl )) {
+    	// check the id of the MNET host for the idp
+    	if (!empty($PAGE->theme->settings->alternateloginurl)){
+    		$host = $DB->get_field ( 'mnet_host', 'name', array (
+    				'id' => $PAGE->theme->settings->alternateloginurl
+    		) );
+    	} else {
+    		$host = '';
+    	}
         foreach ( $authurl as $key => $urlarray ) {
             if ($urlarray ['name'] == $host) {
                 $loginurl = $authurl [$key] ['url'];
