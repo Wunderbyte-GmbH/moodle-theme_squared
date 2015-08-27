@@ -106,6 +106,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+27th August 2015 - Version 2.9.2
+  1. Remove redundant old style jQuery code.
+
 26th August 2015 - Version 2.9.1.
   1. First stable release for Moodle 2.9 - task #722.
   2. Notification for not filling out required fields in mod questionnaire is white font on white background - task #721.
