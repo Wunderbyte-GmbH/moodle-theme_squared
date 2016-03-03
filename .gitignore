@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+Thumbs.db
+.buildpath
+.project
+.settings
+*.swp
+sourcemap-moodle.json
+sourcemap-editor.json
