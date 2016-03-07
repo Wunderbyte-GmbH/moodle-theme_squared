@@ -29,8 +29,8 @@
 function squared_grid($hassidepre) {
 
     if ($hassidepre) {
-        $regions = array('content' => 'col-xs-8 col-xs-push-4 col-sm-9 col-sm-push-3 col-lg-10 col-lg-push-2');
-        $regions['pre'] = 'col-xs-4 col-xs-pull-8 col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
+        $regions = array('content' => 'col-sm-9 col-sm-push-3 col-lg-10 col-lg-push-2');
+        $regions['pre'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
     } else  {
         $regions = array('content' => 'col-md-12');
         $regions['pre'] = 'empty';
