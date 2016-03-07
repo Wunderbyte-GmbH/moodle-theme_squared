@@ -59,131 +59,246 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
     }
     
     /**
-     * Prints a custom side block with an optional header.(non-PHPdoc)
+     * Output all the blocks in a particular region.
      *
-     * @see core_renderer::block()
+     * @param string $region the name of a region on this page.
+     * @return string the HTML to be output.
      */
-    function block(block_contents $bc, $region) {
-        $bc = clone ($bc); // Avoid messing up the object passed in.
-        if (empty ( $bc->blockinstanceid ) || ! strip_tags ( $bc->title )) {
-            $bc->collapsible = block_contents::NOT_HIDEABLE;
+    public function blocks_for_region($region) {
+        $blockcontents = $this->page->blocks->get_content_for_region($region, $this);
+        $blocks = $this->page->blocks->get_blocks_for_region($region);
+        $lastblock = null;
+        $zones = array();
+        foreach ($blocks as $block) {
+            $zones[] = $block->title;
         }
-        if ($bc->collapsible == block_contents::HIDDEN) {
-            $bc->add_class ( 'hidden' );
-        }
-        if (! empty ( $bc->controls )) {
-            $bc->add_class ( 'block_with_controls' );
-        }
-        
-        $testb = $bc->attributes ['class'];
-        $ptype = $this->page->pagetype;
-        if ($ptype == 'site-index' && $testb == "block_navigation  block" || $ptype == 'site-index' && $testb == "block_settings  block" || $ptype == 'site-index' && $testb == "block_settings  block block_with_controls" || $ptype == 'site-index' && $testb == "block_settings  block hidden" || $ptype == 'site-index' && $testb == "block_navigation  block block_with_controls" || $ptype == 'site-index' && $testb == "block_navigation  block hidden") {
-            // $bc->add_class('dock_on_load');
-            $bc->add_class ( "vclass" );
-        } else if ($testb == "block_course_overview  block" || $testb == "block_course_overview  block hidden" || $testb == "block_course_overview  block hidden" || $testb == "block_course_overview  block block_with_controls") {
-        } else {
-            $bc->add_class ( "hidden vclass block-hider-show" );
-        }
-        
-        $whichblock = $this->page->blocks->get_content_for_region ( $region, $this );
-        
-        $nofloat = '';
-        
-        foreach ( $whichblock as $key => $value ) {
-            
-            if ($key % 2 != 0 && $value->blockinstanceid == $bc->blockinstanceid) {
-                
-                $nofloat = html_writer::tag ( 'div', '', array (
-                        'class' => 'clearfix sqclear' 
-                ) );
-                
-                $bc->add_class ( "rightblock" );
+        $output = '';
+        $template = new stdClass();
+        $first = true;
+
+        //One block column
+        foreach ($blockcontents as $bc) {
+            if ($bc instanceof block_contents) {
+                if ($first) {
+                    $bc->open = true;
+                    $first = false;
+                }
+                $template->blocks[] = $this->block($bc, $region);
+                $lastblock = $bc->title;
+            } else if ($bc instanceof block_move_target) {
+                $template->blocks[] = $this->block_move_target($bc, $zones, $lastblock, $region);
+            } else {
+                throw new coding_exception('Unexpected type of thing (' . get_class($bc) . ') found in list of block contents.');
             }
         }
-        
-        $skiptitle = strip_tags ( $bc->title );
-        if (empty ( $skiptitle )) {
-            $output = '';
-            $skipdest = '';
-        } else {
-            $output = html_writer::tag ( 'a', get_string ( 'skipa', 'access', $skiptitle ), array (
-                    'href' => '#sb-' . $bc->skipid,
-                    'class' => 'skip-block' 
-            ) );
-            $skipdest = html_writer::tag ( 'span', '', array (
-                    'id' => 'sb-' . $bc->skipid,
-                    'class' => 'skip-block-to' 
-            ) );
+
+        //Two block columns
+        $template->pairs = array();
+        $cols = 2;
+        $count = 1;
+        $pair = new stdClass();
+        foreach ($template->blocks as $block) {
+            if ($count == 2) {
+                $pair->blockb = $block;
+                $template->pairs[] = $pair;
+                $count = 1;
+            } else {
+                $pair = new stdClass();
+                $pair->blocka = $block;
+                $count++;
+            }
         }
+        if ($count == 1) {
+           $template->pairs[] = $pair; 
+        }
+        if ($this->page->user_is_editing()) {
+            return $this->render_from_template('theme_squared/collapsedblocks', $template);
+        } else {
+            return $this->render_from_template('theme_squared/collapsedblockscolumns', $template);
+        }
+    }   
+
+    /**
+     * Prints a nice side block with an optional header.
+     *
+     * The content is described
+     * by a {@link core_renderer::block_contents} object.
+     *
+     * <div id="inst{$instanceid}" class="block_{$blockname} block">
+     *      <div class="header"></div>
+     *      <div class="content">
+     *          ...CONTENT...
+     *          <div class="footer">
+     *          </div>
+     *      </div>
+     *      <div class="annotation">
+     *      </div>
+     * </div>
+     *
+     * @param block_contents $bc HTML for the content
+     * @param string $region the region the block is appearing in.
+     * @return string the HTML to be output.
+     */
+    public function block(block_contents $bc, $region) {
+        $bc = clone($bc); // Avoid messing up the object passed in.
+        if (empty($bc->blockinstanceid) || !strip_tags($bc->title)) {
+            $bc->collapsible = block_contents::NOT_HIDEABLE;
+        }
+        if (!empty($bc->blockinstanceid)) {
+            $bc->attributes['data-instanceid'] = $bc->blockinstanceid;
+        }
+        $bc->skiptitle = strip_tags($bc->title);
+
+        if (empty($bc->arialabel)) {
+            $bc->arialabel = 'instance-'.$bc->blockinstanceid.'-header';
+        }
+        if ($bc->dockable) {
+            $bc->attributes['data-dockable'] = 1;
+        }
+        if ($bc->collapsible == block_contents::HIDDEN) {
+            $bc->add_class('hidden');
+        }
+        if (!empty($bc->controls)) {
+            $bc->add_class('block_with_controls');
+            $blockid = null;
+            if (isset($bc->attributes['id'])) {
+                $blockid = $bc->attributes['id'];
+            }
+            $bc->ctrl = $this->block_controls($bc->controls, $blockid);
+            $bc->dropdown = $this->block_settings_menu($bc->controls, $blockid);
+        }
+        $bc->add_class('panel panel-default');
+
+        $bc->content = $this->block_content($bc);
+        $bc->annotation = $this->block_annotation($bc);
         
-        $output .= html_writer::start_tag ( 'div', $bc->attributes );
-        $output .= $this->block_header ( $bc );
-        $output .= $this->block_content ( $bc );
-        $output .= html_writer::end_tag ( 'div' );
-        $output .= $this->block_annotation ( $bc );
-        $output .= $skipdest;
-        $output .= $nofloat;
-        
-        $this->init_block_hider_js ( $bc );
+        foreach ($bc->attributes as $key => $val) {
+            $attribute = new stdClass();
+            $attribute->key = $key;
+            $attribute->value = $val;
+            $bc->atts[] = $attribute;
+        }
+
+        $this->init_block_hider_js($bc);
+        return $bc;
+    }
+
+    /**
+     * Output the row of editing icons for a block, as defined by the controls array.
+     *
+     * @param array $controls an array like {@link block_contents::$controls}.
+     * @param string $blockid The ID given to the block.
+     * @return string HTML fragment.
+     */
+    public function block_controls($actions, $blockid = null) {
+        global $CFG;
+        if (empty($actions)) {
+            return '';
+        }
+        $menu = new action_menu($actions);
+        if ($blockid !== null) {
+            $menu->set_owner_selector('#'.$blockid);
+        }
+        $menu->set_constraint('.block-region');
+        $menu->attributes['class'] .= ' block-control-actions commands';
+        if (isset($CFG->blockeditingmenu) && !$CFG->blockeditingmenu) {
+            $menu->do_not_enhance();
+        }
+        return $this->render($menu);
+    }
+
+    public function render_action_menu(action_menu $menu) {
+        $menu->initialise_js($this->page);
+
+        $output = html_writer::start_tag('div', $menu->attributes);
+        $output .= html_writer::start_tag('ul', $menu->attributesprimary);
+        foreach ($menu->get_primary_actions($this) as $action) {
+            if ($action instanceof renderable) {
+                $content = $this->render($action);
+                $output .= html_writer::tag('li', $content, array('role' => 'presentation'));
+            } 
+            
+        }
+        $output .= html_writer::end_tag('ul');
+        $output .= html_writer::end_tag('div');
         return $output;
     }
-    
+
+    public function block_settings_menu($actions, $blockid = null) {
+        global $CFG;
+        if (empty($actions)) {
+            //return '';
+        }
+        $menu = new action_menu($actions);
+        if ($blockid !== null) {
+            $menu->set_owner_selector('#'.$blockid);
+        }
+        $menu->set_constraint('.block-region');
+        $menu->attributes['class'] .= ' block-control-actions commands';
+        if (isset($CFG->blockeditingmenu) && !$CFG->blockeditingmenu) {
+            $menu->do_not_enhance();
+        }
+
+        $items = '';
+        foreach ($menu->get_secondary_actions() as $action) {
+            if ($action instanceof renderable) {
+                $content = $this->render($action);
+
+            } else {
+                $content = $action;
+            }
+            $items .= html_writer::tag('li', $content, array('role' => 'presentation'));
+        }
+
+        $cog = $this->pix_icon('t/edit', 'core');
+
+        $output = '
+        <div class="commands right">
+            <div class="pull-right actions dropdown">
+                <a href="" data-toggle="dropdown" aria-expanded="true">
+                    '.$cog.'
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-right max-200">
+                    '.$items.'
+                </ul>
+            </div>
+        </div>';
+        return $output;
+    }
+
+
     /**
-     * Produces a custom header for a block(non-PHPdoc)
-     * 
-     * @see core_renderer::block_header()
+     * Produces a header for a block
+     *
+     * @see core_renderer::block_header(). Added courseblock-icon div
+     * @param block_contents $bc
+     * @return string
      */
     protected function block_header(block_contents $bc) {
         $title = '';
         if ($bc->title) {
-            $title .= html_writer::tag ( 'div', '', array (
-                    'class' => 'courseblock-icon' 
-            ) );
-            $title .= html_writer::tag ( 'h2', $bc->title, null );
+            $attributes = array();
+            if ($bc->blockinstanceid) {
+                $attributes['id'] = 'instance-'.$bc->blockinstanceid.'-header';
+            }
+            $title = html_writer::tag('div', '', array('class' => 'courseblock-icon'));
+            $title .= html_writer::tag('h2', $bc->title, $attributes);
         }
-        
-        $controlshtml = $this->block_controls ( $bc->controls );
-        
+
+        $blockid = null;
+        if (isset($bc->attributes['id'])) {
+            $blockid = $bc->attributes['id'];
+        }
+        $controlshtml = $this->block_controls($bc->controls, $blockid);
+
         $output = '';
         if ($title || $controlshtml) {
-            $output .= html_writer::tag ( 'div', html_writer::tag ( 'div', html_writer::tag ( 'div', '', array (
-                    'class' => 'block_action' 
-            ) ) . $title . $controlshtml, array (
-                    'class' => 'title' 
-            ) ), array (
-                    'class' => 'header' 
-            ) );
+            $output .= html_writer::tag('div', html_writer::tag('div', html_writer::tag('div', '', array('class'=>'block_action')). $title . $controlshtml, array('class' => 'title')), array('class' => 'header'));
         }
         return $output;
     }
     
-    /**
-     * Renders a custom menu object(non-PHPdoc)
-     * 
-     * @see core_renderer::render_custom_menu()
-     */
-    protected function render_custom_menu(custom_menu $menu) {
-        global $CFG;
-        require_once ($CFG->libdir . '/coursecatlib.php');
-        
-        // get the custommenuitems
-        $custommenu = $menu->get_children ();
-        
-        // get all the categories and courses from the navigation node
-        $categorytree = coursecat::get ( 0 )->get_children ();
-        
-        // Here we build the menu.
-        foreach ( $categorytree as $categorytreeitem ) {
-            foreach ( $custommenu as $custommenuitem ) {
-                if (($categorytreeitem->name == $custommenuitem->get_title ())) {
-                    $branch = $custommenuitem;
-                    $this->add_category_to_custommenu ( $branch, $categorytreeitem );
-                    break;
-                }
-            }
-        }
-        return parent::render_custom_menu ( $menu );
-    }
     
     /**
      * Add a complete course category to the custom menu
@@ -273,64 +388,64 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
      * @param custom_menu_item $menunode            
      * @return string
      */
-    protected function render_custom_menu_item(custom_menu_item $menunode) {
-        // Required to ensure we get unique trackable id's
-        static $submenucount = 0;
-        if ($menunode->has_children ()) {
-            // If the child has menus render it as a sub menu
-            $submenucount ++;
-            if ($menunode->get_url () !== null) {
-                $url = $menunode->get_url ();
-                $categoryid = $url->get_param ( 'categoryid' );
-                if (! empty ( $categoryid )) {
-                    $cssclass = ' category-' . $categoryid;
-                } else {
-                    $cssclass = '';
-                }
-            } else {
-                $url = '#cm_submenu_' . $submenucount;
-            }
-            $content = html_writer::start_tag ( 'li', array (
-                    'class' => $cssclass 
-            ) );
-            $content .= html_writer::link ( $url, $menunode->get_text (), array (
-                    'class' => 'yui3-menu-label' . $cssclass,
-                    'title' => $menunode->get_title () 
-            ) );
-            $content .= html_writer::start_tag ( 'div', array (
-                    'id' => 'cm_submenu_' . $submenucount,
-                    'class' => 'yui3-menu custom_menu_submenu' 
-            ) );
-            $content .= html_writer::start_tag ( 'div', array (
-                    'class' => 'yui3-menu-content' 
-            ) );
-            $content .= html_writer::start_tag ( 'ul' );
-            foreach ( $menunode->get_children () as $menunode ) {
-                $content .= $this->render_custom_menu_item ( $menunode );
-            }
-            $content .= html_writer::end_tag ( 'ul' );
-            $content .= html_writer::end_tag ( 'div' );
-            $content .= html_writer::end_tag ( 'div' );
-            $content .= html_writer::end_tag ( 'li' );
-        } else {
-            // The node doesn't have children so produce a final menuitem
-            $content = html_writer::start_tag ( 'li', array (
-                    'class' => 'yui3-menuitem' 
-            ) );
-            if ($menunode->get_url () !== null) {
-                $url = $menunode->get_url ();
-            } else {
-                $url = '#';
-            }
-            $content .= html_writer::link ( $url, $menunode->get_text (), array (
-                    'class' => 'yui3-menuitem-content',
-                    'title' => $menunode->get_title () 
-            ) );
-            $content .= html_writer::end_tag ( 'li' );
-        }
-        // Return the sub menu
-        return $content;
-    }
+    // protected function render_custom_menu_item(custom_menu_item $menunode) {
+    //     // Required to ensure we get unique trackable id's
+    //     static $submenucount = 0;
+    //     if ($menunode->has_children ()) {
+    //         // If the child has menus render it as a sub menu
+    //         $submenucount ++;
+    //         if ($menunode->get_url () !== null) {
+    //             $url = $menunode->get_url ();
+    //             $categoryid = $url->get_param ( 'categoryid' );
+    //             if (! empty ( $categoryid )) {
+    //                 $cssclass = ' category-' . $categoryid;
+    //             } else {
+    //                 $cssclass = '';
+    //             }
+    //         } else {
+    //             $url = '#cm_submenu_' . $submenucount;
+    //         }
+    //         $content = html_writer::start_tag ( 'li', array (
+    //                 'class' => $cssclass 
+    //         ) );
+    //         $content .= html_writer::link ( $url, $menunode->get_text (), array (
+    //                 'class' => 'yui3-menu-label' . $cssclass,
+    //                 'title' => $menunode->get_title () 
+    //         ) );
+    //         $content .= html_writer::start_tag ( 'div', array (
+    //                 'id' => 'cm_submenu_' . $submenucount,
+    //                 'class' => 'yui3-menu custom_menu_submenu' 
+    //         ) );
+    //         $content .= html_writer::start_tag ( 'div', array (
+    //                 'class' => 'yui3-menu-content' 
+    //         ) );
+    //         $content .= html_writer::start_tag ( 'ul' );
+    //         foreach ( $menunode->get_children () as $menunode ) {
+    //             $content .= $this->render_custom_menu_item ( $menunode );
+    //         }
+    //         $content .= html_writer::end_tag ( 'ul' );
+    //         $content .= html_writer::end_tag ( 'div' );
+    //         $content .= html_writer::end_tag ( 'div' );
+    //         $content .= html_writer::end_tag ( 'li' );
+    //     } else {
+    //         // The node doesn't have children so produce a final menuitem
+    //         $content = html_writer::start_tag ( 'li', array (
+    //                 'class' => 'yui3-menuitem' 
+    //         ) );
+    //         if ($menunode->get_url () !== null) {
+    //             $url = $menunode->get_url ();
+    //         } else {
+    //             $url = '#';
+    //         }
+    //         $content .= html_writer::link ( $url, $menunode->get_text (), array (
+    //                 'class' => 'yui3-menuitem-content',
+    //                 'title' => $menunode->get_title () 
+    //         ) );
+    //         $content .= html_writer::end_tag ( 'li' );
+    //     }
+    //     // Return the sub menu
+    //     return $content;
+    // }
     
     protected function squared_prepare_textlinks($textlinks) {
         $textsnippets = explode ( ';', $textlinks );
@@ -428,35 +543,35 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
      *
      * @return string XHTML navbar
      */
-    public function navbar() {
-        $items = $this->page->navbar->get_items ();
-        $htmlblocks = array ();
-        // Iterate the navarray and display each node
-        $itemcount = count ( $items );
-        $separator = get_separator ();
-        for($i = 0; $i < $itemcount; $i ++) {
-            $item = $items [$i];
-            $item->hideicon = true;
-            if ($i === 0) {
-                $content = html_writer::tag ( 'li', $this->render ( $item ), array (
-                        'class' => 'navbar_' . $item->key . '_' . $item->type 
-                ) );
-            } else {
-                $content = html_writer::tag ( 'li', $separator . $this->render ( $item ), array (
-                        'class' => 'navbar_' . $item->key . '_' . $item->type . ' type' . $item->type 
-                ) );
-            }
-            $htmlblocks [] = $content;
-        }
+    // public function navbar() {
+    //     $items = $this->page->navbar->get_items ();
+    //     $htmlblocks = array ();
+    //     // Iterate the navarray and display each node
+    //     $itemcount = count ( $items );
+    //     $separator = get_separator ();
+    //     for($i = 0; $i < $itemcount; $i ++) {
+    //         $item = $items [$i];
+    //         $item->hideicon = true;
+    //         if ($i === 0) {
+    //             $content = html_writer::tag ( 'li', $this->render ( $item ), array (
+    //                     'class' => 'navbar_' . $item->key . '_' . $item->type 
+    //             ) );
+    //         } else {
+    //             $content = html_writer::tag ( 'li', $separator . $this->render ( $item ), array (
+    //                     'class' => 'navbar_' . $item->key . '_' . $item->type . ' type' . $item->type 
+    //             ) );
+    //         }
+    //         $htmlblocks [] = $content;
+    //     }
         
-        // accessibility: heading for navbar list (MDL-20446)
-        $navbarcontent = html_writer::tag ( 'span', get_string ( 'pagepath' ), array (
-                'class' => 'accesshide' 
-        ) );
-        $navbarcontent .= html_writer::tag ( 'ul', join ( '', $htmlblocks ) );
-        // XHTML
-        return $navbarcontent;
-    }
+    //     // accessibility: heading for navbar list (MDL-20446)
+    //     $navbarcontent = html_writer::tag ( 'span', get_string ( 'pagepath' ), array (
+    //             'class' => 'accesshide' 
+    //     ) );
+    //     $navbarcontent .= html_writer::tag ( 'ul', join ( '', $htmlblocks ) );
+    //     // XHTML
+    //     return $navbarcontent;
+    // }
     
     /**
      * Return the standard string that says whether you are logged in (and switched

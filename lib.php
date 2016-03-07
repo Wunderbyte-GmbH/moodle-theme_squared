@@ -26,23 +26,14 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-function squared_grid($hassidepre, $hassidepost) {
-    if ($hassidepre && $hassidepost) {
-        $regions = array('content' => 'col-sm-6 col-sm-push-3');
-        $regions['pre'] = 'col-sm-3 col-sm-pull-6';
-        $regions['post'] = 'col-sm-3';
-    } else if ($hassidepre && !$hassidepost) {
-        $regions = array('content' => 'col-sm-9 col-sm-push-3');
-        $regions['pre'] = 'col-sm-3 col-sm-pull-9';
-        $regions['post'] = 'empty';
-    } else if (!$hassidepre && $hassidepost) {
-        $regions = array('content' => 'col-sm-9');
-        $regions['pre'] = 'empty';
-        $regions['post'] = 'col-sm-3';
-    } else if (!$hassidepre && !$hassidepost) {
+function squared_grid($hassidepre) {
+
+    if ($hassidepre) {
+        $regions = array('content' => 'col-xs-8 col-xs-push-4 col-sm-9 col-sm-push-3 col-lg-10 col-lg-push-2');
+        $regions['pre'] = 'col-xs-4 col-xs-pull-8 col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
+    } else  {
         $regions = array('content' => 'col-md-12');
         $regions['pre'] = 'empty';
-        $regions['post'] = 'empty';
     }
     return $regions;
 }
