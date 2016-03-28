@@ -3,60 +3,57 @@
       <div class="row m-0">
         {{#blocka}}     
         <div class="col-xs-6 p-0">
-            <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
-                <div role="button" data-toggle="collapse" data-parent="#accordion" 
-                            href="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="collapseOne" class="squared header over-hover-to-bottom" id="headingOne">
-                    <span class="panel-title" {{#blockinstanceid}}id="instance-{{blockinstanceid}}-header"{{/blockinstanceid}} >
-                        <span class="blockhead">
-                            <div class="courseblock-icon"></div>
-                            <span class="hidden-xs">
-                            {{{title}}}
-                            </span>
+            <div role="button" data-toggle="collapse" data-parent="#accordion" 
+                        href="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="collapseOne" class="squared blockheader over-hover-to-bottom" id="headingOne">
+                <span class="panel-title" {{#blockinstanceid}} id="instance-{{blockinstanceid}}-header"{{/blockinstanceid}} >
+                    <span class="blockhead title">
+                        <div class="courseblock-icon"></div>
+                        <span class="hidden-xs">
+                        {{{title}}}
                         </span>
-                        {{{ctrl}}} {{{dropdown}}}
                     </span>
-                </div>
+                    {{{ctrl}}} {{{dropdown}}}
+                </span>
             </div>
-            <a href="#sb-{{skipid}}" class="skip-block"> {{#str}} skipa, access, {{skiptitle}} {{/str}} </a>
         </div>    
         {{/blocka}}
         {{#blockb}}
         <div class="col-xs-6 p-0">
-            <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
-                <div role="button" data-toggle="collapse" data-parent="#accordion" 
-                            href="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="collapseOne" class="squared header over-hover-to-bottom" id="headingOne">
-                    <span class="panel-title" {{#blockinstanceid}}id="instance-{{blockinstanceid}}-header"{{/blockinstanceid}} >
-                        <span class="blockhead">
-                            <div class="courseblock-icon"></div>
-                            <span class="hidden-xs">
-                            {{{title}}}
-                            </span>
+            <div role="button" data-toggle="collapse" data-parent="#accordion" 
+                        href="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="collapseOne" class="squared blockheader over-hover-to-bottom" id="headingOne">
+                <span class="panel-title" {{#blockinstanceid}} id="instance-{{blockinstanceid}}-header"{{/blockinstanceid}} >
+                    <span class="blockhead">
+                        <div class="courseblock-icon"></div>
+                        <span class="hidden-xs">
+                        {{{title}}}
                         </span>
-                        {{{ctrl}}} {{{dropdown}}}
                     </span>
-                </div>
+                    {{{ctrl}}} {{{dropdown}}}
+
+                </span>
             </div>
-            <a href="#sb-{{skipid}}" class="skip-block"> {{#str}} skipa, access, {{skiptitle}} {{/str}} </a>
         </div> 
         {{/blockb}}
     </div>
     {{#blocka}}
     <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
         <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{arialabel}}">
-            <div class="panel-body p-0">
+            <div class="panel-body p-0 block">
                 {{{content}}}
             </div>
         </div>
     </div>
+    <a href="#sb-{{skipid}}" class="skip-block"> {{#str}} skipa, access, {{skiptitle}} {{/str}} </a>
     {{/blocka}}
     {{#blockb}}
     <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
         <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{arialabel}}">
-            <div class="panel-body p-0">
+            <div class="panel-body block p-0">
                 {{{content}}}
             </div>
         </div>
     </div>
+    <a href="#sb-{{skipid}}" class="skip-block"> {{#str}} skipa, access, {{skiptitle}} {{/str}} </a>
     {{/blockb}}
 
     {{/pairs}}

@@ -101,6 +101,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             if ($count == 2) {
                 $pair->blockb = $block;
                 $template->pairs[] = $pair;
+                $pair = false;
                 $count = 1;
             } else {
                 $pair = new stdClass();
@@ -108,7 +109,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                 $count++;
             }
         }
-        if ($count == 1) {
+        if ($pair) {
            $template->pairs[] = $pair; 
         }
         if ($this->page->user_is_editing()) {

@@ -14,16 +14,14 @@
                         {{{ctrl}}} {{{dropdown}}}
                     </span>
                 </div>
+                <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{arialabel}}">
+                    <div class="panel-body p-0">
+                        {{{content}}}
+                    </div>
+                </div>
             </div>
             <a href="#sb-{{skipid}}" class="skip-block"> {{#str}} skipa, access, {{skiptitle}} {{/str}} </a>
         </div>
-        <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
-	        <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{arialabel}}">
-	            <div class="panel-body p-0">
-	                {{{content}}}
-	            </div>
-	        </div>
-	    </div>
         {{/blocka}}
     </div>
     <div class="row m-0 m-b-5">
@@ -40,16 +38,16 @@
                         {{{ctrl}}} {{{dropdown}}}
                     </span>
                 </div>
+                <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{arialabel}}">
+                    <div class="panel-body p-0">
+                        {{{content}}}
+                    </div>
+                </div>
             </div>
+
             <a href="#sb-{{skipid}}" class="skip-block"> {{#str}} skipa, access, {{skiptitle}} {{/str}} </a>
         </div>
-        <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
-        	<div id="collapse{{blockinstanceid}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{arialabel}}">
-	            <div class="panel-body p-0">
-	                {{{content}}}
-	            </div>
-	        </div>
-	    </div>
+
         {{/blockb}}
     </div>
 
