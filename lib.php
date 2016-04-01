@@ -63,12 +63,12 @@ function theme_squared_process_css($css, $theme) {
     $css = theme_squared_set_slideimage ( $css, $theme );
     
     // Set the inside header image
-    if (! empty ( $theme->settings->headerimagecourse )) {
-        $headerimagecourse = $theme->setting_file_url ( 'headerimagecourse', 'headerimagecourse' );
-    } else {
-        $headerimagecourse = null;
-    }
-    $css = theme_squared_set_headerimagecourse ( $css, $headerimagecourse );
+    // if (! empty ( $theme->settings->headerimagecourse )) {
+    //     $headerimagecourse = $theme->setting_file_url ( 'headerimagecourse', 'headerimagecourse' );
+    // } else {
+    //     $headerimagecourse = null;
+    // }
+    // $css = theme_squared_set_headerimagecourse ( $css, $headerimagecourse );
     
     if (! empty ( $theme->settings->customcss )) {
         $customcss = $theme->settings->customcss;

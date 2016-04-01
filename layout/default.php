@@ -23,6 +23,7 @@ $knownregionpost = $PAGE->blocks->is_known_region('side-post');
 
 $regions = squared_grid($hassidepre, $hassidepost);
 $PAGE->set_popup_notification_allowed(false);
+$html = $PAGE->get_renderer('theme_squared', 'html');
 
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
@@ -62,18 +63,12 @@ echo $OUTPUT->doctype() ?>
 </nav>
 <header class="moodleheader">
     <div class="container-fluid">
-    <a href="<?php echo $CFG->wwwroot ?>" class="logo"></a>
-    <?php echo $OUTPUT->page_heading(); ?>
+    <?php echo $html->image_header(); ?>
     </div>
 </header>
 
 <div id="page" class="container-fluid">
     <header id="page-header" class="clearfix">
-        <div id="page-navbar" class="clearfix">
-            <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>
-            <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
-        </div>
-
         <div id="course-header">
             <?php echo $OUTPUT->course_header(); ?>
         </div>
@@ -81,11 +76,18 @@ echo $OUTPUT->doctype() ?>
 
     <div id="page-content" class="row">
         <div id="region-main" class="<?php echo $regions['content']; ?>">
-            <?php
-            echo $OUTPUT->course_content_header();
-            echo $OUTPUT->main_content();
-            echo $OUTPUT->course_content_footer();
-            ?>
+            <div class="inner">
+                <div id="page-navbar" class="clearfix">
+                    <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>
+                    <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
+                </div>
+
+                <?php
+                echo $OUTPUT->course_content_header();
+                echo $OUTPUT->main_content();
+                echo $OUTPUT->course_content_footer();
+                ?>
+            </div>
         </div>
 
         <?php
@@ -99,13 +101,14 @@ echo $OUTPUT->doctype() ?>
     </div>
 
     <footer id="page-footer">
-        <div id="course-footer"><?php echo $OUTPUT->course_footer(); ?></div>
-        <p class="helplink"><?php echo $OUTPUT->page_doc_link(); ?></p>
-        <?php
-        echo $OUTPUT->login_info();
-        echo $OUTPUT->home_link();
-        echo $OUTPUT->standard_footer_html();
-        ?>
+        <div class="row">
+        <div id="footer-left" class="col-md-6">
+            <?php echo $OUTPUT->squared_textlinks('footer'); ?>
+        </div>
+        <div id="footer-left" class="col-md-6">
+            <?php echo $OUTPUT->squared_socialicons('footer'); ?>
+        </div>
+        <?php echo $OUTPUT->standard_footer_html(); ?>
     </footer>
 
     <?php echo $OUTPUT->standard_end_of_body_html() ?>

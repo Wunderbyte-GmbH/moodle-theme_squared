@@ -198,7 +198,7 @@ if (is_siteadmin ()) {
     $settingpage->add ( $setting );
     
     // slideshow settings
-    for($i = 1; $i < 6; $i ++) {
+    for ($i = 1; $i < 6; $i ++) {
         
         $name = 'theme_squared/slideheading' . $i;
         $heading = get_string ( 'slideheading', 'theme_squared' ) . " $i";

@@ -8605,8 +8605,7 @@ body.jsenabled .formlisting {
   padding: 3px 20px;
   line-height: 1.42857143;
 }
-.moodle-actionmenu[data-enhanced].show .menu a:hover,
-.moodle-actionmenu[data-enhanced].show .menu a:focus {
+.moodle-actionmenu[data-enhanced].show .menu a:hover {
   color: #ffffff;
   background-color: #337ab7;
   text-decoration: none;
@@ -8617,8 +8616,15 @@ body.jsenabled .formlisting {
 .moodle-actionmenu[data-enhanced].show .menu img {
   vertical-align: middle;
 }
-.moodle-actionmenu[data-enhanced].show .menu .iconsmall {
+.moodle-actionmenu[data-enhanced].show .menu .iconsmall,
+.moodle-actionmenu[data-enhanced].show .menu .smallicon {
   margin: 4px 4px 4px -10px;
+}
+.moodle-actionmenu[data-enhanced].show .menu .smallicon {
+  padding: 4px;
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
 }
 .moodle-actionmenu[data-enhanced].show .menu > li {
   display: block;
@@ -9683,6 +9689,12 @@ textarea.path-admin .roleassigntable input[type="text"] {
 .editing .course-content ul li.section.main .left,
 .editing .course-content ul li.section.main .right {
   display: inherit;
+}
+.editing .course-content ul li.section.main .left {
+  float: left;
+}
+.editing .course-content ul li.section.main .right {
+  float: right;
 }
 .editing_show + .editing_assign,
 .editing_hide + .editing_assign {
@@ -11855,6 +11867,54 @@ textarea.box.message .contactselector form#usergroupform fieldset select {
   font-size: 30px;
   color: inherit;
 }
+.box.message .messagearea textarea {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cccccc;
+  border-radius: 0px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  height: 200px;
+}
+.box.message .messagearea textarea:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.box.message .messagearea textarea::-moz-placeholder {
+  color: #999999;
+  opacity: 1;
+}
+.box.message .messagearea textarea:-ms-input-placeholder {
+  color: #999999;
+}
+.box.message .messagearea textarea::-webkit-input-placeholder {
+  color: #999999;
+}
+.box.message .messagearea textarea[disabled],
+.box.message .messagearea textarea[readonly],
+fieldset[disabled] .box.message .messagearea textarea {
+  background-color: #eeeeee;
+  opacity: 1;
+}
+.box.message .messagearea textarea[disabled],
+fieldset[disabled] .box.message .messagearea textarea {
+  cursor: not-allowed;
+}
+textarea.box.message .messagearea textarea {
+  height: auto;
+}
 .box.message .messagearea #personsearch {
   margin: 10px 15px;
 }
@@ -12356,54 +12416,6 @@ textarea.box.message .contactselector form#usergroupform fieldset select {
 }
 #newmessageoverlay #newmessagelinks {
   margin: 5px 14px;
-}
-textarea {
-  display: block;
-  width: 100%;
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #555555;
-  background-color: #ffffff;
-  background-image: none;
-  border: 1px solid #cccccc;
-  border-radius: 0px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  height: 200px;
-}
-textarea:focus {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
-textarea::-moz-placeholder {
-  color: #999999;
-  opacity: 1;
-}
-textarea:-ms-input-placeholder {
-  color: #999999;
-}
-textarea::-webkit-input-placeholder {
-  color: #999999;
-}
-textarea[disabled],
-textarea[readonly],
-fieldset[disabled] textarea {
-  background-color: #eeeeee;
-  opacity: 1;
-}
-textarea[disabled],
-fieldset[disabled] textarea {
-  cursor: not-allowed;
-}
-textareatextarea {
-  height: auto;
 }
 /** Messenger send message dialog */
 .core_message-messenger-sendmessage-hidden {
@@ -15259,6 +15271,78 @@ div#dock {
 .path-mod-survey .reportbuttons,
 .path-mod-survey .centerpara {
   text-align: center;
+}
+.path-mod-assign .assignfeedback_editpdf_widget .pageheader button,
+.path-mod-assign .assignfeedback_editpdf_widget .pageheader select {
+  padding: 3px 7px;
+  height: 28px;
+  line-height: 24px;
+}
+.path-mod-assign a.btn {
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.path-mod-assign a.btn:focus,
+.path-mod-assign a.btn.focus {
+  color: #333333;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+.path-mod-assign a.btn:hover {
+  color: #333333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+.path-mod-assign a.btn:active,
+.path-mod-assign a.btn.active,
+.open > .dropdown-toggle.path-mod-assign a.btn {
+  color: #333333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+.path-mod-assign a.btn:active:hover,
+.path-mod-assign a.btn.active:hover,
+.open > .dropdown-toggle.path-mod-assign a.btn:hover,
+.path-mod-assign a.btn:active:focus,
+.path-mod-assign a.btn.active:focus,
+.open > .dropdown-toggle.path-mod-assign a.btn:focus,
+.path-mod-assign a.btn:active.focus,
+.path-mod-assign a.btn.active.focus,
+.open > .dropdown-toggle.path-mod-assign a.btn.focus {
+  color: #333333;
+  background-color: #d4d4d4;
+  border-color: #8c8c8c;
+}
+.path-mod-assign a.btn:active,
+.path-mod-assign a.btn.active,
+.open > .dropdown-toggle.path-mod-assign a.btn {
+  background-image: none;
+}
+.path-mod-assign a.btn.disabled,
+.path-mod-assign a.btn[disabled],
+fieldset[disabled] .path-mod-assign a.btn,
+.path-mod-assign a.btn.disabled:hover,
+.path-mod-assign a.btn[disabled]:hover,
+fieldset[disabled] .path-mod-assign a.btn:hover,
+.path-mod-assign a.btn.disabled:focus,
+.path-mod-assign a.btn[disabled]:focus,
+fieldset[disabled] .path-mod-assign a.btn:focus,
+.path-mod-assign a.btn.disabled.focus,
+.path-mod-assign a.btn[disabled].focus,
+fieldset[disabled] .path-mod-assign a.btn.focus,
+.path-mod-assign a.btn.disabled:active,
+.path-mod-assign a.btn[disabled]:active,
+fieldset[disabled] .path-mod-assign a.btn:active,
+.path-mod-assign a.btn.disabled.active,
+.path-mod-assign a.btn[disabled].active,
+fieldset[disabled] .path-mod-assign a.btn.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.path-mod-assign a.btn .badge {
+  color: #ffffff;
+  background-color: #333333;
 }
 .yui-skin-sam .yui-layout.path-mod-chat-gui_ajax {
   background-color: #fff;
@@ -18377,6 +18461,64 @@ fieldset[disabled] a#rubric-rubric.gradingform_rubric .addcriterion {
 }
 .max-400 {
   max-width: 400px;
+}
+#page-footer {
+  background: url([[pix:theme|footer1]]) no-repeat 100% 80px;
+  color: #848484;
+  float: none;
+  font-size: 11px;
+  min-height: 140px;
+  padding-top: 20px;
+  position: relative;
+  text-align: left;
+  width: auto;
+}
+#page-footer .logininfo {
+  display: inline;
+  margin: 0;
+  margin: 0 0px;
+  padding: 1em 0;
+}
+#page-footer #footer-left {
+  float: left;
+  margin-left: 185px;
+  padding-top: 25px;
+}
+#page-footer #footer-left a {
+  color: #848484;
+}
+#page-footer #footer-left span a {
+  padding-right: 15px;
+}
+#page-footer #footer-left .logininfo a {
+  padding-right: 0px;
+}
+#page-footer #footer-right {
+  float: right;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+#page-footer #footer-right img {
+  float: left;
+  margin-left: 5px;
+}
+.headingimages .bgimagecontainer {
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center center;
+  width: 100%;
+  height: 174px;
+}
+#page-content #region-main {
+  padding-left: 0;
+}
+#page-content #region-main .inner {
+  background: #f4f4f4;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+#page-content #region-main #page-navbar {
+  margin-left: -15px;
 }
 @font-face {
   font-family: 'Source Sans Pro';

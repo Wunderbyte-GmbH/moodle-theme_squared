@@ -98,6 +98,9 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         $count = 1;
         $pair = new stdClass();
         foreach ($template->blocks as $block) {
+            if (is_array($block->attributes) && isset($block->attributes['data-block'])) {
+                $block->name = 'block_' . $block->attributes['data-block'];
+            }
             if ($count == 2) {
                 $pair->blockb = $block;
                 $template->pairs[] = $pair;
@@ -110,6 +113,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             }
         }
         if ($pair) {
+            //print_r($pair);
            $template->pairs[] = $pair; 
         }
         if ($this->page->user_is_editing()) {
