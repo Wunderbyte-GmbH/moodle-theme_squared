@@ -101,6 +101,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             if (is_array($block->attributes) && isset($block->attributes['data-block'])) {
                 $block->name = 'block_' . $block->attributes['data-block'];
             }
+            $block->shape = 'squared';
             if ($count == 2) {
                 $pair->blockb = $block;
                 $template->pairs[] = $pair;
@@ -108,13 +109,18 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                 $count = 1;
             } else {
                 $pair = new stdClass();
+                $pair->class = 'col-xs-6';
                 $pair->blocka = $block;
                 $count++;
             }
         }
         if ($pair) {
-            //print_r($pair);
-           $template->pairs[] = $pair; 
+            $numblocks = count($template->blocks);
+            if (($numblocks %2) != 0) {
+                $pair->blocka->shape = 'rectangle';
+                $pair->class = 'col-xs-12 lastblock';
+            }
+            $template->pairs[] = $pair; 
         }
         if ($this->page->user_is_editing()) {
             return $this->render_from_template('theme_squared/collapsedblocks', $template);
