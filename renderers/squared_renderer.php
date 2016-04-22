@@ -78,7 +78,7 @@ class theme_squared_html_renderer extends plugin_renderer_base {
     private function categories($catid = 0) {
         global $DB, $OUTPUT, $PAGE;
         
-        $categories = $DB->get_records('course_categories', array('visible' => 1));
+        $categories = $DB->get_records('course_categories', array('visible' => 1, 'parent' => 0));
 
         if ($catid > 0) {
             $categories[$catid] = $DB->get_record('course_categories', array('id' => $catid));
