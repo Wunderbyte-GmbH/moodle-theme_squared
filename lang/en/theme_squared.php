@@ -32,7 +32,11 @@ $string['customcssdesc'] = 'Any CSS you enter here will be added to every page a
 $string['facebooklink'] = 'Link to your facebook page (optional)';
 $string['facebooklinkdesc'] = 'The link should look like this: http://www.facebook.com/yourpage';
 $string['footer'] = 'Footer links';
-$string['footerdesc'] = 'Description followed by link, separeted by comma, next item separated by semicolon: Über sqa, http://www.sqa.at; Für Lehrpersonen,/; Für die Schulleitung,/; Für die Schulaufsicht,/;';
+$string['footerdesc'] = 'You can configure a custom listing here shown in the footer.
+Each line consists of some menu text an a link URL. For Example :
+<pre>Moodle news|http://moodlenews.com
+Moodle|http://moodle.org
+</pre>';
 $string['fplink'] = 'Frontpage header block1 URL';
 $string['fplinkdesc'] = 'Set the frontpage header block 1 URL';
 $string['fpnews'] = 'Frontpage Site News block text';

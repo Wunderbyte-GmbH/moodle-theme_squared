@@ -23,3 +23,24 @@
         }
     }
 }
+
+.menu_item(@color) {
+    a,
+    a:hover {
+        color: #FFF;
+
+    }
+    background-color: lighten(@color, 15%);
+    #gradient > .directional(lighten(@color, 15%);lighten(@color, 5%));
+    .dropdown-menu {
+        background-color: darken(@color, 5%);
+    }
+    &.open {
+        background-color: darken(@color, 5%);
+        a,
+        a:hover {
+            color: #FFF;
+            background-color: darken(@color, 5%);
+        }
+    }
+}

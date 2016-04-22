@@ -38,29 +38,8 @@ echo $OUTPUT->doctype() ?>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
-<nav role="navigation" class="navbar navbar-default">
-    <div class="container-fluid">
-    <div class="navbar-header pull-left">
-        <a class="navbar-brand" href="<?php echo $CFG->wwwroot;?>"><?php echo $SITE->shortname; ?></a>
-    </div>
-    <div class="navbar-header pull-right">
-        <?php echo $OUTPUT->user_menu(); ?>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#moodle-navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-    </div>
-    <div id="moodle-navbar" class="navbar-collapse collapse navbar-right">
-        <?php echo $OUTPUT->custom_menu(); ?>
-        <ul class="nav pull-right">
-            <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
-        </ul>
-    </div>
-    
-    </div>
-</nav>
+<?php echo $html->navigation_menu(); ?>
+
 <header class="moodleheader">
     <div class="container-fluid">
     <?php echo $html->image_header(); ?>
@@ -100,16 +79,7 @@ echo $OUTPUT->doctype() ?>
         }?>
     </div>
 
-    <footer id="page-footer">
-        <div class="row">
-        <div id="footer-left" class="col-md-6">
-            <?php echo $OUTPUT->squared_textlinks('footer'); ?>
-        </div>
-        <div id="footer-left" class="col-md-6">
-            <?php echo $OUTPUT->squared_socialicons('footer'); ?>
-        </div>
-        <?php echo $OUTPUT->standard_footer_html(); ?>
-    </footer>
+    <?php echo $html->footer(); ?>
 
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
 

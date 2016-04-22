@@ -49,10 +49,10 @@ function squared_grid($hassidepre) {
  */
 function theme_squared_process_css($css, $theme) {
     global $CFG;
-    $css = theme_squared_include_fonts ( $css, $theme );
+    //$css = theme_squared_include_fonts ( $css, $theme );
     
-    $bgcolorsettings = theme_squared_get_backgroundcolorsettings_array ( '/bgcolor_.+/', $theme->settings );
-    $css .= theme_squared_add_categorycolorguide_css ( $bgcolorsettings );
+    //$bgcolorsettings = theme_squared_get_backgroundcolorsettings_array ( '/bgcolor_.+/', $theme->settings );
+    //$css .= theme_squared_add_categorycolorguide_css ( $bgcolorsettings );
     
     if (! empty ( $theme->settings->bgcolordefault )) {
         $bgcolordefault = $theme->settings->bgcolordefault;

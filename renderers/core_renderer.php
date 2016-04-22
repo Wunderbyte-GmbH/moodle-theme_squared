@@ -37,26 +37,26 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
      *
      * @see core_renderer::heading()
      */
-    public function heading($text, $level = 2, $classes = 'main', $id = null) {
-        // for section headings//
-        if ($level == 3) {
-            $content = html_writer::start_tag ( 'div', array (
-                    'class' => 'headingwrap1' 
-            ) );
-            $content .= html_writer::start_tag ( 'div', array (
-                    'class' => 'headingwrap2' 
-            ) );
-        } else {
-            $content = "";
-        }
+    // public function heading($text, $level = 2, $classes = 'main', $id = null) {
+    //     // for section headings//
+    //     if ($level == 3) {
+    //         $content = html_writer::start_tag ( 'div', array (
+    //                 'class' => 'headingwrap1' 
+    //         ) );
+    //         $content .= html_writer::start_tag ( 'div', array (
+    //                 'class' => 'headingwrap2' 
+    //         ) );
+    //     } else {
+    //         $content = "";
+    //     }
         
-        $content .= parent::heading ( $text, $level, $classes, $id );
-        if ($level == 3) {
-            $content .= html_writer::end_tag ( 'div' );
-            $content .= html_writer::end_tag ( 'div' );
-        }
-        return $content;
-    }
+    //     $content .= parent::heading ( $text, $level, $classes, $id );
+    //     if ($level == 3) {
+    //         $content .= html_writer::end_tag ( 'div' );
+    //         $content .= html_writer::end_tag ( 'div' );
+    //     }
+    //     return $content;
+    // }
     
     /**
      * Output all the blocks in a particular region.

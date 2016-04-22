@@ -26,7 +26,7 @@ if (is_siteadmin ()) {
     $name = 'theme_squared/footertext';
     $title = get_string ( 'footer', 'theme_squared' );
     $description = get_string ( 'footerdesc', 'theme_squared' );
-    $setting = new admin_setting_configtext ( $name, $title, $description, '', PARAM_TEXT );
+    $setting = new admin_setting_configtextarea ( $name, $title, $description, '', PARAM_TEXT );
     $settingpage->add ( $setting );
     
     $name = 'theme_squared/youtubelink';

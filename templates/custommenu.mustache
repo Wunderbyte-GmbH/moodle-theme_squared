@@ -1,0 +1,15 @@
+<ul class="nav navbar-nav">
+    {{#categories}}
+        <li class="dropdown {{colour}}">
+            <a class="dropdown-toggle" type="button" id="custommenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{name}}
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="custommenu">
+                {{#courses}}
+                    <li><a href="{{{courselink}}}">{{fullname}}</a></li>
+                {{/courses}}
+            </ul>
+        </li>
+    {{/categories}}
+</ul>
