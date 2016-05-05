@@ -4619,11 +4619,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand {
-  color: #ffffff;
+  color: #777777;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #ffffff;
+  color: #5e5e5e;
   background-color: transparent;
 }
 .navbar-default .navbar-text {
@@ -18660,6 +18660,9 @@ div.feedback_item_commands_left {
     background-color: #a4daf0;
   }
 }
+#block-region-side-pre .block_navigation {
+  word-break: break-all;
+}
 #block-region-side-pre .block_navigation .courseblock-icon {
   background: url('[[pix:theme|block/navigation]]') no-repeat 50% 50%;
 }
@@ -18924,26 +18927,35 @@ div.feedback_item_commands_left {
     background-color: #a4daf0;
   }
 }
+@media (max-width: 768px) {
+  .usermenu.navbar-nav {
+    margin: 0;
+  }
+  .usermenu.navbar-nav.guest a {
+    margin-top: 5px;
+  }
+}
 @media (min-width: 768px) {
-  .navbar-brand {
+  .navbar-default .navbar-brand {
+    color: #FFF;
     background-color: #a4daf0;
     background-repeat: repeat-x;
     background-image: -webkit-linear-gradient(45deg, #a4daf0, #78c8e9);
     background-image: -o-linear-gradient(45deg, #a4daf0, #78c8e9);
     background-image: linear-gradient(45deg, #a4daf0, #78c8e9);
   }
-  .navbar-brand a,
-  .navbar-brand a:hover {
+  .navbar-default .navbar-brand a,
+  .navbar-default .navbar-brand a:hover {
     color: #FFF;
   }
-  .navbar-brand .dropdown-menu {
+  .navbar-default .navbar-brand .dropdown-menu {
     background-color: #4cb6e1;
   }
-  .navbar-brand.open {
+  .navbar-default .navbar-brand.open {
     background-color: #4cb6e1;
   }
-  .navbar-brand.open a,
-  .navbar-brand.open a:hover {
+  .navbar-default .navbar-brand.open a,
+  .navbar-default .navbar-brand.open a:hover {
     color: #FFF;
     background-color: #4cb6e1;
   }
@@ -19325,15 +19337,15 @@ div.feedback_item_commands_left {
   width: 100%;
   height: 174px;
 }
-#page-content #region-main {
-  padding-left: 0;
-}
-#page-content #region-main .inner {
-  background: #f4f4f4;
-  padding-left: 15px;
-  padding-right: 15px;
-}
 @media (min-width: 768px) {
+  #page-content #region-main {
+    padding-left: 0;
+  }
+  #page-content #region-main .inner {
+    background: #f4f4f4;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
   #block-region-side-pre {
     padding-right: 0;
   }
