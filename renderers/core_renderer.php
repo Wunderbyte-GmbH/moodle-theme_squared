@@ -74,15 +74,11 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         }
         $output = '';
         $template = new stdClass();
-        $first = true;
 
         //One block column
         foreach ($blockcontents as $bc) {
             if ($bc instanceof block_contents) {
-                if ($first) {
-                    $bc->open = true;
-                    $first = false;
-                }
+
                 $thisblock = $this->block($bc, $region);
                 $thisblock->header = $this->block_header($bc);
                 $thisblock->movetarget = false;
@@ -105,7 +101,6 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         $count = 1;
         $pair = new stdClass();
         foreach ($template->blocks as $block) {
-
             if (!$block->movetarget && is_array($block->attributes) && isset($block->attributes['data-block'])) {
                 $block->name = 'block_' . $block->attributes['data-block'];
             }
@@ -174,15 +169,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         if ($bc->collapsible == block_contents::HIDDEN) {
             $bc->add_class('hidden');
         }
-        // if (!empty($bc->controls)) {
-        //     $bc->add_class('block_with_controls');
-        //     $blockid = null;
-        //     if (isset($bc->attributes['id'])) {
-        //         $blockid = $bc->attributes['id'];
-        //     }
-        //     $bc->ctrl = $this->block_controls($bc->controls, $blockid);
-        //     $bc->dropdown = $this->block_settings_menu($bc->controls, $blockid);
-        // }
+
         $bc->add_class('panel panel-default');
 
         $bc->content = $this->block_content($bc);
@@ -276,76 +263,6 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         }
     }
     
-    /**
-     * Renders a custom menu node as part of a submenu
-     *
-     * The custom menu this method produces makes use of the YUI3 menunav widget
-     * and requires very specific html elements and classes.
-     *
-     * @see core:renderer::render_custom_menu()
-     *
-     * @staticvar int $submenucount
-     * @param custom_menu_item $menunode            
-     * @return string
-     */
-    // protected function render_custom_menu_item(custom_menu_item $menunode) {
-    //     // Required to ensure we get unique trackable id's
-    //     static $submenucount = 0;
-    //     if ($menunode->has_children ()) {
-    //         // If the child has menus render it as a sub menu
-    //         $submenucount ++;
-    //         if ($menunode->get_url () !== null) {
-    //             $url = $menunode->get_url ();
-    //             $categoryid = $url->get_param ( 'categoryid' );
-    //             if (! empty ( $categoryid )) {
-    //                 $cssclass = ' category-' . $categoryid;
-    //             } else {
-    //                 $cssclass = '';
-    //             }
-    //         } else {
-    //             $url = '#cm_submenu_' . $submenucount;
-    //         }
-    //         $content = html_writer::start_tag ( 'li', array (
-    //                 'class' => $cssclass 
-    //         ) );
-    //         $content .= html_writer::link ( $url, $menunode->get_text (), array (
-    //                 'class' => 'yui3-menu-label' . $cssclass,
-    //                 'title' => $menunode->get_title () 
-    //         ) );
-    //         $content .= html_writer::start_tag ( 'div', array (
-    //                 'id' => 'cm_submenu_' . $submenucount,
-    //                 'class' => 'yui3-menu custom_menu_submenu' 
-    //         ) );
-    //         $content .= html_writer::start_tag ( 'div', array (
-    //                 'class' => 'yui3-menu-content' 
-    //         ) );
-    //         $content .= html_writer::start_tag ( 'ul' );
-    //         foreach ( $menunode->get_children () as $menunode ) {
-    //             $content .= $this->render_custom_menu_item ( $menunode );
-    //         }
-    //         $content .= html_writer::end_tag ( 'ul' );
-    //         $content .= html_writer::end_tag ( 'div' );
-    //         $content .= html_writer::end_tag ( 'div' );
-    //         $content .= html_writer::end_tag ( 'li' );
-    //     } else {
-    //         // The node doesn't have children so produce a final menuitem
-    //         $content = html_writer::start_tag ( 'li', array (
-    //                 'class' => 'yui3-menuitem' 
-    //         ) );
-    //         if ($menunode->get_url () !== null) {
-    //             $url = $menunode->get_url ();
-    //         } else {
-    //             $url = '#';
-    //         }
-    //         $content .= html_writer::link ( $url, $menunode->get_text (), array (
-    //                 'class' => 'yui3-menuitem-content',
-    //                 'title' => $menunode->get_title () 
-    //         ) );
-    //         $content .= html_writer::end_tag ( 'li' );
-    //     }
-    //     // Return the sub menu
-    //     return $content;
-    // }
     
     protected function squared_prepare_textlinks($textlinks) {
         $textsnippets = explode ( ';', $textlinks );
