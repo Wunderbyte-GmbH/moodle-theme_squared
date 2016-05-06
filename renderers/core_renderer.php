@@ -117,8 +117,8 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                 $count++;
             }
         }
+        $numblocks = count($template->blocks);
         if ($pair) {
-            $numblocks = count($template->blocks);
             if (($numblocks %2) != 0) {
                 $pair->blocka->shape = 'rectangle';
                 $pair->class = 'col-xs-12 lastblock';
@@ -126,7 +126,12 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             $template->pairs[] = $pair; 
         }
 
-        return $this->render_from_template('theme_squared/blocks', $template);
+        $theme = theme_config::load('squared');
+        if ($numblocks >= $theme->settings->blockperrowlimit) {
+            return $this->render_from_template('theme_squared/blocksrows', $template);
+        } else {
+            return $this->render_from_template('theme_squared/blocks', $template);
+        }
     }   
 
     /**
