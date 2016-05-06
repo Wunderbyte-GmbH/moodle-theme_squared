@@ -4,6 +4,42 @@
         box-shadow: 0;
         margin:0;
     }
+    .block .panel-heading {
+        padding: 0 5px;
+        .header {
+            color: #FFF;
+            padding: 0;
+            border: 0;
+            background-color: transparent;
+        }
+        #gradient > .directional(lighten(@squared-purple, 15%);lighten(@squared-purple, 5%));
+
+        h2 {
+            font-family: @font-family-sans-serif;
+            line-height: 25px;
+            padding-top: 5px;
+        }
+        
+        .courseblock-icon {
+            width: 25px;
+            height: 25px;
+            padding: 1px;
+            float: left;
+            margin: 5px;
+            background-size: 100%;
+        }
+        .commands {
+            display: block;
+        }
+    }
+    .block.invisible {
+        .panel-heading {
+            #gradient > .directional(lighten(@gray, 15%);lighten(@gray, 5%));
+        }
+        .header h2 {
+            color: @gray-lighter;
+        }
+    }
 
     .courseblock-icon {
         background: url('[[pix:theme|default-block-icon]]') no-repeat 50% 50%;
@@ -337,5 +373,44 @@
 
     .block_mylanguageportfolio {
         .block_icon(mylanguageportfolio32);
+    }
+}
+//Styles for non-JS
+#block-region-side-pre {
+    .collapse {
+        display: block;
+    }
+    .blockpairs {
+        display: none;
+    }
+    .panel-group .panel.block {
+        margin-bottom: 5px;
+    }
+    .block .panel-heading {
+        min-height: 35px;
+    }
+    .header img.block-hider-hide,
+    .header img.block-hider-show {
+        display: none;
+    }
+}
+//JS styles
+.jsenabled:not(.editing) #block-region-side-pre {
+    .collapse {
+        display: none;
+        &.in {
+            display: block;
+        }
+    }
+    .blockpairs {
+        display: block;
+    }
+    .panel-group .panel.block {
+        margin-bottom: 0;
+    }
+    .block .panel-heading {
+        min-height: inherit;
+        padding: 0;
+        display: none;
     }
 }

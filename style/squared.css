@@ -18461,6 +18461,44 @@ div.feedback_item_commands_left {
   box-shadow: 0;
   margin: 0;
 }
+#block-region-side-pre .block .panel-heading {
+  padding: 0 5px;
+  background-repeat: repeat-x;
+  background-image: -webkit-linear-gradient(45deg, #a4daf0, #78c8e9);
+  background-image: -o-linear-gradient(45deg, #a4daf0, #78c8e9);
+  background-image: linear-gradient(45deg, #a4daf0, #78c8e9);
+}
+#block-region-side-pre .block .panel-heading .header {
+  color: #FFF;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+}
+#block-region-side-pre .block .panel-heading h2 {
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 25px;
+  padding-top: 5px;
+}
+#block-region-side-pre .block .panel-heading .courseblock-icon {
+  width: 25px;
+  height: 25px;
+  padding: 1px;
+  float: left;
+  margin: 5px;
+  background-size: 100%;
+}
+#block-region-side-pre .block .panel-heading .commands {
+  display: block;
+}
+#block-region-side-pre .block.invisible .panel-heading {
+  background-repeat: repeat-x;
+  background-image: -webkit-linear-gradient(45deg, #7c7c7c, #626262);
+  background-image: -o-linear-gradient(45deg, #7c7c7c, #626262);
+  background-image: linear-gradient(45deg, #7c7c7c, #626262);
+}
+#block-region-side-pre .block.invisible .header h2 {
+  color: #eeeeee;
+}
 #block-region-side-pre .courseblock-icon {
   background: url('[[pix:theme|default-block-icon]]') no-repeat 50% 50%;
   float: left;
@@ -18926,6 +18964,39 @@ div.feedback_item_commands_left {
   #block-region-side-pre .block_mylanguageportfolio .courseblock-icon {
     background-color: #a4daf0;
   }
+}
+#block-region-side-pre .collapse {
+  display: block;
+}
+#block-region-side-pre .blockpairs {
+  display: none;
+}
+#block-region-side-pre .panel-group .panel.block {
+  margin-bottom: 5px;
+}
+#block-region-side-pre .block .panel-heading {
+  min-height: 35px;
+}
+#block-region-side-pre .header img.block-hider-hide,
+#block-region-side-pre .header img.block-hider-show {
+  display: none;
+}
+.jsenabled:not(.editing) #block-region-side-pre .collapse {
+  display: none;
+}
+.jsenabled:not(.editing) #block-region-side-pre .collapse.in {
+  display: block;
+}
+.jsenabled:not(.editing) #block-region-side-pre .blockpairs {
+  display: block;
+}
+.jsenabled:not(.editing) #block-region-side-pre .panel-group .panel.block {
+  margin-bottom: 0;
+}
+.jsenabled:not(.editing) #block-region-side-pre .block .panel-heading {
+  min-height: inherit;
+  padding: 0;
+  display: none;
 }
 @media (max-width: 768px) {
   .usermenu.navbar-nav {

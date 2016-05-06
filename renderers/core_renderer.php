@@ -83,10 +83,17 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                     $bc->open = true;
                     $first = false;
                 }
-                $template->blocks[] = $this->block($bc, $region);
+                $thisblock = $this->block($bc, $region);
+                $thisblock->header = $this->block_header($bc);
+                $thisblock->movetarget = false;
+
+                $template->blocks[] = $thisblock;
                 $lastblock = $bc->title;
             } else if ($bc instanceof block_move_target) {
-                $template->blocks[] = $this->block_move_target($bc, $zones, $lastblock, $region);
+                $movetarget = new stdClass();
+                $movetarget->movetarget = $this->block_move_target($bc, $zones, $lastblock, $region);
+
+                $template->blocks[] = $movetarget;
             } else {
                 throw new coding_exception('Unexpected type of thing (' . get_class($bc) . ') found in list of block contents.');
             }
@@ -98,7 +105,8 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         $count = 1;
         $pair = new stdClass();
         foreach ($template->blocks as $block) {
-            if (is_array($block->attributes) && isset($block->attributes['data-block'])) {
+
+            if (!$block->movetarget && is_array($block->attributes) && isset($block->attributes['data-block'])) {
                 $block->name = 'block_' . $block->attributes['data-block'];
             }
             $block->shape = 'squared';
@@ -122,11 +130,8 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             }
             $template->pairs[] = $pair; 
         }
-        if ($this->page->user_is_editing()) {
-            return $this->render_from_template('theme_squared/collapsedblocks', $template);
-        } else {
-            return $this->render_from_template('theme_squared/collapsedblockscolumns', $template);
-        }
+
+        return $this->render_from_template('theme_squared/blocks', $template);
     }   
 
     /**
@@ -169,15 +174,15 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         if ($bc->collapsible == block_contents::HIDDEN) {
             $bc->add_class('hidden');
         }
-        if (!empty($bc->controls)) {
-            $bc->add_class('block_with_controls');
-            $blockid = null;
-            if (isset($bc->attributes['id'])) {
-                $blockid = $bc->attributes['id'];
-            }
-            $bc->ctrl = $this->block_controls($bc->controls, $blockid);
-            $bc->dropdown = $this->block_settings_menu($bc->controls, $blockid);
-        }
+        // if (!empty($bc->controls)) {
+        //     $bc->add_class('block_with_controls');
+        //     $blockid = null;
+        //     if (isset($bc->attributes['id'])) {
+        //         $blockid = $bc->attributes['id'];
+        //     }
+        //     $bc->ctrl = $this->block_controls($bc->controls, $blockid);
+        //     $bc->dropdown = $this->block_settings_menu($bc->controls, $blockid);
+        // }
         $bc->add_class('panel panel-default');
 
         $bc->content = $this->block_content($bc);
@@ -192,122 +197,6 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
 
         $this->init_block_hider_js($bc);
         return $bc;
-    }
-
-    /**
-     * Output the row of editing icons for a block, as defined by the controls array.
-     *
-     * @param array $controls an array like {@link block_contents::$controls}.
-     * @param string $blockid The ID given to the block.
-     * @return string HTML fragment.
-     */
-    public function block_controls($actions, $blockid = null) {
-        global $CFG;
-        if (empty($actions)) {
-            return '';
-        }
-        $menu = new action_menu($actions);
-        if ($blockid !== null) {
-            $menu->set_owner_selector('#'.$blockid);
-        }
-        $menu->set_constraint('.block-region');
-        $menu->attributes['class'] .= ' block-control-actions commands';
-        if (isset($CFG->blockeditingmenu) && !$CFG->blockeditingmenu) {
-            $menu->do_not_enhance();
-        }
-        return $this->render($menu);
-    }
-
-    public function render_action_menu(action_menu $menu) {
-        $menu->initialise_js($this->page);
-
-        $output = html_writer::start_tag('div', $menu->attributes);
-        $output .= html_writer::start_tag('ul', $menu->attributesprimary);
-        foreach ($menu->get_primary_actions($this) as $action) {
-            if ($action instanceof renderable) {
-                $content = $this->render($action);
-                $output .= html_writer::tag('li', $content, array('role' => 'presentation'));
-            } 
-            
-        }
-        $output .= html_writer::end_tag('ul');
-        $output .= html_writer::end_tag('div');
-        return $output;
-    }
-
-    public function block_settings_menu($actions, $blockid = null) {
-        global $CFG;
-        if (empty($actions)) {
-            //return '';
-        }
-        $menu = new action_menu($actions);
-        if ($blockid !== null) {
-            $menu->set_owner_selector('#'.$blockid);
-        }
-        $menu->set_constraint('.block-region');
-        $menu->attributes['class'] .= ' block-control-actions commands';
-        if (isset($CFG->blockeditingmenu) && !$CFG->blockeditingmenu) {
-            $menu->do_not_enhance();
-        }
-
-        $items = '';
-        foreach ($menu->get_secondary_actions() as $action) {
-            if ($action instanceof renderable) {
-                $content = $this->render($action);
-
-            } else {
-                $content = $action;
-            }
-            $items .= html_writer::tag('li', $content, array('role' => 'presentation'));
-        }
-
-        $cog = $this->pix_icon('t/edit', 'core');
-
-        $output = '
-        <div class="commands right">
-            <div class="pull-right actions dropdown">
-                <a href="" data-toggle="dropdown" aria-expanded="true">
-                    '.$cog.'
-                </a>
-
-                <ul class="dropdown-menu dropdown-menu-right max-200">
-                    '.$items.'
-                </ul>
-            </div>
-        </div>';
-        return $output;
-    }
-
-
-    /**
-     * Produces a header for a block
-     *
-     * @see core_renderer::block_header(). Added courseblock-icon div
-     * @param block_contents $bc
-     * @return string
-     */
-    protected function block_header(block_contents $bc) {
-        $title = '';
-        if ($bc->title) {
-            $attributes = array();
-            if ($bc->blockinstanceid) {
-                $attributes['id'] = 'instance-'.$bc->blockinstanceid.'-header';
-            }
-            $title = html_writer::tag('div', '', array('class' => 'courseblock-icon'));
-            $title .= html_writer::tag('h2', $bc->title, $attributes);
-        }
-
-        $blockid = null;
-        if (isset($bc->attributes['id'])) {
-            $blockid = $bc->attributes['id'];
-        }
-        $controlshtml = $this->block_controls($bc->controls, $blockid);
-
-        $output = '';
-        if ($title || $controlshtml) {
-            $output .= html_writer::tag('div', html_writer::tag('div', html_writer::tag('div', '', array('class'=>'block_action')). $title . $controlshtml, array('class' => 'title')), array('class' => 'header'));
-        }
-        return $output;
     }
     
     
