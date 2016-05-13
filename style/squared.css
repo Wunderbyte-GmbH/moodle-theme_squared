@@ -19398,6 +19398,10 @@ div.feedback_item_commands_left {
 #page-footer ul.socialicons li {
   display: inline;
 }
+#page-footer ul.socialicons li a:hover,
+#page-footer ul.socialicons li a:focus {
+  text-decoration: none;
+}
 #page-footer ul.footerlisting {
   list-style: none;
   margin: 0;
