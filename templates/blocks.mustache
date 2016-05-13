@@ -1,3 +1,16 @@
+{{!
+    This file is part of the Squared theme for Moodle
+}}
+{{!
+    @template theme_squared/blocks
+
+    Render the one column block layout
+
+    Example context (json): {
+        "block1" : {"class" : "block-settings", "blockinstanceid": 1},
+        "block2" : {"class" : "block-navigation", "blockinstanceid": 2}
+    }
+}}
 <div class="panel-group single-row" id="accordion" role="tablist" aria-multiselectable="true">
     {{#blocks}}
         <div class="{{class}} pairheader left">

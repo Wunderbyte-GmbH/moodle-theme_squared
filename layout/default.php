@@ -40,11 +40,7 @@ echo $OUTPUT->doctype() ?>
 
 <?php echo $html->navigation_menu(); ?>
 
-<header class="moodleheader">
-    <div class="container-fluid">
-    <?php echo $html->image_header(); ?>
-    </div>
-</header>
+<?php echo $html->image_header(); ?>
 
 <div id="page" class="container-fluid">
     <header id="page-header" class="clearfix">

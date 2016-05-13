@@ -31,18 +31,32 @@ class theme_squared_html_renderer extends plugin_renderer_base {
      * Render the top image menu.
      */
     public function image_header() {
+        if (empty($this->theme)) {
+            $this->theme = theme_config::load('squared');
+        }
+        $settings = $this->theme->settings;
         $template = new stdClass();
+
         $template->homeurl = new moodle_url('/');
-        if ($this->page->theme->settings->pagelogo) {
-            $template->logoimg = $this->page->theme->setting_file_url('pagelogo', 'pagelogo');
-        } else {
-            $template->logoimg = $this->pix_url('moodle-logo', 'theme_squared');
+
+        $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 logo';
+        $template->headerbgcontainerclass = 'col-sm-9 col-md-9 col-lg-10 grid background';
+
+        if (isset($settings->headerlayout) && ($settings->headerlayout == 1)) {
+            $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 logo fixed';
+            $template->headerbgcontainerclass = 'col-sm-12 background';
         }
-        if (!empty($this->page->theme->settings->headerimagecourse)) {
-            $template->headerimg = $this->page->theme->setting_file_url('headerimagecourse', 'headerimagecourse');
-        } else {
-            $template->headerimg = $this->pix_url('header-course', 'theme_squared');
+
+        $images = array('logo', 'logosmall', 'headerbg', 'headerbgsmall');
+
+        foreach ($images as $image) {
+            if (!empty($settings->$image)) {
+                $template->$image = $this->theme->setting_file_url($image, $image);
+            } else {
+                $template->$image = $this->pix_url($image, 'theme_squared');
+            }
         }
+        
         return $this->render_from_template('theme_squared/imageheading', $template);
     }
 
