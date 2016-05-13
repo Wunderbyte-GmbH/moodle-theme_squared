@@ -74,6 +74,9 @@ class theme_squared_html_renderer extends plugin_renderer_base {
         $template->usermenu = $OUTPUT->user_menu();
         $template->custommenu = $this->category_menu();
         $template->pageheadingmenu = $OUTPUT->page_heading_menu();
+        $template->languagemenu = $this->languagemenu();
+        $template->search = $this->searchbox();
+        $template->togglebtn = $OUTPUT->pix_url('more-button', 'theme_squared');
         return $this->render_from_template('theme_squared/navigation', $template);
     }
 
@@ -190,6 +193,37 @@ class theme_squared_html_renderer extends plugin_renderer_base {
     }
 
     /**
+     * Render the language menu.
+     */
+    public function languagemenu() {
+        global $OUTPUT;
+        if (empty($this->theme)) {
+            $this->theme = theme_config::load('squared');
+        }
+        $haslangmenu = $OUTPUT->lang_menu() != '';
+        $langmenu = new stdClass();
+        
+        if ($haslangmenu) {
+            $langs = get_string_manager()->get_list_of_translations();
+            $strlang = get_string('language');
+            $currentlang = current_language();
+            if (isset($langs[$currentlang])) {
+                $langmenu->currentlang = $langs[$currentlang];
+            } else {
+                $langmenu->currentlang = $strlang;
+            }
+            $langmenu->languages = array();
+            foreach ($langs as $type => $name) {
+                $thislang = new stdClass();
+                $thislang->langname = $name;
+                $thislang->langurl = new moodle_url($this->page->url, array('lang' => $type));
+                $langmenu->languages[] = $thislang;
+            }
+            return $this->render_from_template('theme_squared/language', $langmenu);
+        }
+    }
+
+    /**
      * Render the text shown in the page footer.
      */
     public function footer() {
@@ -217,5 +251,19 @@ class theme_squared_html_renderer extends plugin_renderer_base {
             }
         }
         return $this->render_from_template('theme_squared/footer', $template);
+    }
+
+    /**
+     * Render the searchbox shown in the top navbar.
+     */
+    public function searchbox($value = '') {
+        if (empty($this->theme)) {
+            $this->theme = theme_config::load('squared');
+        }
+        $configsearchurl = $this->theme->settings->searchurl;
+        $searchurl = empty($configsearchurl) ? '/course/search.php' : $configsearchurl;
+        $templateinfo = new stdClass();
+        $templateinfo->formaction = new moodle_url($searchurl);
+        return $this->render_from_template('theme_squared/navbarsearch', $templateinfo);
     }
 }

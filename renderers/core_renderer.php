@@ -359,6 +359,102 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         
         return $content;
     }
+
+        public function user_menu($user = null, $withlinks = null) {
+        $usermenu = new custom_menu('', current_language());
+        return $this->render_user_menu($usermenu, $user);
+    }
+
+    protected function render_user_menu(custom_menu $menu, $user) {
+        global $USER;
+
+        if (empty($user)) {
+            $user = $USER;
+        }
+
+        $menuclass = 'navbar-nav guest';
+
+        if (isloggedin() && !isguestuser()) {
+            $menuclass = 'loggedin';
+            $userpicture = new user_picture($user);
+            $userpicture->link = false;
+            $userpicture->size = 34;
+            $picture = html_writer::tag('span', $this->render($userpicture), array('class' => 'picspan'));
+            $name = fullname($user);
+            $name = html_writer::tag('span', $name, array('class' => 'username hidden-sm'));
+            $usermenu = $menu->add($name . $picture, new moodle_url('#'), fullname($user), 10001);
+
+            $usermenu->add(
+                $this->glyphicon('dashboard')  . get_string('myhome'),
+                new moodle_url('/my'),
+                get_string('myhome')
+            );
+
+            $usermenu->add(
+                '#######',
+                new moodle_url('/'),
+                '#######'
+            );
+
+            $usermenu->add(
+                $this->glyphicon('user') . get_string('profile'),
+                new moodle_url('/user/profile.php', array('id' => $user->id)),
+
+                get_string('profile')
+            );
+
+            $usermenu->add(
+                $this->glyphicon('list-alt') . get_string('grades'),
+                new moodle_url('/grade/report/overview/index.php'),
+                get_string('grades')
+            );
+
+            $usermenu->add(
+                $this->glyphicon('inbox') . get_string('messages', 'message'),
+                new moodle_url('/message/index.php'),
+
+                get_string('messages', 'message')
+            );
+
+            $usermenu->add(
+                $this->glyphicon('cog') . get_string('preferences'),
+                new moodle_url('/user/preferences.php'),
+
+                get_string('preferences')
+            );
+
+            $usermenu->add(
+                '#######',
+                new moodle_url('/'),
+                '#######'
+            );
+
+            $usermenu->add(
+                $this->glyphicon('sign-out') . get_string('logout'),
+                new moodle_url('/login/logout.php', array('sesskey' => sesskey(), 'alt' => 'logout')),
+                get_string('logout')
+            );
+        } else {
+            $menu->add(
+                $this->glyphicon('sign-in')  . get_string('login'),
+                new moodle_url('/login/index.php', array('alt' => get_string('login'))),
+                get_string('login')
+            );
+        }
+
+        $content = html_writer::start_tag('ul', array('class' => 'nav pull-left usermenu ' . $menuclass, 'role' => 'menubar'));
+        foreach ($menu->get_children() as $item) {
+            $content .= $this->render_custom_menu_item($item, 1, 'pull-right');
+        }
+        $content .= html_writer::end_tag('ul');
+
+        return $content;
+    }
+
+    private function glyphicon($icon) {
+        $icon = html_writer::tag('i', '', array('class' => 'glyphicon glyphicon-' . $icon));
+        return html_writer::tag('span', $icon, array('class' => 'iconwrapper'));
+    }
     
     /**
      * Return the navbar content so that it can be echoed out by the layout
@@ -405,250 +501,250 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
      *            and if that is not set, then links are included.
      * @return string HTML fragment.
      */
-    public function login_info($withlinks = null) {
-        global $USER, $CFG, $DB, $SESSION, $OUTPUT;
+    // public function login_info($withlinks = null) {
+    //     global $USER, $CFG, $DB, $SESSION, $OUTPUT;
         
-        if (during_initial_install ()) {
-            return '';
-        }
+    //     if (during_initial_install ()) {
+    //         return '';
+    //     }
         
-        if (is_null ( $withlinks )) {
-            $withlinks = empty ( $this->page->layout_options ['nologinlinks'] );
-        }
+    //     if (is_null ( $withlinks )) {
+    //         $withlinks = empty ( $this->page->layout_options ['nologinlinks'] );
+    //     }
         
-        $loginpage = (( string ) $this->page->url === theme_squared_get_login_url ());
-        $course = $this->page->course;
-        if (\core\session\manager::is_loggedinas ()) {
-            $realuser = \core\session\manager::get_realuser ();
-            $fullname = fullname ( $realuser, true );
-            if ($withlinks) {
-                $loginastitle = get_string ( 'loginas' );
-                $realuserinfo = " [<a href=\"$CFG->wwwroot/course/loginas.php?id=$course->id&amp;sesskey=" . sesskey () . "\"";
-                $realuserinfo .= "title =\"" . $loginastitle . "\">$fullname</a>] ";
-            } else {
-                $realuserinfo = " [$fullname] ";
-            }
-        } else {
-            $realuserinfo = '';
-        }
+    //     $loginpage = (( string ) $this->page->url === theme_squared_get_login_url ());
+    //     $course = $this->page->course;
+    //     if (\core\session\manager::is_loggedinas ()) {
+    //         $realuser = \core\session\manager::get_realuser ();
+    //         $fullname = fullname ( $realuser, true );
+    //         if ($withlinks) {
+    //             $loginastitle = get_string ( 'loginas' );
+    //             $realuserinfo = " [<a href=\"$CFG->wwwroot/course/loginas.php?id=$course->id&amp;sesskey=" . sesskey () . "\"";
+    //             $realuserinfo .= "title =\"" . $loginastitle . "\">$fullname</a>] ";
+    //         } else {
+    //             $realuserinfo = " [$fullname] ";
+    //         }
+    //     } else {
+    //         $realuserinfo = '';
+    //     }
         
-        $loginurl = theme_squared_get_login_url ();
-        $subscribeurl = preg_replace ( '/login\/index\.php/i', 'login/signup.php', $loginurl );
+    //     $loginurl = theme_squared_get_login_url ();
+    //     $subscribeurl = preg_replace ( '/login\/index\.php/i', 'login/signup.php', $loginurl );
         
-        if (empty ( $course->id )) {
-            // $course->id is not defined during installation
-            return '';
-        } else if (isloggedin ()) {
-            $context = context_course::instance ( $course->id );
+    //     if (empty ( $course->id )) {
+    //         // $course->id is not defined during installation
+    //         return '';
+    //     } else if (isloggedin ()) {
+    //         $context = context_course::instance ( $course->id );
             
-            $fullname = fullname ( $USER, true );
-            // Since Moodle 2.0 this link always goes to the public profile page (not the course profile page)
-            if ($withlinks) {
-                $linktitle = get_string ( 'viewprofile' );
-                $username = "<a href=\"$CFG->wwwroot/user/profile.php?id=$USER->id\" title=\"$linktitle\">$fullname</a>";
-            } else {
-                $username = $fullname;
-            }
-            if (is_mnet_remote_user ( $USER ) and $idprovider = $DB->get_record ( 'mnet_host', array (
-                    'id' => $USER->mnethostid 
-            ) )) {
-                if ($withlinks) {
-                    $username .= " from <a href=\"{$idprovider->wwwroot}\">{$idprovider->name}</a>";
-                } else {
-                    $username .= " from {$idprovider->name}";
-                }
-            }
-            if (isguestuser ()) {
-                $loggedinas = $realuserinfo . get_string ( 'loggedinasguest' );
-                if (! $loginpage && $withlinks) {
-                    $loggedinas .= " <a class=\"standardbutton plainlogin\" href=\"$loginurl\">" . get_string ( 'login' ) . '</a> 
-                      <span class="loginlink"><a href="' . $subscribeurl . '">' . get_string ( 'createaccount' ) . '</a></span>';
-                }
-            } else if (is_role_switched ( $course->id )) { // Has switched roles
-                $rolename = '';
-                if ($role = $DB->get_record ( 'role', array (
-                        'id' => $USER->access ['rsw'] [$context->path] 
-                ) )) {
-                    $rolename = ': ' . role_get_name ( $role, $context );
-                }
-                $loggedinas = '<span class="loggedintext">' . get_string ( 'loggedinas', 'moodle', $username ) . $rolename . '</span>';
-                if ($withlinks) {
-                    $url = new moodle_url ( '/course/switchrole.php', array (
-                            'id' => $course->id,
-                            'sesskey' => sesskey (),
-                            'switchrole' => 0,
-                            'returnurl' => $this->page->url->out_as_local_url ( false ) 
-                    ) );
-                    $loggedinas .= '(' . html_writer::tag ( 'a', get_string ( 'switchrolereturn' ), array (
-                            'href' => $url 
-                    ) ) . ')';
-                }
-            } else {
-                $loggedinas = '<span class="loggedintext">' . $realuserinfo . get_string ( 'loggedinas', 'moodle', $username ) . '</span>';
-                if ($withlinks) {
-                    $loggedinas .= html_writer::tag ( 'div', $OUTPUT->user_picture ( $USER, array (
-                            'size' => 174 
-                    ) ), array (
-                            'class' => 'userimg2' 
-                    ) ) . " <span class=\"loggedinlogout\"> <a href=\"$CFG->wwwroot/login/logout.php?sesskey=" . sesskey () . "\">" . get_string ( 'logout' ) . '</a></span>';
-                }
-            }
-        } else {
-            $loggedinas = get_string ( 'loggedinnot', 'moodle' );
-            if (! $loginpage && $withlinks) {
-                $loggedinas .= " <a class=\"standardbutton plainlogin\" href=\"$loginurl\">" . get_string ( 'login' ) . '</a>
-                  <span class="loginlink"><a href="' . $subscribeurl . '">' . get_string ( 'createaccount' ) . '</a></span>';
-            }
-        }
+    //         $fullname = fullname ( $USER, true );
+    //         // Since Moodle 2.0 this link always goes to the public profile page (not the course profile page)
+    //         if ($withlinks) {
+    //             $linktitle = get_string ( 'viewprofile' );
+    //             $username = "<a href=\"$CFG->wwwroot/user/profile.php?id=$USER->id\" title=\"$linktitle\">$fullname</a>";
+    //         } else {
+    //             $username = $fullname;
+    //         }
+    //         if (is_mnet_remote_user ( $USER ) and $idprovider = $DB->get_record ( 'mnet_host', array (
+    //                 'id' => $USER->mnethostid 
+    //         ) )) {
+    //             if ($withlinks) {
+    //                 $username .= " from <a href=\"{$idprovider->wwwroot}\">{$idprovider->name}</a>";
+    //             } else {
+    //                 $username .= " from {$idprovider->name}";
+    //             }
+    //         }
+    //         if (isguestuser ()) {
+    //             $loggedinas = $realuserinfo . get_string ( 'loggedinasguest' );
+    //             if (! $loginpage && $withlinks) {
+    //                 $loggedinas .= " <a class=\"standardbutton plainlogin\" href=\"$loginurl\">" . get_string ( 'login' ) . '</a> 
+    //                   <span class="loginlink"><a href="' . $subscribeurl . '">' . get_string ( 'createaccount' ) . '</a></span>';
+    //             }
+    //         } else if (is_role_switched ( $course->id )) { // Has switched roles
+    //             $rolename = '';
+    //             if ($role = $DB->get_record ( 'role', array (
+    //                     'id' => $USER->access ['rsw'] [$context->path] 
+    //             ) )) {
+    //                 $rolename = ': ' . role_get_name ( $role, $context );
+    //             }
+    //             $loggedinas = '<span class="loggedintext">' . get_string ( 'loggedinas', 'moodle', $username ) . $rolename . '</span>';
+    //             if ($withlinks) {
+    //                 $url = new moodle_url ( '/course/switchrole.php', array (
+    //                         'id' => $course->id,
+    //                         'sesskey' => sesskey (),
+    //                         'switchrole' => 0,
+    //                         'returnurl' => $this->page->url->out_as_local_url ( false ) 
+    //                 ) );
+    //                 $loggedinas .= '(' . html_writer::tag ( 'a', get_string ( 'switchrolereturn' ), array (
+    //                         'href' => $url 
+    //                 ) ) . ')';
+    //             }
+    //         } else {
+    //             $loggedinas = '<span class="loggedintext">' . $realuserinfo . get_string ( 'loggedinas', 'moodle', $username ) . '</span>';
+    //             if ($withlinks) {
+    //                 $loggedinas .= html_writer::tag ( 'div', $OUTPUT->user_picture ( $USER, array (
+    //                         'size' => 174 
+    //                 ) ), array (
+    //                         'class' => 'userimg2' 
+    //                 ) ) . " <span class=\"loggedinlogout\"> <a href=\"$CFG->wwwroot/login/logout.php?sesskey=" . sesskey () . "\">" . get_string ( 'logout' ) . '</a></span>';
+    //             }
+    //         }
+    //     } else {
+    //         $loggedinas = get_string ( 'loggedinnot', 'moodle' );
+    //         if (! $loginpage && $withlinks) {
+    //             $loggedinas .= " <a class=\"standardbutton plainlogin\" href=\"$loginurl\">" . get_string ( 'login' ) . '</a>
+    //               <span class="loginlink"><a href="' . $subscribeurl . '">' . get_string ( 'createaccount' ) . '</a></span>';
+    //         }
+    //     }
         
-        $loggedinas = '<div class="logininfo">' . $loggedinas . '</div>';
+    //     $loggedinas = '<div class="logininfo">' . $loggedinas . '</div>';
         
-        if (isset ( $SESSION->justloggedin )) {
-            unset ( $SESSION->justloggedin );
-            if (! empty ( $CFG->displayloginfailures )) {
-                if (! isguestuser ()) {
-                    if ($count = count_login_failures ( $CFG->displayloginfailures, $USER->username, $USER->lastlogin )) {
-                        $loggedinas .= '&nbsp;<div class="loginfailures">';
-                        if (empty ( $count->accounts )) {
-                            $loggedinas .= get_string ( 'failedloginattempts', '', $count );
-                        } else {
-                            $loggedinas .= get_string ( 'failedloginattemptsall', '', $count );
-                        }
-                        if (file_exists ( "$CFG->dirroot/report/log/index.php" ) and has_capability ( 'report/log:view', context_system::instance () )) {
-                            $loggedinas .= ' (<a href="' . $CFG->wwwroot . '/report/log/index.php' . '?chooselog=1&amp;id=1&amp;modid=site_errors">' . get_string ( 'logs' ) . '</a>)';
-                        }
-                        $loggedinas .= '</div>';
-                    }
-                }
-            }
-        }
+    //     if (isset ( $SESSION->justloggedin )) {
+    //         unset ( $SESSION->justloggedin );
+    //         if (! empty ( $CFG->displayloginfailures )) {
+    //             if (! isguestuser ()) {
+    //                 if ($count = count_login_failures ( $CFG->displayloginfailures, $USER->username, $USER->lastlogin )) {
+    //                     $loggedinas .= '&nbsp;<div class="loginfailures">';
+    //                     if (empty ( $count->accounts )) {
+    //                         $loggedinas .= get_string ( 'failedloginattempts', '', $count );
+    //                     } else {
+    //                         $loggedinas .= get_string ( 'failedloginattemptsall', '', $count );
+    //                     }
+    //                     if (file_exists ( "$CFG->dirroot/report/log/index.php" ) and has_capability ( 'report/log:view', context_system::instance () )) {
+    //                         $loggedinas .= ' (<a href="' . $CFG->wwwroot . '/report/log/index.php' . '?chooselog=1&amp;id=1&amp;modid=site_errors">' . get_string ( 'logs' ) . '</a>)';
+    //                     }
+    //                     $loggedinas .= '</div>';
+    //                 }
+    //             }
+    //         }
+    //     }
         
-        return $loggedinas;
-    }
+    //     return $loggedinas;
+    // }
     
     /**
      * Check settings and return the slideshow as defined in the settings
      *
      * @return string the html for the slideshow
      */
-    public function squared_render_slideshow() {
-        $o = "";
-        $settings = $this->page->theme->settings;
+    // public function squared_render_slideshow() {
+    //     $o = "";
+    //     $settings = $this->page->theme->settings;
         
-        $slides = array ();
-        for($i = 1; $i <= $settings->numberofslides; $i ++) {
-            $link = "fplink$i";
-            $text = "fptext$i";
-            $title = "fptitle$i";
-            $position = "fppos$i";
-            if (! empty ( $settings->$title )) {
-                // defaults if empty
-                $slides [$i] = array (
-                        'link' => '#',
-                        'text' => '',
-                        'title' => $settings->$title,
-                        'position' => 2 
-                );
-                if (! empty ( $settings->$link )) {
-                    $slides [$i] ['link'] = $settings->$link;
-                }
-                if (! empty ( $settings->$text )) {
-                    $slides [$i] ['text'] = $settings->$text;
-                }
-                if (! empty ( $settings->$position )) {
-                    $slides [$i] ['position'] = $settings->$position;
-                }
-            } else if ($i === 1 and empty ( $settings->$title )) {
-                $slides [$i] = array (
-                        'link' => "#",
-                        'text' => "Change me in the theme settings",
-                        'title' => "Default title",
-                        'position' => 2 
-                );
-            }
-        }
+    //     $slides = array ();
+    //     for($i = 1; $i <= $settings->numberofslides; $i ++) {
+    //         $link = "fplink$i";
+    //         $text = "fptext$i";
+    //         $title = "fptitle$i";
+    //         $position = "fppos$i";
+    //         if (! empty ( $settings->$title )) {
+    //             // defaults if empty
+    //             $slides [$i] = array (
+    //                     'link' => '#',
+    //                     'text' => '',
+    //                     'title' => $settings->$title,
+    //                     'position' => 2 
+    //             );
+    //             if (! empty ( $settings->$link )) {
+    //                 $slides [$i] ['link'] = $settings->$link;
+    //             }
+    //             if (! empty ( $settings->$text )) {
+    //                 $slides [$i] ['text'] = $settings->$text;
+    //             }
+    //             if (! empty ( $settings->$position )) {
+    //                 $slides [$i] ['position'] = $settings->$position;
+    //             }
+    //         } else if ($i === 1 and empty ( $settings->$title )) {
+    //             $slides [$i] = array (
+    //                     'link' => "#",
+    //                     'text' => "Change me in the theme settings",
+    //                     'title' => "Default title",
+    //                     'position' => 2 
+    //             );
+    //         }
+    //     }
         
-        // add body class if only one slide is present and prevent animation
-        if (count ( $slides ) <= 1) {
-            $this->squaredbodyclasses [] = 'oneblock';
-        }
+    //     // add body class if only one slide is present and prevent animation
+    //     if (count ( $slides ) <= 1) {
+    //         $this->squaredbodyclasses [] = 'oneblock';
+    //     }
         
-        foreach ( $slides as $key => $slide ) {
-            $this->squaredbodyclasses [] = "blocklayout-$key-" . $slide ['position'];
-            $o .= html_writer::start_div ( "scroll-header scroll$key" );
-            $o .= html_writer::start_div ( "headerblock text headerblock1" );
-            $o .= html_writer::link ( $slide ['link'], "<span>" . $slide ['title'] . "</span>", array (
-                    'class' => 'inner' 
-            ) );
-            $o .= html_writer::end_div ();
-            $o .= html_writer::start_div ( 'headerblock trans headerblock2' );
-            $o .= html_writer::link ( $slide ['link'], '', array (
-                    'class' => 'inner' 
-            ) );
-            $o .= html_writer::end_div ();
-            $o .= html_writer::div ( '', 'clearer2' );
-            $o .= html_writer::start_div ( 'headerblock para headerblock3' );
-            $o .= html_writer::link ( $slide ['link'], "<span>" . $slide ['text'] . "</span>", array (
-                    'class' => 'inner' 
-            ) );
-            $o .= html_writer::end_div ();
-            $o .= html_writer::start_div ( 'headerblock trans headerblock4' );
-            $o .= html_writer::link ( $slide ['link'], '', array (
-                    'class' => 'inner' 
-            ) );
-            $o .= html_writer::end_div ();
-            $o .= html_writer::end_div ();
-        }
-        return $o;
-    }
+    //     foreach ( $slides as $key => $slide ) {
+    //         $this->squaredbodyclasses [] = "blocklayout-$key-" . $slide ['position'];
+    //         $o .= html_writer::start_div ( "scroll-header scroll$key" );
+    //         $o .= html_writer::start_div ( "headerblock text headerblock1" );
+    //         $o .= html_writer::link ( $slide ['link'], "<span>" . $slide ['title'] . "</span>", array (
+    //                 'class' => 'inner' 
+    //         ) );
+    //         $o .= html_writer::end_div ();
+    //         $o .= html_writer::start_div ( 'headerblock trans headerblock2' );
+    //         $o .= html_writer::link ( $slide ['link'], '', array (
+    //                 'class' => 'inner' 
+    //         ) );
+    //         $o .= html_writer::end_div ();
+    //         $o .= html_writer::div ( '', 'clearer2' );
+    //         $o .= html_writer::start_div ( 'headerblock para headerblock3' );
+    //         $o .= html_writer::link ( $slide ['link'], "<span>" . $slide ['text'] . "</span>", array (
+    //                 'class' => 'inner' 
+    //         ) );
+    //         $o .= html_writer::end_div ();
+    //         $o .= html_writer::start_div ( 'headerblock trans headerblock4' );
+    //         $o .= html_writer::link ( $slide ['link'], '', array (
+    //                 'class' => 'inner' 
+    //         ) );
+    //         $o .= html_writer::end_div ();
+    //         $o .= html_writer::end_div ();
+    //     }
+    //     return $o;
+    // }
     
     /**
      * Output search form according to the theme settings
      *
      * @return string
      */
-    function squared_render_searchform() {
-        global $CFG;
-        $settings = $this->page->theme->settings;
-        $domain = preg_replace ( "(^https?://)", "", $CFG->wwwroot );
-        if (! empty ( $settings->searchurl )) {
-            $url = new moodle_url ( $settings->searchurl );
-            $hiddenfields = html_writer::input_hidden_params ( $url );
-            $formaction = $url->out_omit_querystring ();
-        } else {
-            $hiddenfields = '';
-            $formaction = 'http://www.google.com/search';
-        }
-        if (! empty ( $this->page->theme->settings->searchfield )) {
-            $searchfield = $settings->searchfield;
-        } else {
-            $searchfield = "q";
-        }
+    // function squared_render_searchform() {
+    //     global $CFG;
+    //     $settings = $this->page->theme->settings;
+    //     $domain = preg_replace ( "(^https?://)", "", $CFG->wwwroot );
+    //     if (! empty ( $settings->searchurl )) {
+    //         $url = new moodle_url ( $settings->searchurl );
+    //         $hiddenfields = html_writer::input_hidden_params ( $url );
+    //         $formaction = $url->out_omit_querystring ();
+    //     } else {
+    //         $hiddenfields = '';
+    //         $formaction = 'http://www.google.com/search';
+    //     }
+    //     if (! empty ( $this->page->theme->settings->searchfield )) {
+    //         $searchfield = $settings->searchfield;
+    //     } else {
+    //         $searchfield = "q";
+    //     }
         
-        $o = '';
-        $o .= html_writer::start_tag ( 'form', array (
-                'accept-charset' => 'UTF-8',
-                'action' => $formaction,
-                'id' => 'newsearchform' 
-        ) );
-        $o .= html_writer::start_div ( '' );
-        $o .= html_writer::tag ( 'label', get_string ( 'search' ), array (
-                'for' => 'newsearchfield' 
-        ) );
-        $o .= html_writer::start_tag ( 'input', array (
-                'id' => 'newsearchfield',
-                'type' => 'text',
-                'name' => $searchfield 
-        ) );
-        $o .= $hiddenfields;
-        $o .= html_writer::empty_tag ( 'input', array (
-                'type' => 'submit',
-                'value' => '',
-                'id' => 'newsearchbutton' 
-        ) );
-        $o .= html_writer::end_div ();
-        $o .= html_writer::end_tag ( 'form' );
-        return $o;
-    }
+    //     $o = '';
+    //     $o .= html_writer::start_tag ( 'form', array (
+    //             'accept-charset' => 'UTF-8',
+    //             'action' => $formaction,
+    //             'id' => 'newsearchform' 
+    //     ) );
+    //     $o .= html_writer::start_div ( '' );
+    //     $o .= html_writer::tag ( 'label', get_string ( 'search' ), array (
+    //             'for' => 'newsearchfield' 
+    //     ) );
+    //     $o .= html_writer::start_tag ( 'input', array (
+    //             'id' => 'newsearchfield',
+    //             'type' => 'text',
+    //             'name' => $searchfield 
+    //     ) );
+    //     $o .= $hiddenfields;
+    //     $o .= html_writer::empty_tag ( 'input', array (
+    //             'type' => 'submit',
+    //             'value' => '',
+    //             'id' => 'newsearchbutton' 
+    //     ) );
+    //     $o .= html_writer::end_div ();
+    //     $o .= html_writer::end_tag ( 'form' );
+    //     return $o;
+    // }
     // end class
 }

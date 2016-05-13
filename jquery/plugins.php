@@ -23,7 +23,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $plugins = array(
-    'jqueryeasing' => array('files' => array('jqueryeasing.js')),
-    'jqueryflexslider' => array('files' => array('jqueryflexslider.js')),
-    'custom' => array('files' => array('custom.js'))
+    // 'jqueryeasing' => array('files' => array('jqueryeasing.js')),
+    // 'jqueryflexslider' => array('files' => array('jqueryflexslider.js')),
+    // 'custom' => array('files' => array('custom.js'))
+    'squared' => array('files' => array('squared.js'))
 );
