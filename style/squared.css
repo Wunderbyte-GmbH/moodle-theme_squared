@@ -18544,7 +18544,6 @@ div.feedback_item_commands_left {
 }
 @media (min-width: 768px) {
   #block-region-side-pre .two-rows .over-hover-to-bottom {
-    display: inline-block;
     vertical-align: middle;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
@@ -18610,14 +18609,19 @@ div.feedback_item_commands_left {
     padding-right: 15px;
   }
   #block-region-side-pre .two-rows .blockheader {
-    display: flex;
-    justify-content: center;
+    text-align: center;
     border: 0;
     background-color: #a4daf0;
     background-repeat: repeat-x;
     background-image: -webkit-linear-gradient(45deg, #a4daf0, #78c8e9);
     background-image: -o-linear-gradient(45deg, #a4daf0, #78c8e9);
     background-image: linear-gradient(45deg, #a4daf0, #78c8e9);
+  }
+  #block-region-side-pre .two-rows .blockheader .alignself {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
   }
   #block-region-side-pre .two-rows .blockheader.squared:after {
     content: "";
@@ -18630,8 +18634,11 @@ div.feedback_item_commands_left {
     padding-bottom: 50%;
   }
   #block-region-side-pre .two-rows .blockheader .blockhead {
+    position: absolute;
     text-align: center;
     display: block;
+    width: 100%;
+    height: 100%;
   }
   #block-region-side-pre .two-rows .blockheader .blockhead .courseblock-icon {
     margin-bottom: 5%;
@@ -18642,7 +18649,6 @@ div.feedback_item_commands_left {
   }
   #block-region-side-pre .two-rows .blockheader.squared .blockhead,
   #block-region-side-pre .two-rows .blockheader.rectangle .blockhead {
-    align-self: center;
     left: 0;
     right: 0;
     padding: 0 4px;
@@ -19559,6 +19565,9 @@ div.feedback_item_commands_left {
 }
 #page-navbar .breadcrumb-button {
   margin-top: 0px;
+}
+#page-navbar .breadcrumb-button .singlebutton {
+  display: inline-block;
 }
 #page-navbar .breadcrumb-button .singlebutton div {
   margin: 0;

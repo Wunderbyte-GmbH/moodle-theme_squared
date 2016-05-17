@@ -92,7 +92,7 @@
     .two-rows {
         @media (min-width: @screen-sm) {
             .over-hover-to-bottom {
-                display: inline-block;
+                //display: inline-block;
                 vertical-align: middle;
                 -webkit-transform: translateZ(0);
                 transform: translateZ(0);
@@ -158,8 +158,13 @@
                 }
             }
             .blockheader {
-                display: flex;
-                justify-content: center;
+                .alignself {
+                    display: flex;
+                    height: 100%;
+                    justify-content: center;
+                    align-items: center;
+                }
+                text-align: center;
                 border: 0;
                 background-color: lighten(@squared-purple, 15%);
                 #gradient > .directional(lighten(@squared-purple, 15%);lighten(@squared-purple, 5%));
@@ -174,8 +179,11 @@
                   padding-bottom: 50%;
                 }
                 .blockhead {
+                    position: absolute;
                     text-align: center;
                     display: block;
+                    width: 100%;
+                    height: 100%;
                     .courseblock-icon {
                         margin-bottom: 5%;
                     }
@@ -187,7 +195,6 @@
                 &.squared,
                 &.rectangle {
                     .blockhead {
-                        align-self: center;
                         left: 0;
                         right: 0;
                         padding: 0 4px;
@@ -419,3 +426,9 @@
         display: none;
     }
 }
+
+// @media (min-width: @screen-sm) {
+//     body.gecko #block-region-side-pre .two-rows .blockheader.squared::after {
+//         padding-bottom: 100px;
+//     }
+// }
