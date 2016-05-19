@@ -18708,6 +18708,9 @@ div.feedback_item_commands_left {
 #block-region-side-pre .block_navigation {
   word-break: break-all;
 }
+#block-region-side-pre .block_navigation .block_tree .tree_item.hasicon .item-content-wrap {
+  padding-right: 10px;
+}
 #block-region-side-pre .block_navigation .courseblock-icon {
   background: url('[[pix:theme|block/navigation]]') no-repeat 50% 50%;
 }
