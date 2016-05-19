@@ -105,6 +105,10 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                 $block->name = 'block_' . $block->attributes['data-block'];
             }
             $block->shape = 'squared';
+            if ($block->name == "block_adminblock") {
+                $block->blockinstanceid = -1;
+            }
+
             if ($count == 2) {
                 $pair->blockb = $block;
                 $template->pairs[] = $pair;
