@@ -37,12 +37,13 @@ $THEME->layouts = array(
         'file' => 'default.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
+        'options' => array('langmenu' => true),
     ),
     'frontpage' => array(
         'file' => 'default.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
-        'options' => array('categoryboxes' => true, 'notitle' => true),
+        'options' => array('categoryboxes' => true, 'notitle' => true, 'langmenu' => true),
     ),
     'admin' => array(
         'file' => 'default.php',
@@ -64,7 +65,7 @@ $THEME->layouts = array(
     'login' => array(
         'file' => 'default.php',
         'regions' => array(),
-        'options' => array('notitle' => true),
+        'options' => array('notitle' => true, 'langmenu' => true),
     ),
     'popup' => array(
         'file' => 'popup.php',
@@ -90,7 +91,7 @@ $THEME->layouts = array(
         'options' => array('nofooter' => true, 'nonavbar' => false),
     ),
     'redirect' => array(
-        'file' => 'default.php',
+        'file' => 'embedded.php',
         'regions' => array(),
     ),
     'report' => array(

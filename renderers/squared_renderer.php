@@ -74,7 +74,9 @@ class theme_squared_html_renderer extends plugin_renderer_base {
         $template->usermenu = $OUTPUT->user_menu();
         $template->custommenu = $this->category_menu();
         $template->pageheadingmenu = $OUTPUT->page_heading_menu();
-        $template->languagemenu = $this->languagemenu();
+        if (isset($this->page->layout_options['langmenu'])) {
+            $template->languagemenu = $this->languagemenu();
+        }
         $template->search = $this->searchbox();
         $template->togglebtn = $OUTPUT->pix_url('more-button', 'theme_squared');
         return $this->render_from_template('theme_squared/navigation', $template);
