@@ -55,7 +55,8 @@
     .blockpairs {
         margin-top: 4px;
     }
-    .two-rows .pairheader {
+
+    .pairheader {
         &.left {
             padding-right: 2px   
         }
@@ -65,8 +66,8 @@
         &.left.lastblock {
             padding-right: 15px;
         }
-
     }
+
     .blockheader {
         border-radius: 0;
         border: 1px solid @gray;
@@ -81,168 +82,165 @@
             }
         }
     }
-    .single-row .courseblock-icon {
-        background-color: lighten(@squared-purple, 15%) !important;
-    }
+
     @media (max-width: @screen-sm) {
         .courseblock-icon {
             background-color: lighten(@squared-purple, 15%);
         }
     }
-    .two-rows {
-        @media (min-width: @screen-sm) {
-            .over-hover-to-bottom {
-                //display: inline-block;
-                vertical-align: middle;
-                -webkit-transform: translateZ(0);
-                transform: translateZ(0);
-                box-shadow: 0 0 1px rgba(0,0,0,0);
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-                -moz-osx-font-smoothing: grayscale;
-                position: relative;
-                -webkit-transition-property: color;
-                transition-property: color;
+    
+    @media (min-width: @screen-sm) {
+        .over-hover-to-bottom {
+            //display: inline-block;
+            vertical-align: middle;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            -webkit-transition-property: color;
+            transition-property: color;
+            -webkit-transition-duration: .3s;
+            transition-duration: .3s;
+            &:active,
+            &:focus,
+            &:hover {
+                color: #fff;
+                &:before {
+                    -webkit-transform: scaleY(1);
+                    transform: scaleY(1);
+                }
+            }
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: lighten(@squared-purple, 5%);
+                -webkit-transform: scaleY(0);
+                transform: scaleY(0);
+                -webkit-transform-origin: 50% 0;
+                transform-origin: 50% 0;
+                -webkit-transition-property: transform;
+                transition-property: transform;
                 -webkit-transition-duration: .3s;
                 transition-duration: .3s;
-                &:active,
-                &:focus,
-                &:hover {
-                    color: #fff;
-                    &:before {
-                        -webkit-transform: scaleY(1);
-                        transform: scaleY(1);
-                    }
+                -webkit-transition-timing-function: ease-out;
+                transition-timing-function: ease-out;
+            }
+        }
+        .courseblock-icon {
+            float: none;
+            width: 100%;
+            height: 32px;
+            top: 10px;
+        }
+        .blockpairs {
+            margin-top: 0;
+        }
+        .pairheader {
+            &.left {
+                padding-left: 15px;
+                padding-right: 0;
+            }
+            &.right {
+                padding-left: 0;
+                padding-right: 15px;
+            }
+            &.left.lastblock {
+                padding-right: 15px;
+            }
+        }
+        .blockheader {
+            .alignself {
+                display: flex;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+            }
+            text-align: center;
+            border: 0;
+            background-color: lighten(@squared-purple, 15%);
+            #gradient > .directional(lighten(@squared-purple, 15%);lighten(@squared-purple, 5%));
+            &.squared:after {
+              content: "";
+              display: block;
+              padding-bottom: 100%;
+            }
+            &.rectangle:after {
+              content: "";
+              display: block;
+              padding-bottom: 50%;
+            }
+            .blockhead {
+                position: absolute;
+                text-align: center;
+                display: block;
+                width: 100%;
+                height: 100%;
+                .courseblock-icon {
+                    margin-bottom: 5%;
                 }
-                &:before {
-                    content: "";
-                    position: absolute;
-                    z-index: -1;
-                    top: 0;
+                .blocktitle {
+                    line-height: inherit;
+                    margin-left: inherit;
+                }
+            }
+            &.squared,
+            &.rectangle {
+                .blockhead {
                     left: 0;
                     right: 0;
-                    bottom: 0;
-                    background: lighten(@squared-purple, 5%);
-                    -webkit-transform: scaleY(0);
-                    transform: scaleY(0);
-                    -webkit-transform-origin: 50% 0;
-                    transform-origin: 50% 0;
-                    -webkit-transition-property: transform;
-                    transition-property: transform;
-                    -webkit-transition-duration: .3s;
-                    transition-duration: .3s;
-                    -webkit-transition-timing-function: ease-out;
-                    transition-timing-function: ease-out;
-                }
-            }
-            .courseblock-icon {
-                float: none;
-                width: 100%;
-                height: 32px;
-                top: 10px;
-            }
-            .blockpairs {
-                margin-top: 0;
-            }
-            .pairheader {
-                &.left {
-                    padding-left: 15px;
-                    padding-right: 0;
-                }
-                &.right {
-                    padding-left: 0;
-                    padding-right: 15px;
-                }
-                &.left.lastblock {
-                    padding-right: 15px;
-                }
-            }
-            .blockheader {
-                .alignself {
-                    display: flex;
-                    height: 100%;
-                    justify-content: center;
-                    align-items: center;
-                }
-                text-align: center;
-                border: 0;
-                background-color: lighten(@squared-purple, 15%);
-                #gradient > .directional(lighten(@squared-purple, 15%);lighten(@squared-purple, 5%));
-                &.squared:after {
-                  content: "";
-                  display: block;
-                  padding-bottom: 100%;
-                }
-                &.rectangle:after {
-                  content: "";
-                  display: block;
-                  padding-bottom: 50%;
-                }
-                .blockhead {
-                    position: absolute;
-                    text-align: center;
-                    display: block;
-                    width: 100%;
-                    height: 100%;
+                    padding: 0 4px;
+                    word-break: break-word;
+                    color: #FFF;
                     .courseblock-icon {
                         margin-bottom: 5%;
                     }
-                    .blocktitle {
-                        line-height: inherit;
-                        margin-left: inherit;
-                    }
                 }
-                &.squared,
-                &.rectangle {
-                    .blockhead {
-                        left: 0;
-                        right: 0;
-                        padding: 0 4px;
-                        word-break: break-word;
-                        color: #FFF;
-                        .courseblock-icon {
-                            margin-bottom: 5%;
-                        }
-                    }
-                }
-                .commands {
-                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
-                    width: 20px;
-                    height: 20px;
-                    bottom: 0px;
-                    background-color: #fff;
-                    border-radius: 20px;
-                    height: 25px;
-                    width: 25px;
-                    padding: 1px 2px;
-                    position: absolute;
-                    top: 50%;
-                    margin-top: -12px;
-                    left: 5px;
-                    &.right {
-                        left: auto;
-                        right: 5px;
-                        img {
-                            margin: 4px;
-                        }
-                    }
+            }
+            .commands {
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
+                width: 20px;
+                height: 20px;
+                bottom: 0px;
+                background-color: #fff;
+                border-radius: 20px;
+                height: 25px;
+                width: 25px;
+                padding: 1px 2px;
+                position: absolute;
+                top: 50%;
+                margin-top: -12px;
+                left: 5px;
+                &.right {
+                    left: auto;
+                    right: 5px;
                     img {
-                        width: 12px;
-                        height: 12px;
-                        vertical-align: text-top;
-                        box-sizing: border-box;
-                        margin: 1px 4px;
-                        text-align: center;
+                        margin: 4px;
                     }
                 }
-                .actions .dropdown-menu.dropdown-menu-right>li>a {
-                    white-space: normal;
-                    text-align: left;
+                img {
+                    width: 12px;
+                    height: 12px;
+                    vertical-align: text-top;
+                    box-sizing: border-box;
+                    margin: 1px 4px;
+                    text-align: center;
                 }
+            }
+            .actions .dropdown-menu.dropdown-menu-right>li>a {
+                white-space: normal;
+                text-align: left;
             }
         }
     }
-
+    
     .block {
         .content {
             background-color: lighten(@gray-lighter, 3%);

@@ -13,16 +13,18 @@
 }}
 <div class="panel-group single-row" id="accordion" role="tablist" aria-multiselectable="true">
     {{#blocks}}
-        <div class="{{class}} pairheader left">
+        <div class="{{class}} pairheader">
             <div role="button" data-toggle="collapse" data-parent="#accordion" 
-                        href="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="collapseOne" class="{{shape}} blockheader over-hover-to-bottom {{name}}">
-                <span {{#blockinstanceid}} id="instance-{{blockinstanceid}}-header"{{/blockinstanceid}} >
-                    <span class="blockhead title">
-                        <div class="courseblock-icon"></div>
-                        <span class="blocktitle">
-                        {{{title}}}
-                        </span>
-                    </span>
+                    href="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="collapseOne" class="squared blockheader over-hover-to-bottom {{name}}">
+                <span class="blockhead title">
+                    <div class="alignself">
+                        <div class="inner">
+                            <div class="courseblock-icon"></div>
+                            <span class="blocktitle">
+                            {{{title}}}
+                            </span>
+                        </div>
+                    </div>
                 </span>
             </div>
         </div>    
