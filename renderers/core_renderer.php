@@ -108,6 +108,9 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             if ($block->name == "block_adminblock") {
                 $block->blockinstanceid = -1;
             }
+            if ($block->name == "block_settings") {
+                $block->subopen = true;
+            }
 
             if ($count == 2) {
                 $pair->blockb = $block;

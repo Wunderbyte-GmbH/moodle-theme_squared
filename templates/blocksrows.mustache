@@ -26,17 +26,17 @@
         {{#blocka}}     
         <div class="{{class}} pairheader left">
             <div role="button" data-toggle="collapse" data-parent="#accordion" 
-                        href="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="collapseOne" class="{{shape}} blockheader over-hover-to-bottom {{name}}">
-                    <span class="blockhead title">
-                        <div class="alignself">
-                            <div class="inner">
-                                <div class="courseblock-icon"></div>
-                                <span class="blocktitle">
-                                {{{title}}}
-                                </span>
-                            </div>
+                    href="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="collapseOne" class="{{shape}} blockheader over-hover-to-bottom {{name}}">
+                <span class="blockhead title">
+                    <div class="alignself">
+                        <div class="inner">
+                            <div class="courseblock-icon"></div>
+                            <span class="blocktitle">
+                            {{{title}}}
+                            </span>
                         </div>
-                    </span>
+                    </div>
+                </span>
             </div>
         </div>    
         {{/blocka}}
@@ -63,10 +63,13 @@
         <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
             <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{arialabel}}">
                 <div class="panel-heading">
+                    <a role="collapse" data-toggle="collapse" href="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="true">
+
                     <div class="courseblock-icon"></div>
                     {{{header}}}
+                    </a>
                  </div>
-                <div class="panel-body p-0 m-0 block">
+                <div id="subcollapse{{blockinstanceid}}" class="panel-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}">
                     {{{content}}}
                 </div>
             </div>
@@ -83,11 +86,13 @@
         <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
             <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{arialabel}}">
                 <div class="panel-heading">
+                    <a role="collapse" data-toggle="collapse" href="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="true">
+
                     <div class="courseblock-icon"></div>
                     {{{header}}}
-                </div>
-                
-                <div class="panel-body block m-0 p-0">
+                    </a>
+                 </div>
+                <div id="subcollapse{{blockinstanceid}}" class="panel-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}">
                     {{{content}}}
                 </div>
             </div>

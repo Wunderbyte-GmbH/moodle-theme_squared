@@ -32,6 +32,12 @@
             display: block;
         }
     }
+    .block .title a {
+        color: #FFF;
+        &:hover {
+            text-decoration: none;
+        }
+    }
     .block.invisible {
         .panel-heading {
             #gradient > .directional(lighten(@gray, 15%);lighten(@gray, 5%));
@@ -390,7 +396,7 @@
 }
 //Styles for non-JS
 #block-region-side-pre {
-    .collapse {
+    .panel-collapse.collapse {
         display: block;
     }
     .blockpairs {
@@ -407,13 +413,16 @@
         display: none;
     }
 }
-//JS styles
+
 .jsenabled:not(.editing) #block-region-side-pre {
-    .collapse {
+    .panel-collapse.collapse {
         display: none;
         &.in {
             display: block;
         }
+    }
+    .panel-body.collapse {
+        display: block;
     }
     .blockpairs {
         display: block;

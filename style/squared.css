@@ -18490,6 +18490,12 @@ div.feedback_item_commands_left {
 #block-region-side-pre .block .panel-heading .commands {
   display: block;
 }
+#block-region-side-pre .block .title a {
+  color: #FFF;
+}
+#block-region-side-pre .block .title a:hover {
+  text-decoration: none;
+}
 #block-region-side-pre .block.invisible .panel-heading {
   background-repeat: repeat-x;
   background-image: -webkit-linear-gradient(45deg, #7c7c7c, #626262);
@@ -18972,7 +18978,7 @@ div.feedback_item_commands_left {
     background-color: #a4daf0;
   }
 }
-#block-region-side-pre .collapse {
+#block-region-side-pre .panel-collapse.collapse {
   display: block;
 }
 #block-region-side-pre .blockpairs {
@@ -18988,10 +18994,13 @@ div.feedback_item_commands_left {
 #block-region-side-pre .header img.block-hider-show {
   display: none;
 }
-.jsenabled:not(.editing) #block-region-side-pre .collapse {
+.jsenabled:not(.editing) #block-region-side-pre .panel-collapse.collapse {
   display: none;
 }
-.jsenabled:not(.editing) #block-region-side-pre .collapse.in {
+.jsenabled:not(.editing) #block-region-side-pre .panel-collapse.collapse.in {
+  display: block;
+}
+.jsenabled:not(.editing) #block-region-side-pre .panel-body.collapse {
   display: block;
 }
 .jsenabled:not(.editing) #block-region-side-pre .blockpairs {
