@@ -18708,6 +18708,9 @@ div.feedback_item_commands_left {
     background-color: #a4daf0;
   }
 }
+#block-region-side-pre .block_site_main_menu {
+  word-break: break-all;
+}
 #block-region-side-pre .block_navigation {
   word-break: break-all;
 }
