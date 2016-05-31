@@ -65,14 +65,11 @@ class theme_squared_html_renderer extends plugin_renderer_base {
      */
     public function navigation_menu() {
         global $OUTPUT, $SITE;
-
-        $this->category_menu();
-
         $template = new stdClass();
         $template->siteurl = new moodle_url('/');
         $template->sitename = $SITE->shortname;
         $template->usermenu = $OUTPUT->user_menu();
-        $template->custommenu = $this->category_menu();
+        $template->custommenu = $OUTPUT->custom_menu();
         $template->pageheadingmenu = $OUTPUT->page_heading_menu();
         if (isset($this->page->layout_options['langmenu'])) {
             $template->languagemenu = $this->languagemenu();
@@ -80,90 +77,6 @@ class theme_squared_html_renderer extends plugin_renderer_base {
         $template->search = $this->searchbox();
         $template->togglebtn = $OUTPUT->pix_url('more-button', 'theme_squared');
         return $this->render_from_template('theme_squared/navigation', $template);
-    }
-
-    /**
-     * Menu with category Dropdowns.
-     */
-    private function category_menu() {
-        $template = new stdClass();
-        $template->categories = $this->categories(0);
-        return $this->render_from_template('theme_squared/custommenu', $template);
-    }
-
-    /**
-     * Render the category cards.
-     */
-    private function categories($catid = 0) {
-        global $DB, $OUTPUT, $PAGE;
-        
-        $categories = $DB->get_records('course_categories', array('visible' => 1, 'parent' => 0));
-
-        if ($catid > 0) {
-            $categories[$catid] = $DB->get_record('course_categories', array('id' => $catid));
-        }
-
-        $returncategories = array();
-
-        ksort($categories);
-
-        $checkcat = $categories;
-
-        $count = 1;
-        foreach ($categories as $category) {
-            if (($category->parent != $catid) && ($category->id != $catid)) {
-                continue;
-            }
-            // We show 3 categories only.
-            if ($count > 3) {
-                continue;
-            }
-            $category->courses = $this->catcourses($category->id);
-            // Not showing empty categories.
-            if (count($category->courses) == 0) {
-                continue;
-            }
-            $category->colour = 'catcolour' . $count++;
-            $returncategories[] = $category;
-        }
-        return $returncategories;
-    }
-
-    /**
-     * Get the category courses
-     */
-    private function catcourses($catid) {
-        global $DB, $OUTPUT;
-
-        $allcourses = $DB->get_records('course', array('visible' => 1, 'category' => $catid));
-
-        $mycourses = array();
-
-        if (isloggedin() && !isguestuser()) {
-            $mycourses = enrol_get_my_courses();
-        }
-
-        $courses = array();
-        $timenow = time();
-        
-        foreach ($allcourses as $acourse) {
-            if ($acourse->id == 1) {
-                continue;
-            }
-
-            $coursecontext = context_course::instance($acourse->id);
-
-            $acourse->mycourse = false;
-
-            if (array_key_exists($acourse->id, $mycourses)) {
-                $acourse->mycourse = true;
-            }
-
-            $acourse->courselink = new moodle_url('/course/view.php', array('id' => $acourse->id));
-
-            $courses[] = $acourse;
-        }
-        return $courses;
     }
 
     /**

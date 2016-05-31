@@ -47,6 +47,9 @@
             .menu_item(@sq-orange);
         }
     }
+    .catnav .dropdown-menu li a {
+        padding: 6px 20px;
+    }
     .navbar {
         margin-bottom: 0;
         border:0;
@@ -54,10 +57,13 @@
 }
 
 .search-wrapper {
-    float: right;
+    float: left;
     padding: 12px 15px 12px;
     &.inactive:hover {
         background-color: #eee;
+    }
+    .glyphicon-gray {
+        color: @gray-light;
     }
     .search {
         input {

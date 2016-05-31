@@ -367,7 +367,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         return $content;
     }
 
-        public function user_menu($user = null, $withlinks = null) {
+    public function user_menu($user = null, $withlinks = null) {
         $usermenu = new custom_menu('', current_language());
         return $this->render_user_menu($usermenu, $user);
     }
@@ -462,296 +462,105 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         $icon = html_writer::tag('i', '', array('class' => 'glyphicon glyphicon-' . $icon));
         return html_writer::tag('span', $icon, array('class' => 'iconwrapper'));
     }
-    
-    /**
-     * Return the navbar content so that it can be echoed out by the layout
-     *
-     * @return string XHTML navbar
-     */
-    // public function navbar() {
-    //     $items = $this->page->navbar->get_items ();
-    //     $htmlblocks = array ();
-    //     // Iterate the navarray and display each node
-    //     $itemcount = count ( $items );
-    //     $separator = get_separator ();
-    //     for($i = 0; $i < $itemcount; $i ++) {
-    //         $item = $items [$i];
-    //         $item->hideicon = true;
-    //         if ($i === 0) {
-    //             $content = html_writer::tag ( 'li', $this->render ( $item ), array (
-    //                     'class' => 'navbar_' . $item->key . '_' . $item->type 
-    //             ) );
-    //         } else {
-    //             $content = html_writer::tag ( 'li', $separator . $this->render ( $item ), array (
-    //                     'class' => 'navbar_' . $item->key . '_' . $item->type . ' type' . $item->type 
-    //             ) );
-    //         }
-    //         $htmlblocks [] = $content;
-    //     }
-        
-    //     // accessibility: heading for navbar list (MDL-20446)
-    //     $navbarcontent = html_writer::tag ( 'span', get_string ( 'pagepath' ), array (
-    //             'class' => 'accesshide' 
-    //     ) );
-    //     $navbarcontent .= html_writer::tag ( 'ul', join ( '', $htmlblocks ) );
-    //     // XHTML
-    //     return $navbarcontent;
-    // }
-    
-    /**
-     * Return the standard string that says whether you are logged in (and switched
-     * roles/logged in as another user).
-     *
-     * @param bool $withlinks
-     *            if false, then don't include any links in the HTML produced.
-     *            If not set, the default is the nologinlinks option from the theme config.php file,
-     *            and if that is not set, then links are included.
-     * @return string HTML fragment.
-     */
-    // public function login_info($withlinks = null) {
-    //     global $USER, $CFG, $DB, $SESSION, $OUTPUT;
-        
-    //     if (during_initial_install ()) {
-    //         return '';
-    //     }
-        
-    //     if (is_null ( $withlinks )) {
-    //         $withlinks = empty ( $this->page->layout_options ['nologinlinks'] );
-    //     }
-        
-    //     $loginpage = (( string ) $this->page->url === theme_squared_get_login_url ());
-    //     $course = $this->page->course;
-    //     if (\core\session\manager::is_loggedinas ()) {
-    //         $realuser = \core\session\manager::get_realuser ();
-    //         $fullname = fullname ( $realuser, true );
-    //         if ($withlinks) {
-    //             $loginastitle = get_string ( 'loginas' );
-    //             $realuserinfo = " [<a href=\"$CFG->wwwroot/course/loginas.php?id=$course->id&amp;sesskey=" . sesskey () . "\"";
-    //             $realuserinfo .= "title =\"" . $loginastitle . "\">$fullname</a>] ";
-    //         } else {
-    //             $realuserinfo = " [$fullname] ";
-    //         }
-    //     } else {
-    //         $realuserinfo = '';
-    //     }
-        
-    //     $loginurl = theme_squared_get_login_url ();
-    //     $subscribeurl = preg_replace ( '/login\/index\.php/i', 'login/signup.php', $loginurl );
-        
-    //     if (empty ( $course->id )) {
-    //         // $course->id is not defined during installation
-    //         return '';
-    //     } else if (isloggedin ()) {
-    //         $context = context_course::instance ( $course->id );
-            
-    //         $fullname = fullname ( $USER, true );
-    //         // Since Moodle 2.0 this link always goes to the public profile page (not the course profile page)
-    //         if ($withlinks) {
-    //             $linktitle = get_string ( 'viewprofile' );
-    //             $username = "<a href=\"$CFG->wwwroot/user/profile.php?id=$USER->id\" title=\"$linktitle\">$fullname</a>";
-    //         } else {
-    //             $username = $fullname;
-    //         }
-    //         if (is_mnet_remote_user ( $USER ) and $idprovider = $DB->get_record ( 'mnet_host', array (
-    //                 'id' => $USER->mnethostid 
-    //         ) )) {
-    //             if ($withlinks) {
-    //                 $username .= " from <a href=\"{$idprovider->wwwroot}\">{$idprovider->name}</a>";
-    //             } else {
-    //                 $username .= " from {$idprovider->name}";
-    //             }
-    //         }
-    //         if (isguestuser ()) {
-    //             $loggedinas = $realuserinfo . get_string ( 'loggedinasguest' );
-    //             if (! $loginpage && $withlinks) {
-    //                 $loggedinas .= " <a class=\"standardbutton plainlogin\" href=\"$loginurl\">" . get_string ( 'login' ) . '</a> 
-    //                   <span class="loginlink"><a href="' . $subscribeurl . '">' . get_string ( 'createaccount' ) . '</a></span>';
-    //             }
-    //         } else if (is_role_switched ( $course->id )) { // Has switched roles
-    //             $rolename = '';
-    //             if ($role = $DB->get_record ( 'role', array (
-    //                     'id' => $USER->access ['rsw'] [$context->path] 
-    //             ) )) {
-    //                 $rolename = ': ' . role_get_name ( $role, $context );
-    //             }
-    //             $loggedinas = '<span class="loggedintext">' . get_string ( 'loggedinas', 'moodle', $username ) . $rolename . '</span>';
-    //             if ($withlinks) {
-    //                 $url = new moodle_url ( '/course/switchrole.php', array (
-    //                         'id' => $course->id,
-    //                         'sesskey' => sesskey (),
-    //                         'switchrole' => 0,
-    //                         'returnurl' => $this->page->url->out_as_local_url ( false ) 
-    //                 ) );
-    //                 $loggedinas .= '(' . html_writer::tag ( 'a', get_string ( 'switchrolereturn' ), array (
-    //                         'href' => $url 
-    //                 ) ) . ')';
-    //             }
-    //         } else {
-    //             $loggedinas = '<span class="loggedintext">' . $realuserinfo . get_string ( 'loggedinas', 'moodle', $username ) . '</span>';
-    //             if ($withlinks) {
-    //                 $loggedinas .= html_writer::tag ( 'div', $OUTPUT->user_picture ( $USER, array (
-    //                         'size' => 174 
-    //                 ) ), array (
-    //                         'class' => 'userimg2' 
-    //                 ) ) . " <span class=\"loggedinlogout\"> <a href=\"$CFG->wwwroot/login/logout.php?sesskey=" . sesskey () . "\">" . get_string ( 'logout' ) . '</a></span>';
-    //             }
-    //         }
-    //     } else {
-    //         $loggedinas = get_string ( 'loggedinnot', 'moodle' );
-    //         if (! $loginpage && $withlinks) {
-    //             $loggedinas .= " <a class=\"standardbutton plainlogin\" href=\"$loginurl\">" . get_string ( 'login' ) . '</a>
-    //               <span class="loginlink"><a href="' . $subscribeurl . '">' . get_string ( 'createaccount' ) . '</a></span>';
-    //         }
-    //     }
-        
-    //     $loggedinas = '<div class="logininfo">' . $loggedinas . '</div>';
-        
-    //     if (isset ( $SESSION->justloggedin )) {
-    //         unset ( $SESSION->justloggedin );
-    //         if (! empty ( $CFG->displayloginfailures )) {
-    //             if (! isguestuser ()) {
-    //                 if ($count = count_login_failures ( $CFG->displayloginfailures, $USER->username, $USER->lastlogin )) {
-    //                     $loggedinas .= '&nbsp;<div class="loginfailures">';
-    //                     if (empty ( $count->accounts )) {
-    //                         $loggedinas .= get_string ( 'failedloginattempts', '', $count );
-    //                     } else {
-    //                         $loggedinas .= get_string ( 'failedloginattemptsall', '', $count );
-    //                     }
-    //                     if (file_exists ( "$CFG->dirroot/report/log/index.php" ) and has_capability ( 'report/log:view', context_system::instance () )) {
-    //                         $loggedinas .= ' (<a href="' . $CFG->wwwroot . '/report/log/index.php' . '?chooselog=1&amp;id=1&amp;modid=site_errors">' . get_string ( 'logs' ) . '</a>)';
-    //                     }
-    //                     $loggedinas .= '</div>';
-    //                 }
-    //             }
-    //         }
-    //     }
-        
-    //     return $loggedinas;
-    // }
-    
-    /**
-     * Check settings and return the slideshow as defined in the settings
-     *
-     * @return string the html for the slideshow
-     */
-    // public function squared_render_slideshow() {
-    //     $o = "";
-    //     $settings = $this->page->theme->settings;
-        
-    //     $slides = array ();
-    //     for($i = 1; $i <= $settings->numberofslides; $i ++) {
-    //         $link = "fplink$i";
-    //         $text = "fptext$i";
-    //         $title = "fptitle$i";
-    //         $position = "fppos$i";
-    //         if (! empty ( $settings->$title )) {
-    //             // defaults if empty
-    //             $slides [$i] = array (
-    //                     'link' => '#',
-    //                     'text' => '',
-    //                     'title' => $settings->$title,
-    //                     'position' => 2 
-    //             );
-    //             if (! empty ( $settings->$link )) {
-    //                 $slides [$i] ['link'] = $settings->$link;
-    //             }
-    //             if (! empty ( $settings->$text )) {
-    //                 $slides [$i] ['text'] = $settings->$text;
-    //             }
-    //             if (! empty ( $settings->$position )) {
-    //                 $slides [$i] ['position'] = $settings->$position;
-    //             }
-    //         } else if ($i === 1 and empty ( $settings->$title )) {
-    //             $slides [$i] = array (
-    //                     'link' => "#",
-    //                     'text' => "Change me in the theme settings",
-    //                     'title' => "Default title",
-    //                     'position' => 2 
-    //             );
-    //         }
-    //     }
-        
-    //     // add body class if only one slide is present and prevent animation
-    //     if (count ( $slides ) <= 1) {
-    //         $this->squaredbodyclasses [] = 'oneblock';
-    //     }
-        
-    //     foreach ( $slides as $key => $slide ) {
-    //         $this->squaredbodyclasses [] = "blocklayout-$key-" . $slide ['position'];
-    //         $o .= html_writer::start_div ( "scroll-header scroll$key" );
-    //         $o .= html_writer::start_div ( "headerblock text headerblock1" );
-    //         $o .= html_writer::link ( $slide ['link'], "<span>" . $slide ['title'] . "</span>", array (
-    //                 'class' => 'inner' 
-    //         ) );
-    //         $o .= html_writer::end_div ();
-    //         $o .= html_writer::start_div ( 'headerblock trans headerblock2' );
-    //         $o .= html_writer::link ( $slide ['link'], '', array (
-    //                 'class' => 'inner' 
-    //         ) );
-    //         $o .= html_writer::end_div ();
-    //         $o .= html_writer::div ( '', 'clearer2' );
-    //         $o .= html_writer::start_div ( 'headerblock para headerblock3' );
-    //         $o .= html_writer::link ( $slide ['link'], "<span>" . $slide ['text'] . "</span>", array (
-    //                 'class' => 'inner' 
-    //         ) );
-    //         $o .= html_writer::end_div ();
-    //         $o .= html_writer::start_div ( 'headerblock trans headerblock4' );
-    //         $o .= html_writer::link ( $slide ['link'], '', array (
-    //                 'class' => 'inner' 
-    //         ) );
-    //         $o .= html_writer::end_div ();
-    //         $o .= html_writer::end_div ();
-    //     }
-    //     return $o;
-    // }
-    
-    /**
-     * Output search form according to the theme settings
-     *
-     * @return string
-     */
-    // function squared_render_searchform() {
-    //     global $CFG;
-    //     $settings = $this->page->theme->settings;
-    //     $domain = preg_replace ( "(^https?://)", "", $CFG->wwwroot );
-    //     if (! empty ( $settings->searchurl )) {
-    //         $url = new moodle_url ( $settings->searchurl );
-    //         $hiddenfields = html_writer::input_hidden_params ( $url );
-    //         $formaction = $url->out_omit_querystring ();
-    //     } else {
-    //         $hiddenfields = '';
-    //         $formaction = 'http://www.google.com/search';
-    //     }
-    //     if (! empty ( $this->page->theme->settings->searchfield )) {
-    //         $searchfield = $settings->searchfield;
-    //     } else {
-    //         $searchfield = "q";
-    //     }
-        
-    //     $o = '';
-    //     $o .= html_writer::start_tag ( 'form', array (
-    //             'accept-charset' => 'UTF-8',
-    //             'action' => $formaction,
-    //             'id' => 'newsearchform' 
-    //     ) );
-    //     $o .= html_writer::start_div ( '' );
-    //     $o .= html_writer::tag ( 'label', get_string ( 'search' ), array (
-    //             'for' => 'newsearchfield' 
-    //     ) );
-    //     $o .= html_writer::start_tag ( 'input', array (
-    //             'id' => 'newsearchfield',
-    //             'type' => 'text',
-    //             'name' => $searchfield 
-    //     ) );
-    //     $o .= $hiddenfields;
-    //     $o .= html_writer::empty_tag ( 'input', array (
-    //             'type' => 'submit',
-    //             'value' => '',
-    //             'id' => 'newsearchbutton' 
-    //     ) );
-    //     $o .= html_writer::end_div ();
-    //     $o .= html_writer::end_tag ( 'form' );
-    //     return $o;
-    // }
-    // end class
+
+    public function custom_menu($custommenuitems = '') {
+        global $CFG;
+        if (empty($custommenuitems) && !empty($CFG->custommenuitems)) {
+          $custommenuitems = $CFG->custommenuitems;
+        }
+        if (empty($custommenuitems)) {
+          return '';
+        }
+        $custommenu = new custom_menu($custommenuitems, current_language());
+        return $this->render($custommenu);
+    }
+
+    protected function render_custom_menu(custom_menu $menu) {
+        global $CFG;
+        require_once ($CFG->libdir . '/coursecatlib.php');
+
+        // get the custommenuitems
+        $custommenu = $menu->get_children ();
+
+        // get all the categories and courses from the navigation node
+        $categorytree = coursecat::get ( 0 )->get_children ();
+
+        // Here we build the menu.
+        foreach ( $categorytree as $categorytreeitem ) {
+            foreach ( $custommenu as $custommenuitem ) {
+
+                if (($categorytreeitem->name == $custommenuitem->get_title())) {
+                    $branch = $custommenuitem;
+                    $this->add_category_to_custommenu ( $branch, $categorytreeitem );
+                    break;
+                }
+            }
+        }
+
+        $content = '<ul class="nav navbar-nav catnav">';
+        $i =0;
+        foreach ($menu->get_children() as $item) {
+            $i++;
+            $content .= $this->render_custom_menu_item($item, 1, 'catcolour' . $i);
+        }
+        $content .= '</ul>';
+        return $content;
+    }
+
+    protected function render_custom_menu_item(custom_menu_item $menunode, $level = 0, $direction = '' ) {
+        static $submenucount = 0;
+
+        if ($menunode->has_children()) {
+
+            if ($level == 1) {
+                $dropdowntype = 'dropdown';
+            } else {
+                $dropdowntype = 'dropdown-submenu';
+            }
+
+            $content = html_writer::start_tag('li', array('class' => $dropdowntype));
+            // If the child has menus render it as a sub menu.
+            $submenucount++;
+            if ($menunode->get_url() !== null) {
+                $url = $menunode->get_url();
+            } else {
+                $url = '#cm_submenu_'.$submenucount;
+            }
+            $linkattributes = array(
+                'href' => $url,
+                'class' => 'dropdown-toggle',
+                'data-toggle' => 'dropdown',
+                'title' => $menunode->get_title(),
+            );
+            $content .= html_writer::start_tag('a', $linkattributes);
+            $content .= $menunode->get_text();
+            if ($level == 1) {
+                $content .= '<b class="caret"></b>';
+            }
+            $content .= '</a>';
+            $content .= '<ul class="dropdown-menu '.$direction.'">';
+            foreach ($menunode->get_children() as $menunode) {
+                $content .= $this->render_custom_menu_item($menunode, 0);
+            }
+            $content .= '</ul>';
+        } else {
+            $content = '<li>';
+            // The node doesn't have children so produce a final menuitem.
+            $class = '';
+            if (preg_match("/^#+$/", $menunode->get_text())) {
+                $content = '<li class="divider" role="presentation">';
+            } else {
+                $content = '<li>';
+                // The node doesn't have children so produce a final menuitem.
+                if ($menunode->get_url() !== null) {
+                    $url = $menunode->get_url();
+                } else {
+                    $url = '#';
+                }
+                $content .= html_writer::link($url, $menunode->get_text(), array('class' => $class,
+                    'title' => $menunode->get_title()));
+            }
+        }
+        return $content;
+    }
 }
