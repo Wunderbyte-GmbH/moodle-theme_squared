@@ -98,9 +98,6 @@ function theme_squared_extra_less($theme) {
             ';
         }
     }
-
-    // Blocks
-
     return $content;
 }
 
