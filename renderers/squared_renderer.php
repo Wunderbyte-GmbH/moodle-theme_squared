@@ -39,12 +39,22 @@ class theme_squared_html_renderer extends plugin_renderer_base {
 
         $template->homeurl = new moodle_url('/');
 
-        $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 logo';
-        $template->headerbgcontainerclass = 'col-sm-9 col-md-9 col-lg-10 grid background';
+        if (isset($settings->logoposition) && $settings->logoposition == 'right') {
+            $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 col-sm-push-9 col-md-push-9 col-lg-push-10 logo right';
+            $template->headerbgcontainerclass = 'col-sm-9 col-md-9 col-lg-10 col-sm-pull-3 col-md-pull-3 col-lg-pull-2 right background';
 
-        if (isset($settings->headerlayout) && ($settings->headerlayout == 1)) {
-            $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 logo fixed';
-            $template->headerbgcontainerclass = 'col-sm-12 background';
+            if (isset($settings->headerlayout) && ($settings->headerlayout == 1)) {
+                $template->logocontainerclass = 'col-sm-3 col-md-3 col-sm-push-9 col-md-push-9 logo right logo fixed';
+                $template->headerbgcontainerclass = 'col-sm-12 background';
+            }
+        } else {
+            $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 logo left';
+            $template->headerbgcontainerclass = 'col-sm-9 col-md-9 col-lg-10 grid background';
+
+            if (isset($settings->headerlayout) && ($settings->headerlayout == 1)) {
+                $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 logo fixed';
+                $template->headerbgcontainerclass = 'col-sm-12 background';
+            }
         }
 
         $images = array('logo', 'logosmall', 'headerbg', 'headerbgsmall');
@@ -180,5 +190,17 @@ class theme_squared_html_renderer extends plugin_renderer_base {
         $templateinfo = new stdClass();
         $templateinfo->formaction = new moodle_url($searchurl);
         return $this->render_from_template('theme_squared/navbarsearch', $templateinfo);
+    }
+
+    /**
+     * Find the toplevel category for use in the bodyclasses
+     */
+    public function toplevel_category() {
+        foreach ($this->page->categories as $cat) {
+            if ($cat->depth == 1) {
+                return 'category-' . $cat->id;
+            }
+        }
+
     }
 }

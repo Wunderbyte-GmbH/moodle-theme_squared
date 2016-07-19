@@ -38,6 +38,72 @@ function squared_grid($hassidepre) {
     return $regions;
 }
 
+function theme_squared_less_variables($theme) {
+    return '';
+}
+
+function theme_squared_extra_less($theme) {
+    global $CFG;
+    require_once("$CFG->libdir/coursecatlib.php");
+    $categorytree = coursecat::get(0)->get_children ();
+
+    // Navbar Colours.
+    $content = '';
+    foreach ($categorytree as $cid => $value) {
+        $setting = 'bgcolor' . $cid;
+        if (isset($theme->settings->$setting)) {
+            $content .= '
+            @media (min-width: @screen-sm) {
+                .navbar-default .navbar-nav .catcolour'.$cid.' {
+                    .menu_item('.$theme->settings->$setting.');
+                }
+            }
+            ';
+            $content .= '
+            @media (min-width: 768px) {
+                .category-'.$cid.' {
+                    #block-region-side-pre {
+                        .blockheader {
+                            background-color: lighten('.$theme->settings->$setting.', 15%);
+                            #gradient > .directional(lighten('.$theme->settings->$setting.', 15%);lighten('.$theme->settings->$setting.', 5%));
+                        }
+
+                        .over-hover-to-bottom:before {
+                            background: lighten('.$theme->settings->$setting.', 5%);
+                        }
+                    }
+                    .course-content .sectionname .sqheadingicon {
+                        #gradient > .directional(lighten('.$theme->settings->$setting.', 25%);lighten('.$theme->settings->$setting.', 0%));
+                    }
+                    &.path-mod-forum {
+                        .forumpost {
+                            background-color: lighten('.$theme->settings->$setting.', 50%);
+                        }
+                        .forumheaderlist {
+                            .discussion {
+                                background-color: #FFF;
+                                td {
+                                    border-top: 1px solid lighten('.$theme->settings->$setting.', 10%);
+                                }
+                            }
+                            .discussion:first-child td {
+                                border-top: 0px;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            ';
+        }
+    }
+
+    // Blocks
+
+    return $content;
+}
+
 /**
  * Parses CSS before it is cached.
  *
@@ -49,10 +115,6 @@ function squared_grid($hassidepre) {
  */
 function theme_squared_process_css($css, $theme) {
     global $CFG;
-    //$css = theme_squared_include_fonts ( $css, $theme );
-    
-    //$bgcolorsettings = theme_squared_get_backgroundcolorsettings_array ( '/bgcolor_.+/', $theme->settings );
-    //$css .= theme_squared_add_categorycolorguide_css ( $bgcolorsettings );
     
     if (! empty ( $theme->settings->bgcolordefault )) {
         $bgcolordefault = $theme->settings->bgcolordefault;
@@ -62,14 +124,6 @@ function theme_squared_process_css($css, $theme) {
     $css = theme_squared_set_bgcolordefault ( $css, $bgcolordefault );
     $css = theme_squared_set_slideimage ( $css, $theme );
     
-    // Set the inside header image
-    // if (! empty ( $theme->settings->headerimagecourse )) {
-    //     $headerimagecourse = $theme->setting_file_url ( 'headerimagecourse', 'headerimagecourse' );
-    // } else {
-    //     $headerimagecourse = null;
-    // }
-    // $css = theme_squared_set_headerimagecourse ( $css, $headerimagecourse );
-    
     if (! empty ( $theme->settings->customcss )) {
         $customcss = $theme->settings->customcss;
     } else {
@@ -78,215 +132,6 @@ function theme_squared_process_css($css, $theme) {
     
     $css = theme_squared_set_customcss ( $css, $customcss );
     // Return the CSS
-    return $css;
-}
-
-/**
- * include local fonts
- *
- * @param string $css            
- * @return string CSS with local font
- */
-function theme_squared_include_fonts($css) {
-    global $CFG, $PAGE;
-    if (empty ( $CFG->themewww )) {
-        $themewww = $CFG->wwwroot . "/theme";
-    } else {
-        $themewww = $CFG->themewww;
-    }
-    $tag = '[[setting:fontface]]';
-    $replacement = '
-   @font-face {
-   font-family: "SourceSansPro";
-   src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Regular.eot");
-     src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Regular.eot?#iefix") format("embedded-opentype"),
-       url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Regular.otf.woff") format("woff");
-             font-weight: normal;
-             font-style: normal;
-}
-   @font-face {
-   font-family: "SourceSansPro";
-   src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Semibold.eot");
-     src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Semibold.eot?#iefix") format("embedded-opentype"),
-       url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Semibold.otf.woff") format("woff");
-             font-weight: bold;
-             font-style: normal;
-}
-   @font-face {
-   font-family: "SourceSansPro";
-   src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-It.eot");
-     src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-It.eot?#iefix") format("embedded-opentype"),
-       url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-It.otf.woff") format("woff");
-             font-weight: normal;
-             font-style: italic;
-}
-   @font-face {
-   font-family: "SourceSansPro";
-   src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-SemiboldIt.eot");
-     src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-SemiboldIt.eot?#iefix") format("embedded-opentype"),
-       url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-SemiboldIt.otf.woff") format("woff");
-             font-weight: bold;
-             font-style: italic;
-}
-   @font-face {
-   font-family: "SourceSansPro-Light";
-   src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Light.eot");
-     src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Light.eot?#iefix") format("embedded-opentype"),
-       url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-Light.otf.woff") format("woff");
-             font-weight: normal;
-             font-style: normal;
-}
-   @font-face {
-   font-family: "SourceSansPro-Light";
-   src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-LightIt.eot");
-     src: url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-LightIt.eot?#iefix") format("embedded-opentype"),
-       url("' . $themewww . '/' . $PAGE->theme->name . '/fonts/SourceSansPro-LightIt.otf.woff") format("woff");
-             font-weight: normal;
-             font-style: italic;
-}
-                       ';
-    $css = str_replace ( $tag, $replacement, $css );
-    return $css;
-}
-
-/**
- * Returns an array of the all settings used to define background color for a specified category
- *
- * @param string $pattern
- *            the setting prefix used for the setting in settings.php. Example: bgcolor_
- * @param array $input
- *            All available settings of the theme ($theme->settings)
- * @param number $flags            
- * @return array matching key/value pairs as array:
- */
-function theme_squared_get_backgroundcolorsettings_array($pattern, $input, $flags = 0) {
-    $varnames = get_object_vars ( $input );
-    $settings = array_flip ( preg_grep ( $pattern, array_flip ( $varnames ), $flags ) );
-    return $settings;
-}
-
-/**
- * Add CSS for the category color guide defined in the theme settings
- *
- * @param array $bgcolorsettings            
- * @return string
- */
-function theme_squared_add_categorycolorguide_css($bgcolorsettings) {
-    $css = "";
-    foreach ( $bgcolorsettings as $settingname => $color ) {
-        if (! isset ( $color ) || $color == '') {
-            $color = "blue";
-        }
-        
-        $categoryid = str_replace ( 'bgcolor_', '', $settingname );
-        
-        /**
-         * blocks.css set additional small course block colors *
-         */
-        $css .= ".category-$categoryid .coursepage .block.vclass .header, .category-$categoryid .coursepage .block.vclass.block2 .header, .category-$categoryid .coursepage .block.vclass.block3 .header, .category-$categoryid .coursepage .block.vclass.block-hider-show.hidden .header {
-    	background-color: $color !important; }
-        ";
-        
-        /**
-         * blocks.css set additional colors for small blocks, like the below.
-         * you need rgb for opacity *
-         */
-        $css .= ".category-$categoryid .coursepage .block.hidden.vclass:hover .content, .category-$categoryid .coursepage .block.vclass.block-hider-show .content {
-            background: $color; }
-        ";
-        
-        /**
-         * core.css custom breadcrumb color *
-         */
-        $css .= ".category-$categoryid .breadcrumb li:last-child a {
-	           border-bottom-color: $color; }
-        ";
-        
-        /**
-         * core.css tabs color*
-         */
-        $css .= ".category-$categoryid .tabtree .tabrow0 .here a, .category-$categoryid .tabtree .tabrow0 li a:hover {
-	           background-color: $color; }
-        ";
-        
-        /**
-         * core.css buttons *
-         */
-        $css .= ".category-$categoryid input[type=\"submit\"], .category-$categoryid input[type=\"button\"] {
-                background: $color; }
-        ";
-        
-        /**
-         * course.css movecourses *
-         */
-        $css .= "#page-course-index-category.category-$categoryid #movecourses .catheadwrap {
-	       background-color: $color; }
-        ";
-        
-        /**
-         * course.css heading *
-         */
-        $css .= ".path-course-view.category-$categoryid .headingwrap1 {
-	           background-color: $color; }
-        ";
-        
-        /**
-         * course.css table header *
-         */
-        $css .= "#page-course-index-category.category-$categoryid .category_subcategories th {
-	           background-color: $color; }
-        ";
-        
-        /**
-         * course.css heading wrap *
-         */
-        $css .= "#page-course-index-category.category-$categoryid #movecourses .catheadwrap {
-	           background-color: $color; }
-        ";
-        
-        /**
-         * course.css table header *
-         */
-        $css .= "#page-course-index-category.category-$categoryid .category_subcategories th {
-	           background-color: $color; }
-        ";
-        
-        /**
-         * course.css buttons *
-         */
-        $css .= "#page-my-index.category-$categoryid .block_course_overview.block .header {
-	           background-color: $color; }
-        ";
-        
-        /**
-         * dock.css dock *
-         */
-        $css .= ".category-$categoryid #dock-control, .category-$categoryid.idock.editing .block .header .commands {
-	           background-color: $color; }
-        ";
-        
-        /**
-         * forum.css userpicture *
-         */
-        $css .= ".category-$categoryid .forumpost .row .left.picture {
-	           background: $color; }
-        ";
-        
-        /**
-         * forum.css forumpost *
-         */
-        $css .= ".category-$categoryid .forumpost.unread .maincontent {
-        border: 2px solid $color; }
-        ";
-        
-        /**
-         * menu.css background color for top level elements in custom menu (quicknavi) *
-         */
-        $css .= "#custommenu .yui3-menu-content li.category-$categoryid a, #custommenu .yui3-menu-content li.category-$categoryid .custom_menu_submenu {
-	            background-color: $color !important; }
-        ";
-    }
-    
     return $css;
 }
 
@@ -393,23 +238,6 @@ function theme_squared_get_login_url() {
     return $loginurl;
 }
 
-/**
- * set the logo in the header
- *
- * @param string $css            
- * @param string $logo            
- * @return mixed
- */
-function theme_squared_set_logo($css, $logo) {
-    global $OUTPUT;
-    $tag = '[[setting:logo]]';
-    $replacement = $logo;
-    if (is_null ( $replacement )) {
-        $replacement = $OUTPUT->pix_url ( 'moodle-logo', 'theme_squared' );
-    }
-    $css = str_replace ( $tag, $replacement, $css );
-    return $css;
-}
 
 /**
  * Serves any files associated with the theme settings.
@@ -437,25 +265,6 @@ function theme_squared_pluginfile($course, $cm, $context, $filearea, $args, $for
 }
 
 /**
- * user defined columns to show or not
- *
- * @param moodle_page $page            
- */
-function theme_squared_initialise_colpos(moodle_page $page) {
-    user_preference_allow_ajax_update ( 'theme_squared_chosen_colpos', PARAM_ALPHA );
-}
-
-/**
- * get user preference
- *
- * @param string $default            
- * @return string|mixed|null A string containing the value of a single preference. An array with all of the preferences or null
- */
-function theme_squared_get_colpos($default = 'noidock') {
-    return get_user_preferences ( 'theme_squared_chosen_colpos', $default );
-}
-
-/**
  * Sets the custom css variable in CSS
  *
  * @param string $css            
@@ -473,13 +282,17 @@ function theme_squared_set_customcss($css, $customcss) {
 }
 
 /**
- * include jquery and custom javascript
+ * Loads the JavaScript for the zoom function.
  *
- * @param moodle_page $page            
+ * @param moodle_page $page Pass in $PAGE.
  */
-// function theme_squared_page_init(moodle_page $page) {
-//     $page->requires->jquery ();
-//     $page->requires->jquery_plugin ( 'jqueryflexslider', 'theme_squared' );
-//     $page->requires->jquery_plugin ( 'jqueryeasing', 'theme_squared' );
-//     $page->requires->jquery_plugin ( 'custom', 'theme_squared' );
-// }
+function theme_squared_initialise_zoom(moodle_page $page) {
+    user_preference_allow_ajax_update('theme_squared_zoom', PARAM_TEXT);
+    $page->requires->yui_module('moodle-theme_squared-zoom', 'M.theme_squared.zoom.init', array());
+}
+/**
+ * Get the user preference for the zoom function.
+ */
+function theme_squared_get_zoom() {
+    return get_user_preferences('theme_squared_zoom', 'nozoom');
+}

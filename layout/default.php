@@ -23,6 +23,10 @@ $knownregionpost = $PAGE->blocks->is_known_region('side-post');
 
 $regions = squared_grid($hassidepre, $hassidepost);
 $PAGE->set_popup_notification_allowed(false);
+if ($knownregionpre || $knownregionpost) {
+    theme_squared_initialise_zoom($PAGE);
+}
+$setzoom = theme_squared_get_zoom();
 $PAGE->requires->jquery();
 $PAGE->requires->jquery_plugin('squared', 'theme_squared');
 $html = $PAGE->get_renderer('theme_squared', 'html');
@@ -36,7 +40,7 @@ echo $OUTPUT->doctype() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
 </head>
 
-<body <?php echo $OUTPUT->body_attributes(); ?>>
+<body <?php echo $OUTPUT->body_attributes($html->toplevel_category() . ' ' . $setzoom); ?>>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
@@ -55,6 +59,10 @@ echo $OUTPUT->doctype() ?>
         <div id="region-main" class="<?php echo $regions['content']; ?>">
             <div class="inner">
                 <div id="page-navbar" class="clearfix">
+                    <button class="moodlezoom">
+                        <i class="glyphicon glyphicon-resize-full tofull"></i>
+                        <i class="glyphicon glyphicon-resize-small tosmall"></i>
+                    </button>
                     <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>
                     <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
                 </div>

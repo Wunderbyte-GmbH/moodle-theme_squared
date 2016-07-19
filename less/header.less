@@ -29,7 +29,12 @@
             &.fixed {
                 position: absolute;
             }
-            padding-right: 0;
+            &.left {
+                padding-right: 0;
+            }
+            &.right {
+                padding-left: 0;
+            }
             .inner {
                 height: 174px;
                 width: auto;
@@ -38,6 +43,9 @@
         .background {
             &.grid {
                 padding-left: 0;
+            }
+            &.right {
+                padding-right: 0;
             }
             .inner {
                 height: 174px;

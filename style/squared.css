@@ -19543,10 +19543,15 @@ div.feedback_item_commands_left {
 @media (min-width: 768px) {
   .headerimages .logo {
     position: relative;
-    padding-right: 0;
   }
   .headerimages .logo.fixed {
     position: absolute;
+  }
+  .headerimages .logo.left {
+    padding-right: 0;
+  }
+  .headerimages .logo.right {
+    padding-left: 0;
   }
   .headerimages .logo .inner {
     height: 174px;
@@ -19554,6 +19559,9 @@ div.feedback_item_commands_left {
   }
   .headerimages .background.grid {
     padding-left: 0;
+  }
+  .headerimages .background.right {
+    padding-right: 0;
   }
   .headerimages .background .inner {
     height: 174px;

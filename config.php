@@ -3,7 +3,10 @@ $THEME->name = 'squared';
 
 $THEME->parents = array ('bootstrap');
 $THEME->parents_exclude_sheets = array('bootstrap' => array('moodle'));
-$THEME->sheets = array('custom', 'squared');
+$THEME->sheets = array('custom');
+$THEME->lessfile = 'squared';
+$THEME->lessvariablescallback = 'theme_more_less_variables';
+$THEME->extralesscallback = 'theme_squared_extra_less';
 $THEME->supportscssoptimisation = false;
 $THEME->yuicssmodules = array();
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';

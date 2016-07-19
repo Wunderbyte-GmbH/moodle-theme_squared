@@ -30,33 +30,24 @@ defined('MOODLE_INTERNAL') || die();
 
 class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
 
-	public $squaredbodyclasses = array ();
-    
+
     /**
-     * Outputs a custom heading with a wrapper (non-PHPdoc)
+     * Outputs a custom heading with a wrapper
      *
      * @see core_renderer::heading()
      */
-    // public function heading($text, $level = 2, $classes = 'main', $id = null) {
-    //     // for section headings//
-    //     if ($level == 3) {
-    //         $content = html_writer::start_tag ( 'div', array (
-    //                 'class' => 'headingwrap1' 
-    //         ) );
-    //         $content .= html_writer::start_tag ( 'div', array (
-    //                 'class' => 'headingwrap2' 
-    //         ) );
-    //     } else {
-    //         $content = "";
-    //     }
+    public function heading($text, $level = 2, $classes = 'main', $id = null) {
+        // for section headings//
+        $icon = '';
+        if ($level == 3) {
+            $icon = html_writer::tag('div', '', array('class' => 'sqheadingicon'));
+            $text = html_writer::tag('span', $text, array('class' => 'sqheadingtext'));
+        }
         
-    //     $content .= parent::heading ( $text, $level, $classes, $id );
-    //     if ($level == 3) {
-    //         $content .= html_writer::end_tag ( 'div' );
-    //         $content .= html_writer::end_tag ( 'div' );
-    //     }
-    //     return $content;
-    // }
+        $content = parent::heading ( $icon . $text, $level, $classes, $id );
+
+        return $content;
+    }
     
     /**
      * Output all the blocks in a particular region.
@@ -139,7 +130,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         } else {
             return $this->render_from_template('theme_squared/blocks', $template);
         }
-    }   
+    }
 
     /**
      * Prints a nice side block with an optional header.
@@ -242,9 +233,8 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         // We add the courses and modules to the categories
         if (! empty ( $catcourses ) && ($actual_depth <= $show_course_category_depth)) {
             foreach ( $catcourses as $course ) {
-                $course_branch = $parent->add ( $course->shortname, new moodle_url ( '/course/view.php', array (
-                        'id' => $course->id 
-                ) ), $course->fullname );
+                $course_branch = $parent->add($course->shortname,
+                    new moodle_url('/course/view.php', array('id' => $course->id)), $course->fullname);
                 
                 // We add modules the the courses
                 
@@ -253,6 +243,8 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                 $modules = get_course_mods ( $course->id );
                 $courseobject = get_course ( $course->id );
                 if (! empty ( $modules ) && ($actual_depth <= $show_modules_depth)) {
+                    $course_branch->add($course->shortname,
+                    new moodle_url('/course/view.php', array('id' => $course->id)), $course->fullname);
                     foreach ( $modules as $module ) {
                         // We don't include the module if it can't be accessed by the visiting user
                         if ($module->visible == 0 || ! can_access_course ( $courseobject )) {
@@ -486,12 +478,12 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         $categorytree = coursecat::get ( 0 )->get_children ();
 
         // Here we build the menu.
-        foreach ( $categorytree as $categorytreeitem ) {
+        foreach ( $categorytree as $cid => $categorytreeitem ) {
             foreach ( $custommenu as $custommenuitem ) {
-
                 if (($categorytreeitem->name == $custommenuitem->get_title())) {
                     $branch = $custommenuitem;
                     $this->add_category_to_custommenu ( $branch, $categorytreeitem );
+                    $custommenuitem->set_title('catcolour' . $cid);
                     break;
                 }
             }
@@ -501,7 +493,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         $i =0;
         foreach ($menu->get_children() as $item) {
             $i++;
-            $content .= $this->render_custom_menu_item($item, 1, 'catcolour' . $i);
+            $content .= $this->render_custom_menu_item($item, 1, $item->get_title());
         }
         $content .= '</ul>';
         return $content;
@@ -562,5 +554,20 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             }
         }
         return $content;
+    }
+
+    public function user_picture(stdClass $user, array $options = null) {
+        global $PAGE;
+        if ($PAGE->bodyid == 'page-mod-forum-discuss' || $PAGE->bodyid == 'page-site-index' ) {
+            $options = array('size' => '100');
+        }
+
+        $userpicture = new user_picture($user);
+        foreach ((array)$options as $key=>$value) {
+            if (array_key_exists($key, $userpicture)) {
+                $userpicture->$key = $value;
+            }
+        }
+        return $this->render($userpicture);
     }
 }
