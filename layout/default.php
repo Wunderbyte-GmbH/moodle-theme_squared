@@ -73,6 +73,7 @@ echo $OUTPUT->doctype() ?>
                 echo $OUTPUT->main_content();
                 echo $OUTPUT->course_content_footer();
                 ?>
+                <div class="clearfix"></div>
             </div>
         </div>
 

@@ -77,17 +77,8 @@ function theme_squared_extra_less($theme) {
                     }
                     &.path-mod-forum {
                         .forumpost {
-                            background-color: lighten('.$theme->settings->$setting.', 50%);
-                        }
-                        .forumheaderlist {
-                            .discussion {
-                                background-color: #FFF;
-                                td {
-                                    border-top: 1px solid lighten('.$theme->settings->$setting.', 10%);
-                                }
-                            }
-                            .discussion:first-child td {
-                                border-top: 0px;
+                            .row .left.picture {
+                                background-color: '.$theme->settings->$setting.';
                             }
                         }
                     }
