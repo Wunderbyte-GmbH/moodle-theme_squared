@@ -98,6 +98,17 @@ function theme_squared_extra_less($theme) {
             ';
         }
     }
+
+    $showbgcolor = true;
+    if (isset($theme->settings->nologobgcolor) && $theme->settings->nologobgcolor == 1) {
+        $showbgcolor = false;
+    }
+    if ($showbgcolor && isset($theme->settings->logobgcolor)) {
+        $content .= '
+            .headerimages .logoimg {
+                background-color: ' . $theme->settings->logobgcolor . ';
+            }';
+    }
     return $content;
 }
 

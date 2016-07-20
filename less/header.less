@@ -1,9 +1,10 @@
 .headerimages {
+    position: relative;
     .logo {
         position: absolute;
         z-index: 1;
         .inner {
-            background-color: @sq-green;
+            background-color: transparent;
             height: 124px;
             width: 124px;
         }
@@ -23,18 +24,26 @@
     .logoimg {
         background-size: auto 50%;
     }
+    .logo {
+        position: relative;
+        &.fixed {
+            position: absolute;
+        }
+        &.left {
+            padding-right: 0;
+        }
+        &.right {
+            padding-left: 0;
+        }
+    }
+    @media(max-width: @screen-sm) {
+        .logo.right {
+            position: absolute;
+            right: 0;
+        }
+    }
     @media(min-width: @screen-sm) {
         .logo {
-            position: relative;
-            &.fixed {
-                position: absolute;
-            }
-            &.left {
-                padding-right: 0;
-            }
-            &.right {
-                padding-left: 0;
-            }
             .inner {
                 height: 174px;
                 width: auto;
@@ -55,7 +64,7 @@
         .logoimg {
             height: 174px;
             width: 100%;
-            background-color: @sq-green;
+            background-color: transparent;
             background-repeat: no-repeat;
             background-position: center center;
         }

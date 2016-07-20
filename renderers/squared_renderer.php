@@ -40,8 +40,8 @@ class theme_squared_html_renderer extends plugin_renderer_base {
         $template->homeurl = new moodle_url('/');
 
         if (isset($settings->logoposition) && $settings->logoposition == 'right') {
-            $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 col-sm-push-9 col-md-push-9 col-lg-push-10 logo right';
-            $template->headerbgcontainerclass = 'col-sm-9 col-md-9 col-lg-10 col-sm-pull-3 col-md-pull-3 col-lg-pull-2 right background';
+            $template->logocontainerclass = 'col-sm-3 col-md-3 col-sm-push-9 col-md-push-9 logo right';
+            $template->headerbgcontainerclass = 'col-sm-9 col-md-9 col-sm-pull-3 col-md-pull-3  right background';
 
             if (isset($settings->headerlayout) && ($settings->headerlayout == 1)) {
                 $template->logocontainerclass = 'col-sm-3 col-md-3 col-sm-push-9 col-md-push-9 logo right logo fixed';
@@ -52,7 +52,7 @@ class theme_squared_html_renderer extends plugin_renderer_base {
             $template->headerbgcontainerclass = 'col-sm-9 col-md-9 col-lg-10 grid background';
 
             if (isset($settings->headerlayout) && ($settings->headerlayout == 1)) {
-                $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 logo fixed';
+                $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 logo left fixed';
                 $template->headerbgcontainerclass = 'col-sm-12 background';
             }
         }

@@ -39,7 +39,10 @@ if (is_siteadmin()) {
     $simset->add_file('headerbgsmall');
     $simset->add_select('logoposition', 'left',
         array('left' => get_string('left', 'editor'), 'right'=> get_string('right', 'editor')));
+    $simset->add_colourpicker('logobgcolor', '#4ba09b');
+    $simset->add_checkbox('nologobgcolor', 0, 1, 0);
     $ADMIN->add('theme_squared', $sp);
+
     
     // Category color guide settings.
 
