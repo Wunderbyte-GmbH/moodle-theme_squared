@@ -125,7 +125,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         }
 
         $theme = theme_config::load('squared');
-        if ($numblocks >= $theme->settings->blockperrowlimit) {
+        if (isset($theme->settings->blockperrowlimit) && $numblocks >= $theme->settings->blockperrowlimit) {
             return $this->render_from_template('theme_squared/blocksrows', $template);
         } else {
             return $this->render_from_template('theme_squared/blocks', $template);

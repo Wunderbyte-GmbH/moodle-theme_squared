@@ -1,4 +1,4 @@
-{{!
+    {{!
     This file is part of the Squared theme for Moodle
 }}
 {{!
@@ -63,7 +63,7 @@
         <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
             <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{arialabel}}">
                 <div class="panel-heading">
-                    <a role="collapse" data-toggle="collapse" href="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="true">
+                    <a role="collapse" class="collapselink" data-toggle="collapse" href="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="true">
 
                     <div class="courseblock-icon"></div>
                     {{{header}}}
@@ -86,7 +86,7 @@
         <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
             <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{arialabel}}">
                 <div class="panel-heading">
-                    <a role="collapse" data-toggle="collapse" href="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="true">
+                    <a role="collapse" class="collapselink" data-toggle="collapse" href="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="true">
 
                     <div class="courseblock-icon"></div>
                     {{{header}}}
