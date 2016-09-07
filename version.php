@@ -33,5 +33,5 @@ $plugin->release = "Mint Square 2.9"; // Release name: famous squares around the
 $plugin->maturity = MATURITY_BETA;
 $plugin->component = 'theme_squared'; // Full name of the plugin (used for diagnostics)
 $plugin->dependencies = array (
-        'theme_bootstrap' => 2015110600,
+        'theme_bootstrap' => 2016080100,
 );
