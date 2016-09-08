@@ -63,9 +63,12 @@ function theme_squared_extra_less($theme) {
             @media (min-width: 768px) {
                 .category-'.$cid.' {
                     #block-region-side-pre {
-                        .blockheader {
+                        .blockheader, .block .panel-heading {
                             background-color: lighten('.$theme->settings->$setting.', 15%);
                             #gradient > .directional(lighten('.$theme->settings->$setting.', 15%);lighten('.$theme->settings->$setting.', 5%));
+                        }
+                        .panel-group {
+                            background-color: lighten('.$theme->settings->$setting.', 15%);
                         }
 
                         .over-hover-to-bottom:before {

@@ -27,11 +27,11 @@
  */
 defined ( 'MOODLE_INTERNAL' ) || die ();
 
-$plugin->version = 2016030200;
-$plugin->requires = 2015051100;
-$plugin->release = "Mint Square 2.9"; // Release name: famous squares around the world followed by Moodle version followed by number
-$plugin->maturity = MATURITY_BETA;
-$plugin->component = 'theme_squared'; // Full name of the plugin (used for diagnostics)
+$plugin->version =     2016090800;
+$plugin->requires =    2015051100;
+$plugin->release =     "Mint Square 2.9"; // Release name: famous squares around the world followed by Moodle version followed by number
+$plugin->maturity =    MATURITY_BETA;
+$plugin->component =   'theme_squared'; // Full name of the plugin (used for diagnostics)
 $plugin->dependencies = array (
         'theme_bootstrap' => 2016080100,
 );
