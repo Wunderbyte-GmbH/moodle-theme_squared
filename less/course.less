@@ -30,3 +30,39 @@
         font-size: 90%;
     }
 }
+
+.editing {
+    .course-content ul li.section.main {
+        .left {
+            padding: 0;
+        }
+    }
+}
+
+
+.course-content li {
+    &.section {
+        ul {
+            list-style: disc;
+            ul {
+                list-style: circle;
+                ul {
+                    list-style: square;
+                }
+            }
+        }
+        li {
+            &.activity {
+                ul {
+                    list-style: disc;
+                    ul {
+                        list-style: circle;
+                        ul {
+                            list-style: square;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

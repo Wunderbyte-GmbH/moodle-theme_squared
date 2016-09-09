@@ -60,7 +60,6 @@ function theme_squared_extra_less($theme) {
             }
             ';
             $content .= '
-            @media (min-width: 768px) {
                 .category-'.$cid.' {
                     #block-region-side-pre {
                         .blockheader, .block .panel-heading {
@@ -87,8 +86,13 @@ function theme_squared_extra_less($theme) {
                     }
 
                 }
-            }
-
+                @media (max-width: @screen-sm) {
+                     .category-'.$cid.' {
+                         #block-region-side-pre .panel-group {
+                         background-color: transparent;
+                           }
+                     }
+                }
             ';
         }
     }
