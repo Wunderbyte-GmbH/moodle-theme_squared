@@ -1,56 +1,50 @@
-.course-content .section .content, editor_atto_content_wrap {
-	ul {
-	  list-style-type:disc;
-	}
-	ol {
-	  list-style-type:decimal;
-	}
-	ul, ol {
-	    padding: 0;
-	    list-style-position:inside;
-	}	
-	ul ul, ol ul {
-	  list-style-type:circle;
-	  list-style-position:inside;
-	}
-	ol ol, ul ol {
-	  list-style-type:lower-latin;
-	  list-style-position:inside;
-	}
+ul:not([class]) {
+  list-style-type:disc;
+}
+ol:not([class]) {
+  list-style-type:decimal;
+}
+ul:not([class]), ol:not([class]) {
+    padding: 0;
+    list-style-position:inside;
+}	
+ul:not([class]) ul, ol:not([class]) ul {
+  list-style-type:circle;
+  list-style-position:inside;
+}
+ol:not([class]) ol, ul:not([class]) ol {
+  list-style-type:lower-latin;
+  list-style-position:inside;
 }
 	
 .dir-ltr {
-	.course-content [id^="section-"] .content .summary,  .course-content [id^="section-"] .content .activity, .editor_atto_content_wrap {
-		li {
+	ul:not([class]), ol:not([class]) {
+		margin: 0 0 10px 25px;
+		li:not([class]) {
 	    	padding-left: 1em;
 	    	text-indent: -1em;
 		}
-		ul, ol {
-			margin: 0 0 10px 25px;
-		}
-		ul ul, ol ul {
-			margin-left:15px;
-		}
-		ol ol, ul ol {
-			margin-left:15px;
-		}
+	}
+	ul:not([class]) ul, ol:not([class]) ul {
+		margin-left:15px;
+	}
+	ol:not([class]) ol, ul:not([class]) ol {
+		margin-left:15px;
 	}
 }
 .dir-rtl {
-	.course-content [id^="section-"] .content .summary,  .course-content [id^="section-"] .content .activity, .editor_atto_content_wrap  {
-		li {
-	    	padding-right: 1em;
-	    	text-indent: -1em;
+	ul:not([class]), ol:not([class])  {
+		margin: 25px 0 10px 0;
+		li:not([class]) {
+    		padding-right: 1em;
+    		text-indent: -1em;
 		}
-		ul, ol {
-			margin: 25px 0 10px 0;
-		}
-		ul ul, ol ul {
-			margin-right: 15px;
-		}
-		ol ol, ul ol {
-			margin-right:15px;
-		}
+	}
+	ul:not([class]) ul, ol:not([class]) ul {
+		margin-right: 15px;
+	}
+	ol:not([class]) ol, ul:not([class]) ol {
+		margin-right:15px;
 	}
 }
 
