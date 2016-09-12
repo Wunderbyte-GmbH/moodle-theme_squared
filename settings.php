@@ -23,6 +23,7 @@ if (is_siteadmin()) {
     $simset->add_text('searchurl', $searchurl);
     $simset->add_text('searchfield');
     $simset->add_select('alternateloginurl', 0, $simset->mnet_choices());
+    $simset->add_checkbox('hidelocallogin',0,1,0);
     $simset->add_select('blockperrowlimit', 4, range(0, 30));
     $simset->add_textarea('customcss');
     $ADMIN->add('theme_squared', $sp);

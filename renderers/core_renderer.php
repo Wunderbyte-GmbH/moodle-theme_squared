@@ -50,6 +50,27 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
     }
     
     /**
+     * Returns HTML attributes to use within the body tag. This includes an ID and classes.
+     *
+     * @since Moodle 2.5.1 2.6
+     * @param string|array $additionalclasses Any additional classes to give the body tag,
+     * @return string
+     */
+    public function body_attributes($additionalclasses = array()) {
+        if ($this->page->pagelayout == 'login') {
+            $hidelocallogin = (!isset($this->page->theme->settings->hidelocallogin)) ? false : $this->page->theme->settings->hidelocallogin;
+            if ($hidelocallogin) {
+                if (is_array($additionalclasses)) {
+                    $additionalclasses[] = 'hidelocallogin';
+                } else {
+                    $additionalclasses .= ' hidelocallogin';
+                }
+            }
+        }
+        return parent::body_attributes($additionalclasses);
+    }
+    
+    /**
      * Output all the blocks in a particular region.
      *
      * @param string $region the name of a region on this page.
