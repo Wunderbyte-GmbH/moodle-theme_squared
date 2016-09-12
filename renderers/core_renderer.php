@@ -619,7 +619,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         } else {
             $menu->add(
                 $this->glyphicon('sign-in')  . get_string('login'),
-                new moodle_url('/login/index.php', array('alt' => get_string('login'))),
+                new moodle_url($this->squared_get_login_url()),
                 get_string('login')
             );
         }
