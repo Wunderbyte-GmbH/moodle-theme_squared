@@ -294,7 +294,6 @@ function theme_squared_set_customcss($css, $customcss) {
  */
 function theme_squared_initialise_zoom(moodle_page $page) {
     user_preference_allow_ajax_update('theme_squared_zoom', PARAM_TEXT);
-    $page->requires->yui_module('moodle-theme_squared-zoom', 'M.theme_squared.zoom.init', array());
 }
 /**
  * Get the user preference for the zoom function.

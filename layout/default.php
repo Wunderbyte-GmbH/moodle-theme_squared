@@ -60,8 +60,8 @@ echo $OUTPUT->doctype() ?>
             <div class="inner">
                 <div id="page-navbar" class="clearfix">
                     <button class="moodlezoom">
-                        <i class="glyphicon glyphicon-resize-full tofull"></i>
-                        <i class="glyphicon glyphicon-resize-small tosmall"></i>
+                        <i class="glyphicon glyphicon-resize-full tosmall"></i>
+                        <i class="glyphicon glyphicon-resize-small tofull"></i>
                     </button>
                     <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>
                     <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
