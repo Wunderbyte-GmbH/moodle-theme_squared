@@ -26,7 +26,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-function squared_grid($hassidepre) {
+function theme_squared_grid($hassidepre) {
 
     if ($hassidepre) {
         $regions = array('content' => 'col-sm-9 col-sm-push-3 col-md-9 col-md-push-3 col-lg-10 col-lg-push-2');
@@ -201,47 +201,6 @@ function theme_squared_set_headerimagecourse($css, $headerimagecourse) {
     }
     $css = str_replace ( $tag, $replacement, $css );
     return $css;
-}
-
-/**
- * Returns MNET Login URL instead of standard login URL.
- * Checks the wanted url
- * of user in order to provide correct redirect url for the identity provider
- *
- * @return string login url
- */
-function theme_squared_get_login_url() {
-    global $PAGE, $DB, $SESSION, $CFG;
-    if ($PAGE->url->out () === $CFG->wwwroot . "/login/index.php") {
-        $urltogo = $SESSION->wantsurl;
-    } else {
-        $urltogo = $PAGE->url->out ();
-    }
-    $authplugin = get_auth_plugin ( 'mnet' );
-    $authurl = $authplugin->loginpage_idp_list ( $urltogo );
-    // check the id of the MNET host for the idp
-    $host = $DB->get_field ( 'mnet_host', 'name', array (
-            'id' => $PAGE->theme->settings->alternateloginurl 
-    ) );
-    if (! empty ( $authurl )) {
-        foreach ( $authurl as $key => $urlarray ) {
-            if ($urlarray ['name'] == $host) {
-                $loginurl = $authurl [$key] ['url'];
-                return $loginurl;
-            } else {
-                $loginurl = "$CFG->wwwroot/login/index.php";
-                if (! empty ( $CFG->loginhttps )) {
-                    $loginurl = str_replace ( 'http:', 'https:', $loginurl );
-                }
-            }
-        }
-    } else {
-        $loginurl = "$CFG->wwwroot/login/index.php";
-        if (! empty ( $CFG->loginhttps )) {
-            $loginurl = str_replace ( 'http:', 'https:', $loginurl );
-        }
-    }
-    return $loginurl;
 }
 
 

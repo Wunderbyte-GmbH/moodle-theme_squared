@@ -21,7 +21,7 @@ $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
 $knownregionpre = $PAGE->blocks->is_known_region('side-pre');
 $knownregionpost = $PAGE->blocks->is_known_region('side-post');
 
-$regions = squared_grid($hassidepre, $hassidepost);
+$regions = theme_squared_grid($hassidepre);
 $PAGE->set_popup_notification_allowed(false);
 if ($knownregionpre || $knownregionpost) {
     theme_squared_initialise_zoom($PAGE);

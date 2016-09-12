@@ -24,7 +24,7 @@
  * breaking installation or upgrade unwittingly.
  */
 
-$regions = squared_grid(false, false);
+$regions = theme_squared_grid(false);
 
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
