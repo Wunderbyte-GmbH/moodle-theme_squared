@@ -63,11 +63,11 @@ function theme_squared_extra_less($theme) {
                 .category-'.$cid.' {
                     #block-region-side-pre {
                         .blockheader, .block .panel-heading {
-                            background-color: lighten('.$theme->settings->$setting.', 15%);
-                            #gradient > .directional(lighten('.$theme->settings->$setting.', 15%);lighten('.$theme->settings->$setting.', 5%));
+                            background-color: '.$theme->settings->$setting.';
+                            #gradient > .directional(lighten('.$theme->settings->$setting.', 5%);darken('.$theme->settings->$setting.', 5%));
                         }
                         .panel-group {
-                            background-color: lighten('.$theme->settings->$setting.', 15%);
+                            background-color: '.$theme->settings->$setting.';
                         }
 
                         .over-hover-to-bottom:before {
@@ -75,7 +75,7 @@ function theme_squared_extra_less($theme) {
                         }
                     }
                     .course-content .sectionname .sqheadingicon {
-                        #gradient > .directional(lighten('.$theme->settings->$setting.', 25%);lighten('.$theme->settings->$setting.', 0%));
+                        background-color: '.$theme->settings->$setting.';
                     }
                     &.path-mod-forum {
                         .forumpost {
