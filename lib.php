@@ -133,7 +133,7 @@ function theme_squared_process_css($css, $theme) {
     if (! empty ( $theme->settings->customcss )) {
         $customcss = $theme->settings->customcss;
     } else {
-        $customcss = null;
+        return $css;
     }
     
     $css = theme_squared_set_customcss ( $css, $customcss );
