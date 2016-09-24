@@ -338,22 +338,27 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
      */
     public function block(block_contents $bc, $region) {
         $bc = clone($bc); // Avoid messing up the object passed in.
+            $bc = clone($bc); // Avoid messing up the object passed in.
         if (empty($bc->blockinstanceid) || !strip_tags($bc->title)) {
             $bc->collapsible = block_contents::NOT_HIDEABLE;
         }
         if (!empty($bc->blockinstanceid)) {
             $bc->attributes['data-instanceid'] = $bc->blockinstanceid;
         }
-        $bc->skiptitle = strip_tags($bc->title);
-
-        if (empty($bc->arialabel)) {
-            $bc->arialabel = 'instance-'.$bc->blockinstanceid.'-header';
+        $skiptitle = strip_tags($bc->title);
+        if ($bc->blockinstanceid && !empty($skiptitle)) {
+            $bc->attributes['aria-labelledby'] = 'instance-'.$bc->blockinstanceid.'-header';
+        } else if (!empty($bc->arialabel)) {
+            $bc->attributes['aria-label'] = $bc->arialabel;
         }
         if ($bc->dockable) {
             $bc->attributes['data-dockable'] = 1;
         }
         if ($bc->collapsible == block_contents::HIDDEN) {
             $bc->add_class('hidden');
+        }
+        if (!empty($bc->controls)) {
+            $bc->add_class('block_with_controls');
         }
 
         $bc->add_class('panel panel-default');

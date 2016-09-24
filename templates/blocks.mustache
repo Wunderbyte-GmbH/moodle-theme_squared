@@ -15,23 +15,23 @@
     {{#blocks}}
         <div class="{{class}} pairheader">
             <div role="button" data-toggle="collapse" data-parent="#accordion" 
-                    href="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="collapseOne" class="squared blockheader over-hover-to-bottom {{name}}">
-                <span class="blockhead title">
+                    data-target="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="inst{{blockinstanceid}}" class="squared blockheader over-hover-to-bottom {{name}}">
+                <div class="blockhead title">
                     <div class="alignself">
                         <div class="inner">
                             <div class="courseblock-icon"></div>
-                            <span class="blocktitle">
+                            <div class="blocktitle">
                             {{{title}}}
-                            </span>
+                            </div>
                         </div>
                     </div>
-                </span>
+                </div>
             </div>
         </div>    
 
         {{#blockinstanceid}}
         <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
-            <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{arialabel}}">
+            <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{aria-labelledby}}">
                 <div class="panel-heading">
                     <div class="courseblock-icon"></div>
                     {{{header}}}
