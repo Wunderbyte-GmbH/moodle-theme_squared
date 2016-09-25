@@ -355,11 +355,12 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             $bc->attributes['data-dockable'] = 1;
         }
         if ($bc->collapsible == block_contents::HIDDEN) {
-            $bc->add_class('hidden');
+            // collapsing does not work with default moodle hide/show blocks
+            //$bc->add_class('hidden');
         }
         if (!empty($bc->controls)) {
             $bc->add_class('block_with_controls');
-        }
+        }        
 
         $bc->add_class('panel panel-default');
 
