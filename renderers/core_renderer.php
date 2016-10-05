@@ -371,6 +371,29 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             $attribute = new stdClass();
             $attribute->key = $key;
             $attribute->value = $val;
+            if($val == "_fake") {
+                $attribute->key = "data-block";
+                $attribute->value = "navigation";                
+                $specialattribute = new stdClass();
+                $specialattribute->key = "id";
+                $specialattribute->value = "inst-fake9";
+                $bc->atts[] = $specialattribute;
+                $specialattribute = new stdClass();
+                $specialattribute->key = "role";
+                $specialattribute->value = "navigation";
+                $bc->atts[] = $specialattribute;
+                $specialattribute = new stdClass();
+                $specialattribute->key = "data-instanceid";
+                $specialattribute->value = "fake9";
+                $bc->atts[] = $specialattribute;
+                $specialattribute = new stdClass();
+                $specialattribute->key = "aria-labelledby";
+                $specialattribute->value = "inst-fake9-header";
+                $bc->atts[] = $specialattribute;
+                $bc->collapsible = 2;
+                $bc->instanceid = "fake9";
+                $bc->blockinstanceid = "fake9";
+            }
             $bc->atts[] = $attribute;
         }
 
