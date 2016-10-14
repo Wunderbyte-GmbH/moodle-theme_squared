@@ -371,6 +371,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             $attribute = new stdClass();
             $attribute->key = $key;
             $attribute->value = $val;
+            // this is ridiculous. the book module should have a proper coding of the toc block ;-)
             if($val == "_fake") {
                 $attribute->key = "data-block";
                 $attribute->value = "navigation";                
