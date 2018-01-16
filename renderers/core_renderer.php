@@ -30,6 +30,7 @@ defined('MOODLE_INTERNAL') || die();
 
 class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
 
+    protected $themesquared = null;
 
     /**
      * Outputs a custom heading with a wrapper
@@ -239,6 +240,10 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
      * @return string the HTML to be output.
      */
     public function blocks_for_region($region) {
+        if ($region == 'content') {
+            return parent::blocks_for_region($region);
+        }
+
         $blockcontents = $this->page->blocks->get_content_for_region($region, $this);
         $blocks = $this->page->blocks->get_blocks_for_region($region);
         $lastblock = null;
@@ -307,8 +312,10 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             $template->pairs[] = $pair; 
         }
 
-        $theme = theme_config::load('squared');
-        if (isset($theme->settings->blockperrowlimit) && $numblocks >= $theme->settings->blockperrowlimit) {
+        if ($this->themesquared == null) {
+            $this->themesquared = theme_config::load('squared');
+        }
+        if (isset($themesquared->settings->blockperrowlimit) && $numblocks >= $themesquared->settings->blockperrowlimit) {
             return $this->render_from_template('theme_squared/blocksrows', $template);
         } else {
             return $this->render_from_template('theme_squared/blocks', $template);
@@ -337,6 +344,9 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
      * @return string the HTML to be output.
      */
     public function block(block_contents $bc, $region) {
+        if ($region == 'content') {
+            return parent::block($bc, $region);
+        }
         $bc = clone($bc); // Avoid messing up the object passed in.
             $bc = clone($bc); // Avoid messing up the object passed in.
         if (empty($bc->blockinstanceid) || !strip_tags($bc->title)) {
@@ -374,7 +384,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             // this is ridiculous. the book module should have a proper coding of the toc block ;-)
             if($val == "_fake") {
                 $attribute->key = "data-block";
-                $attribute->value = "navigation";                
+                $attribute->value = "navigation";
                 $specialattribute = new stdClass();
                 $specialattribute->key = "id";
                 $specialattribute->value = "inst-fake9";
@@ -479,8 +489,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             }
         }
     }
-    
-    
+
     protected function squared_prepare_textlinks($textlinks) {
         $textsnippets = explode ( ';', $textlinks );
         foreach ( $textsnippets as $value ) {
@@ -510,7 +519,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         ) );
         return $renderedtext;
     }
-    
+
     /**
      * Produces the footer
      *

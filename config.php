@@ -110,6 +110,5 @@ $THEME->layouts = array(
 );
 
 $THEME->javascripts_footer = array(
-                'squared'
+    'squared'
 );
-
