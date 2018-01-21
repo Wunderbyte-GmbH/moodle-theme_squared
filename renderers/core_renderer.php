@@ -417,75 +417,36 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
      * Add a complete course category to the custom menu
      * Added by Georg Maißer and David Bogner, based on work of Sam Hemelryk
      *
-     * @param custom_menu_item $parent            
-     * @param coursecat $category            
+     * @param custom_menu_item $parent
+     * @param coursecat $category
      */
     protected function add_category_to_custommenu(custom_menu_item $parent, coursecat $category) {
         
-        // This value allows you to change the depth of the menu you want to show (reducing the depth may help with performance issues)
-        // for courses and categories:
-        $show_course_category_depth = 4;
-        // for modules
-        $show_modules_depth = 2;
-        $categorychildren = $category->get_children ();
+        /* This value allows you to change the depth of the menu you want to show (reducing the depth may help with performance issues)
+           for categories: */
+        $show_category_depth = 4;
+        $categorychildren = $category->get_children();
         $actual_depth = $category->depth;
         
-        // This value allows you to decide if you want to show modules on the last depth which is still displayed
+        // This value allows you to decide if you want to show modules on the last depth which is still displayed.
         $show_deep_modules = false;
         
         // We add the Categories and Subcategories to the menu
-        if (! empty ( $categorychildren )) {
+        if (!empty($categorychildren)) {
             $i = 1;
-            foreach ( $categorychildren as $subcategory ) {
+            foreach ($categorychildren as $subcategory) {
                 $actual_depth = $subcategory->depth;
-                
-                // we want to check if the depth of the given category is below the limit specified above
-                if ($actual_depth > $show_course_category_depth) {
+
+                // We want to check if the depth of the given category is below the limit specified above.
+                if ($actual_depth > $show_category_depth) {
                     continue;
                 }
-                // the value "1000" is chosen to add the items at the end. By choosing a lower or even negative value, you can add these items in front of the manually created custommenuitems
-                $sub_parent = $parent->add ( $subcategory->name, new moodle_url ( '/course/index.php', array (
-                        'categoryid' => $subcategory->id 
-                ) ), null, 1000 + $i );
+                // The value "1000" is chosen to add the items at the end. By choosing a lower or even negative value, you can add these items in front of the manually created custommenuitems.
+                $sub_parent = $parent->add($subcategory->name, new moodle_url('/course/index.php', array (
+                    'categoryid' => $subcategory->id 
+                )), null, 1000 + $i);
                 $this->add_category_to_custommenu ( $sub_parent, $subcategory );
-                $i ++;
-            }
-        }
-        // all courses visible to user
-        $catcourses = $category->get_courses ();
-        // We add the courses and modules to the categories
-        if (! empty ( $catcourses ) && ($actual_depth <= $show_course_category_depth)) {
-            foreach ( $catcourses as $course ) {
-                $course_branch = $parent->add($course->shortname,
-                    new moodle_url('/course/view.php', array('id' => $course->id)), $course->fullname);
-                
-                // We add modules the the courses
-                
-                // first we check if we shall still show modules on this level
-                
-                $modules = get_course_mods ( $course->id );
-                $courseobject = get_course ( $course->id );
-                if (! empty ( $modules ) && ($actual_depth <= $show_modules_depth)) {
-                    $course_branch->add($course->shortname,
-                    new moodle_url('/course/view.php', array('id' => $course->id)), $course->fullname);
-                    foreach ( $modules as $module ) {
-                        // We don't include the module if it can't be accessed by the visiting user
-                        if ($module->visible == 0 || ! can_access_course ( $courseobject )) {
-                            continue;
-                        }
-                        if ($module->modname == "label") {
-                            continue;
-                        }
-                        // the normal $module object does not include the name, so we have to make a little deviation
-                        $module_object = get_coursemodule_from_id ( $module->modname, $module->id );
-                        // now we have all the info we need and can just add the node to the menu
-                        if ($module_object) {
-                            $course_branch->add ( $module_object->name, new moodle_url ( '/mod/' . $module->modname . '/view.php', array (
-                                    'id' => $module->id 
-                            ) ), $module->modname );
-                        }
-                    }
-                }
+                $i++;
             }
         }
     }
@@ -691,41 +652,38 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
 
     protected function render_custom_menu(custom_menu $menu) {
         global $CFG;
-        require_once ($CFG->libdir . '/coursecatlib.php');
+        require_once ($CFG->libdir.'/coursecatlib.php');
 
-        // get the custommenuitems
-        $custommenu = $menu->get_children ();
+        // Get the custommenuitems.
+        $custommenu = $menu->get_children();
 
-        // get all the categories and courses from the navigation node
-        $categorytree = coursecat::get ( 0 )->get_children ();
+        // Get all the categories and courses from the navigation node.
+        $categorytree = coursecat::get(0)->get_children ();
 
         // Here we build the menu.
-        foreach ( $categorytree as $cid => $categorytreeitem ) {
+        foreach ($categorytree as $cid => $categorytreeitem ) {
             foreach ( $custommenu as $custommenuitem ) {
                 if (($categorytreeitem->name == $custommenuitem->get_title())) {
                     $branch = $custommenuitem;
-                    $this->add_category_to_custommenu ( $branch, $categorytreeitem );
-                    $custommenuitem->set_title('catcolour' . $cid);
+                    $this->add_category_to_custommenu($branch, $categorytreeitem);
+                    $custommenuitem->set_title('catcolour'.$cid);
                     break;
                 }
             }
         }
 
         $content = '<ul class="nav navbar-nav catnav">';
-        $i =0;
         foreach ($menu->get_children() as $item) {
-            $i++;
             $content .= $this->render_custom_menu_item($item, 1, $item->get_title());
         }
         $content .= '</ul>';
         return $content;
     }
 
-    protected function render_custom_menu_item(custom_menu_item $menunode, $level = 0, $direction = '' ) {
+    protected function render_custom_menu_item(custom_menu_item $menunode, $level = 0, $direction = '') {
         static $submenucount = 0;
 
         if ($menunode->has_children()) {
-
             if ($level == 1) {
                 $dropdowntype = 'dropdown';
             } else {
@@ -740,8 +698,11 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             } else {
                 $url = '#cm_submenu_'.$submenucount;
             }
+            if (strstr($url->out(true), 'categoryid=')) {
+                $url->param('categorysort', 'default');
+            }
             $linkattributes = array(
-                'href' => $url,
+                'href' => '#',
                 'class' => 'dropdown-toggle',
                 'data-toggle' => 'dropdown',
                 'title' => $menunode->get_title(),
@@ -753,6 +714,16 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             }
             $content .= '</a>';
             $content .= '<ul class="dropdown-menu '.$direction.'">';
+            // Because the menu dropdown click expands it, it is unclickable, so add as a link at the top.
+            $content .= html_writer::start_tag('li');
+            $linkattributes['href'] = $url;
+            unset($linkattributes['class']);
+            unset($linkattributes['data-toggle']);
+            $content .= html_writer::start_tag('a', $linkattributes);
+            $content .= $menunode->get_text();
+            $content .= '</a>';
+            $content .= html_writer::end_tag('li');
+            $content .= html_writer::tag('li', '', array('class' => 'divider'));
             foreach ($menunode->get_children() as $menunode) {
                 $content .= $this->render_custom_menu_item($menunode, 0);
             }
@@ -768,6 +739,9 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                 // The node doesn't have children so produce a final menuitem.
                 if ($menunode->get_url() !== null) {
                     $url = $menunode->get_url();
+                    if (strstr($url->out(true), 'categoryid=')) {
+                         $url->param('categorysort', 'default');
+                    }
                 } else {
                     $url = '#';
                 }
