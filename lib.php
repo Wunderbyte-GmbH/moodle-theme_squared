@@ -136,7 +136,7 @@ function theme_squared_process_css($css, $theme) {
         return $css;
     }
     
-    $css = theme_squared_set_customcss ( $css, $customcss );
+    $css = theme_squared_set_customcss($css, $customcss);
     // Return the CSS
     return $css;
 }
@@ -146,8 +146,8 @@ function theme_squared_process_css($css, $theme) {
  * Used of no color is set
  * and on all admin pages and pages that do not belong to a course category
  *
- * @param string $css            
- * @param string $bgcolordefault            
+ * @param string $css
+ * @param string $bgcolordefault
  * @return string parsed CSS
  */
 function theme_squared_set_bgcolordefault($css, $bgcolordefault) {
@@ -163,7 +163,7 @@ function theme_squared_set_bgcolordefault($css, $bgcolordefault) {
 /**
  * sets the slideimage in the frontpage slideshow
  *
- * @param string $css            
+ * @param string $css
  * @param string $slideimage
  *            file_url
  * @param string $setting
@@ -188,8 +188,8 @@ function theme_squared_set_slideimage($css, $theme) {
 /**
  * sets the header image for all pages except the frontpage
  *
- * @param string $css            
- * @param string $headerimagecourse            
+ * @param string $css
+ * @param string $headerimagecourse
  * @return sting
  */
 function theme_squared_set_headerimagecourse($css, $headerimagecourse) {
@@ -207,13 +207,13 @@ function theme_squared_set_headerimagecourse($css, $headerimagecourse) {
 /**
  * Serves any files associated with the theme settings.
  *
- * @param stdClass $course            
- * @param stdClass $cm            
- * @param context $context            
- * @param string $filearea            
- * @param array $args            
- * @param bool $forcedownload            
- * @param array $options            
+ * @param stdClass $course
+ * @param stdClass $cm
+ * @param context $context
+ * @param string $filearea
+ * @param array $args
+ * @param bool $forcedownload
+ * @param array $options
  * @return boolean
  */
 function theme_squared_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
@@ -232,8 +232,8 @@ function theme_squared_pluginfile($course, $cm, $context, $filearea, $args, $for
 /**
  * Sets the custom css variable in CSS
  *
- * @param string $css            
- * @param mixed $customcss            
+ * @param string $css
+ * @param mixed $customcss
  * @return string
  */
 function theme_squared_set_customcss($css, $customcss) {

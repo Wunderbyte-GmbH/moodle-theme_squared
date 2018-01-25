@@ -28,6 +28,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot . '/theme/bootstrap/renderers/core_renderer.php');
+
 class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
 
     protected $themesquared = null;
@@ -70,7 +72,30 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         }
         return parent::body_attributes($additionalclasses);
     }
-    
+
+    /**
+     * Returns course-specific information to be output immediately above content on any course page
+     * (for the current course)
+     *
+     * @param bool $onlyifnotcalledbefore output content only if it has not been output before
+     * @return string
+     */
+    public function course_content_header($onlyifnotcalledbefore = false) {
+        $content = parent::course_content_header($onlyifnotcalledbefore);
+
+        if ($this->page->pagelayout == 'coursecategory') {
+            if (\theme_squared\toolbox::course_content_search()) {
+                $content .= '<div class="courseitemsearch">';
+                $content .= '<div><p>'.get_string('findcoursecontent', 'theme_squared').'</p></div>';
+                $content .= '<div id="courseitemsearchresults">';
+                $content .= '<input type="text" name="courseitemsearch" id="courseitemsearch" disabled="disabled">';
+                $content .= '</div></div>';
+            }
+        }
+
+        return $content;
+    }
+
     /**
      * Return the standard string that says whether you are logged in (and switched
      * roles/logged in as another user).

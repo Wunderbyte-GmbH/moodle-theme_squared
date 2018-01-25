@@ -21,17 +21,25 @@
  * The squared theme makes uses a custom version of squared blocks
  *
  * @package theme_squared
- * @copyright 2016 onwards Onlinecampus Virtuelle PH
+ * @copyright 2018 onwards Onlinecampus Virtuelle PH
  * www.virtuelle-ph.at, David Bogner www.edulabs.org
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined ( 'MOODLE_INTERNAL' ) || die ();
 
-$plugin->version =     2016100501;
-$plugin->requires =    2015051100;
-$plugin->release =     "Temp Square 0.91"; // Release name: famous squares around the world followed by Moodle version followed by number
-$plugin->maturity =    MATURITY_BETA;
-$plugin->component =   'theme_squared'; // Full name of the plugin (used for diagnostics)
-$plugin->dependencies = array (
-        'theme_bootstrap' => 2016080100,
-);
+define('AJAX_SCRIPT', true);
+
+require_once(dirname(__dir__) . '/../config.php');
+
+// Might be overkill but would probably stop DOS attack from lots of DB reads.
+require_sesskey();
+
+if ($CFG->forcelogin) {
+    require_login();
+}
+
+$term = required_param('term', PARAM_TEXT);
+
+$PAGE->set_context(context_system::instance());
+$courserenderer = $PAGE->get_renderer('core', 'course');
+
+echo json_encode($courserenderer->inspector_ajax($term));

@@ -1,3 +1,71 @@
+/**
+ * Gruntfile for compiling theme_squared .less files.
+ *
+ * This file configures tasks to be run by Grunt
+ * http://gruntjs.com/ for the current theme.
+ *
+ *
+ * Requirements:
+ * -------------
+ * nodejs, npm, grunt-cli.
+ *
+ * Installation:
+ * -------------
+ * node and npm: instructions at http://nodejs.org/
+ *
+ * grunt-cli: `[sudo] npm install -g grunt-cli`
+ *
+ * node dependencies: run `npm install` in the root directory.
+ *
+ *
+ * Usage:
+ * ------
+ * Call tasks from the theme root directory. Default behaviour
+ * (calling only `grunt`) is to run the watch task detailed below.
+ *
+ *
+ * Porcelain tasks:
+ * ----------------
+ * The nice user interface intended for everyday use. Provide a
+ * high level of automation and convenience for specific use-cases.
+ *
+ * grunt watch   Watch the less directory (and all subdirectories)
+ *               for changes to *.less files then on detection
+ *               run 'grunt compile'
+ *
+ *               Options:
+ *
+ *               --dirroot=<path>  Optional. Explicitly define the
+ *                                 path to your Moodle root directory
+ *                                 when your theme is not in the
+ *                                 standard location.
+ * grunt compile Run the .less files through the compiler, then run
+ *               decache so that the results can be seen on the next
+ *               page load.
+ *
+ * Options:
+ *
+ *               --dirroot=<path>  Optional. Explicitly define the
+ *                                 path to your Moodle root directory
+ *                                 when your theme is not in the
+ *                                 standard location.
+ *
+ * grunt amd     Create the Asynchronous Module Definition JavaScript files.  See: MDL-49046.
+ *               Done here as core Gruntfile.js currently *nix only.
+ *
+ * Plumbing tasks & targets:
+ * -------------------------
+ * Lower level tasks encapsulating a specific piece of functionality
+ * but usually only useful when called in combination with another.
+ *
+ * grunt less         Compile all less files.
+ *
+ * @package theme
+ * @subpackage squared
+ * @author G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
+ * @author Based on code originally written by Joby Harding, Bas Brands, David Scotson and many other contributors.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 module.exports = function(grunt) {
 
@@ -20,6 +88,8 @@ module.exports = function(grunt) {
     }
 
     configfile = path.join(moodleroot, 'config.php');
+
+    var PWD = process.cwd(); // jshint ignore:line
 
     decachephp += 'define(\'CLI_SCRIPT\', true);';
     decachephp += 'require(\'' + configfile  + '\');';
@@ -75,8 +145,31 @@ module.exports = function(grunt) {
                         to: 'glyphicons-halflings-regular.woff]]',
                     }]
             }
+        },
+        jshint: {
+            options: {jshintrc: moodleroot + '/.jshintrc'},
+            files: ['**/amd/src/*.js']
+        },
+        uglify: {
+            options: {
+                preserveComments: 'some'
+            },
+            dynamic_mappings: {
+                files: grunt.file.expandMapping(
+                    ['**/src/*.js', '!**/node_modules/**'],
+                    '',
+                    {
+                        cwd: PWD,
+                        rename: function(destBase, destPath) {
+                            destPath = destPath.replace('src', 'build');
+                            destPath = destPath.replace('.js', '.min.js');
+                            destPath = path.resolve(PWD, destPath);
+                            return destPath;
+                        }
+                    }
+                )
+            }
         }
-        
     });
 
     // Load contrib tasks.
@@ -85,9 +178,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-exec");
     grunt.loadNpmTasks("grunt-text-replace");
 
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+
     // Register tasks.
     grunt.registerTask("default", ["watch"]);
     grunt.registerTask("decache", ["exec:decache"]);
 
     grunt.registerTask("compile", ["less", "replace:font_fix", "decache"]);
+    grunt.registerTask("amd", ["jshint", "uglify", "decache"]);
 };
