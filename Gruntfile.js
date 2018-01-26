@@ -39,10 +39,6 @@
  *                                 path to your Moodle root directory
  *                                 when your theme is not in the
  *                                 standard location.
- * grunt compile Run the .less files through the compiler, then run
- *               decache so that the results can be seen on the next
- *               page load.
- *
  * Options:
  *
  *               --dirroot=<path>  Optional. Explicitly define the
@@ -73,8 +69,7 @@ module.exports = function(grunt) {
     var path = require('path');
 
     // Theme Bootstrap constants.
-    var LESSDIR         = 'less',
-        THEMEDIR        = path.basename(path.resolve('.'));
+    var THEMEDIR        = path.basename(path.resolve('.'));
 
     // PHP strings for exec task.
     var moodleroot = path.dirname(path.dirname(__dirname)),
@@ -96,16 +91,6 @@ module.exports = function(grunt) {
     decachephp += 'theme_reset_all_caches();';
 
     grunt.initConfig({
-        less: {
-            // Compile moodle styles.
-            moodle: {
-                options: {
-                    compress: false
-                },
-                src: 'less/squared.less',
-                dest: 'style/squared.css'
-            }
-        },
         exec: {
             decache: {
                 cmd: 'php -r "' + decachephp + '"',
@@ -173,7 +158,6 @@ module.exports = function(grunt) {
     });
 
     // Load contrib tasks.
-    grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-exec");
     grunt.loadNpmTasks("grunt-text-replace");

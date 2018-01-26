@@ -21,8 +21,6 @@ $string['blockperrowlimitdesc'] = 'Show 2 blocks per row when there are more tha
 $string['bgcolor'] = 'Category color for';
 $string['bgcolorcat'] = 'Background color of category blocks';
 $string['bgcolorcatdesc'] = 'Background color of category blocks';
-$string['bgcolordefault'] = 'Default background color';
-$string['bgcolordefaultdesc'] = 'Set the default background color of blocks, buttons, etc.';
 $string['bgcolordesc'] = 'Set the background color of the blocks and headings for the displayed category';
 $string['bgcolorheading'] = 'Choose a background color for the category below';
 $string['bgcolorheadingdesc'] = 'This background color is used for special elements on pages within the specified category. It serves as a color guide.';
@@ -39,20 +37,6 @@ Each line consists of some menu text an a link URL. For Example :
 <pre>Moodle news|http://moodlenews.com
 Moodle|http://moodle.org
 </pre>';
-$string['fplink'] = 'Frontpage header block1 URL';
-$string['fplinkdesc'] = 'Set the frontpage header block 1 URL';
-$string['fpnews'] = 'Frontpage Site News block text';
-$string['fpnewsdesc'] = 'Set the frontpage Site News text';
-$string['fppos'] = 'Frontpage header block position';
-$string['fpposdesc'] = 'Set the frontpage header block position';
-$string['fpposleft'] = 'Left text position';
-$string['fpposright'] = 'Right text position';
-$string['fptext'] = 'Frontpage header block text';
-$string['fptextdesc'] = 'Set the frontpage header block text';
-$string['fptitle'] = 'Frontpage header block title';
-$string['fptitledesc'] = 'Set the frontpage header block title';
-$string['fpwelcome'] = 'Welcome User text';
-$string['fpwelcomedesc'] = 'Set the Welcome User text';
 $string['googlepluslink'] = 'Link to your google+ page (optional)';
 $string['googlepluslinkdesc'] = 'The link should look like this: https://plus.google.com/+youracount/posts';
 $string['headerbg'] = 'Background image';
@@ -85,11 +69,6 @@ $string['searchurl'] = 'Search url for the search field';
 $string['searchurldesc'] = 'This is the URL you use for your search on your moodle site. If your moodle installation does not allow search engines, then replace whatever is after site: with the site you want to search (without http:// or https://)';
 $string['searchfield'] = 'Name of the input field where you enter your search';
 $string['searchfielddesc'] = 'This is the name of the input field, where the user inputs the search strings. Google uses the field name q, Yahoo uses p';
-$string['slideheading'] = 'Settings for slide number:';
-$string['slideheadingdesc'] = 'Define image, links and position of the squares in the slideshow on the frontpage';
-$string['slideimage'] = 'Frontpage header background image';
-$string['slideimagedesc'] = 'Set the frontpage header background image URL. Image size has to be 870px × 348px.';
-$string['slideshowsettings'] = 'Frontpage slideshow settings';
 $string['twitterlink'] = 'Link to your twitter account (optional)';
 $string['twitterlinkdesc'] = 'The link should look like this: https://www.twitter.com/youraccount';
 $string['youtubelink'] = 'Link to your YouTube channel (optional)';

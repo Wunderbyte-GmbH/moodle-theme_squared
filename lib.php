@@ -39,16 +39,25 @@ function theme_squared_grid($hassidepre) {
 }
 
 function theme_squared_less_variables($theme) {
-    return '';
+    return array();
 }
 
 function theme_squared_extra_less($theme) {
     global $CFG;
+
+    $content = '';
+    if (file_exists("{$CFG->dirroot}/theme/bootstrap/lib.php")) {
+        $content = '@import "'.$CFG->dirroot.'/theme/bootstrap/less/moodle";';
+    } else if (!empty($CFG->themedir) && file_exists("{$CFG->themedir}/bootstrap/lib.php")) {
+        $content = '@import "'.$CFG->themedir.'/theme/bootstrap/less/moodle";';
+    }
+
+    $content .= '@import "squared";';
+
     require_once("$CFG->libdir/coursecatlib.php");
-    $categorytree = coursecat::get(0)->get_children ();
+    $categorytree = coursecat::get(0)->get_children();
 
     // Navbar Colours.
-    $content = '';
     foreach ($categorytree as $cid => $value) {
         $setting = 'bgcolor' . $cid;
         if (isset($theme->settings->$setting)) {
@@ -104,7 +113,7 @@ function theme_squared_extra_less($theme) {
     if ($showbgcolor && isset($theme->settings->logobgcolor)) {
         $content .= '
             .headerimages .logoimg {
-                background-color: ' . $theme->settings->logobgcolor . ';
+                background-color: '.$theme->settings->logobgcolor.';
             }';
     }
     return $content;
@@ -120,89 +129,14 @@ function theme_squared_extra_less($theme) {
  * @return string The parsed CSS The parsed CSS.
  */
 function theme_squared_process_css($css, $theme) {
-    global $CFG;
-    
-    if (! empty ( $theme->settings->bgcolordefault )) {
-        $bgcolordefault = $theme->settings->bgcolordefault;
-    } else {
-        $bgcolordefault = null;
-    }
-    $css = theme_squared_set_bgcolordefault ( $css, $bgcolordefault );
-    $css = theme_squared_set_slideimage ( $css, $theme );
-    
-    if (! empty ( $theme->settings->customcss )) {
+    if (!empty($theme->settings->customcss)) {
         $customcss = $theme->settings->customcss;
-    } else {
-        return $css;
+        $css = theme_squared_set_customcss($css, $customcss);
     }
-    
-    $css = theme_squared_set_customcss($css, $customcss);
-    // Return the CSS
+
+    // Return the CSS.
     return $css;
 }
-
-/**
- * Sets the default background color for the blocks.
- * Used of no color is set
- * and on all admin pages and pages that do not belong to a course category
- *
- * @param string $css
- * @param string $bgcolordefault
- * @return string parsed CSS
- */
-function theme_squared_set_bgcolordefault($css, $bgcolordefault) {
-    $tag = '[[setting:bgcolordefault]]';
-    $replacement = $bgcolordefault;
-    if (is_null ( $replacement )) {
-        $replacement = '#11847D';
-    }
-    $css = str_replace ( $tag, $replacement, $css );
-    return $css;
-}
-
-/**
- * sets the slideimage in the frontpage slideshow
- *
- * @param string $css
- * @param string $slideimage
- *            file_url
- * @param string $setting
- *            theme setting string to replace
- * @return string parsed CSS
- */
-function theme_squared_set_slideimage($css, $theme) {
-    global $OUTPUT, $CFG;
-    for($i = 1; $i < 6; $i ++) {
-        $setting = 'slideimage' . $i;
-        $tag = "[[setting:$setting]]";
-        if (! empty ( $theme->settings->$setting )) {
-            $slideimage = $theme->setting_file_url ( $setting, $setting );
-        } else {
-            $slideimage = $OUTPUT->pix_url ( $setting, 'theme_squared' );
-        }
-        $css = str_replace ( $tag, $slideimage, $css );
-    }
-    return $css;
-}
-
-/**
- * sets the header image for all pages except the frontpage
- *
- * @param string $css
- * @param string $headerimagecourse
- * @return sting
- */
-function theme_squared_set_headerimagecourse($css, $headerimagecourse) {
-    global $OUTPUT;
-    $tag = '[[setting:headerimagecourse]]';
-    $replacement = $headerimagecourse;
-    if (is_null ( $replacement )) {
-        $replacement = $OUTPUT->pix_url ( 'header-course', 'theme_squared' );
-    }
-    $css = str_replace ( $tag, $replacement, $css );
-    return $css;
-}
-
 
 /**
  * Serves any files associated with the theme settings.
@@ -218,12 +152,16 @@ function theme_squared_set_headerimagecourse($css, $headerimagecourse) {
  */
 function theme_squared_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
     static $theme;
-    if (empty ( $theme )) {
-        $theme = theme_config::load ( 'squared' );
+    if (empty ($theme)) {
+        $theme = theme_config::load ('squared');
     }
     
+    // By default, theme files must be cache-able by both browsers and proxies.  From 'More' theme.
+    if (!array_key_exists('cacheability', $options)) {
+        $options['cacheability'] = 'public';
+    }
     if ($context->contextlevel == CONTEXT_SYSTEM and $filearea) {
-        return $theme->setting_file_serve ( $filearea, $args, $forcedownload, $options );
+        return $theme->setting_file_serve ($filearea, $args, $forcedownload, $options);
     } else {
         send_file_not_found ();
     }
@@ -239,10 +177,10 @@ function theme_squared_pluginfile($course, $cm, $context, $filearea, $args, $for
 function theme_squared_set_customcss($css, $customcss) {
     $tag = '[[setting:customcss]]';
     $replacement = $customcss;
-    if (is_null ( $replacement )) {
+    if (is_null ($replacement)) {
         $replacement = '';
     }
-    $css = str_replace ( $tag, $replacement, $css );
+    $css = str_replace ($tag, $replacement, $css);
     return $css;
 }
 

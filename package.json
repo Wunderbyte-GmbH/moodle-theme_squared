@@ -1,6 +1,6 @@
 {
   "name": "theme-bootstrap-tasks",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Grunt tasks for Moodle Bootstrap theme.",
   "main": "Gruntfile.js",
   "author": {
@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "grunt": "~0.4.2",
-    "grunt-contrib-less": "^0.11.4",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-exec": "~0.4.3",
     "grunt-text-replace": "~0.3.11",
