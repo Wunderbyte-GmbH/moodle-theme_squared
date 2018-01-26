@@ -47,18 +47,13 @@ class toolbox {
      * @return boolean false|true if course content search can be used.
      */
     static public function course_content_search() {
-        $canwe = false;
-        global $CFG;
-        if (file_exists("$CFG->dirroot/theme/squared/")) {
-            global $PAGE;
+        global $PAGE;
 
-            $squaredsearch = new \moodle_url('/theme/squared/inspector.ajax.php');
-            $squaredsearch->param('sesskey', sesskey());
-            $inspectorscourerdata = array('data' => array('theme' => $squaredsearch->out(false)));
-            $PAGE->requires->js_call_amd('theme_squared/inspector_scourer', 'init', $inspectorscourerdata);
+        $squaredsearch = new \moodle_url('index.php');
+        $squaredsearch->param('sesskey', sesskey());
+        $inspectorscourerdata = array('data' => array('theme' => $squaredsearch->out(false)));
+        $PAGE->requires->js_call_amd('theme_squared/inspector_scourer', 'init', $inspectorscourerdata);
 
-            $canwe = true;
-        }
-        return $canwe;
+        return true;
     }
 }

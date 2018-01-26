@@ -14,6 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+$term = optional_param('term', '', PARAM_TEXT);
+if ($term) {
+    // Autocomplete AJAX call.
+
+    // Might be overkill but would probably stop DOS attack from lots of DB reads.
+    require_sesskey();
+
+    if ($CFG->forcelogin) {
+        require_login();
+    }
+    $PAGE->set_context(context_system::instance());
+    $courserenderer = $PAGE->get_renderer('core', 'course');
+
+    echo json_encode($courserenderer->inspector_ajax($term));
+
+    die();
+}
 
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
