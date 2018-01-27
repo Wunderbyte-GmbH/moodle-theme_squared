@@ -76,6 +76,16 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $courseformatsettings = $courseformat->get_format_options();
             $sesskey = sesskey();
 
+            // Course name.
+            $label = $course->fullname;
+            if (stristr($label, $term)) {
+                $courseurl = new moodle_url('/course/view.php');
+                $courseurl->param('id', $course->id);
+                $courseurl->param('sesskey', $sesskey);
+                $coursehref = $courseurl->out(false);
+                $data[] = array('id' => $coursehref, 'label' => $label, 'value' => $label);
+            }
+
             foreach ($modinfo->get_section_info_all() as $section => $thissection) {
                 if (!$thissection->uservisible) {
                     continue;
@@ -93,18 +103,18 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 }
                 if ($thissection->section <= $course->numsections) {
                     // Do not link 'orphaned' sections.
-                    $courseurl = new moodle_url('/course/view.php');
-                    $courseurl->param('id', $course->id);
-                    $courseurl->param('sesskey', $sesskey);
-                    if ((!empty($courseformatsettings['coursedisplay'])) &&
-                        ($courseformatsettings['coursedisplay'] == COURSE_DISPLAY_MULTIPAGE)) {
-                        $courseurl->param('section', $thissection->section);
-                        $coursehref = $courseurl->out(false);
-                    } else {
-                        $coursehref = $courseurl->out(false).'#section-'.$thissection->section;
-                    }
                     $label = $course->fullname.' - '.$sectionname;
                     if (stristr($label, $term)) {
+                        $courseurl = new moodle_url('/course/view.php');
+                        $courseurl->param('id', $course->id);
+                        $courseurl->param('sesskey', $sesskey);
+                        if ((!empty($courseformatsettings['coursedisplay'])) &&
+                            ($courseformatsettings['coursedisplay'] == COURSE_DISPLAY_MULTIPAGE)) {
+                            $courseurl->param('section', $thissection->section);
+                            $coursehref = $courseurl->out(false);
+                        } else {
+                            $coursehref = $courseurl->out(false).'#section-'.$thissection->section;
+                        }
                         $data[] = array('id' => $coursehref, 'label' => $label, 'value' => $label);
                     }
                 }
