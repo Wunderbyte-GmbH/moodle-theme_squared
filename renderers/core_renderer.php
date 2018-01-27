@@ -46,12 +46,12 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             $icon = html_writer::tag('div', '', array('class' => 'sqheadingicon'));
             $text = html_writer::tag('span', $text, array('class' => 'sqheadingtext'));
         }
-        
+
         $content = parent::heading ( $icon . $text, $level, $classes, $id );
 
         return $content;
     }
-    
+
     /**
      * Returns HTML attributes to use within the body tag. This includes an ID and classes.
      *
@@ -106,15 +106,15 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
      */
     public function login_info($withlinks = null) {
         global $USER, $CFG, $DB, $SESSION;
-    
+
         if (during_initial_install()) {
             return '';
         }
-    
+
         if (is_null($withlinks)) {
             $withlinks = empty($this->page->layout_options['nologinlinks']);
         }
-    
+
         $loginurl = $this->squared_get_login_url();
         $loginpage = ((string) $this->page->url === $loginurl);
         $course = $this->page->course;
@@ -131,15 +131,15 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         } else {
             $realuserinfo = '';
         }
-    
+
         $subscribeurl = preg_replace('/login\/index\.php/i', 'login/signup.php', $loginurl);
-    
+
         if (empty($course->id)) {
             // $course->id is not defined during installation
             return '';
         } else if (isloggedin()) {
             $context = context_course::instance($course->id);
-    
+
             $fullname = fullname($USER, true);
             // Since Moodle 2.0 this link always goes to the public profile page (not the course profile page)
             if ($withlinks) {
@@ -186,13 +186,13 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                 $loggedinas = "<a class=\"standardbutton plainlogin btn\" href=\"$loginurl\">" . get_string('login') . '</a>';
             }
         }
-    
+
         if (!empty($loggedinas)) {
             $loggedinas = '<div class="logininfo">' . $loggedinas . '</div>';
         } else {
             $loggedinas = '';
         }
-    
+
         if (isset($SESSION->justloggedin)) {
             unset($SESSION->justloggedin);
             if (!empty($CFG->displayloginfailures)) {
@@ -211,10 +211,10 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                 }
             }
         }
-    
+
         return $loggedinas;
     }
-    
+
     /**
      * Returns MNET Login URL instead of standard login URL. Checks the wanted url
      * of user in order to provide correct redirect url for the identity provider
@@ -233,7 +233,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         }
         $authplugin = get_auth_plugin('mnet');
         $authurl = $authplugin->loginpage_idp_list($urltogo);
-    
+
         // Check the id of the MNET host for the idp
         $host = $DB->get_field('mnet_host', 'name', array('id' => $this->page->theme->settings->alternateloginurl));
         if (!empty($authurl)) {
@@ -255,9 +255,9 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             }
         }
         return $loginurl;
-    }    
-    
-    
+    }
+
+
     /**
      * Output all the blocks in a particular region.
      *
@@ -334,7 +334,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                 $pair->blocka->shape = 'rectangle';
                 $pair->class = 'col-xs-12 lastblock';
             }
-            $template->pairs[] = $pair; 
+            $template->pairs[] = $pair;
         }
 
         if ($this->themesquared == null) {
@@ -395,13 +395,13 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         }
         if (!empty($bc->controls)) {
             $bc->add_class('block_with_controls');
-        }        
+        }
 
         $bc->add_class('panel panel-default');
 
         $bc->content = $this->block_content($bc);
         $bc->annotation = $this->block_annotation($bc);
-        
+
         foreach ($bc->attributes as $key => $val) {
             $attribute = new stdClass();
             $attribute->key = $key;
@@ -436,8 +436,8 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         $this->init_block_hider_js($bc);
         return $bc;
     }
-    
-    
+
+
     /**
      * Add a complete course category to the custom menu
      * Added by Georg Maißer and David Bogner, based on work of Sam Hemelryk
@@ -446,16 +446,16 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
      * @param coursecat $category
      */
     protected function add_category_to_custommenu(custom_menu_item $parent, coursecat $category) {
-        
+
         /* This value allows you to change the depth of the menu you want to show (reducing the depth may help with performance issues)
            for categories: */
         $show_category_depth = 4;
         $categorychildren = $category->get_children();
         $actual_depth = $category->depth;
-        
+
         // This value allows you to decide if you want to show modules on the last depth which is still displayed.
         $show_deep_modules = false;
-        
+
         // We add the Categories and Subcategories to the menu
         if (!empty($categorychildren)) {
             $i = 1;
@@ -468,7 +468,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                 }
                 // The value "1000" is chosen to add the items at the end. By choosing a lower or even negative value, you can add these items in front of the manually created custommenuitems.
                 $sub_parent = $parent->add($subcategory->name, new moodle_url('/course/index.php', array (
-                    'categoryid' => $subcategory->id 
+                    'categoryid' => $subcategory->id
                 )), null, 1000 + $i);
                 $this->add_category_to_custommenu ( $sub_parent, $subcategory );
                 $i++;
@@ -493,7 +493,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             }
             $renderedtext .= html_writer::start_tag ( 'span', $attributes );
             $renderedtext .= html_writer::tag ( 'a', trim ( $value [0] ), array (
-                    'href' => trim ( $value [1] ) 
+                    'href' => trim ( $value [1] )
             ) );
             $renderedtext .= html_writer::end_tag ( 'span' );
         }
@@ -501,7 +501,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                 'class' => 'helplink'
         ) );
         $renderedtext .= html_writer::tag ( 'span', 'Theme by <a href="http://www.edulabs.org" target="_blank">edulabs.org - e-learning solutions</a>', array (
-                'class' => 'squared-themeby lastelement' 
+                'class' => 'squared-themeby lastelement'
         ) );
         return $renderedtext;
     }
@@ -524,46 +524,76 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             $textlinks = $this->squared_prepare_textlinks ( $setting );
         }
         $content = html_writer::tag ( 'div', $textlinks, array (
-                'class' => 'footercontent' 
+                'class' => 'footercontent'
         ) );
         return $content;
     }
-    
+
     /**
      * Output the social icons when present in theme settings
      *
      * @return string
      */
     public function squared_socialicons() {
+        global $CFG;
         $content = '';
-        if (! empty ( $this->page->theme->settings->googlepluslink )) {
-            $content .= html_writer::tag ( 'a', '<img src="' . $this->pix_url ( 'gplus', 'theme' ) . '" class="sicons" alt="google plus" />', array (
-                    'href' => $this->page->theme->settings->googlepluslink,
-                    'class' => 'icons' 
-            ) );
+        if ($CFG->branch >= 33) {
+            if (! empty ( $this->page->theme->settings->googlepluslink )) {
+                $content .= html_writer::tag ( 'a', '<img src="' . $this->image_url ( 'gplus', 'theme' ) . '" class="sicons" alt="google plus" />', array (
+                                'href' => $this->page->theme->settings->googlepluslink,
+                                'class' => 'icons'
+                ) );
+            }
+            if (! empty ( $this->page->theme->settings->twitterlink )) {
+
+                $content .= html_writer::tag ( 'a', '<img src="' . $this->image_url ( 'twitter', 'theme' ) . '" class="sicons" alt="twitter" />', array (
+                                'href' => $this->page->theme->settings->twitterlink,
+                                'class' => 'icons'
+                ) );
+            }
+            if (! empty ( $this->page->theme->settings->facebooklink )) {
+
+                $content .= html_writer::tag ( 'a', '<img src="' . $this->image_url ( 'faceb', 'theme' ) . '" class="sicons" alt="facebook" />', array (
+                                'href' => $this->page->theme->settings->facebooklink,
+                                'class' => 'icons'
+                ) );
+            }
+            if (! empty ( $this->page->theme->settings->youtubelink )) {
+
+                $content .= html_writer::tag ( 'a', '<img src="' . $this->image_url ( 'youtube', 'theme' ) . '" class="sicons" alt="youtube" />', array (
+                                'href' => $this->page->theme->settings->youtubelink,
+                                'class' => 'icons'
+                ) );
+            }
+        } else {
+            if (! empty ( $this->page->theme->settings->googlepluslink )) {
+                $content .= html_writer::tag ( 'a', '<img src="' . $this->pix_url ( 'gplus', 'theme' ) . '" class="sicons" alt="google plus" />', array (
+                                'href' => $this->page->theme->settings->googlepluslink,
+                                'class' => 'icons'
+                ) );
+            }
+            if (! empty ( $this->page->theme->settings->twitterlink )) {
+
+                $content .= html_writer::tag ( 'a', '<img src="' . $this->pix_url ( 'twitter', 'theme' ) . '" class="sicons" alt="twitter" />', array (
+                                'href' => $this->page->theme->settings->twitterlink,
+                                'class' => 'icons'
+                ) );
+            }
+            if (! empty ( $this->page->theme->settings->facebooklink )) {
+
+                $content .= html_writer::tag ( 'a', '<img src="' . $this->pix_url ( 'faceb', 'theme' ) . '" class="sicons" alt="facebook" />', array (
+                                'href' => $this->page->theme->settings->facebooklink,
+                                'class' => 'icons'
+                ) );
+            }
+            if (! empty ( $this->page->theme->settings->youtubelink )) {
+
+                $content .= html_writer::tag ( 'a', '<img src="' . $this->pix_url ( 'youtube', 'theme' ) . '" class="sicons" alt="youtube" />', array (
+                                'href' => $this->page->theme->settings->youtubelink,
+                                'class' => 'icons'
+                ) );
+            }
         }
-        if (! empty ( $this->page->theme->settings->twitterlink )) {
-            
-            $content .= html_writer::tag ( 'a', '<img src="' . $this->pix_url ( 'twitter', 'theme' ) . '" class="sicons" alt="twitter" />', array (
-                    'href' => $this->page->theme->settings->twitterlink,
-                    'class' => 'icons' 
-            ) );
-        }
-        if (! empty ( $this->page->theme->settings->facebooklink )) {
-            
-            $content .= html_writer::tag ( 'a', '<img src="' . $this->pix_url ( 'faceb', 'theme' ) . '" class="sicons" alt="facebook" />', array (
-                    'href' => $this->page->theme->settings->facebooklink,
-                    'class' => 'icons' 
-            ) );
-        }
-        if (! empty ( $this->page->theme->settings->youtubelink )) {
-            
-            $content .= html_writer::tag ( 'a', '<img src="' . $this->pix_url ( 'youtube', 'theme' ) . '" class="sicons" alt="youtube" />', array (
-                    'href' => $this->page->theme->settings->youtubelink,
-                    'class' => 'icons' 
-            ) );
-        }
-        
         return $content;
     }
 
