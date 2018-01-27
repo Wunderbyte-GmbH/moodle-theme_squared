@@ -16,7 +16,6 @@ if (is_siteadmin()) {
     $simset->add_text('googlepluslink');
     $simset->add_text('facebooklink');
     $simset->add_text('twitterlink');
-    $simset->add_textarea('fpnews', 'Change me in the theme settings');
     $domain = preg_replace ( "(^https?://)", "", $CFG->wwwroot );
     $searchurl = 'https://www.google.com/search?as_sitesearch=' . $domain;
     $simset->add_text('searchurl', $searchurl);
