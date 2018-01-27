@@ -31,6 +31,7 @@ class theme_squared_html_renderer extends plugin_renderer_base {
      * Render the top image menu.
      */
     public function image_header() {
+        global $CFG;
         if (empty($this->theme)) {
             $this->theme = theme_config::load('squared');
         }
@@ -63,10 +64,14 @@ class theme_squared_html_renderer extends plugin_renderer_base {
             if (!empty($settings->$image)) {
                 $template->$image = $this->theme->setting_file_url($image, $image);
             } else {
-                $template->$image = $this->pix_url($image, 'theme_squared');
+                if ($CFG->branch >= 33) {
+                    $template->$image = $this->image_url($image, 'theme_squared');
+                } else {
+                    $template->$image = $this->pix_url($image, 'theme_squared');
+                }
             }
         }
-        
+
         return $this->render_from_template('theme_squared/imageheading', $template);
     }
 
@@ -74,7 +79,7 @@ class theme_squared_html_renderer extends plugin_renderer_base {
      * Full top Navbar. Returns Mustache rendererd menu.
      */
     public function navigation_menu() {
-        global $OUTPUT, $SITE;
+        global $OUTPUT, $SITE, $CFG;
         $template = new stdClass();
         $template->siteurl = new moodle_url('/');
         $template->sitename = $SITE->shortname;
@@ -85,7 +90,11 @@ class theme_squared_html_renderer extends plugin_renderer_base {
             $template->languagemenu = $this->languagemenu();
         }
         $template->search = $this->searchbox();
-        $template->togglebtn = $OUTPUT->pix_url('more-button', 'theme_squared');
+        if ($CFG->branch >= 33) {
+            $template->togglebtn = $OUTPUT->image_url('more-button', 'theme_squared');
+        } else {
+            $template->togglebtn = $OUTPUT->pix_url('more-button', 'theme_squared');
+        }
         return $this->render_from_template('theme_squared/navigation', $template);
     }
 
@@ -93,7 +102,7 @@ class theme_squared_html_renderer extends plugin_renderer_base {
      * Render the social icons shown in the page footer.
      */
     public function squared_socialicons() {
-        global $OUTPUT;
+        global $OUTPUT, $CFG;
         $content = '';
 
         if (empty($this->theme)) {
@@ -110,7 +119,11 @@ class theme_squared_html_renderer extends plugin_renderer_base {
                 $icon = new stdClass();
                 $icon->url = $this->theme->settings->$si;
                 $icon->name = str_replace('link', '', $si);
-                $icon->image = $OUTPUT->pix_url($icon->name, 'theme');
+                if ($CFG->branch >= 33) {
+                    $icon->image = $OUTPUT->image_url($icon->name, 'theme');
+                } else {
+                    $icon->image = $OUTPUT->pix_url($icon->name, 'theme');
+                }
                 $template->icons[] = $icon;
             }
         }
@@ -127,7 +140,7 @@ class theme_squared_html_renderer extends plugin_renderer_base {
         }
         $haslangmenu = $OUTPUT->lang_menu() != '';
         $langmenu = new stdClass();
-        
+
         if ($haslangmenu) {
             $langs = get_string_manager()->get_list_of_translations();
             $strlang = get_string('language');
@@ -186,7 +199,7 @@ class theme_squared_html_renderer extends plugin_renderer_base {
         if (empty($this->theme)) {
             $this->theme = theme_config::load('squared');
         }
-        
+
         $domain = preg_replace ( "(^https?://)", "", $CFG->wwwroot );
         if (! empty ( $this->theme->settings->searchurl )) {
             $url = new moodle_url ( $this->theme->settings->searchurl );
@@ -201,7 +214,7 @@ class theme_squared_html_renderer extends plugin_renderer_base {
         } else {
             $searchfield = "q";
         }
-        
+
         $configsearchurl = $this->theme->settings->searchurl;
         $searchurl = empty($configsearchurl) ? '/course/search.php' : $formaction;
         $templateinfo = new stdClass();
