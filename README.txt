@@ -1,7 +1,7 @@
 The "squared" Moodle Theme
 ======================
 
-The theme is generally based on squares. If you like squares, that is definately your first choice, if you do not like squares, 
+The theme is generally based on squares. If you like squares, that is definitely your first choice, if you do not like squares, 
 you might consider it as well, because it looks really good ;-).
 
 The idea of this theme is to put design in first place, and then see if it can be done technically. This is the first theme most of
@@ -59,18 +59,29 @@ in order to improve the theme or add your settings.
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2014051200.00 release 2.7 (Build: 20140512) and above within the 2.7 branch until the
+This version works with Moodle 3.1 version 2016052300.00 (Build: 20160523) and above within the 3.1 branch until the
 next release.
+
+Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
+'docs.moodle.org/31/en/Installing_Moodle'.
+
+Bootstrap parent theme
+======================
+You will need to get the Bootstrap theme for Moodle 3.1: https://moodle.org/plugins/pluginversions.php?plugin=theme_bootstrap
+in order to install Squared.
 
 Installation
 ============
  1. Ensure you have the version of Moodle as stated above in 'Required version of Moodle'.  This is important as the
     theme relies on underlying core code that is out of our control.
  2. Login as an administrator and put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
- 3. Copy the extracted 'squared' folder to the '/theme/' folder.
- 4. Go to 'Site administration' -> 'Notifications' and follow standard the 'plugin' update notification.
- 5. Select as the theme for the site.
- 6. Put Moodle out of Maintenance Mode.
+ 3. Get the parent 'Bootstrap' theme, see 'Bootstrap parent theme' for details of where to download from, then:
+    3.1 Extract the Bootstrap zip file.
+    3.2 Copy the extracted 'bootstrap' folder to the '/theme/' folder.
+ 4. Copy the extracted 'squared' folder to the '/theme/' folder.
+ 5. Go to 'Site administration' -> 'Notifications' and follow standard the 'plugin' update notification.
+ 6. Select as the theme for the site.
+ 7. Put Moodle out of Maintenance Mode.
 
 Upgrading
 =========
