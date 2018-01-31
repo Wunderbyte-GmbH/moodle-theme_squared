@@ -1,0 +1,26 @@
+#page-navbar {
+    @media (min-width: @screen-sm) {
+        margin-left: -(@grid-gutter-width / 2);
+        margin-right: -(@grid-gutter-width / 2);
+    }
+    border-bottom: 1px solid #DDD;
+    margin-bottom: 0;
+    .breadcrumb {
+        padding: 7px 15px;
+    }
+    .breadcrumb-nav {
+        margin-bottom: 0;
+    }
+    .breadcrumb-button {
+        margin-top: 0px;
+        .singlebutton {
+            display: inline-block;
+            div {
+                margin: 0;
+                input[type="submit"] {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

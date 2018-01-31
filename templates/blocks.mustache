@@ -1,0 +1,50 @@
+{{!
+    This file is part of the Squared theme for Moodle
+}}
+{{!
+    @template theme_squared/blocks
+
+    Render the one column block layout
+
+    Example context (json): {
+        "block1" : {"class" : "block-settings", "blockinstanceid": 1},
+        "block2" : {"class" : "block-navigation", "blockinstanceid": 2}
+    }
+}}
+<div class="panel-group single-row" id="accordion" role="tablist" aria-multiselectable="true">
+    {{#blocks}}
+        <div class="{{class}} pairheader">
+            <div role="button" data-toggle="collapse" data-parent="#accordion" 
+                    data-target="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="inst{{blockinstanceid}}" class="squared blockheader over-hover-to-bottom {{name}}">
+                <div class="blockhead title">
+                    <div class="alignself">
+                        <div class="inner">
+                            <div class="courseblock-icon"></div>
+                            <div class="blocktitle">
+                            {{{title}}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+
+        {{#blockinstanceid}}
+        <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
+            <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{aria-labelledby}}">
+                <div class="panel-heading">
+                    <div class="courseblock-icon"></div>
+                    {{{header}}}
+                 </div>
+                <div class="panel-body p-0 m-0 block">
+                    {{{content}}}
+                </div>
+            </div>
+        </div>
+        <a href="#sb-{{skipid}}" class="skip-block"> {{#str}} skipa, access, {{skiptitle}} {{/str}} </a>
+        {{/blockinstanceid}}
+        {{#movetarget}}
+            {{{movetarget}}}
+        {{/movetarget}}
+    {{/blocks}}
+</div>

@@ -1,0 +1,29 @@
+{{!
+    This file is part of the Squared theme for Moodle
+}}
+{{!
+    @template theme_squared/language
+
+    Render the navbar language menu
+
+    Example context (json): {
+        "currentlang" : "English",
+        "languages" : {"langurl" : "http://squar.ed/index.php?lang=de",
+                       "langname" : "German":
+                       }
+    }
+}}
+<form class="navbar-form navbar-left">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default">{{currentlang}}</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+        {{#languages}}
+            <li><a href="{{{langurl}}}">{{{langname}}}</a></li>
+        {{/languages}}
+        </ul>
+    </div>
+</form>

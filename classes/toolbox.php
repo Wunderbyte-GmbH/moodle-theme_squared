@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of the Squared theme for Moodle
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -8,37 +8,52 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Squared theme.
+ * This is the squared theme.
  *
- * @package    theme
- * @subpackage squared
- * @copyright  &copy; 2015-onwards G J Barnard in respect to modifications of the Clean theme.
- * @copyright  &copy; 2015-onwards Work undertaken for David Bogner of Edulabs.org.
- * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ * The squared theme makes uses a custom version of squared blocks
+ *
+ * @package theme_squared
+ * @copyright 2018 onwards Onlinecampus Virtuelle PH
+ * www.virtuelle-ph.at, David Bogner www.edulabs.org
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace theme_squared;
 
+defined('MOODLE_INTERNAL') || die;
+
 class toolbox {
-    static function get_top_level_categories() {
-        global $CFG;
-        include_once($CFG->libdir . '/coursecatlib.php');
 
-        $categoryids = array();
-        $categories = \coursecat::get(0)->get_children();  // Parent = 0 i.e. top-level categories only.
+    private function __construct() {
+    }
 
-        foreach($categories as $category){
-            $categoryids[$category->id] = $category->name;
+    public static function get_instance() {
+        if (!is_object(self::$instance)) {
+            self::$instance = new self();
         }
+        return self::$instance;
+    }
 
-        return $categoryids;
+    /**
+     * States if course content search can be used.  Will not work if theme is in $CFG->themedir.
+     * @return boolean false|true if course content search can be used.
+     */
+    static public function course_content_search() {
+        global $PAGE;
+
+        $squaredsearch = new \moodle_url('index.php');
+        $squaredsearch->param('sesskey', sesskey());
+        $inspectorscourerdata = array('data' => array('theme' => $squaredsearch->out(false)));
+        $PAGE->requires->js_call_amd('theme_squared/inspector_scourer', 'init', $inspectorscourerdata);
+
+        return true;
     }
 }

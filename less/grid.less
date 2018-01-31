@@ -1,0 +1,32 @@
+@media(min-width: @screen-sm) {
+    #page-content #region-main {
+        &.col-sm-9 {
+            padding-left: 0;
+        }
+        .inner {
+            background: #f4f4f4;
+            padding-left: (@grid-gutter-width / 2);
+            padding-right: (@grid-gutter-width / 2);
+        }
+    }
+    #block-region-side-pre {
+        padding-right: 0;
+        padding-left: 20px;
+    }
+}
+
+@media(min-width: 1200px) and (max-width: 1400px) {
+    .col-lg-push-2 {
+        left: 23.667%;
+    }
+    .col-lg-10 {
+        width: 76.333%;
+    }
+
+    .col-lg-pull-10 {
+        right: 76.333%;
+    }
+    .col-lg-2 {
+        width: 23.667%;
+    }
+}

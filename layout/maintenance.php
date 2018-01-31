@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Bootstrap Moodle theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,14 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The maintenance layout.
+ * This layout file is designed maintenance related tasks such as upgrade and installation of plugins.
  *
- * @package   theme_clean
- * @copyright 2013 Moodle, moodle.org
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * It's ultra important that this layout file makes no use of API's unless it absolutely needs to.
+ * Under no circumstances should it use API calls that result in database or cache interaction.
+ *
+ * If you are modifying this file please be extremely careful, one wrong API call and you could end up
+ * breaking installation or upgrade unwittingly.
  */
 
-// Get the HTML for the settings bits.
+$regions = theme_squared_grid(false);
 
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
@@ -30,7 +32,7 @@ echo $OUTPUT->doctype() ?>
     <title><?php echo $OUTPUT->page_title(); ?></title>
     <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>" />
     <?php echo $OUTPUT->standard_head_html() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
 </head>
 
 <body <?php echo $OUTPUT->body_attributes(); ?>>
@@ -43,8 +45,8 @@ echo $OUTPUT->doctype() ?>
         <?php echo $OUTPUT->page_heading(); ?>
     </header>
 
-    <div id="page-content" class="row-fluid">
-        <section id="region-main" class="span12">
+    <div id="page-content" class="row">
+        <section id="region-main" class="<?php echo $regions['content']; ?>">
             <?php echo $OUTPUT->main_content(); ?>
         </section>
     </div>

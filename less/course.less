@@ -1,0 +1,68 @@
+.course-content {
+    .sectionname {
+        margin: 0;
+        background-color: @gray-lighter;
+        
+        font-family: @font-family-sans-serif;
+        border: 1px solid #fff;
+        box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+
+        .sqheadingicon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #ccc;
+            vertical-align: text-bottom;
+        }
+        .sqheadingtext {
+            padding: 7px 10px;
+            vertical-align: text-bottom;
+            display: inline-block;
+        }
+    }
+
+    .section ul.section,
+    .section div.summary {
+        padding: 15px 20px;
+        border: 1px solid #fff;
+        box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+        background: #FFF;
+        font-size: 100%;
+    }
+}
+
+.editing {
+    .course-content ul li.section.main {
+        .left {
+            padding: 0;
+        }
+    }
+}
+
+
+.course-content li {
+    &.section {
+        ul {
+            list-style: disc;
+            ul {
+                list-style: circle;
+                ul {
+                    list-style: square;
+                }
+            }
+        }
+        li {
+            &.activity {
+                ul {
+                    list-style: disc;
+                    ul {
+                        list-style: circle;
+                        ul {
+                            list-style: square;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

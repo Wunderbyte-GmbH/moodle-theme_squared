@@ -1,0 +1,111 @@
+.navbar {
+	ul {
+	  margin-left: 0;
+	}
+	.usermenu {
+	    margin: 0;
+	    padding-top: 0;
+	    padding-bottom: 0;
+	    .dropdown-toggle {
+	        padding-top: 8px;
+	        padding-bottom: 8px;
+	    }
+	}
+	.userpicture {
+	    margin-left: 5px;
+	}
+}
+.navbar-default .navbar-toggle {
+    padding: 0;
+    margin: 7px 7px 7px 0;
+}
+//Allow lang menu to pop over expanded menu.
+.navbar-collapse.in {
+    overflow-y: visible;
+}
+@media (max-width: @screen-sm) {
+    .navbar .usermenu {
+        margin: 0;
+        &.guest a {
+            margin-top: 5px;
+        }
+    }
+    .navbar {
+        margin-bottom: 0;
+    }
+    .navbar-form {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+@media (min-width: @screen-sm) {
+    .navbar-default .navbar-brand {
+        color: #FFF;
+        .menu_item(@squared-purple);
+    }
+    .navbar-default .navbar-nav {
+        .dropdown {
+            cursor: pointer;
+        }
+        .catcolour1 {
+            .menu_item(@sq-green);
+        }
+        .catcolour2 {
+            .menu_item(@sq-red);
+        }
+        .catcolour3 {
+            .menu_item(@sq-orange);
+        }
+    }
+    .catnav .dropdown-menu li a {
+        padding: 6px 20px;
+    }
+    .navbar {
+        margin-bottom: 0;
+        border:0;
+    }
+}
+
+.search-wrapper {
+    float: left;
+    padding: 3px 15px 5px;
+    margin: 7px 0 7px;
+    &.inactive:hover {
+        background-color: #eee;
+    }
+    .glyphicon-gray {
+        color: @gray-light;
+    }
+    .search {
+        input {
+            background-color: #fff;
+            width: 150px;
+            position: relative;
+            margin: -4px -15px -5px 5px;
+            font-size: 16px;
+            -webkit-appearance: textfield;
+        }
+        #search-trigger {
+            display: block;
+            float: left;
+            font-size: 1.2em;
+            color: #000;
+            cursor: pointer;
+            margin-top: 3px;
+            .glyphicon:hover {
+                color: @gray;
+            }
+            .glyphicon.closed {
+                display: none;
+            }
+            &.active {
+                .glyphicon.closed {
+                    display: block;
+                }
+                .glyphicon.open {
+                    display: none;
+                }
+            }
+        }
+    }
+}

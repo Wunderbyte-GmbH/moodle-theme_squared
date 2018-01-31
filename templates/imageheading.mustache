@@ -1,0 +1,32 @@
+{{!
+    This file is part of the Squared theme for Moodle
+}}
+{{!
+    @template theme_squared/imageheading
+
+    Page header with configurable images.
+}}
+
+<div class="container-fluid" data-region="image-header">
+    <div class="row headerimages">
+        <a href="{{{homeurl}}}" class="{{{logocontainerclass}}}">
+        <div >
+            <div class="inner">
+                <div class="logoimg logosmall hidden-md hidden-lg" style="background-image: url({{{logosmall}}});">
+                </div>
+                <div class="logoimg logobig hidden-sm hidden-xs" style="background-image: url({{{logo}}});">
+                </div>
+            </div>
+        </div>
+        </a>
+
+        <div class="{{{headerbgcontainerclass}}}">
+            <div class="inner">
+                <div class="headerbgimg headerbgsmall hidden-md hidden-lg" style="background-image: url({{{headerbgsmall}}});">
+                </div>
+                <div class="headerbgimg headerbgbig hidden-sm hidden-xs" style="background-image: url({{{headerbg}}});">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

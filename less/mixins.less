@@ -1,0 +1,50 @@
+/*
+ * Font Face
+ */
+.font-face(@family, @name, @weight: 300) {
+    @font-face{
+        font-family: @family;
+        src:url('[[font:theme|@{name}.eot]]');
+        src:url('[[font:theme|@{name}.eot]]?#iefix') format('embedded-opentype'),
+            url('[[font:theme|@{name}.woff]]') format('woff'),
+            url('[[font:theme|@{name}.ttf]]') format('truetype'),
+            url('[[font:theme|@{name}.svg]]') format('svg');
+        font-weight: @weight;
+    }
+}
+
+.block_icon(@iconname) {
+    .courseblock-icon {
+        background: url('[[pix:theme|block/@{iconname}]]') no-repeat 50% 50%;
+    }
+    /*
+    @media (max-width: @screen-sm) {
+        .courseblock-icon {
+            background-color: lighten(@squared-purple, 15%);
+        }
+    }
+    */
+}
+
+.menu_item(@color) {
+    a,
+    a:hover {
+        color: #FFF;
+    }
+    a:hover,
+    a:focus {
+        background-color: darken(@color, 15%);
+    }
+    background-color: @color;
+    .dropdown-menu {
+        background-color: darken(@color, 5%);
+    }
+    &.open {
+        background-color: darken(@color, 5%);
+        a,
+        a:hover {
+            color: #FFF;
+            background-color: darken(@color, 5%);
+        }
+    }
+}

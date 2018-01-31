@@ -1,5 +1,5 @@
 /**
- * Gruntfile for compiling theme_squared AMD JavaScript files.
+ * Gruntfile for compiling theme_squared .less files.
  *
  * This file configures tasks to be run by Grunt
  * http://gruntjs.com/ for the current theme.
@@ -29,15 +29,37 @@
  * The nice user interface intended for everyday use. Provide a
  * high level of automation and convenience for specific use-cases.
  *
+ * grunt watch   Watch the less directory (and all subdirectories)
+ *               for changes to *.less files then on detection
+ *               run 'grunt compile'
+ *
+ *               Options:
+ *
+ *               --dirroot=<path>  Optional. Explicitly define the
+ *                                 path to your Moodle root directory
+ *                                 when your theme is not in the
+ *                                 standard location.
+ * Options:
+ *
+ *               --dirroot=<path>  Optional. Explicitly define the
+ *                                 path to your Moodle root directory
+ *                                 when your theme is not in the
+ *                                 standard location.
+ *
  * grunt amd     Create the Asynchronous Module Definition JavaScript files.  See: MDL-49046.
  *               Done here as core Gruntfile.js currently *nix only.
  *
+ * Plumbing tasks & targets:
+ * -------------------------
+ * Lower level tasks encapsulating a specific piece of functionality
+ * but usually only useful when called in combination with another.
+ *
+ * grunt less         Compile all less files.
+ *
  * @package theme
  * @subpackage squared
- * @copyright  &copy; 2015-onwards G J Barnard in respect to modifications of the Clean theme.
- * @copyright  &copy; 2015-onwards Work undertaken for David Bogner of Edulabs.org.
- * @author G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
- * @author Based on code originally written by Joby Harding, Bas Brands, David Scotson and many other contributors. 
+ * @author G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
+ * @author Based on code originally written by Joby Harding, Bas Brands, David Scotson and many other contributors.
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -46,8 +68,13 @@ module.exports = function(grunt) {
     // Import modules.
     var path = require('path');
 
+    // Theme Bootstrap constants.
+    var THEMEDIR        = path.basename(path.resolve('.'));
+
     // PHP strings for exec task.
     var moodleroot = path.dirname(path.dirname(__dirname)),
+        configfile = '',
+        decachephp = '',
         dirrootopt = grunt.option('dirroot') || process.env.MOODLE_DIR || '';
 
     // Allow user to explicitly define Moodle root dir.
@@ -55,14 +82,63 @@ module.exports = function(grunt) {
         moodleroot = path.resolve(dirrootopt);
     }
 
-    var PWD = process.cwd();
+    configfile = path.join(moodleroot, 'config.php');
+
+    var PWD = process.cwd(); // jshint ignore:line
+
+    decachephp += 'define(\'CLI_SCRIPT\', true);';
+    decachephp += 'require(\'' + configfile  + '\');';
+    decachephp += 'theme_reset_all_caches();';
 
     grunt.initConfig({
+        exec: {
+            decache: {
+                cmd: 'php -r "' + decachephp + '"',
+                callback: function(error, stdout, stderror) {
+                    // exec will output error messages
+                    // just add one to confirm success.
+                    if (!error) {
+                        grunt.log.writeln("Moodle theme cache reset.");
+                    }
+                }
+            }
+        },
+        watch: {
+            // Watch for any changes to less files and compile.
+            files: ["less/**/*.less"],
+            tasks: ["compile"],
+            options: {
+                spawn: false,
+                livereload: true
+            }
+        },
+        replace: {
+            font_fix: {
+                src: 'style/squared.css',
+                    overwrite: true,
+                    replacements: [{
+                        from: 'glyphicons-halflings-regular.eot',
+                        to: 'glyphicons-halflings-regular.eot]]',
+                    }, {
+                        from: 'glyphicons-halflings-regular.svg',
+                        to: 'glyphicons-halflings-regular.svg]]',
+                    }, {
+                        from: 'glyphicons-halflings-regular.ttf',
+                        to: 'glyphicons-halflings-regular.ttf]]',
+                    }, {
+                        from: 'glyphicons-halflings-regular.woff',
+                        to: 'glyphicons-halflings-regular.woff]]',
+                    }]
+            }
+        },
         jshint: {
             options: {jshintrc: moodleroot + '/.jshintrc'},
             files: ['**/amd/src/*.js']
         },
         uglify: {
+            options: {
+                preserveComments: 'some'
+            },
             dynamic_mappings: {
                 files: grunt.file.expandMapping(
                     ['**/src/*.js', '!**/node_modules/**'],
@@ -81,12 +157,18 @@ module.exports = function(grunt) {
         }
     });
 
-    // Load core tasks.
+    // Load contrib tasks.
+    grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks("grunt-exec");
+    grunt.loadNpmTasks("grunt-text-replace");
+
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
     // Register tasks.
-    grunt.registerTask("default", ["amd"]);
+    grunt.registerTask("default", ["watch"]);
+    grunt.registerTask("decache", ["exec:decache"]);
 
-    grunt.registerTask("amd", ["jshint", "uglify"]);
+    grunt.registerTask("compile", ["less", "replace:font_fix", "decache"]);
+    grunt.registerTask("amd", ["jshint", "uglify", "decache"]);
 };
