@@ -1,0 +1,71 @@
+.path-mod-forum .indent {
+    margin-left: 15px;
+}
+
+.path-mod-forum table.forumheaderlist {
+    border: 0 solid transparent;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    color: darken($navbar-default-color, 15%);
+
+    thead, tbody {
+        box-shadow: 1px 2px 3px $gray-lighter;
+    }
+    thead {
+        background-color: $gray-forum;
+        text-transform: uppercase;
+    }
+    th {
+        padding: 5px 4px;
+    }
+    .forumblank {
+        height: 8px;
+    }
+    tbody {
+        tr {
+            border: 0 solid transparent;
+            background-color: #f9f9f9;
+        }
+    }
+    td {
+        padding: 5px 4px;
+        border: 1px solid #EFEFEF;
+        background-color: #f9f9f9;
+    }
+}
+
+.forumpost {
+    background-color: transparent;
+    border: 0 solid transparent;
+    box-shadow: none;
+    .row {
+        .left.picture {
+            margin-right: 5px;
+        }
+        &.header {
+            margin-bottom: 8px;
+            min-height: 43px;
+            background-color: $gray-forum;
+            padding: 0;
+
+            color: darken($navbar-default-color, 15%);
+            a {
+                color: inherit;
+            }
+
+        }
+        &.header, &.maincontent {
+            //box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+            box-shadow: 1px 2px 3px $gray-lighter;
+            width: auto;
+            border-radius: 0;
+        }
+        &.maincontent {
+            padding: 15px;
+            background-color: #FFF;
+        }
+        &.side {
+            padding-top: 10px;
+        }
+    }
+}

@@ -56,11 +56,41 @@ class toolbox {
 
         $scss = theme_boost_get_main_scss_content($this->boostparent);
 
+        $scss .= $this->import_scss('squared');
+		//TODO error_log($scss);
+
         return $scss;
     }
 
     public function get_pre_scss($theme) {
         return theme_boost_get_pre_scss($this->boostparent);
+    }
+
+    /**
+     * Finds the given scss file in the theme.
+     * @param string $filename Filename without extension to get.
+     * @return string SCSS import statement for the file if it exists otherwise an empty string.
+     */
+    protected function import_scss($filename) {
+        $content = '';
+        $thefile = $this->get_scss_file($filename);
+        if (!empty($thefile)) {
+            $content .= file_get_contents($thefile);
+        }
+        return $content;
+    }
+
+    protected function get_scss_file($filename) {
+        global $CFG;
+        $filename .= '.scss';
+
+        if (file_exists("$CFG->dirroot/theme/squared/scss/$filename")) {
+            return "$CFG->dirroot/theme/squared/scss/$filename";
+        } else if (!empty($CFG->themedir) and file_exists("$CFG->themedir/squared/scss/$filename")) {
+            return "$CFG->themedir/squared/scss/$filename";
+        } else {
+            return dirname(__FILE__) . "/$filename";
+        }
     }
 
     /**

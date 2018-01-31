@@ -1,0 +1,28 @@
+#page-footer {
+    color: #848484;
+    float: none;
+    padding-top: 20px;
+    position: relative;
+    text-align: left;
+    width: auto;
+    .logininfo {
+        display: inline;
+        margin: 0;
+        margin: 0 0px;
+        padding: 1em 0;
+    }
+    ul.socialicons {
+        list-style: none;
+        li {
+            display: inline;
+            a:hover,
+            a:focus {
+                text-decoration: none;
+            }
+        }
+    }
+    ul.footerlisting {
+        list-style: none;
+        margin: 0;
+    }
+}
