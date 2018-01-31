@@ -44,8 +44,10 @@ if ($knownregionpre || $knownregionpost) {
     theme_squared_initialise_zoom($PAGE);
 }
 $setzoom = theme_squared_get_zoom();
-$PAGE->requires->jquery();
+//$PAGE->requires->jquery();
 $html = $PAGE->get_renderer('theme_squared', 'html');
+//$html = \theme_squared\html_renderer::get_instance();
+//$html = $PAGE->get_renderer('theme_squared', 'core');
 
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>

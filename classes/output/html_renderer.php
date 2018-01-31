@@ -23,9 +23,28 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-class theme_squared_html_renderer extends plugin_renderer_base {
+namespace theme_squared\output;
 
+defined('MOODLE_INTERNAL') || die;
+
+use custom_menu;
+use custom_menu_item;
+use html_writer;
+use moodle_url;
+use stdClass;
+use theme_config;
+
+class html_renderer extends \plugin_renderer_base {
+
+    protected static $instance;
     private $theme;
+
+    public static function get_instance() {
+        if (!is_object(self::$instance)) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
 
     /**
      * Render the top image menu.
@@ -36,7 +55,7 @@ class theme_squared_html_renderer extends plugin_renderer_base {
             $this->theme = theme_config::load('squared');
         }
         $settings = $this->theme->settings;
-        $template = new stdClass();
+        $template = new \stdClass();
 
         $template->homeurl = new moodle_url('/');
 
@@ -80,13 +99,13 @@ class theme_squared_html_renderer extends plugin_renderer_base {
      */
     public function navigation_menu() {
         global $OUTPUT, $SITE, $CFG;
-        $template = new stdClass();
+        $template = new \stdClass();
         $template->siteurl = new moodle_url('/');
         $template->sitename = $SITE->shortname;
         $template->usermenu = $OUTPUT->user_menu();
         $template->custommenu = $OUTPUT->custom_menu();
         $template->pageheadingmenu = $OUTPUT->page_heading_menu();
-        if (isset($this->page->layout_options['langmenu'])) {
+        if (isset($OUTPUT->page->layout_options['langmenu'])) {
             $template->languagemenu = $this->languagemenu();
         }
         $template->search = $this->searchbox();
@@ -217,7 +236,7 @@ class theme_squared_html_renderer extends plugin_renderer_base {
 
         $configsearchurl = $this->theme->settings->searchurl;
         $searchurl = empty($configsearchurl) ? '/course/search.php' : $formaction;
-        $templateinfo = new stdClass();
+        $templateinfo = new \stdClass();
         $templateinfo->formaction = $formaction;
         $templateinfo->hiddenfields = $hiddenfields;
         $templateinfo->searchfield = $searchfield;
@@ -228,11 +247,13 @@ class theme_squared_html_renderer extends plugin_renderer_base {
      * Find the toplevel category for use in the bodyclasses
      */
     public function toplevel_category() {
+        if (empty($this->theme)) {
+            $this->theme = theme_config::load('squared');
+        }
         foreach ($this->page->categories as $cat) {
             if ($cat->depth == 1) {
                 return 'category-' . $cat->id;
             }
         }
-
     }
 }

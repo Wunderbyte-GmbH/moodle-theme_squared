@@ -45,11 +45,18 @@ function theme_squared_less_variables($theme) {
 function theme_squared_extra_less($theme) {
     global $CFG;
 
+    /*
     $content = '';
     if (file_exists("{$CFG->dirroot}/theme/bootstrap/lib.php")) {
         $content = '@import "'.$CFG->dirroot.'/theme/bootstrap/less/moodle";';
     } else if (!empty($CFG->themedir) && file_exists("{$CFG->themedir}/bootstrap/lib.php")) {
         $content = '@import "'.$CFG->themedir.'/theme/bootstrap/less/moodle";';
+    }
+    */
+
+    $content = '';
+    if (file_exists("{$CFG->dirroot}/theme/bootstrapbase/lib.php")) {
+        $content = '@import "'.$CFG->dirroot.'/theme/bootstrapbase/less/moodle";';
     }
 
     $content .= '@import "squared";';
@@ -117,6 +124,45 @@ function theme_squared_extra_less($theme) {
             }';
     }
     return $content;
+}
+
+/**
+ * Inject additional SCSS.
+ *
+ * @param theme_config $theme The theme config object.
+ * @return string
+ */
+function theme_squared_get_extra_scss($theme) {
+	error_log('theme_squared_get_extra_scss');
+    $toolbox = \theme_squared\toolbox::get_instance();
+
+    return $toolbox->get_extra_scss($theme);
+}
+
+/**
+ * Inject SCSS content.
+ *
+ * @param theme_config $theme The theme config object.
+ * @return string
+ */
+function theme_squared_get_main_scss_content($theme) {
+	error_log('theme_squared_get_main_scss_content');
+    $toolbox = \theme_squared\toolbox::get_instance();
+
+    return $toolbox->get_main_scss_content($theme);
+}
+
+/**
+ * Get SCSS to prepend.
+ *
+ * @param theme_config $theme The theme config object.
+ * @return array
+ */
+function theme_squared_get_pre_scss($theme) {
+	error_log('theme_squared_get_pre_scss');
+    $toolbox = \theme_squared\toolbox::get_instance();
+
+    return $toolbox->get_pre_scss($theme);
 }
 
 /**

@@ -26,11 +26,20 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace theme_squared\output;
 
-require_once($CFG->dirroot . '/theme/bootstrap/renderers/core_renderer.php');
+defined('MOODLE_INTERNAL') || die;
 
-class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
+use block_contents;
+use coursecat;
+use custom_menu;
+use custom_menu_item;
+use html_writer;
+use moodle_url;
+use stdClass;
+use theme_config;
+
+class core_renderer extends \theme_boost\output\core_renderer {
 
     protected $themesquared = null;
 
@@ -613,7 +622,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
 
         if (isloggedin() && !isguestuser()) {
             $menuclass = 'loggedin';
-            $userpicture = new user_picture($user);
+            $userpicture = new \user_picture($user);
             $userpicture->link = false;
             $userpicture->size = 34;
             $picture = html_writer::tag('span', $this->render($userpicture), array('class' => 'picspan'));
@@ -750,10 +759,11 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             $submenucount++;
             if ($menunode->get_url() !== null) {
                 $url = $menunode->get_url();
+                $url = $url->out(true);
             } else {
                 $url = '#cm_submenu_'.$submenucount;
             }
-            if (strstr($url->out(true), 'categoryid=')) {
+            if (strstr($url, 'categoryid=')) {
                 $url->param('categorysort', 'default');
             }
             $linkattributes = array(
@@ -806,5 +816,4 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
         }
         return $content;
     }
-
 }

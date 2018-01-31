@@ -1,12 +1,19 @@
 <?php
 $THEME->name = 'squared';
 
-$THEME->parents = array ('bootstrap');
-$THEME->parents_exclude_sheets = array('bootstrap' => array('moodle'));
+$THEME->parents = array ('boost');
+//$THEME->parents_exclude_sheets = array('bootstrap' => array('moodle'));
 $THEME->sheets = array('custom');
-$THEME->lessfile = 'moodleallsquared';
-$THEME->lessvariablescallback = 'theme_squared_less_variables';
-$THEME->extralesscallback = 'theme_squared_extra_less';
+//$THEME->lessfile = 'moodleallsquared';
+//$THEME->lessvariablescallback = 'theme_squared_less_variables';
+//$THEME->extralesscallback = 'theme_squared_extra_less';
+
+$THEME->scss = function($theme) {
+    return theme_squared_get_main_scss_content($theme);
+};
+$THEME->extrascsscallback = 'theme_squared_get_extra_scss';
+$THEME->prescsscallback = 'theme_squared_get_pre_scss';
+
 $THEME->supportscssoptimisation = false;
 $THEME->yuicssmodules = array();
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';

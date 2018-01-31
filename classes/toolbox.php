@@ -32,14 +32,35 @@ defined('MOODLE_INTERNAL') || die;
 
 class toolbox {
 
+    protected static $instance;
+    protected $boostparent;
+
     private function __construct() {
     }
 
     public static function get_instance() {
         if (!is_object(self::$instance)) {
             self::$instance = new self();
+            self::$instance->boostparent = \theme_config::load('boost');
         }
         return self::$instance;
+    }
+
+    public function get_extra_scss($theme) {
+        return theme_boost_get_extra_scss($this->boostparent);
+    }
+
+    public function get_main_scss_content($theme) {
+        global $CFG;
+        require_once($CFG->dirroot.'/theme/boost/lib.php');
+
+        $scss = theme_boost_get_main_scss_content($this->boostparent);
+
+        return $scss;
+    }
+
+    public function get_pre_scss($theme) {
+        return theme_boost_get_pre_scss($this->boostparent);
     }
 
     /**

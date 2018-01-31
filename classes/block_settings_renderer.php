@@ -24,9 +24,13 @@
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace theme_squared\output;
+defined('MOODLE_INTERNAL') || die;
 
-class theme_squared_block_settings_renderer extends block_settings_renderer {
-    protected function navigation_node(navigation_node $node, $attrs=array()) {
+use navigation_node;
+
+class block_settings_renderer extends \block_settings_renderer {
+    protected function navigation_node(navigation_node $node, $attrs=array(), $depth = 1) {
         $items = $node->children;
 
         // exit if empty, we don't want an empty ul element
