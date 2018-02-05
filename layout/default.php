@@ -74,12 +74,12 @@ echo $OUTPUT->doctype() ?>
     </header>
 
     <div id="page-content" class="row">
-        <div class="<?php echo $regions['content']; ?>">
-            <div id="region-main"  class="inner">
+        <div id="squared-main" class="<?php echo $regions['content']; ?>">
+            <div id="region-main" class="inner">
                 <div id="page-navbar" class="clearfix">
                     <button class="moodlezoom">
-                        <i class="glyphicon glyphicon-resize-full tosmall"></i>
-                        <i class="glyphicon glyphicon-resize-small tofull"></i>
+                        <i class="fa fa-expand tosmall"></i>
+                        <i class="fa fa-compress tofull"></i>
                     </button>
                     <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>
                     <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>

@@ -1,5 +1,9 @@
+#page-content #squared-main #region-main {
+    float: none;
+}
+
 @media(min-width: $screen-sm) {
-    #page-content #region-main {
+    #page-content #squared-main {
         &.col-sm-9 {
             padding-left: 0;
         }

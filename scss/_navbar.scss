@@ -73,7 +73,7 @@
     &.inactive:hover {
         background-color: #eee;
     }
-    .glyphicon-gray {
+    .fa-gray {
         color: $gray-light;
     }
     .search {
@@ -92,17 +92,17 @@
             color: #000;
             cursor: pointer;
             margin-top: 3px;
-            .glyphicon:hover {
+            i:hover {
                 color: $gray;
             }
-            .glyphicon.closed {
+            i.closed {
                 display: none;
             }
             &.active {
-                .glyphicon.closed {
+                i.closed {
                     display: block;
                 }
-                .glyphicon.open {
+                i.open {
                     display: none;
                 }
             }

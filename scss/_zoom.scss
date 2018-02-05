@@ -15,20 +15,20 @@
             line-height: 35px;
         }
     }
-    .glyphicon.tofull {
+    .moodlezoom i.tofull {
         display: none;
     }
     body.zoomin {
         .moodlezoom {
-            .glyphicon.tofull {
+            i.tofull {
                 display: block;
             }
-            .glyphicon.tosmall {
+            i.tosmall {
                 display: none;
             }
         }
 
-        #region-main,
+        #squared-main,
         #block-region-side-pre {
             width: 100% !important;
             left: 0 !important;

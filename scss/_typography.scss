@@ -5,7 +5,7 @@ h1 {
   text-rendering: optimizeLegibility;
   color: #131313;
   background-color: transparent;
-  letter-spacing: 15em;
+  letter-spacing: .15em;
 }
 
 ul:not([class]) {
@@ -28,32 +28,38 @@ ol:not([class]) ol, ul:not([class]) ol {
 }
     
 .dir-ltr {
-    ul:not([class]), ol:not([class]) {
+    ul:not([class]),
+    ol:not([class]) {
         margin: 0 0 10px 25px;
         li:not([class]) {
             padding-left: 1em;
             text-indent: -1em;
         }
     }
-    ul:not([class]) ul, ol:not([class]) ul {
-        margin-left:15px;
+    ul:not([class]) ul, 
+    ol:not([class]) ul {
+        margin-left: 15px;
     }
-    ol:not([class]) ol, ul:not([class]) ol {
-        margin-left:15px;
+    ol:not([class]) ol,
+    ul:not([class]) ol {
+        margin-left: 15px;
     }
 }
 .dir-rtl {
-    ul:not([class]), ol:not([class])  {
+    ul:not([class]),
+    ol:not([class])  {
         margin: 25px 0 10px 0;
         li:not([class]) {
             padding-right: 1em;
             text-indent: -1em;
         }
     }
-    ul:not([class]) ul, ol:not([class]) ul {
+    ul:not([class]) ul,
+    ol:not([class]) ul {
         margin-right: 15px;
     }
-    ol:not([class]) ol, ul:not([class]) ol {
+    ol:not([class]) ol,
+    ul:not([class]) ol {
         margin-right:15px;
     }
 }

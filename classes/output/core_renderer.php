@@ -631,7 +631,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $usermenu = $menu->add($name . $picture, new moodle_url('#'), fullname($user), 10001);
 
             $usermenu->add(
-                $this->glyphicon('dashboard')  . get_string('myhome'),
+                $this->fontawesome('tachometer').get_string('myhome'),
                 new moodle_url('/my'),
                 get_string('myhome')
             );
@@ -643,27 +643,27 @@ class core_renderer extends \theme_boost\output\core_renderer {
             );
 
             $usermenu->add(
-                $this->glyphicon('user') . get_string('profile'),
+                $this->fontawesome('user').get_string('profile'),
                 new moodle_url('/user/profile.php', array('id' => $user->id)),
 
                 get_string('profile')
             );
 
             $usermenu->add(
-                $this->glyphicon('list-alt') . get_string('grades'),
+                $this->fontawesome('list-alt').get_string('grades'),
                 new moodle_url('/grade/report/overview/index.php'),
                 get_string('grades')
             );
 
             $usermenu->add(
-                $this->glyphicon('inbox') . get_string('messages', 'message'),
+                $this->fontawesome('inbox').get_string('messages', 'message'),
                 new moodle_url('/message/index.php'),
 
                 get_string('messages', 'message')
             );
 
             $usermenu->add(
-                $this->glyphicon('cog') . get_string('preferences'),
+                $this->fontawesome('cog').get_string('preferences'),
                 new moodle_url('/user/preferences.php'),
 
                 get_string('preferences')
@@ -676,13 +676,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
             );
 
             $usermenu->add(
-                $this->glyphicon('sign-out') . get_string('logout'),
+                $this->fontawesome('sign-out').get_string('logout'),
                 new moodle_url('/login/logout.php', array('sesskey' => sesskey(), 'alt' => 'logout')),
                 get_string('logout')
             );
         } else {
             $menu->add(
-                $this->glyphicon('sign-in')  . get_string('login'),
+                $this->fontawesome('sign-in').get_string('login'),
                 new moodle_url($this->squared_get_login_url()),
                 get_string('login')
             );
@@ -697,8 +697,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $content;
     }
 
-    private function glyphicon($icon) {
-        $icon = html_writer::tag('i', '', array('class' => 'glyphicon glyphicon-' . $icon));
+    private function fontawesome($icon) {
+        $icon = html_writer::tag('i', '', array('class' => 'fa fa-' . $icon));
         return html_writer::tag('span', $icon, array('class' => 'iconwrapper'));
     }
 
