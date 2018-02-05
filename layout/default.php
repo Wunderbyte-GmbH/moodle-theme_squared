@@ -74,8 +74,8 @@ echo $OUTPUT->doctype() ?>
     </header>
 
     <div id="page-content" class="row">
-        <div id="region-main" class="<?php echo $regions['content']; ?>">
-            <div class="inner">
+        <div class="<?php echo $regions['content']; ?>">
+            <div id="region-main"  class="inner">
                 <div id="page-navbar" class="clearfix">
                     <button class="moodlezoom">
                         <i class="glyphicon glyphicon-resize-full tosmall"></i>

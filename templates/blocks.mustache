@@ -11,7 +11,7 @@
         "block2" : {"class" : "block-navigation", "blockinstanceid": 2}
     }
 }}
-<div class="panel-group single-row" id="accordion" role="tablist" aria-multiselectable="true">
+<div class="single-row" id="accordion" role="tablist" aria-multiselectable="true">
     {{#blocks}}
         <div class="{{class}} pairheader">
             <div role="button" data-toggle="collapse" data-parent="#accordion" 
@@ -31,12 +31,12 @@
 
         {{#blockinstanceid}}
         <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
-            <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{aria-labelledby}}">
-                <div class="panel-heading">
+            <div id="collapse{{blockinstanceid}}" class="card-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{aria-labelledby}}">
+                <div class="card-heading">
                     <div class="courseblock-icon"></div>
                     {{{header}}}
                  </div>
-                <div class="panel-body p-0 m-0 block">
+                <div class="card-body p-0 m-0 block">
                     {{{content}}}
                 </div>
             </div>

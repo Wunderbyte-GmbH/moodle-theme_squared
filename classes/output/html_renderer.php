@@ -60,11 +60,11 @@ class html_renderer extends \plugin_renderer_base {
         $template->homeurl = new moodle_url('/');
 
         if (isset($settings->logoposition) && $settings->logoposition == 'right') {
-            $template->logocontainerclass = 'col-sm-3 col-md-3 col-sm-push-9 col-md-push-9 logo right';
-            $template->headerbgcontainerclass = 'col-sm-9 col-md-9 col-sm-pull-3 col-md-pull-3  right background';
+            $template->logocontainerclass = 'col-sm-3 col-md-3 push-sm-9 push-md-9 logo right';
+            $template->headerbgcontainerclass = 'col-sm-9 col-md-9 pull-sm-3 pull-md-3  right background';
 
             if (isset($settings->headerlayout) && ($settings->headerlayout == 1)) {
-                $template->logocontainerclass = 'col-sm-3 col-md-3 col-sm-push-9 col-md-push-9 logo right logo fixed';
+                $template->logocontainerclass = 'col-sm-3 col-md-3 push-sm-9 push-md-9 logo right logo fixed';
                 $template->headerbgcontainerclass = 'col-sm-12 background';
             }
         } else {

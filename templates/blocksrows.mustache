@@ -20,7 +20,7 @@
         }
     }
 }}
-<div class="panel-group two-rows" id="accordion" role="tablist" aria-multiselectable="true">
+<div class="two-rows" id="accordion" role="tablist" aria-multiselectable="true">
     {{#pairs}}
       <div class="row blockpairs">
         {{#blocka}}     
@@ -61,7 +61,7 @@
     {{#blocka}}
         {{#blockinstanceid}}
         <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
-            <div id="collapse{{blockinstanceid}}" class="panel-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{aria-labelledby}}">
+            <div id="collapse{{blockinstanceid}}" class="card-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{aria-labelledby}}">
                 <div class="panel-heading">
                     <div role="tree" class="collapselink" data-toggle="collapse" data-target="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="inst{{blockinstanceid}}">
 
@@ -69,7 +69,7 @@
                     {{{header}}}
                     </div>
                  </div>
-                <div id="subcollapse{{blockinstanceid}}" class="panel-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}">
+                <div id="subcollapse{{blockinstanceid}}" class="card-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}">
                     {{{content}}}
                 </div>
             </div>
@@ -92,7 +92,7 @@
                     {{{header}}}
                     </div>
                  </div>
-                <div id="subcollapse{{blockinstanceid}}" class="panel-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}">
+                <div id="subcollapse{{blockinstanceid}}" class="card-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}">
                     {{{content}}}
                 </div>
             </div>

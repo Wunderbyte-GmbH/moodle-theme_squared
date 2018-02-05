@@ -406,7 +406,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $bc->add_class('block_with_controls');
         }
 
-        $bc->add_class('panel panel-default');
+        $bc->add_class('card');
 
         $bc->content = $this->block_content($bc);
         $bc->annotation = $this->block_annotation($bc);
