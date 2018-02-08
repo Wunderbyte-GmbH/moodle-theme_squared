@@ -1,28 +1,30 @@
 .navbar {
-	ul {
-	  margin-left: 0;
-	}
-	.usermenu {
-	    margin: 0;
-	    padding-top: 0;
-	    padding-bottom: 0;
-	    .dropdown-toggle {
-	        padding-top: 8px;
-	        padding-bottom: 8px;
-	    }
-	}
-	.userpicture {
-	    margin-left: 5px;
-	}
+    ul {
+      margin-left: 0;
+    }
+    .usermenu {
+        margin: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        .dropdown-toggle {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+    }
+    .userpicture {
+        margin-left: 5px;
+    }
 }
-.navbar-default .navbar-toggle {
+.navbar-light .navbar-toggler {
     padding: 0;
     margin: 7px 7px 7px 0;
 }
+
 //Allow lang menu to pop over expanded menu.
 .navbar-collapse.in {
     overflow-y: visible;
 }
+
 @media (max-width: $screen-sm) {
     .navbar .usermenu {
         margin: 0;
@@ -30,20 +32,30 @@
             margin-top: 5px;
         }
     }
+
     .navbar {
         margin-bottom: 0;
     }
+
+    .navbar-collapse.collapse,
+    .navbar-collapse.collapsing {
+        margin-top: $navbar-height;
+        .nav {
+            float: none !important;
+        }
+    }
+
     .navbar-form {
         margin-top: 0;
         margin-bottom: 0;
     }
 }
 @media (min-width: $screen-sm) {
-    .navbar-default .navbar-brand {
-        color: #FFF;
+    .navbar-light .navbar-brand {
+        color: #fff;
         @include menu_item($squared-purple);
     }
-    .navbar-default .navbar-nav {
+    .navbar-light .navbar-nav {
         .dropdown {
             cursor: pointer;
         }
@@ -62,7 +74,10 @@
     }
     .navbar {
         margin-bottom: 0;
-        border:0;
+        border: 0;
+    }
+    .navbar-toggler {
+        display: none;
     }
 }
 
