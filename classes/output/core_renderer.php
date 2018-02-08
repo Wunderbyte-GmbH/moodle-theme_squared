@@ -759,12 +759,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $submenucount++;
             if ($menunode->get_url() !== null) {
                 $url = $menunode->get_url();
+                if (strstr($url->out(true), 'categoryid=')) {
+                    $url->param('categorysort', 'default');
+                }
                 $url = $url->out(true);
             } else {
                 $url = '#cm_submenu_'.$submenucount;
-            }
-            if (strstr($url, 'categoryid=')) {
-                $url->param('categorysort', 'default');
             }
             $linkattributes = array(
                 'href' => '#',
