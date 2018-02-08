@@ -753,6 +753,7 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
                 if (strstr($url->out(true), 'categoryid=')) {
                     $url->param('categorysort', 'default');
                 }
+                $url = $url->out(true);
             } else {
                 $url = '#cm_submenu_'.$submenucount;
             }
