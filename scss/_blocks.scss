@@ -256,14 +256,18 @@
         }
     }
 }
-#block-region-side-pre {    
+#block-region-side-pre {
     .block {
+        &.card {
+            border-width: 0;
+            margin-bottom: 0;
+        }
         .content {
             background-color: lighten($gray-lighter, 3%);
         }
     }
 
-    /*course page icons for standard block types below */
+    /* Course page icons for standard block types below */
     .block_settings {
         @include block_icon(settings);
     }
@@ -271,6 +275,11 @@
     .block_site_main_menu {
         word-break: break-all;
     }
+
+    .block_tree .tree_item.branch {
+        display: inline-block;
+    }
+
     .block_navigation {
         word-break: break-all;
         .block_tree .tree_item.hasicon .item-content-wrap {

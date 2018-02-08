@@ -29,6 +29,24 @@
         background: #FFF;
         font-size: 100%;
     }
+
+    ul.section {
+        margin: 0;
+    }
+}
+
+.course-content ul.topics,
+.course-content ul.weeks {
+    li.section {
+        .left {
+            padding: 0;
+        }
+
+        .summary,
+        .content > .availabilityinfo {
+            margin-left: 0;
+        }
+    }
 }
 
 .editing {

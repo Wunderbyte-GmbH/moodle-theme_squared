@@ -4,11 +4,11 @@
 @mixin font-face($family, $name, $weight: 300){
     @font-face{
         font-family: $family;
-        src:url('[[font:theme|${name}.eot]]');
-        src:url('[[font:theme|${name}.eot]]?#iefix') format('embedded-opentype'),
-            url('[[font:theme|${name}.woff]]') format('woff'),
-            url('[[font:theme|${name}.ttf]]') format('truetype'),
-            url('[[font:theme|${name}.svg]]') format('svg');
+        src:url('[[font:theme|#{$name}.eot]]');
+        src:url('[[font:theme|#{$name}.eot]]?#iefix') format('embedded-opentype'),
+            url('[[font:theme|#{$name}.woff]]') format('woff'),
+            url('[[font:theme|#{$name}.ttf]]') format('truetype'),
+            url('[[font:theme|#{$name}.svg]]') format('svg');
         font-weight: $weight;
     }
 }
