@@ -750,11 +750,11 @@ class theme_squared_core_renderer extends theme_bootstrap_core_renderer {
             $submenucount++;
             if ($menunode->get_url() !== null) {
                 $url = $menunode->get_url();
+                if (strstr($url->out(true), 'categoryid=')) {
+                    $url->param('categorysort', 'default');
+                }
             } else {
                 $url = '#cm_submenu_'.$submenucount;
-            }
-            if (strstr($url->out(true), 'categoryid=')) {
-                $url->param('categorysort', 'default');
             }
             $linkattributes = array(
                 'href' => '#',

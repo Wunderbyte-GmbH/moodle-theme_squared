@@ -27,9 +27,9 @@
  */
 defined ( 'MOODLE_INTERNAL' ) || die ();
 
-$plugin->version =     2016100501;
+$plugin->version =     2016100502;
 $plugin->requires =    2015051100;
-$plugin->release =     "Temp Square 0.91"; // Release name: famous squares around the world followed by Moodle version followed by number
+$plugin->release =     "Temp Square 0.92"; // Release name: famous squares around the world followed by Moodle version followed by number
 $plugin->maturity =    MATURITY_BETA;
 $plugin->component =   'theme_squared'; // Full name of the plugin (used for diagnostics)
 $plugin->dependencies = array (
