@@ -8,6 +8,8 @@ $brand-info:            #5bc0de;
 $brand-warning:         $sq-orange;
 $brand-danger:          $sq-red;
 
+@import "boost_override.scss";
+
 @import "mixins.scss";
 @import "variables.scss";
 @import "blocks.scss";
