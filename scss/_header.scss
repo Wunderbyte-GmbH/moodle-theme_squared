@@ -41,13 +41,13 @@
             padding-left: 0;
         }
     }
-    @media(max-width: $screen-sm) {
+    @media(max-width: $screen-breakpoint) {
         .logo.right {
             position: absolute;
             right: 0;
         }
     }
-    @media(min-width: $screen-sm) {
+    @media(min-width: $screen-breakpoint) {
         .logo {
             .inner {
                 height: 174px;

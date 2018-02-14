@@ -2,7 +2,7 @@
     float: none;
 }
 
-@media(min-width: $screen-sm) {
+@media(min-width: $screen-breakpoint) {
     #page-content #squared-main {
         &.col-sm-9 {
             padding-left: 0;

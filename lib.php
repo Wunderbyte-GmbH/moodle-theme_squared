@@ -133,7 +133,6 @@ function theme_squared_extra_less($theme) {
  * @return string
  */
 function theme_squared_get_extra_scss($theme) {
-	error_log('theme_squared_get_extra_scss');
     $toolbox = \theme_squared\toolbox::get_instance();
 
     return $toolbox->get_extra_scss($theme);
@@ -146,7 +145,6 @@ function theme_squared_get_extra_scss($theme) {
  * @return string
  */
 function theme_squared_get_main_scss_content($theme) {
-	error_log('theme_squared_get_main_scss_content');
     $toolbox = \theme_squared\toolbox::get_instance();
 
     return $toolbox->get_main_scss_content($theme);
@@ -159,7 +157,6 @@ function theme_squared_get_main_scss_content($theme) {
  * @return array
  */
 function theme_squared_get_pre_scss($theme) {
-	error_log('theme_squared_get_pre_scss');
     $toolbox = \theme_squared\toolbox::get_instance();
 
     return $toolbox->get_pre_scss($theme);

@@ -57,7 +57,6 @@ class toolbox {
         $scss = theme_boost_get_main_scss_content($this->boostparent);
 
         $scss .= $this->import_scss('squared');
-		//TODO error_log($scss);
 
         return $scss;
     }

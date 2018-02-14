@@ -3,12 +3,12 @@
 	    margin-left: 0;
 	    margin-right: 0;
 	}
-    .panel-group .panel.block {
+    .card-group .card.block {
         border: 0;
         box-shadow: 0;
         margin:0;
     }
-    .block .panel-heading {
+    .block .card-heading {
         padding: 0 5px;
         .header {
             color: #FFF;
@@ -16,7 +16,7 @@
             border: 0;
             background-color: transparent;
         }
-        //TODO #gradient > @include gradient-directional(@include lighten($squared-purple, 15%), @include lighten($squared-purple, 5%));
+        @include gradient-directional(@include lighten($squared-purple, 15%), @include lighten($squared-purple, 5%));
 
         h2 {
             font-family: $font-family-sans-serif;
@@ -43,8 +43,8 @@
         }
     }
     .block.invisible {
-        .panel-heading {
-            //TODO #gradient > @include directional(lighten($gray, 15%);lighten($gray, 5%));
+        .card-heading {
+            // TODO? Seems to break things @include gradient-directional(@include lighten($gray, 15%), @include lighten($gray, 5%));
         }
         .header h2 {
             color: $gray-lighter;
@@ -98,13 +98,13 @@
     }
 }
 .nozoom #block-region-side-pre {
-    @media (max-width: $screen-sm) {
+    @media (max-width: $screen-breakpoint) {
         .courseblock-icon {
             background-color: lighten($squared-purple, 15%);
         }
     }
     
-    @media (min-width: $screen-sm) {
+    @media (min-width: $screen-breakpoint) {
         .over-hover-to-bottom {
             //display: inline-block;
             vertical-align: middle;
@@ -181,7 +181,7 @@
             text-align: center;
             border: 0;
             background-color: lighten($squared-purple, 15%);
-            //TODO #gradient > @include directional(lighten($squared-purple, 15%);lighten($squared-purple, 5%));
+            // TODO? Seems to break things @include gradient-directional(@include lighten($squared-purple, 15%), @include lighten($squared-purple, 5%));
             &.squared:after {
               content: "";
               display: block;
@@ -418,16 +418,16 @@
 }
 //Styles for non-JS
 #block-region-side-pre {
-    .panel-collapse.collapse {
+    .card-collapse.collapse {
         display: block;
     }
     .blockpairs {
         display: none;
     }
-    .panel-group .panel.block {
+    .card-group .card.block {
         margin-bottom: 0;
     }
-    .block .panel-heading {
+    .block .card-heading {
         min-height: 35px;
     }
     .header img.block-hider-hide,
@@ -437,29 +437,29 @@
 }
 
 .jsenabled:not(.editing) #block-region-side-pre {
-    .panel-collapse.collapse {
+    .card-collapse.collapse {
         display: none;
         &.in {
             display: block;
         }
     }
-    .panel-body.collapse {
+    .card-body.collapse {
         display: block;
     }
     .blockpairs {
         display: block;
     }
-    .panel-group .panel.block {
+    .card-group .card.block {
         margin-bottom: 0;
     }
-    .block .panel-heading {
+    .block .card-heading {
         min-height: inherit;
         padding: 0;
         display: none;
     }
 }
 
-// @media (min-width: $screen-sm) {
+// @media (min-width: $screen-breakpoint) {
 //     body.gecko #block-region-side-pre .two-rows .blockheader.squared::after {
 //         padding-bottom: 100px;
 //     }

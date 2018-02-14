@@ -25,7 +25,7 @@
     overflow-y: visible;
 }
 
-@media (max-width: $screen-sm) {
+@media (max-width: $screen-breakpoint) {
     .navbar .usermenu {
         margin: 0;
         &.guest a {
@@ -50,7 +50,7 @@
         margin-bottom: 0;
     }
 }
-@media (min-width: $screen-sm) {
+@media (min-width: $screen-breakpoint) {
     .navbar-light .navbar-brand {
         color: #fff;
         @include menu_item($squared-purple);

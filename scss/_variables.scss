@@ -16,8 +16,7 @@ $headings-font-family:    "Source Sans Pro Bold", $font-family-sans-serif;
 
 $border-radius-base: 0;
 
-// Depreciated in BS 3.0.1 - TODO
-$screen-sm: 768px;
+$screen-breakpoint: map-get($grid-breakpoints, "md");
 
 // Conversions
 $navbar-default-color: $navbar-dark-color;
