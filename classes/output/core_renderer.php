@@ -780,7 +780,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $content .= '</a>';
             $content .= '<ul class="dropdown-menu '.$direction.'">';
             // Because the menu dropdown click expands it, it is unclickable, so add as a link at the top.
-            $content .= html_writer::start_tag('li');
+            $content .= html_writer::start_tag('li', array('class' => 'dropdown-item'));
             $linkattributes['href'] = $url;
             unset($linkattributes['class']);
             unset($linkattributes['data-toggle']);
@@ -788,7 +788,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $content .= $menunode->get_text();
             $content .= '</a>';
             $content .= html_writer::end_tag('li');
-            $content .= html_writer::tag('li', '', array('class' => 'divider'));
+            $content .= html_writer::tag('li', '', array('class' => 'dropdown-item dropdown-divider'));
             foreach ($menunode->get_children() as $menunode) {
                 $content .= $this->render_custom_menu_item($menunode, 0);
             }
@@ -798,9 +798,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
             // The node doesn't have children so produce a final menuitem.
             $class = '';
             if (preg_match("/^#+$/", $menunode->get_text())) {
-                $content = '<li class="divider" role="presentation">';
+                $content = '<li class="dropdown-item dropdown-divider" role="presentation">';
             } else {
-                $content = '<li>';
+                $content = '<li class="dropdown-item">';
                 // The node doesn't have children so produce a final menuitem.
                 if ($menunode->get_url() !== null) {
                     $url = $menunode->get_url();

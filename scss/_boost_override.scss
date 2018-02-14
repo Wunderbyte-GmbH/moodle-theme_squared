@@ -5,3 +5,10 @@
 #page.container-fluid {
     padding-top: 0;
 }
+
+// User dropdown menu.
+.usermenu .dropdown-menu.pull-right {
+    left: auto;
+    right: -14px;
+    top: 30px;
+}
