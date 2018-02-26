@@ -3,7 +3,7 @@
 }
 
 #page.container-fluid {
-    padding-top: 0;
+    padding: 0 ($grid-gutter-width / 2);
 }
 
 // User dropdown menu.

@@ -1,8 +1,9 @@
 #block-region-side-pre {
-	.row {
-	    margin-left: 0;
-	    margin-right: 0;
-	}
+    padding-right: 0;
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
     .card-group .card.block {
         border: 0;
         box-shadow: 0;
