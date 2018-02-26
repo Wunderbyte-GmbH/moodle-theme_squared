@@ -29,8 +29,8 @@
 function theme_squared_grid($hassidepre) {
 
     if ($hassidepre) {
-        $regions = array('content' => 'col-sm-9 push-sm-3 col-md-9 push-md-3 col-lg-10 push-lg-2');
-        $regions['pre'] = 'col-sm-3 pull-sm-9 col-md-3 pull-md-9 col-lg-2 pull-lg-10';
+        $regions = array('content' => 'col-md-9 push-md-3 col-lg-10 push-lg-2 col-xl-11 push-xl-1');
+        $regions['pre'] = 'col-md-3 pull-md-9 col-lg-2 pull-lg-10 col-xl-1 pull-xl-11';
     } else  {
         $regions = array('content' => 'col-md-12');
         $regions['pre'] = 'empty';
