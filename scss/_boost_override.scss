@@ -6,6 +6,12 @@
     padding: 0 ($grid-gutter-width / 2);
 }
 
+// Block dropdown menu.
+.dropdown-menu-left .dropdown-menu-right { // Make the right become left.
+    left: 0;
+    right: auto;
+}
+
 // User dropdown menu.
 .usermenu .dropdown-menu.pull-right {
     left: auto;

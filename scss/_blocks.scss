@@ -12,10 +12,16 @@
     .block .card-heading {
         padding: 0 5px;
         .header {
+            background-color: transparent;
+            border: 0;
             color: #FFF;
             padding: 0;
-            border: 0;
-            background-color: transparent;
+            a {
+                color: inherit;
+                .icon {
+                    color: inherit;
+                }
+            }
         }
         @include gradient-directional(lighten($squared-purple, 15%), lighten($squared-purple, 5%));
 

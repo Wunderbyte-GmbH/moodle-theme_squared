@@ -446,6 +446,26 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $bc;
     }
 
+    /**
+     * Output the row of editing icons for a block, as defined by the controls array.
+     *
+     * @param array $controls an array like {@link block_contents::$controls}.
+     * @param string $blockid The ID given to the block.
+     * @return string HTML fragment.
+     */
+    public function block_controls($actions, $blockid = null) {
+        global $CFG;
+        if (empty($actions)) {
+            return '';
+        }
+        $menu = new \action_menu($actions);
+        if ($blockid !== null) {
+            $menu->set_owner_selector('#'.$blockid);
+        }
+        $menu->set_constraint('.block-region');
+        $menu->attributes['class'] .= ' block-control-actions commands dropdown-menu-left';
+        return $this->render($menu);
+    }
 
     /**
      * Add a complete course category to the custom menu
