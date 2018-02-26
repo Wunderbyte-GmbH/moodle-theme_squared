@@ -100,7 +100,8 @@ class html_renderer extends \plugin_renderer_base {
     public function navigation_menu() {
         global $OUTPUT, $SITE, $CFG;
         $template = new \stdClass();
-        $template->siteurl = new moodle_url('/');
+        $template->output = $OUTPUT;
+        /*$template->siteurl = new moodle_url('/');
         $template->sitename = $SITE->shortname;
         $template->usermenu = $OUTPUT->user_menu();
         $template->custommenu = $OUTPUT->custom_menu();
@@ -113,7 +114,7 @@ class html_renderer extends \plugin_renderer_base {
             $template->togglebtn = $OUTPUT->image_url('more-button', 'theme_squared');
         } else {
             $template->togglebtn = $OUTPUT->pix_url('more-button', 'theme_squared');
-        }
+        }*/
         return $this->render_from_template('theme_squared/navigation', $template);
     }
 

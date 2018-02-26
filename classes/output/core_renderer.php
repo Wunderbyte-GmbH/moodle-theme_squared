@@ -32,8 +32,8 @@ defined('MOODLE_INTERNAL') || die;
 
 use block_contents;
 use coursecat;
-use custom_menu;
-use custom_menu_item;
+//use custom_menu;
+//use custom_menu_item;
 use html_writer;
 use moodle_url;
 use stdClass;
@@ -454,11 +454,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @param custom_menu_item $parent
      * @param coursecat $category
      */
-    protected function add_category_to_custommenu(custom_menu_item $parent, coursecat $category) {
+    /*protected function add_category_to_custommenu(custom_menu_item $parent, coursecat $category) {
 
         /* This value allows you to change the depth of the menu you want to show (reducing the depth may help with performance issues)
            for categories: */
-        $show_category_depth = 4;
+        /*$show_category_depth = 4;
         $categorychildren = $category->get_children();
         $actual_depth = $category->depth;
 
@@ -483,7 +483,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $i++;
             }
         }
-    }
+    }*/
 
     protected function squared_prepare_textlinks($textlinks) {
         $textsnippets = explode ( ';', $textlinks );
@@ -606,6 +606,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $content;
     }
 
+    /*
     public function user_menu($user = null, $withlinks = null) {
         $usermenu = new custom_menu('', current_language());
         return $this->render_user_menu($usermenu, $user);
@@ -696,13 +697,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         return $content;
     }
+    */
 
     private function fontawesome($icon) {
         $icon = html_writer::tag('i', '', array('class' => 'fa fa-' . $icon));
         return html_writer::tag('span', $icon, array('class' => 'iconwrapper'));
     }
 
-    public function custom_menu($custommenuitems = '') {
+    /*public function custom_menu($custommenuitems = '') {
         global $CFG;
         if (empty($custommenuitems) && !empty($CFG->custommenuitems)) {
           $custommenuitems = $CFG->custommenuitems;
@@ -815,5 +817,5 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }
         }
         return $content;
-    }
+    }*/
 }
