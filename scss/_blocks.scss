@@ -16,7 +16,7 @@
             border: 0;
             background-color: transparent;
         }
-        @include gradient-directional(@include lighten($squared-purple, 15%), @include lighten($squared-purple, 5%));
+        @include gradient-directional(lighten($squared-purple, 15%), lighten($squared-purple, 5%));
 
         h2 {
             font-family: $font-family-sans-serif;
@@ -44,7 +44,7 @@
     }
     .block.invisible {
         .card-heading {
-            // TODO? Seems to break things @include gradient-directional(@include lighten($gray, 15%), @include lighten($gray, 5%));
+            @include gradient-directional(lighten($gray, 15%), lighten($gray, 5%));
         }
         .header h2 {
             color: $gray-lighter;
@@ -181,7 +181,7 @@
             text-align: center;
             border: 0;
             background-color: lighten($squared-purple, 15%);
-            // TODO? Seems to break things @include gradient-directional(@include lighten($squared-purple, 15%), @include lighten($squared-purple, 5%));
+            @include gradient-directional(lighten($squared-purple, 15%), lighten($squared-purple, 5%));
             &.squared:after {
               content: "";
               display: block;
