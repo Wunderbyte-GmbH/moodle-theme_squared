@@ -68,8 +68,8 @@ class html_renderer extends \plugin_renderer_base {
                 $template->headerbgcontainerclass = 'col-sm-12 background';
             }
         } else {
-            $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 logo left';
-            $template->headerbgcontainerclass = 'col-sm-9 col-md-9 col-lg-10 grid background';
+            $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 logo left p-0';
+            $template->headerbgcontainerclass = 'col-sm-9 col-md-9 col-lg-10 grid background p-0';
 
             if (isset($settings->headerlayout) && ($settings->headerlayout == 1)) {
                 $template->logocontainerclass = 'col-sm-3 col-md-3 col-lg-2 logo left fixed';
