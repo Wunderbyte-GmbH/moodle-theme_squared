@@ -24,7 +24,6 @@ if ($term) {
     if ($CFG->forcelogin) {
         require_login();
     }
-    $PAGE->set_context(context_system::instance());
     $courserenderer = $PAGE->get_renderer('core', 'course');
 
     echo json_encode($courserenderer->inspector_ajax($term));

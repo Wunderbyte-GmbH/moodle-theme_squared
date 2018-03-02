@@ -74,6 +74,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $courseformat = course_get_format($course->id);
             $course = $courseformat->get_course();
             $courseformatsettings = $courseformat->get_format_options();
+            $coursenumsections = $courseformat->get_last_section_number();
             $sesskey = sesskey();
 
             // Course name.
@@ -101,7 +102,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 } else {
                     $sectionname = $courseformat->get_section_name($thissection->section);
                 }
-                if ($thissection->section <= $course->numsections) {
+                if ($thissection->section <= $coursenumsections) {
                     // Do not link 'orphaned' sections.
                     $label = $course->fullname.' - '.$sectionname;
                     if (stristr($label, $term)) {
