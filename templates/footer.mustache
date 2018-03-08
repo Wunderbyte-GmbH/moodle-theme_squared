@@ -1,19 +1,22 @@
 <footer id="page-footer">
     <div class="row">
-	    <div class="col-md-12">
-	        <div id="course-footer">{{{coursefooter}}}</div>
-	    </div>
-	    <div class="col-sm-6">
-	        <ul class="footerlisting">
-	        {{#list}}
-	            <li><a href="{{url}}">{{text}}</a></li>
-	        {{/list}}
-	        </ul>
-	    </div>
-	    <div class="col-sm-6">
-	        {{{socialicons}}}
-	    </div>
-	    <div class="clearfix"></div>
-	    {{{standardfooterhtml}}}
-	</div>
+        <div class="col-md-12 text-xs-center">
+            <div id="course-footer">{{{coursefooter}}}</div>
+        </div>
+        <div class="col-sm-6">
+            <ul class="footerlisting">
+            {{#list}}
+                <li><a href="{{url}}">{{text}}</a></li>
+            {{/list}}
+            </ul>
+        </div>
+        <div class="col-sm-6">
+            {{{socialicons}}}
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12 text-xs-center">
+            {{{logininfo}}}
+            {{{standardfooterhtml}}}
+        </div>
+    </div>
 </footer>

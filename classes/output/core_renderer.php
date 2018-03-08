@@ -147,7 +147,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             // $course->id is not defined during installation
             return '';
         } else if (isloggedin()) {
-            $context = context_course::instance($course->id);
+            $context = \context_course::instance($course->id);
 
             $fullname = fullname($USER, true);
             // Since Moodle 2.0 this link always goes to the public profile page (not the course profile page)

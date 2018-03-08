@@ -185,6 +185,7 @@ class html_renderer extends \plugin_renderer_base {
      * Render the text shown in the page footer.
      */
     public function footer() {
+        global $OUTPUT;
         if (empty($this->theme)) {
             $this->theme = theme_config::load('squared');
         }
@@ -194,6 +195,7 @@ class html_renderer extends \plugin_renderer_base {
 
         $template->socialicons = $this->squared_socialicons();
 
+        $template->logininfo = $OUTPUT->login_info();
         $template->standardfooterhtml = $this->standard_footer_html();
 
         $template->list = array();
