@@ -288,7 +288,52 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $output = '';
         $template = new stdClass();
 
-        //One block column
+        // Add flat navigation.
+        global $PAGE;
+        $flatnavname = get_string('flatnavigation', 'theme_squared');
+        $templatecontext = array('flatnavigation' => $PAGE->flatnav);
+        $thisblock = new stdClass();
+        $thisblock->name = 'block_flat_navigation';
+        $thisblock->title = '<span class="title">'.$flatnavname.'</span>';
+        $thisblock->header = '<div class="title"><h2>'.$flatnavname.'</h2></div>';
+        $thisblock->content = $this->render_from_template('theme_squared/flat_navigation_content', $templatecontext);
+        $thisblock->blockinstanceid = "fake9999"; // Not sure!  But we are a 'fake' block.
+        $thisblock->instanceid = "fake9999";
+        $thisblock->movetarget = false;
+        //$thisblock->collapsible = 2;
+        $thisblock->attributes = array();
+        $thisblock->attributes['aria-label'] = $flatnavname;
+        $thisblock->attributes['class'] = 'block_flat_navigation block card';
+        $thisblock->attributes['data-instanceid'] = $thisblock->blockinstanceid;
+        $thisblock->atts = array();
+        foreach ($thisblock->attributes as $key => $val) {
+            $attribute = new stdClass();
+            $attribute->key = $key;
+            $attribute->value = $val;
+            $thisblock->atts[] = $attribute;
+        }
+        $attribute = new stdClass();
+        $attribute->key = "data-block";
+        $attribute->value = "navigation";
+        $specialattribute = new stdClass();
+        $specialattribute->key = "id";
+        $specialattribute->value = "inst-fake9999";
+        $thisblock->atts[] = $specialattribute;
+        $specialattribute = new stdClass();
+        $specialattribute->key = "role";
+        $specialattribute->value = "navigation";
+        $thisblock->atts[] = $specialattribute;
+        $specialattribute = new stdClass();
+        $specialattribute->key = "data-instanceid";
+        $specialattribute->value = "fake9999";
+        $thisblock->atts[] = $specialattribute;
+        $specialattribute = new stdClass();
+        $specialattribute->key = "aria-labelledby";
+        $specialattribute->value = "inst-fake9999-header";
+        $thisblock->atts[] = $specialattribute;
+        $template->blocks[] = $thisblock;
+
+        // One block column.
         foreach ($blockcontents as $bc) {
             if ($bc instanceof block_contents) {
 
@@ -308,7 +353,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }
         }
 
-        //Two block columns
+        // Two block columns
         $template->pairs = array();
         $cols = 2;
         $count = 1;
@@ -442,7 +487,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $bc->atts[] = $attribute;
         }
 
-        $this->init_block_hider_js($bc);
+        $this->init_block_hider_js($bc);  // TODO: As blocks are already 'hidden' by the squares, then is this needed?
         return $bc;
     }
 

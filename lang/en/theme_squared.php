@@ -76,3 +76,6 @@ $string['youtubelinkdesc'] = 'The link should look like this: http://www.youtube
 
 // Course content search.
 $string['findcoursecontent'] = 'Course content: ';
+
+// Flat navigation block.
+$string['flatnavigation'] = 'Navigation';
