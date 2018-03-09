@@ -47,7 +47,74 @@ class toolbox {
     }
 
     public function get_extra_scss($theme) {
-        return theme_boost_get_extra_scss($this->boostparent);
+        global $CFG;
+
+        $scss = theme_boost_get_extra_scss($this->boostparent);
+
+        require_once("$CFG->libdir/coursecatlib.php");
+        $categorytree = \coursecat::get(0)->get_children();
+
+        // Navbar Colours.
+        foreach ($categorytree as $cid => $value) {
+            $setting = 'bgcolor'.$cid;
+            if (isset($theme->settings->$setting)) {
+                $scss .= '
+                    @media (min-width: @screen-sm) {
+                        .navbar-default .navbar-nav .catcolour'.$cid.' {
+                             @include menu_item('.$theme->settings->$setting.');
+                        }
+                    }
+                ';
+                $scss .= '
+                    .category-'.$cid.' {
+                        #block-region-side-pre {
+                            .blockheader, .block .card-heading {
+                                background-color: '.$theme->settings->$setting.';
+                                @include gradient-directional(lighten('.$theme->settings->$setting.', 15%), darken('.$theme->settings->$setting.', 5%));
+                            }
+                            .card-group {
+                                background-color: '.$theme->settings->$setting.';
+                            }
+
+                            .over-hover-to-bottom:before {
+                                background-color: lighten('.$theme->settings->$setting.', 5%);
+                            }
+                        }
+                        .course-content .sectionname .sqheadingicon {
+                            background-color: '.$theme->settings->$setting.';
+                        }
+                        &.path-mod-forum {
+                            .forumpost {
+                                .row .left.picture {
+                                    background-color: '.$theme->settings->$setting.';
+                                }
+                            }
+                        }
+
+                    }
+                    @media (max-width: $screen-breakpoint) {
+                        .category-'.$cid.' {
+                            #block-region-side-pre .card-group {
+                                background-color: transparent;
+                            }
+                        }
+                    }
+                ';
+            }
+        }
+
+        $showbgcolor = true;
+        if (isset($theme->settings->nologobgcolor) && $theme->settings->nologobgcolor == 1) {
+            $showbgcolor = false;
+        }
+        if ($showbgcolor && isset($theme->settings->logobgcolor)) {
+            $scss .= '
+                .headerimages .logoimg {
+                    background-color: '.$theme->settings->logobgcolor.';
+                }';
+        }
+
+        return $scss;
     }
 
     public function get_main_scss_content($theme) {
