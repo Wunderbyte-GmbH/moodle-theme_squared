@@ -85,7 +85,7 @@ echo $OUTPUT->doctype() ?>
                 </div>
 
                 <?php
-                echo $OUTPUT->context_header();
+                echo $OUTPUT->full_header();
                 echo $OUTPUT->course_content_header();
                 echo $OUTPUT->main_content();
                 echo $OUTPUT->course_content_footer();

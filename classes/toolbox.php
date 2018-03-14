@@ -80,7 +80,8 @@ class toolbox {
                                 background-color: lighten('.$theme->settings->$setting.', 5%);
                             }
                         }
-                        .course-content .sectionname .sqheadingicon {
+                        .course-content .sectionname .sqheadingicon,
+                        #page-header .context-header-settings-menu {
                             background-color: '.$theme->settings->$setting.';
                         }
                         &.path-mod-forum {

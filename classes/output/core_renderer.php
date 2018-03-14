@@ -42,6 +42,26 @@ class core_renderer extends \theme_boost\output\core_renderer {
     protected $themesquared = null;
 
     /**
+     * Wrapper for header elements.
+     *
+     * @return string HTML to display the main header.
+     */
+    public function full_header() {
+        global $PAGE;
+
+        $html = html_writer::start_tag('header', array('id' => 'page-header', 'class' => 'row'));
+        $html .= html_writer::start_div('col-xs-12 p-a-1');
+        $html .= html_writer::div($this->context_header_settings_menu(), 'pull-xs-right context-header-settings-menu');
+        $html .= html_writer::start_div('pull-xs-left');
+        $html .= $this->context_header();
+        $html .= html_writer::end_div();
+        $html .= html_writer::tag('div', $this->course_header(), array('id' => 'course-header'));
+        $html .= html_writer::end_div();
+        $html .= html_writer::end_tag('header');
+        return $html;
+    }
+
+    /**
      * Outputs a custom heading with a wrapper
      *
      * @see core_renderer::heading()
