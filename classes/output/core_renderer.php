@@ -318,7 +318,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $thisblock->blockinstanceid = "fake9999"; // Not sure!  But we are a 'fake' block.
         $thisblock->instanceid = "fake9999";
         $thisblock->movetarget = false;
-        //$thisblock->collapsible = 2;
         $thisblock->attributes = array();
         $thisblock->attributes['aria-label'] = $flatnavname;
         $thisblock->attributes['class'] = 'block_flat_navigation block card';
@@ -354,6 +353,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
         // One block column.
         foreach ($blockcontents as $bc) {
             if ($bc instanceof block_contents) {
+                if (($bc->attributes['data-block'] == 'navigation') || ($bc->attributes['data-block'] == 'settings')) {
+                    continue;
+                }
 
                 $thisblock = $this->block($bc, $region);
                 $thisblock->header = $this->block_header($bc);
