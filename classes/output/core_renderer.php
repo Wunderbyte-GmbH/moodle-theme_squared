@@ -32,8 +32,6 @@ defined('MOODLE_INTERNAL') || die;
 
 use block_contents;
 use coursecat;
-//use custom_menu;
-//use custom_menu_item;
 use html_writer;
 use moodle_url;
 use stdClass;
@@ -211,7 +209,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                         $a = new stdClass();
                         $a->attempts = $count;
                         $loggedinas .= get_string('failedloginattempts', '', $a);
-                        if (file_exists("$CFG->dirroot/report/log/index.php") and has_capability('report/log:view', context_system::instance())) {
+                        if (file_exists("$CFG->dirroot/report/log/index.php") and has_capability('report/log:view', \context_system::instance())) {
                             $loggedinas .= ' ('.html_writer::link(new moodle_url('/report/log/index.php', array('chooselog' => 1,
                                             'id' => 0 , 'modid' => 'site_errors')), get_string('logs')).')';
                         }
@@ -750,7 +748,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         // Role.
         if (!empty($opts->metadata['asotherrole'])) {
-            $role = core_text::strtolower(preg_replace('#[ ]+#', '-', trim($opts->metadata['rolename'])));
+            $role = \core_text::strtolower(preg_replace('#[ ]+#', '-', trim($opts->metadata['rolename'])));
             $usertextcontents .= html_writer::span(
                 $opts->metadata['rolename'],
                 'meta role role-' . $role
