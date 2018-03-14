@@ -505,7 +505,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $bc->atts[] = $attribute;
         }
 
-        $this->init_block_hider_js($bc);  // TODO: As blocks are already 'hidden' by the squares, then is this needed?
         return $bc;
     }
 
