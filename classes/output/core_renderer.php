@@ -37,6 +37,8 @@ use moodle_url;
 use stdClass;
 use theme_config;
 
+require_once($CFG->dirroot . '/course/format/lib.php');
+
 class core_renderer extends \theme_boost\output\core_renderer {
 
     protected $themesquared = null;
