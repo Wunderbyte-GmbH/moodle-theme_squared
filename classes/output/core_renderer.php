@@ -41,8 +41,6 @@ require_once($CFG->dirroot . '/course/format/lib.php');
 
 class core_renderer extends \theme_boost\output\core_renderer {
 
-    protected $themesquared = null;
-
     /**
      * Wrapper for header elements.
      *
@@ -413,10 +411,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $template->pairs[] = $pair;
         }
 
-        if ($this->themesquared == null) {
-            $this->themesquared = theme_config::load('squared');
-        }
-        if (isset($themesquared->settings->blockperrowlimit) && $numblocks >= $themesquared->settings->blockperrowlimit) {
+        if (isset($this->page->theme->settings->blockperrowlimit) && $numblocks >= $this->page->theme->settings->blockperrowlimit) {
             return $this->render_from_template('theme_squared/blocksrows', $template);
         } else {
             return $this->render_from_template('theme_squared/blocks', $template);
