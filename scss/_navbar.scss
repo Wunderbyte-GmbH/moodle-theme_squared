@@ -20,6 +20,18 @@
     margin: 7px 7px 7px 0;
 }
 
+.navbar-dark .popover-region-chsm a .icon {
+    color: $navbar-dark-color;
+}
+.navbar-light .popover-region-chsm a .icon {
+    color: $navbar-light-color;
+}
+
+.navbar-dark .navbar-nav .popover-region-chsm.nav-link,
+.navbar-light .navbar-nav .popover-region-chsm.nav-link {
+    text-transform: none;
+}
+
 //Allow lang menu to pop over expanded menu.
 .navbar-collapse.in {
     overflow-y: visible;
