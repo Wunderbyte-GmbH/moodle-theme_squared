@@ -122,6 +122,20 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
+     * Returns the settings menu for the navbar if any.
+     *
+     * @return string
+     */
+    public function navbar_settings_menu() {
+        $menu = $this->region_main_settings_menu();
+        if (empty($menu)) {
+            $menu = $this->context_header_settings_menu();
+        }
+
+        return $menu;
+    }
+
+    /**
      * Return the standard string that says whether you are logged in (and switched
      * roles/logged in as another user).
      * @param bool $withlinks if false, then don't include any links in the HTML produced.
