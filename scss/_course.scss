@@ -21,12 +21,24 @@
         }
     }
 
+    .section.row {
+        margin-left: 0;
+        margin-right: 0;
+        .activity {
+            background-color: #eceeef;
+        }
+        /*.mod-indent-outer .mod-indent {
+            width: auto; // Cancel out any indents.
+        }*/
+    }
+
+    .section div.section,
     .section ul.section,
     .section div.summary {
         padding: 15px 20px;
         border: 1px solid #fff;
         box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
-        background: #FFF;
+        background: #fff;
         font-size: 100%;
     }
 
