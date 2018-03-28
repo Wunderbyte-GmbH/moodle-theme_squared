@@ -31,6 +31,66 @@ defined('MOODLE_INTERNAL') || die;
 class theme_squared_core_course_renderer extends core_course_renderer {
 
     /**
+     * Renders html to display a name with the link to the course module on a course page
+     *
+     * If module is unavailable for user but still needs to be displayed
+     * in the list, just the name is returned without a link
+     *
+     * Note, that for course modules that never have separate pages (i.e. labels)
+     * this function return an empty string
+     *
+     * @param cm_info $mod
+     * @param array $displayoptions
+     * @return string
+     */
+    public function course_section_cm_name_title(cm_info $mod, $displayoptions = array()) {
+        if ($this->page->user_is_editing()) {
+            return parent::course_section_cm_name_title($mod, $displayoptions);
+        }
+
+        $output = '';
+        $url = $mod->url;
+        if (!$mod->is_visible_on_course_page() || !$url) {
+            // Nothing to be displayed to the user.
+            return $output;
+        }
+
+        //Accessibility: for files get description via icon, this is very ugly hack!
+        $instancename = $mod->get_formatted_name();
+        $altname = $mod->modfullname;
+        /* Avoid unnecessary duplication: if e.g. a forum name already
+           includes the word forum (or Forum, etc) then it is unhelpful
+           to include that in the accessible description that is added. */
+        if (false !== strpos(core_text::strtolower($instancename),
+                core_text::strtolower($altname))) {
+            $altname = '';
+        }
+        // File type after name, for alphabetic lists (screen reader).
+        if ($altname) {
+            $altname = get_accesshide(' '.$altname);
+        }
+
+        list($linkclasses, $textclasses) = $this->course_section_cm_classes($mod);
+
+        /* Get on-click attribute value if specified and decode the onclick - it
+           has already been encoded for display. */
+        $onclick = htmlspecialchars_decode($mod->onclick, ENT_QUOTES);
+
+        // Display link itself.
+        $activitylink = html_writer::tag('div', html_writer::empty_tag('img', array('src' => $mod->get_icon_url(),
+                'class' => 'iconlarge activityicon', 'alt' => ' ', 'role' => 'presentation')), array('class' => 'sqactivityicon')) .
+                html_writer::tag('span', $instancename . $altname, array('class' => 'instancename'));
+        if ($mod->uservisible) {
+            $output .= html_writer::link($url, $activitylink, array('class' => $linkclasses, 'onclick' => $onclick));
+        } else {
+            /* We may be displaying this just in order to show information
+               about visibility, without the actual link ($mod->is_visible_on_course_page()). */
+            $output .= html_writer::tag('div', $activitylink, array('class' => $textclasses));
+        }
+        return $output;
+    }
+
+    /**
      * Renders HTML to display one course module in a course section
      *
      * This includes link, content, availability, completion info and additional information
@@ -84,16 +144,15 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $output .= html_writer::end_tag('div'); // .activityinstance
         }
 
-        // If there is content but NO link (eg label), then display the
-        // content here (BEFORE any icons). In this case cons must be
-        // displayed after the content so that it makes more sense visually
-        // and for accessibility reasons, e.g. if you have a one-line label
-        // it should work similarly (at least in terms of ordering) to an
-        // activity.
-        $contentpart = $this->course_section_cm_text($mod, $displayoptions);
+        /* If there is content but NO link (eg label), then display the
+           content here (BEFORE any icons). In this case icons must be
+           displayed after the content so that it makes more sense visually
+           and for accessibility reasons, e.g. if you have a one-line label
+           it should work similarly (at least in terms of ordering) to an
+           activity. */
         $url = $mod->url;
         if (empty($url)) {
-            $output .= $contentpart;
+            $output .= $this->course_section_cm_text($mod, $displayoptions);
         }
 
         $modicons = $this->course_section_cm_completion($course, $completioninfo, $mod, $displayoptions);
@@ -151,8 +210,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return void
      */
     public function course_section_cm_list($course, $section, $sectionreturn = null, $displayoptions = array()) {
-        global $USER;
-
         if ($this->page->user_is_editing()) {
             return parent::course_section_cm_list($course, $section, $sectionreturn, $displayoptions);
         }
@@ -166,49 +223,20 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         }
         $completioninfo = new completion_info($course);
 
-        // Check if we are currently in the process of moving a module with JavaScript disabled.
-        $ismoving = $this->page->user_is_editing() && ismoving($course->id);
-        if ($ismoving) {
-            $movingpix = new pix_icon('movehere', get_string('movehere'), 'moodle', array('class' => 'movetarget'));
-            $strmovefull = strip_tags(get_string("movefull", "", "'$USER->activitycopyname'"));
-        }
-
-        // Get the list of modules visible to user (excluding the module being moved if there is one).
-        $moduleshtml = array();
+        // Get the list of modules visible to user.
+        $sectionoutput = '';
         if (!empty($modinfo->sections[$section->section])) {
             foreach ($modinfo->sections[$section->section] as $modnumber) {
                 $mod = $modinfo->cms[$modnumber];
 
-                if ($ismoving and $mod->id == $USER->activitycopy) {
-                    // Do not display moving mod.
-                    continue;
-                }
-
                 if ($modulehtml = $this->course_section_cm_list_item($course,
                         $completioninfo, $mod, $sectionreturn, $displayoptions)) {
-                    $moduleshtml[$modnumber] = $modulehtml;
+                    $modclasses = 'col-sm-12';
+                    if ($mod->modname != 'label') {
+                        $modclasses .= ' col-md-6 col-lg-3 sqcol';
+                    }
+                    $sectionoutput .= html_writer::tag('div', $modulehtml, array('class' => $modclasses));
                 }
-            }
-        }
-
-        $sectionoutput = '';
-        if (!empty($moduleshtml) || $ismoving) {
-            foreach ($moduleshtml as $modnumber => $modulehtml) {
-                if ($ismoving) {
-                    $movingurl = new moodle_url('/course/mod.php', array('moveto' => $modnumber, 'sesskey' => sesskey()));
-                    $sectionoutput .= html_writer::tag('div',
-                            html_writer::link($movingurl, $this->output->render($movingpix), array('title' => $strmovefull)),
-                            array('class' => 'movehere'));
-                }
-
-                $sectionoutput .= html_writer::tag('div', $modulehtml, array('class' => 'col-sm-12 col-md-6 col-lg-3'));
-            }
-
-            if ($ismoving) {
-                $movingurl = new moodle_url('/course/mod.php', array('movetosection' => $section->id, 'sesskey' => sesskey()));
-                $sectionoutput .= html_writer::tag('div', html_writer::tag('div',
-                        html_writer::link($movingurl, $this->output->render($movingpix), array('title' => $strmovefull)),
-                        array('class' => 'movehere col-sm-12')), array('class' => 'row'));
             }
         }
 
