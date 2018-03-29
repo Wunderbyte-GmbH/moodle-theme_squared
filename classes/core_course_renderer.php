@@ -231,9 +231,23 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
                 if ($modulehtml = $this->course_section_cm_list_item($course,
                         $completioninfo, $mod, $sectionreturn, $displayoptions)) {
-                    $modclasses = 'col-sm-12';
                     if ($mod->modname != 'label') {
-                        $modclasses .= ' col-md-6 col-lg-3 sqcol';
+                        switch(get_config('theme_squared', 'activitylayout')) {
+                            case 1: // 1,3,3
+                               $modclasses = 'col-sm-12 col-md-4 col-lg-4';
+                               break;
+                            case 2: // 1,2,4
+                               $modclasses = 'col-sm-12 col-md-6 col-lg-3';
+                               break;
+                            case 3: // 1,2,3
+                               $modclasses = 'col-sm-12 col-md-6 col-lg-4';
+                               break;
+                            default:
+                               $modclasses = 'col-sm-12 col-md-4 col-lg-4';
+                        }
+                        $modclasses .= ' sqcol';
+                    } else {
+                        $modclasses = 'col-sm-12';
                     }
                     $sectionoutput .= html_writer::tag('div', $modulehtml, array('class' => $modclasses));
                 }

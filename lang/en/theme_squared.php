@@ -13,6 +13,8 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+$string['activitylayout'] = 'Activity layout';
+$string['activitylayoutdesc'] = 'Set the number of columns to use for the layout of the activities on a course at different window widths.  The numbers are in order of small, medium and large.';
 $string['alternateloginurl'] = 'Alternate MNET login url';
 $string['alternateloginurldesc'] = 'Select an alternate MNET Login host for direct login on the selected MNET host';
 $string['basicsettings'] = 'General settings';
