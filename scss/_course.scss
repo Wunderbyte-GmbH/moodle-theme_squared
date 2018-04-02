@@ -50,6 +50,29 @@
                 border-bottom: 2px solid #eceeef;
                 border-left: 2px solid #eceeef;
                 border-right: 2px solid #eceeef;
+                .contentcontrol {
+                    cursor: pointer;
+                    text-align: right;
+                }
+                > .no-overflow {
+                    max-height: 35px;
+                    position: relative;
+                    overflow: hidden;
+                    transition: max-height 1s ease;
+  
+                    &.-expanded {
+                        max-height: 100vh;
+                    }
+                }
+                > .no-overflow:not(.-expanded)::after {
+                    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+                    bottom: 0;
+                    content: '';
+                    left: 0;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }
             }
         }
 

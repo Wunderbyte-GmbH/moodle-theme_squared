@@ -30,6 +30,18 @@ defined('MOODLE_INTERNAL') || die;
 
 class theme_squared_core_course_renderer extends core_course_renderer {
 
+    private static $content_control_init = false;
+
+    public function __construct(moodle_page $page, $target) {
+        parent::__construct($page, $target);
+        if (!$this->page->user_is_editing()) {
+            if (!self::$content_control_init) {
+                $this->page->requires->js_call_amd('theme_squared/content_control', 'init');
+                self::$content_control_init = true;
+            }
+        }
+    }
+
     /**
      * Renders html to display a name with the link to the course module on a course page
      *
@@ -117,13 +129,14 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         }
 
         $output = '';
-        // We return empty string (because course module will not be displayed at all)
-        // if:
-        // 1) The activity is not visible to users
-        // and
-        // 2) The 'availableinfo' is empty, i.e. the activity was
-        //     hidden in a way that leaves no info, such as using the
-        //     eye icon.
+        /* We return empty string (because course module will not be displayed at all)
+           if:
+           1) The activity is not visible to users
+           and
+           2) The 'availableinfo' is empty, i.e. the activity was
+               hidden in a way that leaves no info, such as using the
+               eye icon.
+        */
         if (!$mod->is_visible_on_course_page()) {
             return $output;
         }
@@ -164,6 +177,44 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         // Show availability info (if module is not available).
         $output .= $this->course_section_cm_availability($mod, $displayoptions);
 
+        return $output;
+    }
+
+    /**
+     * Renders html to display the module content on the course page (i.e. text of the labels)
+     *
+     * @param cm_info $mod
+     * @param array $displayoptions
+     * @return string
+     */
+    public function course_section_cm_text(cm_info $mod, $displayoptions = array()) {
+        if ($this->page->user_is_editing()) {
+            return parent::course_section_cm_text($mod, $displayoptions);
+        }
+
+        $output = '';
+        if (!$mod->is_visible_on_course_page()) {
+            // nothing to be displayed to the user
+            return $output;
+        }
+        $content = $mod->get_formatted_content(array('overflowdiv' => true, 'noclean' => true));
+        list($linkclasses, $textclasses) = $this->course_section_cm_classes($mod);
+        if ($mod->url && $mod->uservisible) {
+            if ($content) {
+                $content .= html_writer::tag('div',
+                    html_writer::tag('i', null, array('class' => 'fa fa-plus-circle', 'aria-hidden' => 'true', 'role' => 'button')),
+                    array('class' => 'contentcontrol'));
+                // If specified, display extra content after link.
+                $output = html_writer::tag('div', $content, array('class' =>
+                    trim('contentafterlink ' . $textclasses)));
+            }
+        } else {
+            $groupinglabel = $mod->get_grouping_label($textclasses);
+
+            // No link, so display only content.
+            $output = html_writer::tag('div', $content . $groupinglabel,
+                    array('class' => 'contentwithoutlink ' . $textclasses));
+        }
         return $output;
     }
 
