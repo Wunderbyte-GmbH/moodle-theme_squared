@@ -71,7 +71,7 @@ class theme_squared_block_navigation_renderer extends block_navigation_renderer 
             }
 
             if ($item->helpbutton !== null) {
-                $content = trim($item->helpbutton).html_writer::tag('span', $content, array('class'=>'clearhelpbutton'));
+                $content = trim($item->helpbutton).html_writer::tag('span', $content, array('class' => 'clearhelpbutton'));
             }
 
             if ($content === '') {
@@ -88,10 +88,10 @@ class theme_squared_block_navigation_renderer extends block_navigation_renderer 
             if (is_string($item->action) || empty($item->action) ||
                     (($item->type === navigation_node::TYPE_CATEGORY || $item->type === navigation_node::TYPE_MY_CATEGORY) &&
                     empty($options['linkcategories']))) {
-                $attributes['tabindex'] = '0'; //add tab support to span but still maintain character stream sequence.
+                $attributes['tabindex'] = '0'; // Add tab support to span but still maintain character stream sequence.
                 $content = html_writer::tag('span', $content, $attributes);
             } else if ($item->action instanceof action_link) {
-                //TODO: to be replaced with something else
+                // TODO: to be replaced with something else.
                 $link = $item->action;
                 $link->text = $icon.html_writer::span($link->text, 'item-content-wrap');
                 $link->attributes = array_merge($link->attributes, $attributes);
@@ -128,13 +128,13 @@ class theme_squared_block_navigation_renderer extends block_navigation_renderer 
             if ($item->isactive === true) {
                 $liclasses[] = 'current_branch';
             }
-            if (!empty($item->classes) && count($item->classes)>0) {
+            if (!empty($item->classes) && count($item->classes) > 0) {
                 $divclasses[] = join(' ', $item->classes);
             }
 
             // Now build attribute arrays.
             $liattr = array('class' => join(' ', $liclasses)) + $liexpandable;
-            $divattr = array('class'=>join(' ', $divclasses));
+            $divattr = array('class' => join(' ', $divclasses));
             if (!empty($item->id)) {
                 $divattr['id'] = $item->id;
             }
@@ -142,9 +142,9 @@ class theme_squared_block_navigation_renderer extends block_navigation_renderer 
             // Create the structure.
             $content = html_writer::tag('p', $content, $divattr);
             if ($isexpandable) {
-                $content .= $this->navigation_node($item->children, array(), $expansionlimit, $options, $depth+1);
+                $content .= $this->navigation_node($item->children, array(), $expansionlimit, $options, $depth + 1);
             }
-            if (!empty($item->preceedwithhr) && $item->preceedwithhr===true) {
+            if (!empty($item->preceedwithhr) && $item->preceedwithhr === true) {
                 $content = html_writer::empty_tag('hr') . $content;
             }
             $content = html_writer::tag('li', $content, $liattr);

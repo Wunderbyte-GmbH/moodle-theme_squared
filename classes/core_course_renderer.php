@@ -17,7 +17,6 @@
 /**
  * This is the squared theme.
  *
- *
  * The squared theme makes uses a custom version of squared blocks
  *
  * @package theme_squared
@@ -30,14 +29,14 @@ defined('MOODLE_INTERNAL') || die;
 
 class theme_squared_core_course_renderer extends core_course_renderer {
 
-    private static $content_control_init = false;
+    private static $contentcontrolinit = false;
 
     public function __construct(moodle_page $page, $target) {
         parent::__construct($page, $target);
         if (!$this->page->user_is_editing()) {
-            if (!self::$content_control_init) {
+            if (!self::$contentcontrolinit) {
                 $this->page->requires->js_call_amd('theme_squared/content_control', 'init');
-                self::$content_control_init = true;
+                self::$contentcontrolinit = true;
             }
         }
     }
@@ -67,7 +66,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             return $output;
         }
 
-        //Accessibility: for files get description via icon, this is very ugly hack!
+        // Accessibility: for files get description via icon, this is very ugly hack!
         $instancename = $mod->get_formatted_name();
         $altname = $mod->modfullname;
         /* Avoid unnecessary duplication: if e.g. a forum name already
@@ -149,7 +148,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $output .= html_writer::start_tag('div', array('class' => 'activityinstance'));
             $output .= $cmname;
 
-
             // Module can put text after the link (e.g. forum unread)
             $output .= $mod->afterlink;
 
@@ -205,8 +203,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                     html_writer::tag('i', null, array('class' => 'fa fa-plus-circle', 'aria-hidden' => 'true', 'role' => 'button')),
                     array('class' => 'contentcontrol'));
                 // If specified, display extra content after link.
-                $output = html_writer::tag('div', $content, array('class' =>
-                    trim('contentafterlink ' . $textclasses)));
+                $output = html_writer::tag('div', $content, array('class' => trim('contentafterlink ' . $textclasses)));
             }
         } else {
             $groupinglabel = $mod->get_grouping_label($textclasses);
@@ -284,17 +281,17 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                         $completioninfo, $mod, $sectionreturn, $displayoptions)) {
                     if ($mod->modname != 'label') {
                         switch(get_config('theme_squared', 'activitylayout')) {
-                            case 1: // 1,3,3
-                               $modclasses = 'col-sm-12 col-md-4 col-lg-4';
-                               break;
-                            case 2: // 1,2,4
-                               $modclasses = 'col-sm-12 col-md-6 col-lg-3';
-                               break;
-                            case 3: // 1,2,3
-                               $modclasses = 'col-sm-12 col-md-6 col-lg-4';
-                               break;
+                            case 1: // 1,3,3.
+                                $modclasses = 'col-sm-12 col-md-4 col-lg-4';
+                                break;
+                            case 2: // 1,2,4.
+                                $modclasses = 'col-sm-12 col-md-6 col-lg-3';
+                                break;
+                            case 3: // 1,2,3.
+                                $modclasses = 'col-sm-12 col-md-6 col-lg-4';
+                                break;
                             default:
-                               $modclasses = 'col-sm-12 col-md-4 col-lg-4';
+                                $modclasses = 'col-sm-12 col-md-4 col-lg-4';
                         }
                         $modclasses .= ' sqcol';
                     } else {

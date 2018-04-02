@@ -17,7 +17,6 @@
 /**
  * This is the squared theme.
  *
- *
  * The squared theme makes uses a custom version of squared blocks
  *
  * @package theme_squared
@@ -27,11 +26,11 @@
  */
 defined ( 'MOODLE_INTERNAL' ) || die ();
 
-$plugin->version =     2018013100;
-$plugin->requires =    2017051500.00; // This is Moodle 3.3 (Build: 20170515).
-$plugin->release =     "Temp Square 0.92"; // Release name: famous squares around the world followed by Moodle version followed by number
-$plugin->maturity =    MATURITY_BETA;
-$plugin->component =   'theme_squared'; // Full name of the plugin (used for diagnostics)
+$plugin->version = 2018013100;
+$plugin->requires = 2017051500.00; // This is Moodle 3.3 (Build: 20170515).
+$plugin->release = "Temp Square 0.92"; // Release name: famous squares around the world followed by Moodle version followed by number.
+$plugin->maturity = MATURITY_BETA;
+$plugin->component = 'theme_squared'; // Full name of the plugin (used for diagnostics)
 $plugin->dependencies = array (
     'theme_boost' => 2017051500
 );

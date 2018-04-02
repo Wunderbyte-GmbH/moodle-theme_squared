@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * A wrapper round Moodle's settings API to simplify the common cases
  * for themers, often via "convention over configuration" and the reduction
@@ -66,7 +65,7 @@ class squared_simple_theme_settings {
         $this->settingspage->add($checkbox);
     }
 
-        public function add_checkboxes($setting, $instance, $default='0', $checked='1', $unchecked='0') {
+    public function add_checkboxes($setting, $instance, $default='0', $checked='1', $unchecked='0') {
         $checkbox = new admin_setting_configcheckbox(
             $this->name_for($setting . $instance),
             $this->title_for($setting, $instance),
@@ -245,16 +244,16 @@ class squared_simple_theme_settings {
                 JOIN {mnet_application} a ON h.applicationid = a.id
                 WHERE s.name = ? AND h.deleted = ? AND m.publish = ?";
         $params = array (
-                'sso_sp',
-                0,
-                1 
+            'sso_sp',
+            0,
+            1 
         );
-        
+
         if (! empty ( $CFG->mnet_all_hosts_id )) {
             $sql .= " AND h.id <> ?";
             $params [] = $CFG->mnet_all_hosts_id;
         }
-        
+
         if ($hosts = $DB->get_records_sql ( $sql, $params )) {
             $choices = array ();
             $choices [0] = 'notset';
@@ -268,4 +267,3 @@ class squared_simple_theme_settings {
         return $choices;
     }
 }
-

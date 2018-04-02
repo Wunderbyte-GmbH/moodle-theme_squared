@@ -25,30 +25,29 @@
  */
 
 /* jshint ignore:start */
-define(['jquery'], function($) {
+define(['jquery', 'core/log'], function($, log) {
 
-  "use strict"; // jshint ;_;
+    "use strict"; // jshint ;_;
 
-  console.log('Squared search AMD initialised');
+    log.debug('Squared search AMD initialised');
 
-  $(document).ready(function() {
-
-	    $('body').on('click', '.searchtoggle', function(e){
-	        e.preventDefault();
-	        $('#header').addClass('search-toggled');
-	    });
-	    
-	    $('body').on('click', '#top-search-close', function(e){
-	        e.preventDefault();
-	        
-	        $('#header').removeClass('search-toggled');
-	    });
-	    $('.search input').hide();
-	    $('#search-trigger').click(function(){
-	        $('.search input').slideToggle('fast').focus();
-	        $(this).toggleClass('active');
-	        $('.search-wrapper').toggleClass('inactive');
-	    });
-  });
+    $(document).ready(function() {
+        $('body').on('click', '.searchtoggle', function(e){
+            e.preventDefault();
+            $('#header').addClass('search-toggled');
+        });
+        
+        $('body').on('click', '#top-search-close', function(e){
+            e.preventDefault();
+            
+            $('#header').removeClass('search-toggled');
+        });
+        $('.search input').hide();
+        $('#search-trigger').click(function(){
+            $('.search input').slideToggle('fast').focus();
+            $(this).toggleClass('active');
+            $('.search-wrapper').toggleClass('inactive');
+        });
+    });
 });
 /* jshint ignore:end */

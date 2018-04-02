@@ -31,11 +31,11 @@ matrix:
 #      postgresql: 9.3
 env:
  global:
-  - MOODLE_BRANCH=MOODLE_31_STABLE
+  - MOODLE_BRANCH=MOODLE_33_STABLE
   - IGNORE_PATHS=amd/build,less/legacy
   # Ignore custom.css until CSSlint can be instructed to ignore lines for '[[setting:customcss]]'.
   # Also ignore generated CSS files.
-  - IGNORE_NAMES=*.txt,squared.css
+  - IGNORE_NAMES=*.txt,squared.css,html5shiv.js
 
 before_install:
 # This disables XDebug which should speed up the build.  One reason to remove this

@@ -1,5 +1,5 @@
 <?php
-// This file is part of The Bootstrap Moodle theme
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,6 +13,19 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * This is the squared theme.
+ *
+ * The squared theme makes uses a custom version of squared blocks
+ *
+ * @package theme_squared
+ * @copyright 2016 onwards Onlinecampus Virtuelle PH
+ * www.virtuelle-ph.at, David Bogner www.edulabs.org
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+defined('MOODLE_INTERNAL') || die;
 
 $term = optional_param('term', '', PARAM_TEXT);
 if ($term) {
@@ -43,10 +56,7 @@ if ($knownregionpre || $knownregionpost) {
     theme_squared_initialise_zoom($PAGE);
 }
 $setzoom = theme_squared_get_zoom();
-//$PAGE->requires->jquery();
 $html = $PAGE->get_renderer('theme_squared', 'html');
-//$html = \theme_squared\html_renderer::get_instance();
-//$html = $PAGE->get_renderer('theme_squared', 'core');
 
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>

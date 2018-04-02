@@ -25,28 +25,28 @@
  */
 
 /* jshint ignore:start */
-define([ 'jquery' ], function($) {
+define(['jquery', 'core/log'], function($, log) {
 
-	"use strict"; // jshint ;_;
+    "use strict"; // jshint ;_;
 
-	console.log('Squared zoom AMD initialised');
+    log.debug('Squared zoom AMD initialised');
 
-	$(document).ready(function() {
+    $(document).ready(function() {
 
-		var onZoom = function() {
-			var zoomin = $('body').hasClass('zoomin');
-			if (zoomin) {
-				$('body').removeClass('zoomin');
-				$('body').addClass('nozoom');
-				M.util.set_user_preference('theme_squared_zoom', 'nozoom');
-			} else {
-				$('body').removeClass('nozoom');
-				$('body').addClass('zoomin');
-				M.util.set_user_preference('theme_squared_zoom', 'zoomin');
-			}
-		};
-		//When the button with class .moodlezoom is clicked fire the onZoom function
-		$('body').delegate('.moodlezoom', 'click', onZoom);
-	});
+        var onZoom = function() {
+            var zoomin = $('body').hasClass('zoomin');
+            if (zoomin) {
+                $('body').removeClass('zoomin');
+                $('body').addClass('nozoom');
+                M.util.set_user_preference('theme_squared_zoom', 'nozoom');
+            } else {
+                $('body').removeClass('nozoom');
+                $('body').addClass('zoomin');
+                M.util.set_user_preference('theme_squared_zoom', 'zoomin');
+            }
+        };
+        // When the button with class .moodlezoom is clicked fire the onZoom function.
+        $('body').delegate('.moodlezoom', 'click', onZoom);
+    });
 });
 /* jshint ignore:end */

@@ -17,7 +17,6 @@
 /**
  * This is the squared theme.
  *
- *
  * The squared theme makes uses a custom version of squared blocks
  *
  * @package theme_squared
@@ -65,7 +64,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @see core_renderer::heading()
      */
     public function heading($text, $level = 2, $classes = 'main', $id = null) {
-        // for section headings//
+        // For section headings.
         $icon = '';
         if ($level == 3) {
             $icon = html_writer::tag('div', '', array('class' => 'sqheadingicon'));
@@ -188,38 +187,38 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $username = $fullname;
             }
             if (is_mnet_remote_user($USER) and $idprovider = $DB->get_record('mnet_host',
-                    array('id' => $USER->mnethostid))) {
-                        if ($withlinks) {
-                            $username .= " from <a href=\"{$idprovider->wwwroot}\">{$idprovider->name}</a>";
-                        } else {
-                            $username .= " from {$idprovider->name}";
-                        }
-                    }
-                    if (isguestuser()) {
-                        if (!$loginpage && $withlinks) {
-                            $loggedinas = " <a class=\"standardbutton plainlogin btn\" href=\"$loginurl\">" . get_string('login') . '</a>';
-                        }
-                    } else if (is_role_switched($course->id)) { // Has switched roles
-                        $rolename = '';
-                        if ($role = $DB->get_record('role', array('id' => $USER->access['rsw'][$context->path]))) {
-                            $rolename = ': ' . role_get_name($role, $context);
-                        }
-                        $loggedinas = '<span class="loggedintext">' . get_string('loggedinas', 'moodle', $username) . $rolename . '</span>';
-                        if ($withlinks) {
-                            $url = new moodle_url('/course/switchrole.php',
-                                    array('id' => $course->id, 'sesskey' => sesskey(), 'switchrole' => 0, 'returnurl' => $this->page->url->out_as_local_url(false)));
-                            $loggedinas .= '(' . html_writer::tag('a', get_string('switchrolereturn'),
-                                    array('href' => $url, 'class' => 'btn')) . ')';
-                        }
+                array('id' => $USER->mnethostid))) {
+                    if ($withlinks) {
+                        $username .= " from <a href=\"{$idprovider->wwwroot}\">{$idprovider->name}</a>";
                     } else {
-                        $loggedinas = '<span class="loggedintext">' . $realuserinfo . get_string('loggedinas', 'moodle',
-                                $username) . '</span>';
-                                if ($withlinks) {
-                                    $loggedinas .= html_writer::tag('div',
-                                            html_writer::link(new moodle_url('/login/logout.php?sesskey=' . sesskey()),
-                                                    '<em><span class="fa fa-sign-out"></span>' . get_string('logout') . '</em>'));
-                                }
+                        $username .= " from {$idprovider->name}";
                     }
+            }
+            if (isguestuser()) {
+                if (!$loginpage && $withlinks) {
+                    $loggedinas = " <a class=\"standardbutton plainlogin btn\" href=\"$loginurl\">" . get_string('login') . '</a>';
+                }
+            } else if (is_role_switched($course->id)) { // Has switched roles
+                $rolename = '';
+                if ($role = $DB->get_record('role', array('id' => $USER->access['rsw'][$context->path]))) {
+                    $rolename = ': ' . role_get_name($role, $context);
+                }
+                $loggedinas = '<span class="loggedintext">' . get_string('loggedinas', 'moodle', $username) . $rolename . '</span>';
+                if ($withlinks) {
+                    $url = new moodle_url('/course/switchrole.php',
+                        array('id' => $course->id, 'sesskey' => sesskey(), 'switchrole' => 0, 'returnurl' => $this->page->url->out_as_local_url(false)));
+                    $loggedinas .= '(' . html_writer::tag('a', get_string('switchrolereturn'),
+                        array('href' => $url, 'class' => 'btn')) . ')';
+                }
+            } else {
+                $loggedinas = '<span class="loggedintext">' . $realuserinfo . get_string('loggedinas', 'moodle',
+                    $username) . '</span>';
+                if ($withlinks) {
+                    $loggedinas .= html_writer::tag('div',
+                        html_writer::link(new moodle_url('/login/logout.php?sesskey=' . sesskey()),
+                        '<em><span class="fa fa-sign-out"></span>' . get_string('logout') . '</em>'));
+                }
+            }
         } else {
             if (!$loginpage && $withlinks) {
                 $loggedinas = "<a class=\"standardbutton plainlogin btn\" href=\"$loginurl\">" . get_string('login') . '</a>';
@@ -416,7 +415,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         $numblocks = count($template->blocks);
         if ($pair) {
-            if (($numblocks %2) != 0) {
+            if (($numblocks % 2) != 0) {
                 $pair->blocka->shape = 'rectangle';
                 $pair->class = 'col-xs-12 lastblock';
             }
@@ -472,10 +471,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if ($bc->dockable) {
             $bc->attributes['data-dockable'] = 1;
         }
-        if ($bc->collapsible == block_contents::HIDDEN) {
-            // collapsing does not work with default moodle hide/show blocks
-            //$bc->add_class('hidden');
-        }
+        // Collapsing does not work with default moodle hide/show blocks.
+        /* if ($bc->collapsible == block_contents::HIDDEN) {
+            $bc->add_class('hidden');
+        } */
         if (!empty($bc->controls)) {
             $bc->add_class('block_with_controls');
         }
@@ -489,8 +488,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $attribute = new stdClass();
             $attribute->key = $key;
             $attribute->value = $val;
-            // this is ridiculous. the book module should have a proper coding of the toc block ;-)
-            if($val == "_fake") {
+            // This is ridiculous. the book module should have a proper coding of the toc block ;-).
+            if ($val == "_fake") {
                 $attribute->key = "data-block";
                 $attribute->value = "navigation";
                 $specialattribute = new stdClass();
@@ -559,7 +558,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
     protected function squared_prepare_textlinks($textlinks) {
         $textsnippets = explode ( ';', $textlinks );
-        foreach ( $textsnippets as $value ) {
+        foreach ($textsnippets as $value) {
             $textandlinks [] = explode ( ',', $value, 2 );
         }
         $renderedtext = '';
@@ -568,7 +567,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $lastelement = prev ( $textandlinks );
         }
         $attributes = array ();
-        foreach ( $textandlinks as $value ) {
+        foreach ($textandlinks as $value) {
             if (empty ( $value [0] )) {
                 continue;
             }
@@ -578,11 +577,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
             ) );
             $renderedtext .= html_writer::end_tag ( 'span' );
         }
-        $renderedtext .= html_writer::tag ( 'span', page_doc_link(get_string('moodledocslink')), array (
-                'class' => 'helplink'
+        $renderedtext .= html_writer::tag ('span', page_doc_link(get_string('moodledocslink')), array (
+            'class' => 'helplink'
         ) );
-        $renderedtext .= html_writer::tag ( 'span', 'Theme by <a href="http://www.edulabs.org" target="_blank">edulabs.org - e-learning solutions</a>', array (
-                'class' => 'squared-themeby lastelement'
+        $renderedtext .= html_writer::tag ('span', 'Theme by <a href="http://www.edulabs.org" target="_blank">edulabs.org - e-learning solutions</a>', array (
+            'class' => 'squared-themeby lastelement'
         ) );
         return $renderedtext;
     }

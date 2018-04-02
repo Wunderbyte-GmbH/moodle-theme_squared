@@ -26,12 +26,14 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+ defined('MOODLE_INTERNAL') || die;
+
 function theme_squared_grid($hassidepre) {
 
     if ($hassidepre) {
         $regions = array('content' => 'col-md-9 push-md-3 col-lg-10 push-lg-2 col-xl-10 push-xl-2 p-0');
         $regions['pre'] = 'col-md-3 pull-md-9 col-lg-2 pull-lg-10 col-xl-2 pull-xl-10';
-    } else  {
+    } else {
         $regions = array('content' => 'col-md-12');
         $regions['pre'] = 'empty';
     }

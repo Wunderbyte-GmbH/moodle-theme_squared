@@ -24,6 +24,8 @@
  * breaking installation or upgrade unwittingly.
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $regions = theme_squared_grid(false);
 
 echo $OUTPUT->doctype() ?>

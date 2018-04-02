@@ -24,7 +24,7 @@
  * www.virtuelle-ph.at, David Bogner www.edulabs.org
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
+
 /* jshint ignore:start */
 define(['jquery', 'core/log'], function($, log) {
 
