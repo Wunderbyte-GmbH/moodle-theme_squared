@@ -61,7 +61,22 @@
                     transition: max-height 1s ease;
   
                     &.-expanded {
-                        max-height: 100vh;
+                        max-height: 420px; // Line height (21px) * 20 lines.
+                    }
+                    &.-expanded:before {
+                        bottom: 0;
+                        content: '...';
+                        position: absolute;
+                        right: 0;
+                    }
+                    &.-expanded:after {
+                        background: #fff;
+                        content: '';
+                        height: 1em;
+                        margin-top: 0.2em;
+                        position: absolute;
+                        right: 0;
+                        width: 1em;
                     }
                 }
                 > .no-overflow:not(.-expanded)::after {
