@@ -324,7 +324,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $thisblock = new stdClass();
         $thisblock->name = 'block_flat_navigation';
         $thisblock->title = '<span class="title">'.$flatnavname.'</span>';
-        $thisblock->header = '<div class="title"><h2>'.$flatnavname.'</h2></div>';
+        $thisblock->header = '<div class="header"><div class="title"><h2>'.$flatnavname.'</h2></div></div>';
         $thisblock->content = $this->render_from_template('theme_squared/flat_navigation_content', $templatecontext);
         $thisblock->blockinstanceid = "fake9999"; // Not sure!  But we are a 'fake' block.
         $thisblock->instanceid = "fake9999";
