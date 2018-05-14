@@ -47,6 +47,17 @@ if (is_siteadmin()) {
     $searchurl = 'https://www.google.com/search?as_sitesearch=' . $domain;
     $simset->add_text('searchurl', $searchurl);
     $simset->add_text('searchfield');
+
+    // Navbar search.
+    $options = array(
+        1 => get_string('moodlecoursesearch', 'theme_squared'),
+        2 => get_string('advancedcoursearch', 'theme_squared')
+    );
+    if ((!empty($CFG->enableglobalsearch)) && has_capability('moodle/search:query', context_system::instance())) {
+        $options[3] = get_string('globalsearch', 'theme_squared');
+    }
+    $simset->add_select('navbarsearch', 1, $options);
+
     $simset->add_select('alternateloginurl', 0, $simset->mnet_choices());
     $simset->add_checkbox('hidelocallogin',0,1,0);
     $simset->add_select('blockperrowlimit', 4, range(0, 30));

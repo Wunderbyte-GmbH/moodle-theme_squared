@@ -141,13 +141,21 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return string         HTML with the search form hidden by default.
      */
     public function search_box($id = false) {
-        global $CFG;
+        $navbarsearch = (empty($this->page->theme->settings->navbarsearch)) ? false : $this->page->theme->settings->navbarsearch;
 
-        /* Accessing $CFG directly as using \core_search::is_global_search_enabled would
-           result in an extra included file for each site, even the ones where global search
-           is disabled. */
-        if (empty($CFG->enableglobalsearch) || !has_capability('moodle/search:query', \context_system::instance())) {
+        if (empty($navbarsearch)) {
             return '';
+        }
+
+        if ($navbarsearch == 3) { // Global search.   Extra check in case has been turned off but setting not changed.
+            global $CFG;
+
+           /* Accessing $CFG directly as using \core_search::is_global_search_enabled would
+               result in an extra included file for each site, even the ones where global search
+               is disabled. */
+            if (empty($CFG->enableglobalsearch) || !has_capability('moodle/search:query', \context_system::instance())) {
+                return '';
+            }
         }
 
         if ($id == false) {
@@ -157,18 +165,46 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $id = clean_param($id, PARAM_ALPHANUMEXT);
         }
 
-        // JS to animate the form.
-        $this->page->requires->js_call_amd('core/search-input', 'init', array($id));
+        $searchicon = html_writer::tag('span', '', array('title' => get_string('search', 'search'), 'class' => 'fa fa-search'));
 
-        $searchicon = html_writer::empty_tag('search', array('title' => get_string('search', 'search'), 'class' => 'fa fa-search'));
-        $searchicon = html_writer::tag('div', $searchicon, array('role' => 'button', 'tabindex' => 0));
-        $formattrs = array('class' => 'search-input-form', 'action' => $CFG->wwwroot . '/search/index.php');
-        $inputattrs = array('type' => 'text', 'name' => 'q', 'placeholder' => get_string('search', 'search'),
-            'size' => 19, 'tabindex' => -1, 'id' => 'id_q_' . $id);
+        if ($navbarsearch == 1) {
+            global $CFG;
+            // JS to animate the form.
+            $this->page->requires->js_call_amd('core/search-input', 'init', array($id));
 
-        $contents = html_writer::tag('label', get_string('enteryoursearchquery', 'search'),
-            array('for' => 'id_q_' . $id, 'class' => 'accesshide')) . html_writer::tag('input', '', $inputattrs);
-        $searchinput = html_writer::tag('form', $contents, $formattrs);
+            $searchicon = html_writer::tag('div', $searchicon, array('role' => 'button', 'tabindex' => 0));
+            $formattrs = array('class' => 'search-input-form', 'action' => $CFG->wwwroot . '/search/index.php');
+            $inputattrs = array('type' => 'text', 'name' => 'q', 'placeholder' => get_string('search', 'search'),
+                'size' => 19, 'tabindex' => -1, 'id' => 'id_q_'.$id);
+            $contents = html_writer::tag('label', get_string('enteryoursearchquery', 'search'),
+                array('for' => 'id_q_' . $id, 'class' => 'accesshide')) . html_writer::tag('input', '', $inputattrs);
+            $searchinput = html_writer::tag('form', $contents, $formattrs);
+        } else if ($navbarsearch == 2) {
+            $searchicon = html_writer::tag('div', $searchicon, array('role' => 'button', 'tabindex' => 0));
+            $squaredsearch = new \moodle_url('index.php');
+            $squaredsearch->param('sesskey', sesskey());
+            $navbaradvsearchdata = array('data' => array('theme' => $squaredsearch->out(false), 'id' => $id));
+            $this->page->requires->js_call_amd('theme_squared/navbar_advanced_search', 'init', $navbaradvsearchdata);
+
+            $searchinput = '<span id="navbaradvresults">';
+            $searchinput .= html_writer::tag('label', get_string('enteryoursearchquery', 'search'),
+                array('for' => 'navbaradvsearch', 'class' => 'accesshide'));
+            $searchinput .= '<input type="text" name="navbaradvsearch" id="navbaradvsearch" disabled="disabled">';
+            $searchinput .= '</span>';
+
+        } else if ($navbarsearch == 3) {
+            global $CFG;
+            // JS to animate the form.
+            $this->page->requires->js_call_amd('core/search-input', 'init', array($id));
+
+            $searchicon = html_writer::tag('div', $searchicon, array('role' => 'button', 'tabindex' => 0));
+            $formattrs = array('class' => 'search-input-form', 'action' => $CFG->wwwroot . '/search/index.php');
+            $inputattrs = array('type' => 'text', 'name' => 'q', 'placeholder' => get_string('search', 'search'),
+                'size' => 19, 'tabindex' => -1, 'id' => 'id_q_'.$id);
+            $contents = html_writer::tag('label', get_string('enteryoursearchquery', 'search'),
+                array('for' => 'id_q_' . $id, 'class' => 'accesshide')) . html_writer::tag('input', '', $inputattrs);
+            $searchinput = html_writer::tag('form', $contents, $formattrs);
+        }
 
         return html_writer::tag('div', $searchicon . $searchinput, array('class' => 'search-input-wrapper nav-link', 'id' => $id));
     }

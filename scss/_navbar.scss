@@ -136,3 +136,25 @@
         }
     }
 }
+
+#navbaradvresults {
+    display: none;
+}
+
+.search-input-wrapper.nav-link #navbaradvresults {
+    opacity: 0;
+    margin-left: 15px;
+    -webkit-transition: opacity .5s ease-in-out;
+    -o-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
+
+    input {
+        height: 22px;
+    }
+}
+
+.search-input-wrapper.nav-link.expanded #navbaradvresults {
+    display: block;
+    float: none;
+    opacity: 1;
+}

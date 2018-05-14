@@ -16,7 +16,6 @@
 /**
  * This is the squared theme.
  *
- *
  * The squared theme makes uses a custom version of squared blocks
  *
  * @package theme_squared
@@ -37,7 +36,7 @@ define(['jquery', 'jqueryui', 'core/log'], function($, jqui, log) {
             $(document).ready(function($, jqui) {
 
                 log.debug('Squared Inspector Scourer AMD init');
-                log.debug('Squared Inspector Scourer AJAX File: ' + data.theme);
+                log.debug('Squared Inspector Scourer AJAX URL: ' + data.theme);
 
                 $("#courseitemsearch").autocomplete({
                     source: data.theme,

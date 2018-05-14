@@ -162,7 +162,7 @@ class toolbox {
     }
 
     /**
-     * States if course content search can be used.  Will not work if theme is in $CFG->themedir.
+     * States if course content search can be used.  Will now work if theme is in $CFG->themedir.
      * @return boolean false|true if course content search can be used.
      */
     static public function course_content_search() {

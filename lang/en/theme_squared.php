@@ -81,3 +81,10 @@ $string['findcoursecontent'] = 'Course content: ';
 
 // Flat navigation block.
 $string['flatnavigation'] = 'Navigation';
+
+// Navbar search setting.
+$string['navbarsearch'] = 'Navbar search';
+$string['navbarsearchdesc'] = 'Select the type of search on the navbar.  Global search will only appear if it has been enabled.';
+$string['moodlecoursesearch'] = 'Standard Moodle course search';
+$string['advancedcoursearch'] = 'Advanced course search';
+$string['globalsearch'] = 'Global search';
