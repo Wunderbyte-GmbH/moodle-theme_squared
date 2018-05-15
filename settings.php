@@ -59,7 +59,7 @@ if (is_siteadmin()) {
     $simset->add_select('navbarsearch', 1, $options);
 
     $simset->add_select('alternateloginurl', 0, $simset->mnet_choices());
-    $simset->add_checkbox('hidelocallogin',0,1,0);
+    $simset->add_checkbox('hidelocallogin', 0, 1, 0);
     $simset->add_select('blockperrowlimit', 4, range(0, 30));
     $choices = array(
         1 => '1,3,3',
@@ -81,7 +81,7 @@ if (is_siteadmin()) {
     $simset->add_file('headerbg');
     $simset->add_file('headerbgsmall');
     $simset->add_select('logoposition', 'left',
-        array('left' => get_string('left', 'editor'), 'right'=> get_string('right', 'editor')));
+        array('left' => get_string('left', 'editor'), 'right' => get_string('right', 'editor')));
     $simset->add_colourpicker('logobgcolor', '#4ba09b');
     $simset->add_checkbox('nologobgcolor', 0, 1, 0);
     $ADMIN->add('theme_squared', $sp);
@@ -92,7 +92,7 @@ if (is_siteadmin()) {
     $categorytree = coursecat::get(0)->get_children ();
     $cclr = array ('#EF001C', '#4B88FB', '#A89E00', '#013855');
     $i = 0;
-    foreach ( $categorytree as $cid => $value ) {
+    foreach ($categorytree as $cid => $value) {
         $simset->add_headings('bgcolorheading', $cid, $value->name);
         $simset->add_colourpickers('bgcolor', $cid, (!empty($cclr[$i]) ? $cclr[$i++] : "#666") );
     }

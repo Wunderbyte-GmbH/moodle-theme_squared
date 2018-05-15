@@ -78,7 +78,7 @@ define(['jquery', 'core/log'], function($, log) {
         /* If the label is currently showing
            then fade it down to the amount
            specified in the settings. */
-            base.fadeOnFocus = function () {
+        base.fadeOnFocus = function () {
             if (base.showing) {
                 base.setOpacity(base.options.fadeOpacity);
             }
@@ -146,7 +146,6 @@ define(['jquery', 'core/log'], function($, log) {
         className: false // Class assigned to enhanced labels.
     };
 
-
     $.fn.inFieldLabels = function (options) {
         var allowed_types = options && options.enabledInputTypes || $.InFieldLabels.defaultOptions.enabledInputTypes;
 
@@ -173,7 +172,7 @@ define(['jquery', 'core/log'], function($, log) {
             }
 
             // Only create object for matched input types and textarea.
-           (new $.InFieldLabels(this, field, options));
+            (new $.InFieldLabels(this, field, options));
         });
     };
 

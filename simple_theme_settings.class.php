@@ -246,7 +246,7 @@ class squared_simple_theme_settings {
         $params = array (
             'sso_sp',
             0,
-            1 
+            1
         );
 
         if (! empty ( $CFG->mnet_all_hosts_id )) {
@@ -257,7 +257,7 @@ class squared_simple_theme_settings {
         if ($hosts = $DB->get_records_sql ( $sql, $params )) {
             $choices = array ();
             $choices [0] = 'notset';
-            foreach ( $hosts as $id => $host ) {
+            foreach ($hosts as $id => $host) {
                 $choices [$id] = $host->name;
             }
         } else {

@@ -18,7 +18,7 @@ define(['jquery', 'core/log'], function($, log) {
             /* Increment i if the key pressed matched the next key in the sequence.
                if not, i goes back to zero, so you can start the code again. */
             i = (e.keyCode == code[i]) ? i + 1 : 0;
-            
+
             // If i reaches the length of the code array, the code must have been entered properly.
             if (i == code.length) {
                 typeof callback == 'function' && callback();

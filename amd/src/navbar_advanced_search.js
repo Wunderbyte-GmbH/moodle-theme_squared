@@ -38,14 +38,14 @@ define(['jquery', 'jqueryui', 'core/log'], function($, jqui, log) {
 
     log.debug('Squared Navbar Advanced Search AMD initialised');
 
-    /**
+    /*
      * This search box div node.
      *
      * @private
      */
     var wrapper = null;
 
-    /**
+    /*
      * Toggles the form visibility.
      *
      * @param {Event} ev
@@ -53,7 +53,6 @@ define(['jquery', 'jqueryui', 'core/log'], function($, jqui, log) {
      * @private
      */
     var toggleSearch = function(ev) {
-log.debug('toggleSearch');
         if (wrapper.hasClass('expanded')) {
             hideSearch();
         } else {
@@ -61,7 +60,7 @@ log.debug('toggleSearch');
         }
     };
 
-    /**
+    /*
      * Shows the search.
      *
      * @param {Event} ev
@@ -83,7 +82,7 @@ log.debug('toggleSearch');
         wrapper.find('input').focus();
     };
 
-    /**
+    /*
      * Hides the form.
      *
      * @method hideForm

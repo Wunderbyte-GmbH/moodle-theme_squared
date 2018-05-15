@@ -45,7 +45,7 @@ class block_settings_renderer extends \block_settings_renderer {
                 continue;
             }
 
-            $isbranch = ($item->children->count() > 0 || $item->nodetype==navigation_node::NODETYPE_BRANCH);
+            $isbranch = ($item->children->count() > 0 || $item->nodetype == navigation_node::NODETYPE_BRANCH);
             $hasicon = (!$isbranch && $item->icon instanceof renderable);
 
             if ($isbranch) {

@@ -51,7 +51,8 @@ class theme_squared_block_navigation_renderer extends block_navigation_renderer 
             $content = $item->get_content();
             $title = $item->get_title();
 
-            $isexpandable = (empty($expansionlimit) || ($item->type > navigation_node::TYPE_ACTIVITY || $item->type < $expansionlimit) || ($item->contains_active_node() && $item->children->count() > 0));
+            $isexpandable = (empty($expansionlimit) || ($item->type > navigation_node::TYPE_ACTIVITY || $item->type < $expansionlimit) ||
+                ($item->contains_active_node() && $item->children->count() > 0));
             $isbranch = $isexpandable && ($item->children->count() > 0 || ($item->has_children() && (isloggedin() || $item->type <= navigation_node::TYPE_CATEGORY)));
 
             // Skip elements which have no content and no action - no point in showing them

@@ -36,10 +36,10 @@ define(['jquery', 'core/log'], function($, log) {
             e.preventDefault();
             $('#header').addClass('search-toggled');
         });
-        
+
         $('body').on('click', '#top-search-close', function(e){
             e.preventDefault();
-            
+
             $('#header').removeClass('search-toggled');
         });
         $('.search input').hide();

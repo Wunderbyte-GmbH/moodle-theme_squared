@@ -1,5 +1,5 @@
 <?php
-// This file is part of the Squared theme for Moodle
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * This is the squared theme.
@@ -150,7 +150,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if ($navbarsearch == 3) { // Global search.   Extra check in case has been turned off but setting not changed.
             global $CFG;
 
-           /* Accessing $CFG directly as using \core_search::is_global_search_enabled would
+            /* Accessing $CFG directly as using \core_search::is_global_search_enabled would
                result in an extra included file for each site, even the ones where global search
                is disabled. */
             if (empty($CFG->enableglobalsearch) || !has_capability('moodle/search:query', \context_system::instance())) {
@@ -172,7 +172,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             // Based on 'course_search_form' in the core course renderer.
             // JS to animate the form.
             $this->page->requires->js_call_amd('core/search-input', 'init', array($id));
-            $strsearchcourses= get_string("searchcourses");
+            $strsearchcourses = get_string("searchcourses");
             $searchurl = new moodle_url('/course/search.php');
 
             $searchinput = html_writer::start_tag('form', array('id' => 'fid_'.$id, 'action' => $searchurl, 'method' => 'get'));
@@ -266,11 +266,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }
             if (is_mnet_remote_user($USER) and $idprovider = $DB->get_record('mnet_host',
                 array('id' => $USER->mnethostid))) {
-                    if ($withlinks) {
-                        $username .= " from <a href=\"{$idprovider->wwwroot}\">{$idprovider->name}</a>";
-                    } else {
-                        $username .= " from {$idprovider->name}";
-                    }
+                if ($withlinks) {
+                    $username .= " from <a href=\"{$idprovider->wwwroot}\">{$idprovider->name}</a>";
+                } else {
+                    $username .= " from {$idprovider->name}";
+                }
             }
             if (isguestuser()) {
                 if (!$loginpage && $withlinks) {
@@ -624,7 +624,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 if ($actual_depth > $show_category_depth) {
                     continue;
                 }
-                // The value "1000" is chosen to add the items at the end. By choosing a lower or even negative value, you can add these items in front of the manually created custommenuitems.
+                // The value "1000" is chosen to add the items at the end.
+                // By choosing a lower or even negative value, you can add these items in front of the manually created custommenuitems.
                 $sub_parent = $parent->add($subcategory->name, new moodle_url('/course/index.php', array (
                     'categoryid' => $subcategory->id
                 )), null, 1000 + $i);
