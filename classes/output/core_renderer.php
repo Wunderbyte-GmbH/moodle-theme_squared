@@ -183,7 +183,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $searchinput .= html_writer::end_tag('form');
 
         } else if ($navbarsearch == 2) {
-            $squaredsearch = new \moodle_url('index.php');
+            $squaredsearch = new \moodle_url('/course/index.php');
             $squaredsearch->param('sesskey', sesskey());
             $navbaradvsearchdata = array('data' => array('theme' => $squaredsearch->out(false), 'id' => $id));
             $this->page->requires->js_call_amd('theme_squared/navbar_advanced_search', 'init', $navbaradvsearchdata);
