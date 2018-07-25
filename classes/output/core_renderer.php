@@ -446,9 +446,20 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     continue;
                 }
 
-                $thisblock = $this->block($bc, $region);
-                $thisblock->header = $this->block_header($bc);
-                $thisblock->movetarget = false;
+                $moveblock = array();
+                if (!empty($bc->controls)) {
+                    $moveblock = array();
+                    if ($bc->controls[0] instanceof \action_menu_link_primary) {
+                        $moveblock[] = array_shift($bc->controls);
+                    }
+                    $thisblock = $this->block($bc, $region);
+                    $thisblock->header = $this->squared_block_header($bc, $moveblock);
+                    $thisblock->movetarget = false;
+                } else {
+                    $thisblock = $this->block($bc, $region);
+                    $thisblock->header = $this->block_header($bc);
+                    $thisblock->movetarget = false;
+                }
 
                 $template->blocks[] = $thisblock;
                 $lastblock = $bc->title;
@@ -533,7 +544,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
             return parent::block($bc, $region);
         }
         $bc = clone($bc); // Avoid messing up the object passed in.
-            $bc = clone($bc); // Avoid messing up the object passed in.
         if (empty($bc->blockinstanceid) || !strip_tags($bc->title)) {
             $bc->collapsible = block_contents::NOT_HIDEABLE;
         }
@@ -594,6 +604,67 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         return $bc;
+    }
+
+    /**
+     * Produces a header for a block
+     *
+     * @param block_contents $bc
+     * @return string
+     */
+    protected function squared_block_header(block_contents $bc, $moveblock) {
+        $title = '';
+        if ($bc->title) {
+            $attributes = array();
+            if ($bc->blockinstanceid) {
+                $attributes['id'] = 'instance-'.$bc->blockinstanceid.'-header';
+            }
+            $title = html_writer::tag('h2', $bc->title, $attributes);
+        }
+
+        $blockid = null;
+        if (isset($bc->attributes['id'])) {
+            $blockid = $bc->attributes['id'];
+        }
+
+        $menu = new \action_menu($moveblock);
+        if ($blockid !== null) {
+            $menu->set_owner_selector('#'.$blockid);
+        }
+        $menu->set_constraint('.block-region');
+        $menu->attributes['class'] .= ' block-control-actions commands';
+        $context = $menu->export_for_template($this);
+        $controlshtml = $this->render_from_template('theme_squared/squared_action_menu_moveblock', $context);
+
+        $output = '';
+        if ($title || $controlshtml) {
+            $output .= html_writer::tag('div', html_writer::tag('div', html_writer::tag('div', '', array('class'=>'block_action')). $title.$controlshtml, array('class' => 'title')), array('class' => 'header'));
+        }
+        return $output;
+    }
+
+    /**
+     * Produces the content area for a block
+     *
+     * @param block_contents $bc
+     * @return string
+     */
+    protected function block_content(block_contents $bc) {
+        $output = html_writer::start_tag('div', array('class' => 'content'));
+        if (!$bc->title && !$this->block_controls($bc->controls)) {
+            $output .= html_writer::tag('div', '', array('class'=>'block_action notitle'));
+        } else {
+            $blockid = null;
+            if (isset($bc->attributes['id'])) {
+                $blockid = $bc->attributes['id'];
+            }
+            $output .= $this->block_controls($bc->controls, $blockid);
+        }
+        $output .= $bc->content;
+        $output .= $this->block_footer($bc);
+        $output .= html_writer::end_tag('div');
+
+        return $output;
     }
 
     /**

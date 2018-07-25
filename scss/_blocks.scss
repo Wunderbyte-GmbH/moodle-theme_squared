@@ -466,6 +466,10 @@
     }
 }
 
+.block .content .block-control-actions {
+    text-align: right;
+}
+
 // @media (min-width: $screen-breakpoint) {
 //     body.gecko #block-region-side-pre .two-rows .blockheader.squared::after {
 //         padding-bottom: 100px;
