@@ -372,6 +372,39 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $loginurl;
     }
 
+    /**
+     * Produces a header for a block
+     *
+     * @param block_contents $bc
+     * @return string
+     */
+    protected function block_header_collapse(block_contents $bc) {
+        $title = '';
+        if ($bc->title) {
+            $attributes = array('role' => 'tree',
+                'class' => 'collapselink',
+                'data-toggle' => 'collapse',
+                'data-target' => '#subcollapse'.$bc->blockinstanceid,
+                'aria-expanded' => 'false',
+                'aria-controls' => 'inst'.$bc->blockinstanceid);
+            if ($bc->blockinstanceid) {
+                $attributes['id'] = 'instance-'.$bc->blockinstanceid.'-header';
+            }
+            $title = html_writer::tag('h2', $bc->title, $attributes);
+        }
+
+        $blockid = null;
+        if (isset($bc->attributes['id'])) {
+            $blockid = $bc->attributes['id'];
+        }
+        $controlshtml = $this->block_controls($bc->controls, $blockid);
+
+        $output = '';
+        if ($title || $controlshtml) {
+            $output .= html_writer::tag('div', html_writer::tag('div', html_writer::tag('div', '', array('class'=>'block_action')). $title . $controlshtml, array('class' => 'title')), array('class' => 'header'));
+        }
+        return $output;
+    }
 
     /**
      * Output all the blocks in a particular region.
@@ -391,7 +424,28 @@ class core_renderer extends \theme_boost\output\core_renderer {
         foreach ($blocks as $block) {
             $zones[] = $block->title;
         }
-        $output = '';
+
+        // Need to know the count of the blocks so we know what header to use.
+        $numblocks = 1; // Take into account the fake flat navigation block.
+        foreach ($blockcontents as $bc) {
+            if ($bc instanceof block_contents) {
+                if (($bc->attributes['data-block'] == 'navigation') || ($bc->attributes['data-block'] == 'settings')) {
+                    continue;
+                }
+
+                $numblocks++;
+            } else if ($bc instanceof block_move_target) {
+                $numblocks++;
+            } else {
+                throw new coding_exception('Unexpected type of thing (' . get_class($bc) . ') found in list of block contents.');
+            }
+        }
+        if (isset($this->page->theme->settings->blockperrowlimit) && $numblocks >= $this->page->theme->settings->blockperrowlimit) {
+            $blocksrows = true;
+        } else {
+            $blocksrows = false;
+        }
+
         $template = new stdClass();
 
         // Add flat navigation.
@@ -402,6 +456,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $thisblock->name = 'block_flat_navigation';
         $thisblock->title = '<span class="title">'.$flatnavname.'</span>';
         $thisblock->header = '<div class="header"><div class="title"><h2>'.$flatnavname.'</h2></div></div>';
+        if ($blocksrows) {
+            $thisblock->header = '<div role="tree" class="collapselink" data-toggle="collapse" data-target="#subcollapsefake9999" aria-expanded="false" aria-controls="instfake9999">'.
+                $thisblock->header.
+                '</div>';
+        }
         $thisblock->content = $this->render_from_template('theme_squared/flat_navigation_content', $templatecontext);
         $thisblock->blockinstanceid = "fake9999"; // Not sure!  But we are a 'fake' block.
         $thisblock->instanceid = "fake9999";
@@ -445,20 +504,16 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     continue;
                 }
 
-                $moveblock = array();
-                if (!empty($bc->controls)) {
-                    $moveblock = array();
-                    if ($bc->controls[0] instanceof \action_menu_link_primary) {
-                        $moveblock[] = array_shift($bc->controls);
-                    }
-                    $thisblock = $this->block($bc, $region);
-                    $thisblock->header = $this->squared_block_header($bc, $moveblock);
-                    $thisblock->movetarget = false;
-                } else {
-                    $thisblock = $this->block($bc, $region);
-                    $thisblock->header = $this->block_header($bc);
-                    $thisblock->movetarget = false;
+                $thisblock = $this->block($bc, $region);
+                if ($bc->attributes['data-block'] == 'adminblock') {
+                    $bc->blockinstanceid = -1;
                 }
+                if ($blocksrows) {
+                    $thisblock->header = $this->block_header_collapse($bc);                    
+                } else {
+                    $thisblock->header = $this->block_header($bc);
+                }
+                $thisblock->movetarget = false;
 
                 $template->blocks[] = $thisblock;
                 $lastblock = $bc->title;
@@ -474,7 +529,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         // Two block columns
         $template->pairs = array();
-        $cols = 2;
         $count = 1;
         $pair = new stdClass();
         foreach ($template->blocks as $block) {
@@ -501,7 +555,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $count++;
             }
         }
-        $numblocks = count($template->blocks);
         if ($pair) {
             if (($numblocks % 2) != 0) {
                 $pair->blocka->shape = 'rectangle';
@@ -510,7 +563,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $template->pairs[] = $pair;
         }
 
-        if (isset($this->page->theme->settings->blockperrowlimit) && $numblocks >= $this->page->theme->settings->blockperrowlimit) {
+        if ($blocksrows) {
             return $this->render_from_template('theme_squared/blocksrows', $template);
         } else {
             return $this->render_from_template('theme_squared/blocks', $template);
@@ -603,67 +656,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         return $bc;
-    }
-
-    /**
-     * Produces a header for a block
-     *
-     * @param block_contents $bc
-     * @return string
-     */
-    protected function squared_block_header(block_contents $bc, $moveblock) {
-        $title = '';
-        if ($bc->title) {
-            $attributes = array();
-            if ($bc->blockinstanceid) {
-                $attributes['id'] = 'instance-'.$bc->blockinstanceid.'-header';
-            }
-            $title = html_writer::tag('h2', $bc->title, $attributes);
-        }
-
-        $blockid = null;
-        if (isset($bc->attributes['id'])) {
-            $blockid = $bc->attributes['id'];
-        }
-
-        $menu = new \action_menu($moveblock);
-        if ($blockid !== null) {
-            $menu->set_owner_selector('#'.$blockid);
-        }
-        $menu->set_constraint('.block-region');
-        $menu->attributes['class'] .= ' block-control-actions commands';
-        $context = $menu->export_for_template($this);
-        $controlshtml = $this->render_from_template('theme_squared/squared_action_menu_moveblock', $context);
-
-        $output = '';
-        if ($title || $controlshtml) {
-            $output .= html_writer::tag('div', html_writer::tag('div', html_writer::tag('div', '', array('class'=>'block_action')). $title.$controlshtml, array('class' => 'title')), array('class' => 'header'));
-        }
-        return $output;
-    }
-
-    /**
-     * Produces the content area for a block
-     *
-     * @param block_contents $bc
-     * @return string
-     */
-    protected function block_content(block_contents $bc) {
-        $output = html_writer::start_tag('div', array('class' => 'content'));
-        if (!$bc->title && !$this->block_controls($bc->controls)) {
-            $output .= html_writer::tag('div', '', array('class'=>'block_action notitle'));
-        } else {
-            $blockid = null;
-            if (isset($bc->attributes['id'])) {
-                $blockid = $bc->attributes['id'];
-            }
-            $output .= $this->block_controls($bc->controls, $blockid);
-        }
-        $output .= $bc->content;
-        $output .= $this->block_footer($bc);
-        $output .= html_writer::end_tag('div');
-
-        return $output;
     }
 
     /**

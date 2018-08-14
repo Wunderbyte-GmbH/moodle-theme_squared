@@ -22,17 +22,17 @@
 }}
 <div class="two-rows" id="accordion" role="tablist" aria-multiselectable="true">
     {{#pairs}}
-      <div class="row blockpairs">
+    <div class="row blockpairs">
         {{#blocka}}
         <div class="{{class}} pairheader left">
             <div role="button" data-toggle="collapse" data-parent="#accordion" 
-                    data-target="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="inst{{blockinstanceid}}" class="{{shape}} blockheader over-hover-to-bottom {{name}}">
+                data-target="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="inst{{blockinstanceid}}" class="{{shape}} blockheader over-hover-to-bottom {{name}}">
                 <div class="blockhead title">
                     <div class="alignself">
                         <div class="inner">
                             <div class="courseblock-icon"></div>
                             <div class="blocktitle">
-                            {{{title}}}
+                                {{{title}}}
                             </div>
                         </div>
                     </div>
@@ -43,17 +43,17 @@
         {{#blockb}}
         <div class="{{class}} pairheader right">
             <div role="button" data-toggle="collapse" data-parent="#accordion" 
-                        data-target="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="inst{{blockinstanceid}}" class="{{shape}} blockheader over-hover-to-bottom {{name}}">
-                    <div class="blockhead">
-                        <div class="alignself">
-                            <div class="inner">
-                                <div class="courseblock-icon"></div>
-                                <div class="blocktitle">
+                    data-target="#collapse{{blockinstanceid}}" aria-expanded="true" aria-controls="inst{{blockinstanceid}}" class="{{shape}} blockheader over-hover-to-bottom {{name}}">
+                <div class="blockhead">
+                    <div class="alignself">
+                        <div class="inner">
+                            <div class="courseblock-icon"></div>
+                            <div class="blocktitle">
                                 {{{title}}}
-                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div> 
         {{/blockb}}
@@ -61,17 +61,14 @@
     {{#blocka}}
         {{#blockinstanceid}}
         <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
-            <div id="collapse{{blockinstanceid}}" class="card-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{aria-labelledby}}">
-                <div class="card-heading dropdown-menu-left">
-                    <div role="tree" class="collapselink" data-toggle="collapse" data-target="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="inst{{blockinstanceid}}">
-
+            <div class="card-heading dropdown-menu-left">
+                <div role="tree" class="collapselink" data-toggle="collapse" data-target="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="inst{{blockinstanceid}}">
                     <div class="courseblock-icon"></div>
-                    {{{header}}}
-                    </div>
-                 </div>
-                <div id="subcollapse{{blockinstanceid}}" class="card-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}">
-                    {{{content}}}
                 </div>
+                {{{header}}}
+            </div>
+            <div id="subcollapse{{blockinstanceid}}" class="card-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}">
+                {{{content}}}
             </div>
         </div>
         <a href="#sb-{{skipid}}" class="skip-block"> {{#str}} skipa, access, {{skiptitle}} {{/str}} </a>
@@ -84,17 +81,14 @@
     {{#blockb}}
         {{#blockinstanceid}}
         <div {{#atts}} {{key}} = "{{value}}" {{/atts}}>
-            <div id="collapse{{blockinstanceid}}" class="card-collapse collapse {{#open}}in{{/open}}" role="tabpanel" aria-labelledby="{{aria-labelledby}}">
-                <div class="card-heading dropdown-menu-left">
-                    <div role="tree" class="collapselink" data-toggle="collapse" data-target="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="inst{{blockinstanceid}}">
-
+            <div class="card-heading dropdown-menu-left">
+                <div role="tree" class="collapselink" data-toggle="collapse" data-target="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="inst{{blockinstanceid}}">
                     <div class="courseblock-icon"></div>
-                    {{{header}}}
-                    </div>
-                 </div>
-                <div id="subcollapse{{blockinstanceid}}" class="card-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}">
-                    {{{content}}}
                 </div>
+                {{{header}}}
+            </div>
+            <div id="subcollapse{{blockinstanceid}}" class="card-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}">
+                {{{content}}}
             </div>
         </div>
         <a href="#sb-{{skipid}}" class="skip-block"> {{#str}} skipa, access, {{skiptitle}} {{/str}} </a>
