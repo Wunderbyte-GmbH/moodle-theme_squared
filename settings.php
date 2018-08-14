@@ -74,6 +74,12 @@ if (is_siteadmin()) {
     $sp = new admin_settingpage('theme_squared_header', get_string('pageheadersettings', 'theme_squared'));
     $simset = new squared_simple_theme_settings($sp, 'theme_squared');
 
+    $simset->add_select('navbarposition', 'static',
+        array(
+            'static' => get_string('navbarpositionstatic', 'theme_squared'),
+            'fixed' => get_string('navbarpositionfixed', 'theme_squared')
+        )
+    );
     $simset->add_select('headerlayout', 0,
         array(get_string('hlogoside', 'theme_squared'), get_string('hlogotop', 'theme_squared')));
     $simset->add_file('logo');

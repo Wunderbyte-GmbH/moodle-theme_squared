@@ -82,6 +82,12 @@ $string['findcoursecontent'] = 'Course content: ';
 // Flat navigation block.
 $string['flatnavigation'] = 'Navigation';
 
+// Navbar settings.
+$string['navbarposition'] = 'Navbar position';
+$string['navbarpositiondesc'] = 'Set the navbar position, static or fixed.';
+$string['navbarpositionfixed'] = 'Fixed';
+$string['navbarpositionstatic'] = 'Static';
+
 // Navbar search setting.
 $string['navbarsearch'] = 'Navbar search';
 $string['navbarsearchdesc'] = 'Select the type of search on the navbar.  Global search will only appear if it has been enabled.';

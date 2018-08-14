@@ -34,7 +34,6 @@ use coursecat;
 use html_writer;
 use moodle_url;
 use stdClass;
-use theme_config;
 
 require_once($CFG->dirroot . '/course/format/lib.php');
 

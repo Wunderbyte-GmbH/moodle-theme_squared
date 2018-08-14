@@ -45,10 +45,33 @@ class html_renderer extends \plugin_renderer_base {
         return self::$instance;
     }
 
+    public function page_header() {
+        $o = '';
+
+        if (empty($this->theme)) {
+            $this->theme = theme_config::load('squared');
+        }
+
+        if (!empty($this->theme->settings->navbarposition)) {
+            if ($this->theme->settings->navbarposition == 'fixed') {
+                $fixednavbar = true;
+            } else {
+                $fixednavbar = false;
+            }
+        } else {
+            $fixednavbar = false;
+        }
+
+        $o .= $this->image_header($fixednavbar);
+        $o .= $this->navigation_menu($fixednavbar);
+
+        return $o;
+    }
+
     /**
      * Render the top image menu.
      */
-    public function image_header() {
+    protected function image_header($fixednavbar = false) {
         global $CFG;
         if (empty($this->theme)) {
             $this->theme = theme_config::load('squared');
@@ -90,14 +113,18 @@ class html_renderer extends \plugin_renderer_base {
             }
         }
 
+        if ($fixednavbar) {
+            $template->fixednavbar = true;
+        }
+
         return $this->render_from_template('theme_squared/imageheading', $template);
     }
 
     /**
-     * Full top Navbar. Returns Mustache rendererd menu.
+     * Full top Navbar. Returns Mustache rendered menu.
      */
-    public function navigation_menu() {
-        global $OUTPUT, $SITE, $CFG;
+    protected function navigation_menu($fixednavbar = false) {
+        global $OUTPUT;
         $template = new \stdClass();
         $template->output = $OUTPUT;
         /*$template->siteurl = new moodle_url('/');
@@ -114,6 +141,8 @@ class html_renderer extends \plugin_renderer_base {
         } else {
             $template->togglebtn = $OUTPUT->pix_url('more-button', 'theme_squared');
         }*/
+
+        $template->navpositionfixed = $fixednavbar;
         return $this->render_from_template('theme_squared/navigation', $template);
     }
 
