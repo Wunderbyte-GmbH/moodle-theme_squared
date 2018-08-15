@@ -1,0 +1,32 @@
+.course_category_tree { 
+    .card-deck .card {
+        margin-bottom: 30px;
+        max-width: 200px;
+        .card-img-top {
+            display: block;
+            height: 180px;
+            width: 100%;
+        }
+    }
+    .card-img-overlay .card-title {
+        background-color: rgba(255,255,255,0.5);
+        text-align: center;
+        border: 5px solid rgba(255,255,255,0.05);
+        border-radius: 4px;
+    }
+    
+    .card-text ul {
+        list-style-type: none;
+    }
+    
+    // TODO: Remove in M3.5.
+    .card-footer {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+    }
+    .card-deck .card {
+        padding-bottom: 50px; // Allow for the footer.
+    }
+}
