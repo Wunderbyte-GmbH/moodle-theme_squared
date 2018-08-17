@@ -1,11 +1,14 @@
 .course_category_tree { 
-    .card-deck .card {
-        margin-bottom: 30px;
-        max-width: 200px;
-        .card-img-top {
-            display: block;
-            height: 180px;
-            width: 100%;
+    .card-deck {
+        width: auto;
+        .card {
+            margin-bottom: 30px;
+            max-width: 350px;
+            .card-img-top {
+                display: block;
+                height: 180px;
+                width: 100%;
+            }
         }
     }
     .card-img-overlay .card-title {

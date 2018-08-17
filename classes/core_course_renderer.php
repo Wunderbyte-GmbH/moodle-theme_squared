@@ -437,6 +437,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         if ($totalcount === null) {
             $totalcount = count($courses);
         }
+        //$totalcount = 999;
         if (!$totalcount) {
             // Courses count is cached during courses retrieval.
             return '';
@@ -478,9 +479,12 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 get_string('showperpage', '', $CFG->coursesperpage)), array('class' => 'paging paging-showperpage'));
         }
 
+        // TODO.
+
+        $content = html_writer::tag('h1', '....Current category AJAX search placeholder....', array('class' => 'mdl-align'));
         // display list of courses
         $attributes = $chelper->get_and_erase_attributes('courses');
-        $content = html_writer::start_tag('div', $attributes);
+        $content .= html_writer::start_tag('div', $attributes);
 
         if (!empty($pagingbar)) {
             $content .= $pagingbar;
