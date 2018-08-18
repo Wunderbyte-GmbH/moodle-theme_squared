@@ -26,11 +26,11 @@
  */
 defined ( 'MOODLE_INTERNAL' ) || die ();
 
-$plugin->version = 2018013101;
-$plugin->requires = 2017051500.00; // This is Moodle 3.3 (Build: 20170515).
-$plugin->release = "Temp Square 0.93"; // Release name: famous squares around the world followed by Moodle version followed by number.
+$plugin->version = 2018013102;
+$plugin->requires  = 2018051700.00; // 3.5 (Build: 20180517).
+$plugin->release = "Temp Square 0.93.1"; // Release name: famous squares around the world followed by Moodle version followed by number.
 $plugin->maturity = MATURITY_BETA;
 $plugin->component = 'theme_squared'; // Full name of the plugin (used for diagnostics)
 $plugin->dependencies = array (
-    'theme_boost' => 2017051500
+    'theme_boost' => 2018051400
 );

@@ -123,7 +123,9 @@ class toolbox {
         global $CFG;
         require_once($CFG->dirroot.'/theme/boost/lib.php');
 
-        $scss = theme_boost_get_main_scss_content($this->boostparent);
+        $scss = $this->import_scss('squared_preset');
+
+        $scss .= theme_boost_get_main_scss_content($this->boostparent);
 
         $scss .= $this->import_scss('squared');
 

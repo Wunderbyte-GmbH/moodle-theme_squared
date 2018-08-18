@@ -79,6 +79,24 @@
     }
 }
 
+@media (max-width: 767px) {
+    .sq-hidden-sm-down {
+        display: none!important;
+    }
+}
+
+@media (max-width: 991px) {
+    .sq-hidden-md-down {
+        display: none!important;
+    }
+}
+
+@media (min-width: 768px) {
+    .sq-hidden-md-up {
+        display: none!important;
+    }
+}
+
 .context-header-settings-menu,
 .region-main-settings-menu {
     padding: 2px;

@@ -1,24 +1,24 @@
-<header role="banner" class="navbar navbar-full navbar-light bg-faded moodle-has-zindex navbar-{{#navpositionfixed}}fixed{{/navpositionfixed}}{{^navpositionfixed}}static{{/navpositionfixed}}-top">
-    <div class="container-fluid navbar-nav">
+<header role="banner" class="navbar navbar-expand-lg navbar-light bg-light moodle-has-zindex navbar-{{#navpositionfixed}}fixed{{/navpositionfixed}}{{^navpositionfixed}}static{{/navpositionfixed}}-top">
+    <nav class="nav navbar-nav mr-auto sq-hidden-md-down">
+        <!-- custom_menu -->
+        {{{ output.custom_menu }}}
+        <!-- page_heading_menu -->
+        {{{ output.page_heading_menu }}}
+    </nav>
 
-        <!-- user_menu -->
-        {{{ output.user_menu }}}
+    <nav class="nav ml-auto">
+        <!-- search_box -->
+        <span class="sq-hidden-md-down">
+        {{{ output.search_box }}}
+        </span>
+
+        <!-- navbar_settings_menu_output -->
+        {{{ output.navbar_settings_menu }}}
 
         <!-- navbar_plugin_output -->
         {{{ output.navbar_plugin_output }}}
 
-        <!-- search_box -->
-        <span class="hidden-md-down">
-        {{{ output.search_box }}}
-        </span>
-
-        <div class="popover-region collapsed popover-region-nsm nav-link">{{{ output.navbar_settings_menu }}}</div>
-
-        <nav class="nav navbar-nav hidden-md-down">
-            <!-- custom_menu -->
-            {{{ output.custom_menu }}}
-            <!-- page_heading_menu -->
-            {{{ output.page_heading_menu }}}
-        </nav>
-    </div>
+        <!-- user_menu -->
+        {{{ output.user_menu }}}
+    </nav>
 </header>

@@ -1,0 +1,74 @@
+/* stylelint-disable color-hex-length */
+/**
+ * Default preset file.
+ *
+ * Use this space to customise variables, create mixins and override SCSS.
+ */
+
+// Colors
+$gray-dark:                 #373a3c !default;
+$gray:                      #55595c !default;
+$gray-light:                #818a91 !default;
+$gray-lighter:              #eceeef !default;
+$gray-lightest:             #f7f7f9 !default;
+
+$brand-primary:             #00acdf !default;
+$brand-success:             #77b300 !default;
+$brand-warning:             #ff8800 !default;
+$brand-danger:              #ff4136 !default;
+$brand-inverse:             $gray-dark !default;
+$navbar-height:             50px !default;
+
+// Spacing
+$spacer:   1rem !default;
+$spacer-x: $spacer !default;
+$spacer-y: $spacer !default;
+$border-width: 1px !default;
+
+// Body
+$body-bg:    #f4f4f4 !default;
+$body-color: #3a3a3a !default;
+
+// Typography
+$font-family-sans-serif: "Open Sans", "Helvetica Neue", Arial, sans-serif !default;
+$font-size-root: 14px !default;
+
+// Tables
+$table-bg:                      transparent !default;
+$table-bg-accent:               #fafafa !default;
+$table-bg-hover:                lighten($brand-primary, 55%) !default;
+$table-bg-active:               $table-bg-hover !default;
+$table-border-color:            #f4f4f4 !default;
+
+// Dropdowns
+$dropdown-border-color:          #e2e2e2 !default;
+$dropdown-link-color:            $body-color;
+
+// Navbar
+$navbar-light-color:                rgba(0, 0, 0, .535) !default;
+$navbar-light-hover-color:          $brand-primary !default;
+$navbar-light-active-color:         $brand-primary !default;
+
+// Cards
+$card-border-radius:       0 !default;
+$card-border-color:        rgba(238, 238, 238, 1) !default;
+
+// Breadcrumbs
+$breadcrumb-bg:                 transparent !default;
+$breadcrumb-padding-x:          0 !default;
+$breadcrumb-divider: "/" !default;
+$breadcrumb-divider-rtl: "/" !default;
+
+
+// Squared
+$squared-purple: #62BFE5;
+$sq-green: #4BA09B;
+$sq-red: #DE794E;
+$sq-orange: #FFC966;
+
+$brand-success:         $sq-green;
+$brand-info:            #5bc0de;
+$brand-warning:         $sq-orange;
+$brand-danger:          $sq-red;
+
+$footer-link-color: $brand-primary;

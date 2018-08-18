@@ -1,3 +1,130 @@
+// From default.scss in M3.3.
+/**
+ * Navigation bar identity.
+ */
+.navbar-light {
+    background-color: #fff;
+    border-bottom: $border-width solid #e5e5e5;
+
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .navbar-brand {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-right: $spacer * 2;
+        color: #fff;
+        background-color: $brand-primary;
+        @include hover-focus {
+            color: #fff;
+        }
+        &.has-logo {
+            color: $brand-primary;
+            background-color: transparent;
+            @include hover-focus {
+                color: $brand-primary;
+            }
+            padding-top: 0;
+        }
+    }
+
+    .navbar-nav {
+        .nav-item + .nav-item {
+            margin-left: $spacer * 2;
+        }
+        .nav-link {
+            font-size: $font-size-sm;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    }
+}
+
+/**
+ * Styling the dropdown menus.
+ */
+.dropdown-menu {
+    font-size: 14px;
+    border-radius: 0;
+    .dropdown-item {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        border-bottom: $border-width solid $dropdown-border-color;
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+    .dropdown-divider {
+        display: none;
+    }
+}
+
+/**
+ * User picture.
+ */
+.userpicture {
+    border-radius: 50%;
+}
+
+/**
+ * For background in content areas.
+ */
+#page.container-fluid {
+    padding: 0 (2 * $spacer);
+}
+
+#block-region-side-pre {
+    padding-left: 0;
+}
+
+/**
+ * Dashboard styling.
+ */
+#page-my-index {
+    #region-main {
+        background-color: transparent;
+        border: 0;
+        padding: 0;
+    }
+}
+
+/**
+ * Blocks.
+ */
+.block-region .card-block {
+    .card-title {
+        padding-bottom: ($spacer/2);
+        font-size: 1.143rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+}
+
+/**
+ * Navigation.
+ */
+.block_navigation,
+.block_settings {
+    .block_tree .tree_item {
+        margin: ($spacer/2) 0;
+    }
+}
+
+/**
+ * Form styles.
+ */
+
+.form-group {
+    margin-top: ($spacer/2);
+}
+
+.form-inline .form-group {
+    margin-top: 0;
+}
+
+// Us.
 #page {
     margin-top: 0;
 }

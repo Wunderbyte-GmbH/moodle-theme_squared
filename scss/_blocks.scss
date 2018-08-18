@@ -423,7 +423,7 @@
         @include block_icon(mylanguageportfolio32);
     }
 }
-//Styles for non-JS
+// Styles for non-JS.
 #block-region-side-pre {
     .card-collapse.collapse {
         display: block;
@@ -444,17 +444,20 @@
 }
 
 .jsenabled:not(.editing) #block-region-side-pre {
+    // Not sure why this was here!
+    /*
     .card-collapse.collapse {
         display: none;
-        &.in {
+        &.show {
             display: block;
         }
     }
     .card-body.collapse {
         display: block;
     }
+    */
     .blockpairs {
-        display: block;
+        display: flex;
     }
     .card-group .card.block {
         margin-bottom: 0;

@@ -45,7 +45,7 @@ $THEME->yuicssmodules = array();
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
 $THEME->csspostprocess = 'theme_squared_process_css';
 $THEME->enable_dock = false;
-$THEME->rarrow = ">";
+//$THEME->rarrow = ">";
 
 $THEME->layouts = array(
     'base' => array(

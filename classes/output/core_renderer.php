@@ -130,7 +130,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $menu = $this->context_header_settings_menu();
         }
 
-        return $menu;
+        $themenu = '';
+        if (!empty($menu)) {
+            $themenu .= '<div class="popover-region collapsed popover-region-nsm nav-link">'.$menu.'</div>';
+        }
+
+        return $themenu;
     }
 
     /**
