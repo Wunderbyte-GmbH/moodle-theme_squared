@@ -20,3 +20,13 @@
         list-style-type: none;
     }
 }
+
+@media(min-width: $screen-breakpoint) {
+    .course_category_tree { 
+        .card-deck {
+            .card { 
+                flex: 1 0 0%; // Override unbelieveable Boost blocks.scss global!
+            }
+        }
+    }
+}
