@@ -428,7 +428,8 @@
     .card-collapse.collapse {
         display: block;
     }
-    .blockpairs {
+    .blockpairs,
+    .pairheader {
         display: none;
     }
     .card-group .card.block {
@@ -443,8 +444,22 @@
     }
 }
 
+.jsenabled #block-region-side-pre {
+    .card-collapse.collapse {
+        display: none;
+        &.show {
+            display: block;
+        }
+    }
+}
+
+.jsenabled.editing #block-region-side-pre {
+    .block .card-heading {
+        display: block;
+    }
+}
+
 .jsenabled:not(.editing) #block-region-side-pre {
-    // Not sure why this was here!
     /*
     .card-collapse.collapse {
         display: none;
@@ -456,8 +471,14 @@
         display: block;
     }
     */
+    .block .card-heading {
+        display: none;
+    }
     .blockpairs {
         display: flex;
+    }
+    .pairheader {
+        display: block;
     }
     .card-group .card.block {
         margin-bottom: 0;

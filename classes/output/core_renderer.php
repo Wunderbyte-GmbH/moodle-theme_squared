@@ -461,11 +461,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $thisblock->name = 'block_flat_navigation';
         $thisblock->title = '<span class="title">'.$flatnavname.'</span>';
         $thisblock->header = '<div class="header"><div class="title"><h2>'.$flatnavname.'</h2></div></div>';
-        if ($blocksrows) {
-            $thisblock->header = '<div role="tree" class="collapselink" data-toggle="collapse" data-target="#subcollapsefake9999" aria-expanded="false" aria-controls="instfake9999">'.
-                $thisblock->header.
-                '</div>';
-        }
+        $thisblock->header = '<div role="tree" class="collapselink" data-toggle="collapse" data-target="#subcollapsefake9999" aria-expanded="false" aria-controls="instfake9999">'.
+            $thisblock->header.
+            '</div>';
         $thisblock->content = $this->render_from_template('theme_squared/flat_navigation_content', $templatecontext);
         $thisblock->blockinstanceid = "fake9999"; // Not sure!  But we are a 'fake' block.
         $thisblock->instanceid = "fake9999";
@@ -513,11 +511,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 if ($bc->attributes['data-block'] == 'adminblock') {
                     $bc->blockinstanceid = -1;
                 }
-                if ($blocksrows) {
-                    $thisblock->header = $this->block_header_collapse($bc);                    
-                } else {
-                    $thisblock->header = $this->block_header($bc);
-                }
+                $thisblock->header = $this->block_header_collapse($bc);
                 $thisblock->movetarget = false;
 
                 $template->blocks[] = $thisblock;

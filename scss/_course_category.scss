@@ -1,9 +1,7 @@
 .course_category_tree { 
     .card-deck {
-        width: auto;
         .card {
             margin-bottom: 30px;
-            max-width: 350px;
             .card-img-top {
                 display: block;
                 height: 180px;
@@ -20,16 +18,5 @@
     
     .card-text ul {
         list-style-type: none;
-    }
-    
-    // TODO: Remove in M3.5.
-    .card-footer {
-        bottom: 0;
-        left: 0;
-        position: absolute;
-        right: 0;
-    }
-    .card-deck .card {
-        padding-bottom: 50px; // Allow for the footer.
     }
 }

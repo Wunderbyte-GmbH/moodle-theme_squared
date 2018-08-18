@@ -665,6 +665,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         }
 
         $content .= html_writer::end_tag('div'); // .card-text
+        $content .= html_writer::end_tag('div'); // .card-body
         $content .= html_writer::start_tag('div', array('class' => 'card-footer'));
         // print enrolmenticons
         if ($icons = enrol_get_course_info_icons($course)) {
@@ -675,7 +676,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $content .= html_writer::end_tag('div'); // .enrolmenticons
         }
         $content .= html_writer::end_tag('div'); // .card-footer
-        $content .= html_writer::end_tag('div'); // .card-body
 
         /*
         $content .= html_writer::start_tag('div', array('class' => 'info'));
