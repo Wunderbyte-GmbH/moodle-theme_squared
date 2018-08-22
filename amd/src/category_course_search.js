@@ -37,21 +37,29 @@ define(['jquery', 'core/log'], function($, log) {
 
                 log.debug('Squared Category Course Search AMD init');
                 log.debug('Squared Category Course Search AJAX URL: ' + data.theme);
+                var timeoutId;
 
                 $('#sq-category-search').prop("disabled", false);
                 $('#sq-category-search').on('change textInput input', function(){
                     if ($(this).val().length > 2) {
                         //$("#sqccp").html('<h1>' + $(this).val() + '</h1>');
-                        $.ajax({
-                            url: data.theme,
-                            data: {'catcourse': $(this).val()},
-                            dataType: 'html'
-                        }).done(function(html){
-                            $("#sqccp").html(html);
-                            log.debug('Squared Category Course Search done: ' + html);
-                        }).fail(function(){
-                            $("#sq-category-search").val('Category course search call failed');
-                        });
+                        window.clearTimeout(timeoutId);
+                        timeoutId = window.setTimeout(
+                            function(sqs){
+                                $.ajax({
+                                url: data.theme,
+                                    data: {'catcourse': sqs.val()},
+                                    dataType: 'html'
+                                }).done(function(html){
+                                    $("#sqccp").html(html);
+                                    log.debug('Squared Category Course Search done: ' + html);
+                                }).fail(function(){
+                                    $("#sq-category-search").val('Category course search call failed');
+                                });
+                            },
+                            500,
+                            $(this)
+                        );
                     }
                 });
             });
