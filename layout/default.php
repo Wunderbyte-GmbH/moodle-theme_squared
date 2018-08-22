@@ -43,8 +43,19 @@ if (($courseautocompletesearchterm) || ($categorycoursesearchterm)) {
     if ($courseautocompletesearchterm) {
         echo json_encode($courserenderer->inspector_ajax($courseautocompletesearchterm));
     } else {
-        // Must be $categorycoursesearchterm.  Echo the markup.
-        echo '<h1>'.$categorycoursesearchterm.'</h1>';
+        // Must be $categorycoursesearchterm.
+        $catid = optional_param('catid', 0, PARAM_INT);
+        if ($catid) {
+            $categorycoursesearchdelete = optional_param('catcoursesearchdelete', 0, PARAM_INT);
+            if ($categorycoursesearchdelete) {
+                echo $courserenderer->category_courses_from_search($catid);
+            } else {
+                echo $courserenderer->category_courses_from_search($catid, $categorycoursesearchterm);
+            }
+        } else {
+            header('HTTP/1.0 400 Bad Request');
+            die('Category id not sent.');
+        }
     }
 
     die();
