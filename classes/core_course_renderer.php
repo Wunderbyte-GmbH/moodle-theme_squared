@@ -433,7 +433,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     protected function coursecat_courses(coursecat_helper $chelper, $courses, $totalcount = null) {
-        global $CFG;
+        global $CFG, $PAGE;
         if ($totalcount === null) {
             $totalcount = count($courses);
         }
@@ -481,8 +481,26 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         // TODO.
 
-        $content = html_writer::tag('h1', '....Current category AJAX search placeholder....', array('class' => 'mdl-align'));
-        // display list of courses
+        $content = html_writer::start_tag('div', array('id' => 'sqccp', 'class' => 'mdl-align'));
+        $content .= html_writer::tag('h1', '....Current category AJAX search placeholder....', array('class' => 'mdl-align'));
+        $content .= html_writer::end_tag('div');
+        $content .= html_writer::start_tag('form', array('class' => 'mdl-align'));
+        $content .= html_writer::tag('label', get_string('searchcourses').':', array('for' => 'sq-category-search'));
+        $content .= html_writer::empty_tag('input',
+            array(
+                'disbled' => 'disabled',
+                'id' => 'sq-category-search',
+                'name' => 'squaredcategorysearch',
+                'size' => '30',
+                'type' => 'text')
+            );
+        $content .= html_writer::end_tag('form');
+        $squaredsearch = new \moodle_url('/course/index.php');
+        $squaredsearch->param('sesskey', sesskey());
+        $categorycoursesearchdata = array('data' => array('theme' => $squaredsearch->out(false)));
+        $PAGE->requires->js_call_amd('theme_squared/category_course_search', 'init', $categorycoursesearchdata);
+
+        // Display list of courses.
         $attributes = $chelper->get_and_erase_attributes('courses');
         $content .= html_writer::start_tag('div', $attributes);
 

@@ -170,7 +170,7 @@ class toolbox {
     static public function course_content_search() {
         global $PAGE;
 
-        $squaredsearch = new \moodle_url('index.php');
+        $squaredsearch = new \moodle_url('/course/index.php');
         $squaredsearch->param('sesskey', sesskey());
         $inspectorscourerdata = array('data' => array('theme' => $squaredsearch->out(false)));
         $PAGE->requires->js_call_amd('theme_squared/inspector_scourer', 'init', $inspectorscourerdata);

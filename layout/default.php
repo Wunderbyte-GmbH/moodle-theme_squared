@@ -27,9 +27,10 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$term = optional_param('term', '', PARAM_TEXT);
-if ($term) {
-    // Autocomplete AJAX call.
+$courseautocompletesearchterm = optional_param('term', '', PARAM_TEXT);
+$categorycoursesearchterm = optional_param('catcourse', '', PARAM_TEXT);
+if (($courseautocompletesearchterm) || ($categorycoursesearchterm)) {
+    // Autocomplete or Category Course Search AJAX call.  Both have a sesskey and use the course renderer.
 
     // Might be overkill but would probably stop DOS attack from lots of DB reads.
     require_sesskey();
@@ -39,7 +40,12 @@ if ($term) {
     }
     $courserenderer = $PAGE->get_renderer('core', 'course');
 
-    echo json_encode($courserenderer->inspector_ajax($term));
+    if ($courseautocompletesearchterm) {
+        echo json_encode($courserenderer->inspector_ajax($courseautocompletesearchterm));
+    } else {
+        // Must be $categorycoursesearchterm.  Echo the markup.
+        echo '<h1>'.$categorycoursesearchterm.'</h1>';
+    }
 
     die();
 }
