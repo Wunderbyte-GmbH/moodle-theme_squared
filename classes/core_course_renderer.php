@@ -495,7 +495,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         $content .= html_writer::start_tag('div', array('class' => 'card-deck justify-content-center'));
         $coursecount = 0;
-        $cardcount = 0;
+        //$cardcount = 0;
         foreach ($courses as $course) {
             $coursecount++;
             $classes = ($coursecount%2) ? 'odd' : 'even';
@@ -507,12 +507,12 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             }
             $content .= $this->coursecat_coursebox($chelper, $course, $classes);
 
-            $cardcount++;
-            if ($cardcount >= 3) {
+            //$cardcount++;
+            /*if ($cardcount >= 3) {
                 $cardcount = 0;
                 $content .= html_writer::end_tag('div'); // .card-deck
                 $content .= html_writer::start_tag('div', array('class' => 'card-deck justify-content-center'));
-            }
+            }*/
             /* Consider for responsive behaviour in M3.5
             if ($cardcount < 3) {
                 $linebreakclasses = ($cardcount == 2) ? 'w-100 d-lg-none' : 'w-100 d-md-none';
