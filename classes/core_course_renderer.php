@@ -448,6 +448,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     protected function coursecat_courses_content(coursecat_helper $chelper, $courses, $totalcount) {
+        if ($this->page->pagelayout != 'coursecategory') {
+            return parent::coursecat_courses_content($chelper, $courses, $totalcount);
+        }
+
         global $CFG;
         if ($chelper->get_show_courses() == self::COURSECAT_SHOW_COURSES_AUTO) {
             // In 'auto' course display mode we analyse if number of courses is more or less than $CFG->courseswithsummarieslimit
@@ -566,7 +570,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     protected function coursecat_courses(coursecat_helper $chelper, $courses, $totalcount = null) {
-        global $PAGE;
+        if ($this->page->pagelayout != 'coursecategory') {
+            return parent::coursecat_courses($chelper, $courses, $totalcount);
+        }
+        
         if ($totalcount === null) {
             $totalcount = count($courses);
         }
@@ -595,7 +602,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $squaredsearch = new \moodle_url('/course/index.php');
         $squaredsearch->param('sesskey', sesskey());
         $categorycoursesearchdata = array('data' => array('theme' => $squaredsearch->out(false), 'catid' => $this->currentcategoryid));
-        $PAGE->requires->js_call_amd('theme_squared/category_course_search', 'init', $categorycoursesearchdata);
+        $this->page->requires->js_call_amd('theme_squared/category_course_search', 'init', $categorycoursesearchdata);
 
         // Display list of courses.
         $attributes = $chelper->get_and_erase_attributes('courses');
@@ -673,6 +680,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     protected function coursecat_coursebox(coursecat_helper $chelper, $course, $additionalclasses = '') {
+        if ($this->page->pagelayout != 'coursecategory') {
+            return parent::coursecat_coursebox($chelper, $course, $additionalclasses);
+        }
+
         global $CFG;
         if (!isset($this->strings->summary)) {
             $this->strings->summary = get_string('summary');
