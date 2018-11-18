@@ -22,6 +22,7 @@
  * @package theme_squared
  * @copyright 2018 onwards Onlinecampus Virtuelle PH
  * www.virtuelle-ph.at, David Bogner www.edulabs.org
+ * @author G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -417,6 +418,27 @@ class theme_squared_core_course_renderer extends core_course_renderer {
     }
     
     // Course listing #1009.
+    /**
+     * Returns HTML to display a tree of subcategories and courses in the given category
+     *
+     * @param coursecat_helper $chelper various display options
+     * @param coursecat $coursecat top category (this category's name and description will NOT be added to the tree)
+     * @return string
+     */
+    protected function coursecat_tree(coursecat_helper $chelper, $coursecat) {
+          if ($this->page->pagelayout != 'coursecategory') {
+            return parent::coursecat_tree($chelper, $coursecat);
+        }
+        
+        /*$retr = print_r($chelper, true);
+        try {
+            throw new Exception('coursecat_tree');
+        } catch (Exception $ex) {
+            $retr .= 'ST: '.$ex->getTraceAsString();
+        }
+        
+        return $retr;*/
+    }
     /**
      * Returns HTML to display the subcategories and courses in the given category
      *

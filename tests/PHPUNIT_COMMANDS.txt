@@ -1,0 +1,13 @@
+Ref: https://docs.moodle.org/dev/PHPUnit
+
+composer install --dev
+
+php admin/tool/phpunit/cli/init.php
+
+vendor/bin/phpunit theme_squared_coursecattoolbox_testcase theme/squared/tests/coursecattoolbox_test.php
+or in Windows:
+vendor\bin\phpunit theme_squared_coursecattoolbox_testcase theme/squared/tests/coursecattoolbox_test.php
+
+vendor/bin/phpunit --group theme_squared
+or in Windows:
+vendor\bin\phpunit --group theme_squared
