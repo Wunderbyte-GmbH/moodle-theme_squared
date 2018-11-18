@@ -44,13 +44,12 @@ define(['jquery', 'core/log'], function($, log) {
                 $('#sq-category-search').on('change textInput input', function(){
                     var inputLength = $(this).val().length;
                     if (inputLength > 2) {
-                        //$("#sqccp").html('<h1>' + $(this).val() + '</h1>');
                         window.clearTimeout(timeoutId);
                         timeoutId = window.setTimeout(
                             function(sqs){
                                 $.ajax({
                                 url: data.theme,
-                                    data: {'search': sqs.val(), 'catid': data.catid},
+                                    data: {'search': sqs.val(), 'categoryid': data.catid},
                                     dataType: 'html'
                                 }).done(function(html){
                                     $("#sqccs").html(html);
@@ -63,14 +62,12 @@ define(['jquery', 'core/log'], function($, log) {
                             500,
                             $(this)
                         );
-                    } else if (inputLength == 0) { // Don't need as use empty or no search string for all.
+                    } else if (inputLength == 0) {
                         // Get them all.
                         if (searched == true) {
                                 $.ajax({
                                 url: data.theme,
-                                    data: {'catcourse': 'deletereq', 
-                                        'catid': data.catid,
-                                        'catcoursesearchdelete': 1},
+                                    data: {'categoryid': data.catid},
                                     dataType: 'html'
                                 }).done(function(html){
                                     $("#sqccs").html(html);

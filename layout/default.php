@@ -51,9 +51,9 @@ if (($courseautocompletesearchterm) || ($categorycoursesearchterm)) {
         echo json_encode($courserenderer->inspector_ajax($courseautocompletesearchterm));
     } else {
         // Must be $categorycoursesearchterm.
-        $catid = optional_param('catid', 0, PARAM_INT);
-        if ($catid) {
-            echo $courserenderer->category_courses_from_search($catid);
+        $catid = optional_param('categoryid', -1, PARAM_INT);  // Zero is for all courses.  Also look at /course/index.php
+        if ($catid != -1) {
+            echo $courserenderer->category_courses_from_search($catid, $categorycoursesearchterm);
         } else {
             header('HTTP/1.0 400 Bad Request');
             die('Category id not sent.');

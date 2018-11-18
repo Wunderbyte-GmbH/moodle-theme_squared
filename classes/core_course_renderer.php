@@ -577,6 +577,11 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         // Prepare content of paging bar if it is needed.
         $pagingbar = null;
         $paginationurl = $chelper->get_courses_display_option('paginationurl');
+        $paginationurl->param('sesskey', sesskey());
+        $searchterm = $chelper->get_courses_display_option('searchterm');
+        if (!empty($searchterm)) {
+            $paginationurl->param('search', $searchterm);
+        }
         if ($totalcount > count($courses)) {
             // There are more results that can fit on one page.
             if ($paginationurl) {
@@ -591,7 +596,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $morelink = html_writer::tag('div', html_writer::link($viewmoreurl, $viewmoretext), array('class' => 'paging paging-morelink'));
             }
         } else if (($totalcount > $CFG->coursesperpage) && $paginationurl) {
-            // there are more than one page of results and we are in 'view all' mode, suggest to go back to paginated view mode
+            // There is more than one page of results and we are in 'view all' mode, suggest to go back to paginated view mode.
             $pagingbar = html_writer::tag('div', html_writer::link($paginationurl->out(false, array('perpage' => $CFG->coursesperpage)), get_string('showperpage', '', $CFG->coursesperpage)), array('class' => 'paging paging-showperpage'));
         }
 
@@ -933,7 +938,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         return $content;
     }
 
-    public function category_courses_from_search($categoryid, $categorycoursesearchterm = null) {
+    public function category_courses_from_search($categoryid, $categorycoursesearchterm = '') {
         global $CFG;
         require_once($CFG->libdir . '/coursecatlib.php');
         $coursecat = coursecat::get($categoryid);
@@ -942,11 +947,12 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $coursedisplayoptions = array();
         $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
         $page = optional_param('page', 0, PARAM_INT);
-        $coursedisplayoptions['searchterm'] = optional_param('search', '', PARAM_TEXT);
+        //$coursedisplayoptions['searchterm'] = optional_param('search', '', PARAM_TEXT);
+        $coursedisplayoptions['searchterm'] = $categorycoursesearchterm;
         $baseurl = new moodle_url('/course/index.php');
-        if ($coursecat->id) {
-            $baseurl->param('categoryid', $coursecat->id);
-        }
+        //if ($coursecat->id) {
+        $baseurl->param('categoryid', $coursecat->id);
+        //}
         if ($perpage != $CFG->coursesperpage) {
             $baseurl->param('perpage', $perpage);
         }
