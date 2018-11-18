@@ -50,7 +50,7 @@ define(['jquery', 'core/log'], function($, log) {
                             function(sqs){
                                 $.ajax({
                                 url: data.theme,
-                                    data: {'catcourse': sqs.val(), 'catid': data.catid},
+                                    data: {'search': sqs.val(), 'catid': data.catid},
                                     dataType: 'html'
                                 }).done(function(html){
                                     $("#sqccs").html(html);
@@ -63,7 +63,7 @@ define(['jquery', 'core/log'], function($, log) {
                             500,
                             $(this)
                         );
-                    } else if (inputLength == 0) {
+                    } else if (inputLength == 0) { // Don't need as use empty or no search string for all.
                         // Get them all.
                         if (searched == true) {
                                 $.ajax({

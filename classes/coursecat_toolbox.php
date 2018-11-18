@@ -67,7 +67,7 @@ class coursecat_toolbox extends \coursecat {
      * @param array $options display options, same as in get_courses() except 'recursive' is ignored -
      *                       search can be within a category if 'categoryid' is specified.
      * @param array $requiredcapabilities List of capabilities required to see return course.
-     * @return course_in_list[]
+     * @return array ('totalcount' => int, 'courses' => course_in_list[]).
      */
     public static function search_courses($search = '', $options = array(), $requiredcapabilities = array()) {
         global $DB;
@@ -85,6 +85,7 @@ class coursecat_toolbox extends \coursecat {
         $ids = $coursecatcache->get($cachekey);
         if ($ids !== false) {
             // We already cached last search result.
+            $totalcount = count($ids);
             $ids = array_slice($ids, $offset, $limit);
             $courses = array();
             if (!empty($ids)) {
@@ -103,7 +104,10 @@ class coursecat_toolbox extends \coursecat {
                     $courses[$id] = new \course_in_list($records[$id]);
                 }
             }
-            return $courses;
+            return array (
+                'totalcount' => $totalcount,
+                'courses' => $courses
+            );
         }
 
         $preloadcoursecontacts = !empty($options['coursecontacts']);
@@ -121,7 +125,6 @@ class coursecat_toolbox extends \coursecat {
                     unset($courselist[$coursekey]);
                 }
             }
-            $totalcount = count($courselist);
         }
 
         self::sort_records($courselist, $sortfields);
@@ -142,7 +145,11 @@ class coursecat_toolbox extends \coursecat {
         foreach ($records as $record) {
             $courses[$record->id] = new \course_in_list($record);
         }
-        return $courses;
+        
+        return array (
+            'totalcount' => $totalcount,
+            'courses' => $courses
+            );
     }
 
 }

@@ -26,9 +26,16 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
-
+global $COURSE;
+//error_log('course '.print_r($COURSE, true));
+if (!empty($COURSE)) {
+    //$course = new course_in_list($COURSE);
+    //error_log('course overview files '.print_r($course->get_course_overviewfiles(), true));
+}
+$coursecattoolbox = \theme_squared\coursecat_toolbox::get_instance();
+//error_log(print_r($coursecattoolbox->search_courses('many', array('categoryid' => 9)), true));
 $courseautocompletesearchterm = optional_param('term', '', PARAM_TEXT);
-$categorycoursesearchterm = optional_param('catcourse', '', PARAM_TEXT);
+$categorycoursesearchterm = optional_param('search', '', PARAM_TEXT);
 if (($courseautocompletesearchterm) || ($categorycoursesearchterm)) {
     // Autocomplete or Category Course Search AJAX call.  Both have a sesskey and use the course renderer.
 
@@ -46,12 +53,7 @@ if (($courseautocompletesearchterm) || ($categorycoursesearchterm)) {
         // Must be $categorycoursesearchterm.
         $catid = optional_param('catid', 0, PARAM_INT);
         if ($catid) {
-            $categorycoursesearchdelete = optional_param('catcoursesearchdelete', 0, PARAM_INT);
-            if ($categorycoursesearchdelete) {
-                echo $courserenderer->category_courses_from_search($catid);
-            } else {
-                echo $courserenderer->category_courses_from_search($catid, $categorycoursesearchterm);
-            }
+            echo $courserenderer->category_courses_from_search($catid);
         } else {
             header('HTTP/1.0 400 Bad Request');
             die('Category id not sent.');
