@@ -125,7 +125,7 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
         $this->getDataGenerator()->create_course($course);
     }
 
-    public function test_search_all_courses() {
+    public function test_search_most_courses() {
         $searchresults = $this->toolbox->search_courses()['courses'];
         $expectedresults = array(
             'TP1' => 'Topic One',
@@ -135,13 +135,13 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
             'TP5' => 'Topic Five'
         );
 
-        $this->assertEquals(count($searchresults), 5);
+        $this->assertEquals(5, count($searchresults));
         $expectedresultcount = 0;
         foreach ($searchresults as $courseinlistobject) {
             $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
             $expectedresultcount++;
         }
-        $this->assertEquals($expectedresultcount, 5);
+        $this->assertEquals(5, $expectedresultcount);
     }
 
     public function test_search_some_courses() {
@@ -150,16 +150,16 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
             'TP3' => 'Topic Three'
         );
 
-        $this->assertEquals(count($searchresults), 1);
+        $this->assertEquals(1, count($searchresults));
         $expectedresultcount = 0;
         foreach ($searchresults as $courseinlistobject) {
             $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
             $expectedresultcount++;
         }
-        $this->assertEquals($expectedresultcount, 1);
+        $this->assertEquals(1, $expectedresultcount);
     }
 
-    public function test_search_course_category_one() {
+    public function test_empty_search_course_category_id() {
         $searchresults = $this->toolbox->search_courses('', array('categoryid' => $this->testcategory->id))['courses'];
         $expectedresults = array(
             'TP1' => 'Topic One',
@@ -167,16 +167,16 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
             'TP3' => 'Topic Three'
         );
 
-        $this->assertEquals(count($searchresults), 3);
+        $this->assertEquals(3, count($searchresults));
         $expectedresultcount = 0;
         foreach ($searchresults as $courseinlistobject) {
             $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
             $expectedresultcount++;
         }
-        $this->assertEquals($expectedresultcount, 3);
+        $this->assertEquals(3, $expectedresultcount);
     }
 
-    public function test_search_course_category_two() {
+    public function test_three_search_no_course_category() {
         $this->add_more_courses();
         $searchresults = $this->toolbox->search_courses('Three')['courses'];
         $expectedresults = array(
@@ -188,16 +188,16 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
             'TP35' => 'Three Five'
         );
 
-        $this->assertEquals(count($searchresults), 6);
+        $this->assertEquals(6, count($searchresults));
         $expectedresultcount = 0;
         foreach ($searchresults as $courseinlistobject) {
             $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
             $expectedresultcount++;
         }
-        $this->assertEquals($expectedresultcount, 6);
+        $this->assertEquals(6, $expectedresultcount);
     }
 
-    public function test_search_course_category_three() {
+    public function test_three_search_and_course_category() {
         $this->add_more_courses();
         $searchresults = $this->toolbox->search_courses('Three', array('categoryid' => $this->testcategory->id))['courses'];
         $expectedresults = array(
@@ -207,13 +207,133 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
             'TP33' => 'Three Three'
         );
 
-        $this->assertEquals(count($searchresults), 4);
+        $this->assertEquals(4, count($searchresults));
         $expectedresultcount = 0;
         foreach ($searchresults as $courseinlistobject) {
             $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
             $expectedresultcount++;
         }
-        $this->assertEquals($expectedresultcount, 4);
+        $this->assertEquals(4, $expectedresultcount);
+    }
+
+    public function test_search_all_courses() {
+        $this->add_more_courses();
+        $searchresults = $this->toolbox->search_courses()['courses'];
+        $expectedresults = array(
+            'TP1' => 'Topic One',
+            'TP2' => 'Topic Two',
+            'TP3' => 'Topic Three',
+            'TP4' => 'Topic Four',
+            'TP5' => 'Topic Five',
+            'TP31' => 'Three One',
+            'TP32' => 'Three Two',
+            'TP33' => 'Three Three',
+            'TP34' => 'Three Four',
+            'TP35' => 'Three Five'
+        );
+
+        $this->assertEquals(10, count($searchresults));
+        $expectedresultcount = 0;
+        foreach ($searchresults as $courseinlistobject) {
+            $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
+            $expectedresultcount++;
+        }
+        $this->assertEquals(10, $expectedresultcount);
+    }
+
+    public function test_search_all_courses_page_two() {
+        $this->add_more_courses();
+        $perpage = 3;
+        $offset = 2 * $perpage;
+        $searchresults = $this->toolbox->search_courses('', array('offset' => $offset, 'limit' => $perpage))['courses'];
+        $expectedresults = array(
+            'TP1' => 'Topic One',
+            'TP2' => 'Topic Two',
+            'TP3' => 'Topic Three',
+            'TP4' => 'Topic Four',
+            'TP5' => 'Topic Five',
+            'TP31' => 'Three One',
+            'TP32' => 'Three Two',
+            'TP33' => 'Three Three',
+            'TP34' => 'Three Four',
+            'TP35' => 'Three Five'
+        );
+
+        $this->assertEquals(3, count($searchresults));
+        $expectedresultcount = 0;
+        foreach ($searchresults as $courseinlistobject) {
+            $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
+            $expectedresultcount++;
+        }
+        $this->assertEquals(3, $expectedresultcount);
+    }
+
+    public function test_search_all_courses_pages() {
+        $this->add_more_courses();
+        $perpage = 3;
+        $offset = 2 * $perpage;
+        $searchresults = $this->toolbox->search_courses('', array('offset' => $offset, 'limit' => $perpage))['courses'];
+        $expectedresults = array(
+            'TP1' => 'Topic One',
+            'TP2' => 'Topic Two',
+            'TP3' => 'Topic Three',
+            'TP4' => 'Topic Four',
+            'TP5' => 'Topic Five',
+            'TP31' => 'Three One',
+            'TP32' => 'Three Two',
+            'TP33' => 'Three Three',
+            'TP34' => 'Three Four',
+            'TP35' => 'Three Five'
+        );
+
+        $this->assertEquals(3, count($searchresults));
+        $expectedresultcount = 0;
+        foreach ($searchresults as $courseinlistobject) {
+            $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
+            $expectedresultcount++;
+        }
+        $this->assertEquals(3, $expectedresultcount);
+
+        $offset = 3 * $perpage;
+        $searchresults = $this->toolbox->search_courses('', array('offset' => $offset, 'limit' => $perpage))['courses'];
+        $this->assertEquals(3, count($searchresults));
+        $expectedresultcount = 0;
+        foreach ($searchresults as $courseinlistobject) {
+            $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
+            $expectedresultcount++;
+        }
+        $this->assertEquals(3, $expectedresultcount);
+    }
+
+    public function test_search_some_courses_pages() {
+        $perpage = 2;
+        $offset = 1 * $perpage;
+        $searchresults = $this->toolbox->search_courses('Topic', array('offset' => $offset, 'limit' => $perpage))['courses'];
+        $expectedresults = array(
+            'TP1' => 'Topic One',
+            'TP2' => 'Topic Two',
+            'TP3' => 'Topic Three',
+            'TP4' => 'Topic Four',
+            'TP5' => 'Topic Five'
+        );
+
+        $this->assertEquals(2, count($searchresults));
+        $expectedresultcount = 0;
+        foreach ($searchresults as $courseinlistobject) {
+            $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
+            $expectedresultcount++;
+        }
+        $this->assertEquals(2, $expectedresultcount);
+
+        $offset = 2 * $perpage;
+        $searchresults = $this->toolbox->search_courses('', array('offset' => $offset, 'limit' => $perpage))['courses'];
+        $this->assertEquals(1, count($searchresults));
+        $expectedresultcount = 0;
+        foreach ($searchresults as $courseinlistobject) {
+            $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
+            $expectedresultcount++;
+        }
+        $this->assertEquals(1, $expectedresultcount);
     }
 
 }

@@ -25,15 +25,15 @@
  */
 
 /* jshint ignore:start */
-define(['jquery', 'core/log'], function($, log) {
+define(['jquery', 'core/log'], function ($, log) {
 
     "use strict"; // jshint ;_;
 
     log.debug('Squared Category Course Search AMD initialised');
 
     return {
-        init: function(data) {
-            $(document).ready(function($) {
+        init: function (data) {
+            $(document).ready(function ($) {
 
                 log.debug('Squared Category Course Search AMD init');
                 log.debug('Squared Category Course Search AJAX URL: ' + data.theme);
@@ -41,43 +41,57 @@ define(['jquery', 'core/log'], function($, log) {
                 var searched = false;
 
                 $('#sq-category-search').prop("disabled", false);
-                $('#sq-category-search').on('change textInput input', function(){
+                $('#sq-category-search').on('change textInput input', function () {
                     var inputLength = $(this).val().length;
                     if (inputLength > 2) {
                         window.clearTimeout(timeoutId);
                         timeoutId = window.setTimeout(
-                            function(sqs){
-                                $.ajax({
-                                url: data.theme,
-                                    data: {'search': sqs.val(), 'categoryid': data.catid},
-                                    dataType: 'html'
-                                }).done(function(html){
-                                    $("#sqccs").html(html);
-                                    log.debug('Squared Category Course Search done: ' + html);
-                                }).fail(function(){
-                                    $("#sq-category-search").val('Category course search call failed');
-                                });
-                                searched = true;
-                            },
-                            500,
-                            $(this)
-                        );
-                    } else if (inputLength == 0) {
+                                function (sqs) {
+                                    $.ajax({
+                                        url: data.theme,
+                                        data: {'search': sqs.val(), 'categoryid': data.catid},
+                                        dataType: 'html'
+                                    }).done(function (html) {
+                                        $("#sqccs").html(html);
+                                        log.debug('Squared Category Course Search done: ' + html);
+                                    }).fail(function () {
+                                        $("#sq-category-search").val('Category course search call failed');
+                                    });
+                                    searched = true;
+                                },
+                                500,
+                                $(this)
+                                );
+                    } else if (inputLength === 0) {
                         // Get them all.
-                        if (searched == true) {
-                                $.ajax({
+                        if (searched === true) {
+                            $.ajax({
                                 url: data.theme,
-                                    data: {'categoryid': data.catid},
-                                    dataType: 'html'
-                                }).done(function(html){
-                                    $("#sqccs").html(html);
-                                    log.debug('Squared Category Course Search done: ' + html);
-                                }).fail(function(){
-                                    $("#sq-category-search").val('Category course search call failed');
-                                });
-                                searched = false;
+                                data: {'search': '', 'categoryid': data.catid},
+                                dataType: 'html'
+                            }).done(function (html) {
+                                $("#sqccs").html(html);
+                                log.debug('Squared Category Course Search done: ' + html);
+                            }).fail(function () {
+                                $("#sq-category-search").val('Category course search call failed');
+                            });
+                            searched = false;
                         }
                     }
+                });
+
+                $('#sqccs .pagination li.page-item:not(.active) .page-link').click(function(e) {
+                    //e.preventDefault();
+                    var pagelinkurl = e.target.getAttribute('href');
+                    log.debug('Squared Category Course Search Page Link AJAX URL: ' + pagelinkurl);
+                    /*$.ajax({
+                        url: pagelinkurl
+                    }).done(function (html) {
+                        $("#sqccs").html(html);
+                        log.debug('Squared Category Course Search done: ' + html);
+                    }).fail(function () {
+                        $("#sq-category-search").val('Category course pagination search call failed');
+                    });*/
                 });
             });
         }

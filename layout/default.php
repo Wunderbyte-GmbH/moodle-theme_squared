@@ -35,8 +35,8 @@ if (!empty($COURSE)) {
 $coursecattoolbox = \theme_squared\coursecat_toolbox::get_instance();
 //error_log(print_r($coursecattoolbox->search_courses('many', array('categoryid' => 9)), true));
 $courseautocompletesearchterm = optional_param('term', '', PARAM_TEXT);
-$categorycoursesearchterm = optional_param('search', '', PARAM_TEXT);
-if (($courseautocompletesearchterm) || ($categorycoursesearchterm)) {
+$categorycoursesearchterm = optional_param('search', null, PARAM_TEXT);
+if (($courseautocompletesearchterm) || (!is_null($categorycoursesearchterm))) {
     // Autocomplete or Category Course Search AJAX call.  Both have a sesskey and use the course renderer.
 
     // Might be overkill but would probably stop DOS attack from lots of DB reads.
