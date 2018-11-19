@@ -31,7 +31,7 @@ namespace theme_squared;
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once($CFG->dirroot.'/lib/coursecatlib.php');
+require_once($CFG->dirroot . '/lib/coursecatlib.php');
 
 class coursecat_toolbox extends \coursecat {
 
@@ -74,7 +74,7 @@ class coursecat_toolbox extends \coursecat {
         $categoryid = !empty($options['categoryid']) ? $options['categoryid'] : 0;
         $limit = !empty($options['limit']) ? $options['limit'] : null;
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
-        $sortfields = !empty($options['sort']) ? $options['sort'] : array('sortorder' => 1);
+        $sortfields = !empty($options['sort']) ? $options['sort'] : array('sortorder' => 1); // Note: 1 is ASC and -1 is DESC, see get_courses().
 
         $coursecatcache = \cache::make('theme_squared', 'coursecat');
         $cachekey = 's-' . serialize(
@@ -104,7 +104,7 @@ class coursecat_toolbox extends \coursecat {
                     $courses[$id] = new \course_in_list($records[$id]);
                 }
             }
-            return array (
+            return array(
                 'totalcount' => $totalcount,
                 'courses' => $courses
             );
@@ -120,7 +120,7 @@ class coursecat_toolbox extends \coursecat {
 
         // With category id the don't really want to have a custom version of 'get_courses_search()' in datalib.php, so filter here.
         if ($categoryid) {
-            foreach($courselist as $coursekey => $courseentry) {
+            foreach ($courselist as $coursekey => $courseentry) {
                 if ($courseentry->category != $categoryid) {
                     unset($courselist[$coursekey]);
                 }
@@ -145,11 +145,53 @@ class coursecat_toolbox extends \coursecat {
         foreach ($records as $record) {
             $courses[$record->id] = new \course_in_list($record);
         }
-        
-        return array (
+
+        return array(
             'totalcount' => $totalcount,
             'courses' => $courses
-            );
+        );
     }
 
+    /**
+     * Gets the image url for the given course.
+     * 
+     * @param course_in_list|stdClass $course The course to use.
+     * @param string $for 'course'|'overview'|empty Specify the image to get if any.
+     */
+    public static function course_image($course, $for = '') {
+        $courseimageurl = null;
+        $candidates = array();
+        foreach ($course->get_course_overviewfiles() as $file) {
+            $isimage = $file->is_valid_image();
+            if ($isimage) {
+                $filename = pathinfo($file->get_filename(), PATHINFO_FILENAME);
+                $candidates[$filename] = $file;
+            }
+        }
+
+        if (!empty($candidates)) {
+            global $CFG;
+            $file = null;
+            if (!empty($for)) {
+                $use = null;
+                foreach ($candidates as $candidatekey => $candidate) {
+                    if (strcmp($candidatekey, $for) === 0) { // Does this need to be multibyte (UTF8) safe?
+                        $file = $candidate;
+                        break;
+                    }
+                }
+                if (empty($file)) {
+                    // Use the first.
+                    $file = reset($candidates);
+                }
+            } else {
+                // Use the first.
+                $file = reset($candidates);
+            }
+            $courseimageurl = file_encode_url("$CFG->wwwroot/pluginfile.php", '/' . $file->get_contextid() . '/' . $file->get_component() . '/' .
+                    $file->get_filearea() . $file->get_filepath() . $file->get_filename(), !$isimage);
+        }
+
+        return $courseimageurl;
+    }
 }
