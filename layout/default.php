@@ -26,14 +26,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
-global $COURSE;
-//error_log('course '.print_r($COURSE, true));
-if (!empty($COURSE)) {
-    //$course = new course_in_list($COURSE);
-    //error_log('course overview files '.print_r($course->get_course_overviewfiles(), true));
-}
-$coursecattoolbox = \theme_squared\coursecat_toolbox::get_instance();
-//error_log(print_r($coursecattoolbox->search_courses('many', array('categoryid' => 9)), true));
+
 $courseautocompletesearchterm = optional_param('term', '', PARAM_TEXT);
 $categorycoursesearch = optional_param('ccs', '', PARAM_TEXT);
 if (($courseautocompletesearchterm) || ($categorycoursesearch)) {

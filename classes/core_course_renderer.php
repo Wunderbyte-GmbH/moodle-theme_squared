@@ -524,7 +524,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
     protected function coursecat_tree(coursecat_helper $chelper, $coursecat) {
         $this->currentcategoryid = $coursecat->id;
 
-        //$categorycontent = $this->coursecat_category_content($chelper, $coursecat, 0);
         $coursecat_toolbox = \theme_squared\coursecat_toolbox::get_instance();
         $courses = $coursecat_toolbox->search_courses(
                 $chelper->get_courses_display_option('searchterm'), 
@@ -546,12 +545,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $content .= html_writer::start_tag('div', $attributes);
         $content .= html_writer::tag('div', $categorycontent, array('class' => 'content'));
         $content .= html_writer::end_tag('div'); // .course_category_tree
-        //$content .= print_r($chelper, true);
-        /*try {
-            throw new Exception('coursecat_tree');
-        } catch (Exception $ex) {
-            $content .= PHP_EOL . 'ST: ' . $ex->getTraceAsString();
-        }*/
 
         return $content;
     }
@@ -620,36 +613,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $classes .= ' last';
             }
             $content .= $this->coursecat_coursebox($chelper, $course, $classes);
-
-            //$cardcount++;
-            /* if ($cardcount >= 3) {
-              $cardcount = 0;
-              $content .= html_writer::end_tag('div'); // .card-deck
-              $content .= html_writer::start_tag('div', array('class' => 'card-deck justify-content-center'));
-              } */
-            /* Consider for responsive behaviour in M3.5
-              if ($cardcount < 3) {
-              $linebreakclasses = ($cardcount == 2) ? 'w-100 d-lg-none' : 'w-100 d-md-none';
-              $content .= html_writer::tag('div', '', array('class' => $linebreakclasses));
-              } else {
-              $cardcount = 0;
-              $content .= html_writer::end_tag('div'); // .card-deck
-              $content .= html_writer::start_tag('div', array('class' => 'card-deck justify-content-center'));
-              }
-             */
         }
-
-        /* $content .= '<div class="card"><img class="card-img-top" data-src="holder.js/260x180" alt="100%x180" style="height: 180px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22260%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_165246601bc%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A13pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_165246601bc%22%3E%3Crect%20width%3D%22260%22%20height%3D%22180%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2296.2734375%22%20y%3D%2296%22%3E100%%20x%20180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 260px; height: 180px;">
-          <div class="card-body">
-          <div class="card-img-overlay">
-          <h5 class="card-title">Card title overlay</h5>
-          </div>
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-          </div>
-          <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-          </div></div>'; */
 
         $content .= html_writer::end_tag('div'); // .card-deck
 
@@ -683,13 +647,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         if ($totalcount === null) {
             $totalcount = count($courses);
         }
-        //$totalcount = 999;
         if (!$totalcount) {
             // Courses count is cached during courses retrieval.
             return '';
         }
-
-        // TODO.
 
         $content = html_writer::start_tag('div', array('id' => 'sqccp', 'class' => 'mdl-align'));
         $content .= html_writer::tag('h1', '....New Current category AJAX search....', array('class' => 'mdl-align'));
@@ -716,59 +677,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $content .= html_writer::start_tag('div', $attributes);
         $content .= $this->coursecat_courses_content($chelper, $courses, $totalcount);
         $content .= html_writer::end_tag('div'); // .courses
-
-        /* $attributes = $chelper->get_and_erase_attributes('courses');
-          $content .= html_writer::start_tag('div', $attributes);
-
-          if (!empty($pagingbar)) {
-          $content .= $pagingbar;
-          }
-
-          $content .= html_writer::start_tag('div', array('class' => 'card-deck justify-content-center'));
-          $coursecount = 0;
-          $cardcount = 0;
-          foreach ($courses as $course) {
-          $coursecount++;
-          $classes = ($coursecount%2) ? 'odd' : 'even';
-          if ($coursecount == 1) {
-          $classes .= ' first';
-          }
-          if ($coursecount >= count($courses)) {
-          $classes .= ' last';
-          }
-          $content .= $this->coursecat_coursebox($chelper, $course, $classes);
-
-          $cardcount++;
-          if ($cardcount >= 3) {
-          $cardcount = 0;
-          $content .= html_writer::end_tag('div'); // .card-deck
-          $content .= html_writer::start_tag('div', array('class' => 'card-deck justify-content-center'));
-          }
-          }
-
-          $content .= '<div class="card"><img class="card-img-top" data-src="holder.js/260x180" alt="100%x180" style="height: 180px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22260%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_165246601bc%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A13pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_165246601bc%22%3E%3Crect%20width%3D%22260%22%20height%3D%22180%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2296.2734375%22%20y%3D%2296%22%3E100%%20x%20180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 260px; height: 180px;">
-          <div class="card-body">
-          <div class="card-img-overlay">
-          <h5 class="card-title">Card title overlay</h5>
-          </div>
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-          </div>
-          <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-          </div></div>';
-
-          $content .= html_writer::end_tag('div'); // .card-deck
-
-          if (!empty($pagingbar)) {
-          $content .= $pagingbar;
-          }
-          if (!empty($morelink)) {
-          $content .= $morelink;
-          }
-
-          $content .= html_writer::end_tag('div'); // .courses
-         */
 
         return $content;
     }
@@ -899,43 +807,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         }
         $content .= html_writer::end_tag('div'); // .card-footer
 
-        /*
-          $content .= html_writer::start_tag('div', array('class' => 'info'));
-
-          // course name
-          $coursename = $chelper->get_course_formatted_name($course);
-          $coursenamelink = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)),
-          $coursename, array('class' => $course->visible ? '' : 'dimmed'));
-          $content .= html_writer::tag($nametag, $coursenamelink, array('class' => 'coursename'));
-          // If we display course in collapsed form but the course has summary or course contacts, display the link to the info page.
-          $content .= html_writer::start_tag('div', array('class' => 'moreinfo'));
-          if ($chelper->get_show_courses() < self::COURSECAT_SHOW_COURSES_EXPANDED) {
-          if ($course->has_summary() || $course->has_course_contacts() || $course->has_course_overviewfiles()) {
-          $url = new moodle_url('/course/info.php', array('id' => $course->id));
-          $image = $this->output->pix_icon('i/info', $this->strings->summary);
-          $content .= html_writer::link($url, $image, array('title' => $this->strings->summary));
-          // Make sure JS file to expand course content is included.
-          $this->coursecat_include_js();
-          }
-          }
-          $content .= html_writer::end_tag('div'); // .moreinfo
-
-          // print enrolmenticons
-          if ($icons = enrol_get_course_info_icons($course)) {
-          $content .= html_writer::start_tag('div', array('class' => 'enrolmenticons'));
-          foreach ($icons as $pix_icon) {
-          $content .= $this->render($pix_icon);
-          }
-          $content .= html_writer::end_tag('div'); // .enrolmenticons
-          }
-
-          $content .= html_writer::end_tag('div'); // .info
-
-          $content .= html_writer::start_tag('div', array('class' => 'content'));
-          $content .= $this->coursecat_coursebox_content($chelper, $course);
-          $content .= html_writer::end_tag('div'); // .content
-         */
-
         $content .= html_writer::end_tag('div'); // .coursebox / .card
         return $content;
     }
@@ -951,7 +822,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $page = optional_param('page', 0, PARAM_INT);
         $coursedisplayoptions['searchterm'] = optional_param('search', '', PARAM_TEXT); // Needed in coursecat_courses_content() ?.
         $baseurl = new moodle_url('/course/index.php');
-        //if ($coursecat->id) {
         $baseurl->param('categoryid', $coursecat->id);
         //}
         if ($perpage != $CFG->coursesperpage) {
