@@ -61,7 +61,7 @@ class coursecat_toolbox extends \coursecat {
      * to this when somebody edits courses or categories, however it is very
      * difficult to keep track of all possible changes that may affect list of courses.
      *
-     * Adapted from coursecatlib.php search_courses to add category id (TODO) and remove what is not needed.
+     * Adapted from coursecatlib.php search_courses to add category id.
      *
      * @param string $search search string or empty for all within a given category if specified.
      * @param array $options display options, same as in get_courses() except 'recursive' is ignored -

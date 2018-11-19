@@ -484,8 +484,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         }
         $coursedisplayoptions['paginationurl'] = new moodle_url($baseurl);
         $chelper->set_courses_display_options($coursedisplayoptions);
-        // Add course search form.
-        $output .= $this->course_search_form();
 
         // Display course category tree.
         $output .= $this->coursecat_tree($chelper, $coursecat);
@@ -652,9 +650,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             return '';
         }
 
-        $content = html_writer::start_tag('div', array('id' => 'sqccp', 'class' => 'mdl-align'));
-        $content .= html_writer::tag('h1', '....New Current category AJAX search....', array('class' => 'mdl-align'));
-        $content .= html_writer::end_tag('div');
+        $content = html_writer::start_tag('div', array('id' => 'sqccf', 'class' => 'mdl-align'));
         $content .= html_writer::start_tag('form', array('class' => 'mdl-align'));
         $content .= html_writer::tag('label', get_string('searchcourses') . ': ', array('for' => 'sq-category-search', 'class' => 'd-inline'));
         $content .= html_writer::empty_tag('input', array(
@@ -665,6 +661,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                     'type' => 'text')
         );
         $content .= html_writer::end_tag('form');
+        $content .= html_writer::end_tag('div');
         $squaredsearch = new \moodle_url('/course/index.php');  // Needs to be this as can read category id.
         $squaredsearch->param('sesskey', sesskey());
         $squaredsearch->param('ccs', 's'); // Course category search.
