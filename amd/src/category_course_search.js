@@ -40,6 +40,38 @@ define(['jquery', 'core/log'], function ($, log) {
                 var timeoutId;
                 var searched = false;
 
+                var paginationAJAX = function (event) {
+                    event.preventDefault();
+                    var pagelinkurl = event.target.getAttribute('href');
+                    if (pagelinkurl === null) {
+                        // Might be a 'span' within the 'a'.
+                        pagelinkurl = event.target.parentElement.getAttribute('href');
+                    }
+                    log.debug('Squared Category Course Search Page Link AJAX URL: ' + pagelinkurl);
+                    if (pagelinkurl !== null) { // Just in case!
+                        $.ajax({
+                            url: pagelinkurl,
+                            data: {'search': $('#sq-category-search').val(), 'categoryid': data.catid},
+                            dataType: 'html'
+                        }).done(function (html) {
+                            $("#sqccs").html(html);
+                            pagination();
+                            log.debug('Squared Category Course Search from pagination done: ' + html);
+                        }).fail(function () {
+                            $("#sq-category-search").val('Category course pagination search call failed');
+                        });
+                    }
+                }
+
+                var pagination = function () {
+                    $('#sqccs .pagination li.page-item:not(.active) .page-link').click(function (e) {
+                        paginationAJAX(e);
+                    });
+                    $('#sqccs .paging a').click(function (e) {
+                        paginationAJAX(e);
+                    });
+                }
+
                 $('#sq-category-search').prop("disabled", false);
                 $('#sq-category-search').on('change textInput input', function () {
                     var inputLength = $(this).val().length;
@@ -53,6 +85,7 @@ define(['jquery', 'core/log'], function ($, log) {
                                         dataType: 'html'
                                     }).done(function (html) {
                                         $("#sqccs").html(html);
+                                        pagination();
                                         log.debug('Squared Category Course Search done: ' + html);
                                     }).fail(function () {
                                         $("#sq-category-search").val('Category course search call failed');
@@ -71,6 +104,7 @@ define(['jquery', 'core/log'], function ($, log) {
                                 dataType: 'html'
                             }).done(function (html) {
                                 $("#sqccs").html(html);
+                                pagination();
                                 log.debug('Squared Category Course Search done: ' + html);
                             }).fail(function () {
                                 $("#sq-category-search").val('Category course search call failed');
@@ -80,19 +114,7 @@ define(['jquery', 'core/log'], function ($, log) {
                     }
                 });
 
-                $('#sqccs .pagination li.page-item:not(.active) .page-link').click(function(e) {
-                    //e.preventDefault();
-                    var pagelinkurl = e.target.getAttribute('href');
-                    log.debug('Squared Category Course Search Page Link AJAX URL: ' + pagelinkurl);
-                    /*$.ajax({
-                        url: pagelinkurl
-                    }).done(function (html) {
-                        $("#sqccs").html(html);
-                        log.debug('Squared Category Course Search done: ' + html);
-                    }).fail(function () {
-                        $("#sq-category-search").val('Category course pagination search call failed');
-                    });*/
-                });
+                pagination();
             });
         }
     };

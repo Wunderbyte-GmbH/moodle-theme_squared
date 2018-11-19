@@ -578,6 +578,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $pagingbar = null;
         $paginationurl = $chelper->get_courses_display_option('paginationurl');
         $paginationurl->param('sesskey', sesskey());
+        $paginationurl->param('ccs', 's'); // Course category search.
         $searchterm = $chelper->get_courses_display_option('searchterm');
         if (!empty($searchterm)) {
             $paginationurl->param('search', $searchterm);
@@ -705,6 +706,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $content .= html_writer::end_tag('form');
         $squaredsearch = new \moodle_url('/course/index.php');  // Needs to be this as can read category id.
         $squaredsearch->param('sesskey', sesskey());
+        $squaredsearch->param('ccs', 's'); // Course category search.
         $categorycoursesearchdata = array('data' => array('theme' => $squaredsearch->out(false), 'catid' => $this->currentcategoryid));
         $this->page->requires->js_call_amd('theme_squared/category_course_search', 'init', $categorycoursesearchdata);
 
@@ -938,7 +940,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         return $content;
     }
 
-    public function category_courses_from_search($categoryid, $categorycoursesearchterm = '') {
+    public function category_courses_from_search($categoryid) {
         global $CFG;
         require_once($CFG->libdir . '/coursecatlib.php');
         $coursecat = coursecat::get($categoryid);
@@ -947,8 +949,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $coursedisplayoptions = array();
         $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
         $page = optional_param('page', 0, PARAM_INT);
-        //$coursedisplayoptions['searchterm'] = optional_param('search', '', PARAM_TEXT);
-        $coursedisplayoptions['searchterm'] = $categorycoursesearchterm;
+        $coursedisplayoptions['searchterm'] = optional_param('search', '', PARAM_TEXT); // Needed in coursecat_courses_content() ?.
         $baseurl = new moodle_url('/course/index.php');
         //if ($coursecat->id) {
         $baseurl->param('categoryid', $coursecat->id);
@@ -968,7 +969,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         $coursecat_toolbox = \theme_squared\coursecat_toolbox::get_instance();
         $courses = $coursecat_toolbox->search_courses(
-                $chelper->get_courses_display_option('searchterm'), 
+                $coursedisplayoptions['searchterm'], 
                 array(
                     'categoryid' => $coursecat->id,
                     'limit' => $chelper->get_courses_display_option('limit'),

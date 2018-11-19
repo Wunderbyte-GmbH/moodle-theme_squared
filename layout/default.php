@@ -35,8 +35,8 @@ if (!empty($COURSE)) {
 $coursecattoolbox = \theme_squared\coursecat_toolbox::get_instance();
 //error_log(print_r($coursecattoolbox->search_courses('many', array('categoryid' => 9)), true));
 $courseautocompletesearchterm = optional_param('term', '', PARAM_TEXT);
-$categorycoursesearchterm = optional_param('search', null, PARAM_TEXT);
-if (($courseautocompletesearchterm) || (!is_null($categorycoursesearchterm))) {
+$categorycoursesearch = optional_param('ccs', '', PARAM_TEXT);
+if (($courseautocompletesearchterm) || ($categorycoursesearch)) {
     // Autocomplete or Category Course Search AJAX call.  Both have a sesskey and use the course renderer.
 
     // Might be overkill but would probably stop DOS attack from lots of DB reads.
@@ -53,7 +53,7 @@ if (($courseautocompletesearchterm) || (!is_null($categorycoursesearchterm))) {
         // Must be $categorycoursesearchterm.
         $catid = optional_param('categoryid', -1, PARAM_INT);  // Zero is for all courses.  Also look at /course/index.php
         if ($catid != -1) {
-            echo $courserenderer->category_courses_from_search($catid, $categorycoursesearchterm);
+            echo $courserenderer->category_courses_from_search($catid);
         } else {
             header('HTTP/1.0 400 Bad Request');
             die('Category id not sent.');
