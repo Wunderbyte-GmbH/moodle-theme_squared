@@ -26,7 +26,8 @@ ol:not([class]) ol, ul:not([class]) ol {
   list-style-type:lower-latin;
   list-style-position:inside;
 }
-    
+
+/* Not needed anymore?  The text indent causes tick box issues on 'admin/settings.php?section=coursecontact'.
 .dir-ltr {
     ul:not([class]),
     ol:not([class]) {
@@ -63,6 +64,7 @@ ol:not([class]) ol, ul:not([class]) ol {
         margin-right:15px;
     }
 }
+*/
 
 /*
 .content {
