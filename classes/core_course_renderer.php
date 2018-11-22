@@ -480,7 +480,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $coursedisplayoptions['offset'] = 0;
         } else {
             $coursedisplayoptions['limit'] = $perpage;
-            $coursedisplayoptions['offset'] = $page * $perpage;        
+            $coursedisplayoptions['offset'] = $page * $perpage;
         }
         $coursedisplayoptions['paginationurl'] = new moodle_url($baseurl);
         $chelper->set_courses_display_options($coursedisplayoptions);
@@ -524,7 +524,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $this->currentcategoryid = $coursecat->id;
 
         $courses = $this->coursecat_toolbox->search_courses(
-                $chelper->get_courses_display_option('searchterm'), 
+                $chelper->get_courses_display_option('searchterm'),
                 array(
                     'categoryid' => $coursecat->id,
                     'limit' => $chelper->get_courses_display_option('limit'),
@@ -650,8 +650,55 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             return '';
         }
 
-        $content = html_writer::start_tag('div', array('id' => 'sqccf', 'class' => 'mdl-align'));
-        $content .= html_writer::start_tag('form', array('class' => 'mdl-align'));
+        $content = html_writer::start_tag('div', array('id' => 'sqccf', 'class' => 'row')); // Start search row.
+        $content .= html_writer::start_tag('div', array('class' => 'col-md-6')); // Start search category.
+        $content .= $this->squared_select_search_category();
+        $content .= html_writer::end_tag('div'); // End search category.
+        $content .= html_writer::start_tag('div', array('class' => 'col-md-6')); // Start search form.
+        $content .= $this->squared_category_course_search();
+        $content .= html_writer::end_tag('div'); // End search form.
+        $content .= html_writer::end_tag('div'); // End search row.
+
+        // Display list of courses.
+        $attributes = $chelper->get_and_erase_attributes('courses');
+        $attributes['id'] = 'sqccs';
+        $content .= html_writer::start_tag('div', $attributes);
+        $content .= $this->coursecat_courses_content($chelper, $courses, $totalcount);
+        $content .= html_writer::end_tag('div'); // .courses
+
+        return $content;
+    }
+
+    protected function squared_select_search_category() {
+        $topcat = $this->coursecat_toolbox::get(0)->get_all();
+
+        $content = html_writer::start_tag('form', array('class' => 'mdl-align'));
+        $content .= html_writer::tag('label', get_string('coursecategory') . ': ', array('for' => 'sq-category-select', 'class' => 'd-inline'));
+        $content .= html_writer::start_tag('select', array(
+                    'disabled' => 'disabled',
+                    'id' => 'sq-category-select',
+                    'name' => 'squaredcategoryselect')
+        );
+        foreach ($topcat as $catdata) {
+            $attrs = array('value' => $catdata->id);
+            if ($catdata->id == $this->currentcategoryid) {
+                $attrs['selected'] = 'selected';
+            }
+            $content .= html_writer::tag('option', $catdata->name, $attrs);            
+        }
+        $content .= html_writer::end_tag('select');
+        $content .= html_writer::end_tag('form');
+        
+        return $content;
+    }
+
+    /**
+     * Returns the Squared category course search form and initialises the associated jQuery AMD module.
+     *
+     * @return string Markup.
+     */
+    protected function squared_category_course_search() {
+        $content = html_writer::start_tag('form', array('class' => 'mdl-align'));
         $content .= html_writer::tag('label', get_string('searchcourses') . ': ', array('for' => 'sq-category-search', 'class' => 'd-inline'));
         $content .= html_writer::empty_tag('input', array(
                     'disabled' => 'disabled',
@@ -661,19 +708,12 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                     'type' => 'text')
         );
         $content .= html_writer::end_tag('form');
-        $content .= html_writer::end_tag('div');
+
         $squaredsearch = new \moodle_url('/course/index.php');  // Needs to be this as can read category id.
         $squaredsearch->param('sesskey', sesskey());
         $squaredsearch->param('ccs', 's'); // Course category search.
         $categorycoursesearchdata = array('data' => array('theme' => $squaredsearch->out(false), 'catid' => $this->currentcategoryid));
         $this->page->requires->js_call_amd('theme_squared/category_course_search', 'init', $categorycoursesearchdata);
-
-        // Display list of courses.
-        $attributes = $chelper->get_and_erase_attributes('courses');
-        $attributes['id'] = 'sqccs';
-        $content .= html_writer::start_tag('div', $attributes);
-        $content .= $this->coursecat_courses_content($chelper, $courses, $totalcount);
-        $content .= html_writer::end_tag('div'); // .courses
 
         return $content;
     }
@@ -821,13 +861,13 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $coursedisplayoptions['offset'] = 0;
         } else {
             $coursedisplayoptions['limit'] = $perpage;
-            $coursedisplayoptions['offset'] = $page * $perpage;        
+            $coursedisplayoptions['offset'] = $page * $perpage;
         }
         $coursedisplayoptions['paginationurl'] = new moodle_url($baseurl);
         $chelper->set_courses_display_options($coursedisplayoptions);
 
         $courses = $this->coursecat_toolbox->search_courses(
-                $coursedisplayoptions['searchterm'], 
+                $coursedisplayoptions['searchterm'],
                 array(
                     'categoryid' => $coursecat->id,
                     'limit' => $chelper->get_courses_display_option('limit'),
