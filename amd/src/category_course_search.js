@@ -16,11 +16,12 @@
 /**
  * This is the squared theme.
  *
- * The squared theme makes uses a custom version of squared blocks
+ * The squared theme makes uses a custom version of squared blocks.
  *
  * @package theme_squared
  * @copyright 2018 onwards Onlinecampus Virtuelle PH
  * www.virtuelle-ph.at, David Bogner www.edulabs.org
+ * @author G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -41,6 +42,27 @@ define(['jquery', 'core/log'], function ($, log) {
                 var timeoutId;
                 var searched = false;
 
+                var searchAJAX = function(search, categoryId, updateCurrentCategoryId, url) {
+                    categoryId = typeof categoryId !== 'undefined' ? categoryId : currentCategoryId;
+                    updateCurrentCategoryId = typeof updateCurrentCategoryId !== 'undefined' ? updateCurrentCategoryId : false;
+                    url = typeof url !== 'undefined' ? url : data.theme;
+
+                    $.ajax({
+                        url: url,
+                        data: {'search': search, 'categoryid': categoryId},
+                        dataType: 'html'
+                    }).done(function (html) {
+                        if (updateCurrentCategoryId === true) {
+                            currentCategoryId = categoryId;
+                        }
+                        $("#sqccs").html(html);
+                        pagination();
+                        log.debug('Squared Select Category Course Search done: ' + html);
+                    }).fail(function () {
+                        $("#sq-category-search").val('Select category course search call failed');
+                    });
+                };
+
                 var paginationAJAX = function (event) {
                     event.preventDefault();
                     var pagelinkurl = event.target.getAttribute('href');
@@ -50,19 +72,9 @@ define(['jquery', 'core/log'], function ($, log) {
                     }
                     log.debug('Squared Category Course Search Page Link AJAX URL: ' + pagelinkurl);
                     if (pagelinkurl !== null) { // Just in case!
-                        $.ajax({
-                            url: pagelinkurl,
-                            data: {'search': $('#sq-category-search').val(), 'categoryid': currentCategoryId},
-                            dataType: 'html'
-                        }).done(function (html) {
-                            $("#sqccs").html(html);
-                            pagination();
-                            log.debug('Squared Category Course Search from pagination done: ' + html);
-                        }).fail(function () {
-                            $("#sq-category-search").val('Category course pagination search call failed');
-                        });
+                        searchAJAX($('#sq-category-search').val(), currentCategoryId, false, pagelinkurl);
                     }
-                }
+                };
 
                 var pagination = function () {
                     $('#sqccs .pagination li.page-item:not(.active) .page-link').click(function (e) {
@@ -71,7 +83,7 @@ define(['jquery', 'core/log'], function ($, log) {
                     $('#sqccs .paging a').click(function (e) {
                         paginationAJAX(e);
                     });
-                }
+                };
 
                 $('#sq-category-search').prop("disabled", false);
                 $('#sq-category-search').on('change textInput input', function () {
@@ -79,43 +91,21 @@ define(['jquery', 'core/log'], function ($, log) {
                     if (inputLength > 2) {
                         window.clearTimeout(timeoutId);
                         timeoutId = window.setTimeout(
-                                function (sqs) {
-                                    $.ajax({
-                                        url: data.theme,
-                                        data: {'search': sqs.val(), 'categoryid': currentCategoryId},
-                                        dataType: 'html'
-                                    }).done(function (html) {
-                                        $("#sqccs").html(html);
-                                        pagination();
-                                        log.debug('Squared Category Course Search done: ' + html);
-                                    }).fail(function () {
-                                        $("#sq-category-search").val('Category course search call failed');
-                                    });
-                                    searched = true;
-                                },
-                                500,
-                                $(this)
-                                );
+                            function (sqs) {
+                                searchAJAX(sqs.val());
+                                searched = true;
+                            },
+                            500,
+                            $(this)
+                        );
                     } else if (inputLength === 0) {
-                        // Get them all.
+                        // Get them all in the current category.
                         if (searched === true) {
-                            $.ajax({
-                                url: data.theme,
-                                data: {'search': '', 'categoryid': currentCategoryId},
-                                dataType: 'html'
-                            }).done(function (html) {
-                                $("#sqccs").html(html);
-                                pagination();
-                                log.debug('Squared Category Course Search done: ' + html);
-                            }).fail(function () {
-                                $("#sq-category-search").val('Category course search call failed');
-                            });
+                            searchAJAX('');
                             searched = false;
                         }
                     }
                 });
-
-                pagination();
 
                 $('#sq-category-select').prop("disabled", false);
                 $('#sq-category-select').on('change', function () {
@@ -124,19 +114,10 @@ define(['jquery', 'core/log'], function ($, log) {
 
                     log.debug('Squared Select Category Course Search: ' + optionSelected + ' - ' + sqsValue);
 
-                    $.ajax({
-                        url: data.theme,
-                        data: {'search': sqsValue, 'categoryid': optionSelected},
-                        dataType: 'html'
-                    }).done(function (html) {
-                        currentCategoryId = optionSelected;
-                        $("#sqccs").html(html);
-                        pagination();
-                        log.debug('Squared Select Category Course Search done: ' + html);
-                    }).fail(function () {
-                        $("#sq-category-search").val('Select category course search call failed');
-                    });
+                    searchAJAX(sqsValue, optionSelected, true);
                 });
+
+                pagination();
             });
         }
     };
