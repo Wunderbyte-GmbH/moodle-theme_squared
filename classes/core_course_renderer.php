@@ -652,7 +652,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         $content = html_writer::start_tag('div', array('id' => 'sqccf', 'class' => 'row')); // Start search row.
         $content .= html_writer::start_tag('div', array('class' => 'col-md-6')); // Start search category.
-        $content .= $this->squared_select_search_category();
+        $content .= $this->squared_category_select_search();
         $content .= html_writer::end_tag('div'); // End search category.
         $content .= html_writer::start_tag('div', array('class' => 'col-md-6')); // Start search form.
         $content .= $this->squared_category_course_search();
@@ -669,7 +669,12 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         return $content;
     }
 
-    protected function squared_select_search_category() {
+    /**
+     * Generate the category select markup.
+     * 
+     * @return string Markup.
+     */
+    protected function squared_category_select_search() {
         $topcat = $this->coursecat_toolbox::get(0)->get_all();
 
         $content = html_writer::start_tag('form', array('class' => 'mdl-align'));
@@ -679,16 +684,20 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                     'id' => 'sq-category-select',
                     'name' => 'squaredcategoryselect')
         );
+
+        $content .= html_writer::tag('option', get_string('all'), array('value' => '0'));
         foreach ($topcat as $catdata) {
             $attrs = array('value' => $catdata->id);
             if ($catdata->id == $this->currentcategoryid) {
                 $attrs['selected'] = 'selected';
             }
-            $content .= html_writer::tag('option', $catdata->name, $attrs);            
+            $content .= html_writer::tag('option', $catdata->name, $attrs);
         }
         $content .= html_writer::end_tag('select');
         $content .= html_writer::end_tag('form');
-        
+
+        // AJAX initialised in squared_category_course_search().
+
         return $content;
     }
 
