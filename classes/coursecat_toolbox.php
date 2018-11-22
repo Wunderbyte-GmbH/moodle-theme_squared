@@ -192,6 +192,30 @@ class coursecat_toolbox extends \coursecat {
                     $file->get_filearea() . $file->get_filepath() . $file->get_filename(), !$isimage);
         }
 
+        if (empty($courseimageurl)) {
+            $pattern = new \core_geopattern();
+            $pattern->setColor(self::coursecolour($course->id));
+            $pattern->setGenerator('squares');
+            $courseimageurl = $pattern->datauri();
+        }
+
         return $courseimageurl;
+    }
+
+    /**
+     * Generate a semi-random color based on the courseid number (so it will always return
+     * the same color for a course).
+     * 
+     * Code from /blocks/myoverview/classses/output/courses_view.php.
+     *
+     * @param int $courseid.
+     * @return string Hex value colour code.
+     */
+    protected static function coursecolour($courseid) {
+        // The colour palette is hardcoded for now.  It would make sense to combine it with theme settings.
+        static $basecolours = [
+            '#81ecec', '#74b9ff', '#a29bfe', '#dfe6e9', '#00b894', '#0984e3', '#b2bec3', '#fdcb6e', '#fd79a8', '#6c5ce7', '#ffaabb'];
+
+        return $basecolours[$courseid % 11];
     }
 }
