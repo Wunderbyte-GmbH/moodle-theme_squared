@@ -108,7 +108,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         if ($this->page->pagelayout == 'coursecategory') {
             if (\theme_squared\toolbox::course_content_search()) {
-                $content .= '<div class="courseitemsearch">';
+                $content .= '<div class="courseitemsearch mdl-align">';
                 $content .= '<div><p>'.get_string('findcoursecontent', 'theme_squared').'</p></div>';
                 $content .= '<div id="courseitemsearchresults">';
                 $content .= '<input type="text" name="courseitemsearch" id="courseitemsearch" disabled="disabled">';

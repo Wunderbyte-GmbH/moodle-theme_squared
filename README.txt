@@ -31,6 +31,7 @@ Created by
 David Bogner             | project lead and programming    | http://www.edulabs.org
 John Stabinger           | programming                     | https://moodle.org/user/profile.php?id=691370
 contemas websolutions OG | design                          | http://www.contemas.net
+G J Barnard              | programming                     | http://moodle.org/user/profile.php?id=442195
 
 Maintained by
 =============
@@ -59,16 +60,11 @@ in order to improve the theme or add your settings.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 3.1 version 2016052300.00 (Build: 20160523) and above within the 3.1 branch until the
+This version works with Moodle 3.5 version 2018051700.00 (Build: 20180517) and above within the 3.5 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/31/en/Installing_Moodle'.
-
-Bootstrap parent theme
-======================
-You will need to get the Bootstrap theme for Moodle 3.1: https://moodle.org/plugins/pluginversions.php?plugin=theme_bootstrap
-in order to install Squared.
+'docs.moodle.org/35/en/Installing_Moodle'.
 
 Installation
 ============
@@ -117,6 +113,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+23rd November 2015 - Version Temp Square 0.93.3.
+  1. Update to Moodle 3.5 with the Boost theme as a parent and SCSS.  LESS to be removed but as reference for now.
+
 27th August 2015 - Version 2.9.2
   1. Remove redundant old style jQuery code.
 

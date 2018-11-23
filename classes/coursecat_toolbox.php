@@ -64,7 +64,7 @@ class coursecat_toolbox extends \coursecat {
      * Adapted from coursecatlib.php search_courses to add category id.
      *
      * @param string $search search string or empty for all within a given category if specified.
-     * @param array $options display options, same as in get_courses() except 'recursive' is ignored -
+     * @param array $options display options, same as in get_courses() except 'recursive' and 'idonly' is ignored -
      *                       search can be within a category if 'categoryid' is specified.
      * @param array $requiredcapabilities List of capabilities required to see return course.
      * @return array ('totalcount' => int, 'courses' => course_in_list[]).
@@ -94,10 +94,6 @@ class coursecat_toolbox extends \coursecat {
                 // Preload course contacts if necessary - saves DB queries later to do it for each course separately.
                 if (!empty($options['coursecontacts'])) {
                     self::preload_course_contacts($records);
-                }
-                // If option 'idonly' is specified no further action is needed, just return list of ids.
-                if (!empty($options['idonly'])) {
-                    return array_keys($records);
                 }
                 // Prepare the list of course_in_list objects.
                 foreach ($ids as $id) {
@@ -136,10 +132,7 @@ class coursecat_toolbox extends \coursecat {
         if (!empty($preloadcoursecontacts)) {
             self::preload_course_contacts($records);
         }
-        // If option 'idonly' is specified no further action is needed, just return list of ids.
-        if (!empty($options['idonly'])) {
-            return array_keys($records);
-        }
+
         // Prepare the list of course_in_list objects.
         $courses = array();
         foreach ($records as $record) {

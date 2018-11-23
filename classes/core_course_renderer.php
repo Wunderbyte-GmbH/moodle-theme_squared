@@ -430,7 +430,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         if (can_edit_in_category($coursecat->id)) {
             // Add 'Manage' button if user has permissions to edit this category.
-            $managebutton = $this->single_button(new moodle_url('/course/management.php', array('categoryid' => $coursecat->id)), get_string('managecourses'), 'get');
+            $managebutton = $this->single_button(new moodle_url('/course/management.php',
+                array('categoryid' => $coursecat->id)), get_string('managecourses'), 'get');
             $this->page->set_button($managebutton);
         }
         if (!$coursecat->id) {
@@ -453,8 +454,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             // Print the category selector
             if (coursecat::count_all() > 1) {
                 $output .= html_writer::start_tag('div', array('class' => 'categorypicker'));
-                $select = new single_select(new moodle_url('/course/index.php'), 'categoryid', coursecat::make_categories_list(), $coursecat->id, null, 'switchcategory');
-                $select->set_label(get_string('categories') . ':');
+                $select = new single_select(new moodle_url('/course/index.php'), 'categoryid',
+                    coursecat::make_categories_list(), $coursecat->id, null, 'switchcategory');
+                $select->set_label('TODO - This changes the url and therefore the colours of the squares, please advise!<br/>'.get_string('categories') . ':');
                 $output .= $this->render($select);
                 $output .= html_writer::end_tag('div'); // .categorypicker
             }
@@ -576,24 +578,20 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $pagingbar = null;
         $paginationurl = $chelper->get_courses_display_option('paginationurl');
         $paginationurl->param('sesskey', sesskey());
-        $paginationurl->param('ccs', 's'); // Course category search.
+        $paginationurl->param('ccs', 's'); // Course category search.  Used to make code in 'layout/default.php' simpler.
 
         if ($totalcount > count($courses)) {
             // There are more results that can fit on one page.
-            if ($paginationurl) {
-                // the option paginationurl was specified, display pagingbar
-                $perpage = $chelper->get_courses_display_option('limit', $CFG->coursesperpage);
-                $page = $chelper->get_courses_display_option('offset') / $perpage;
-                $pagingbar = $this->paging_bar($totalcount, $page, $perpage, $paginationurl->out(false, array('perpage' => $perpage)));
-                $pagingbar .= html_writer::tag('div', html_writer::link($paginationurl->out(false, array('perpage' => 'all')), get_string('showall', '', $totalcount)), array('class' => 'paging paging-showall'));
-            } else if ($viewmoreurl = $chelper->get_courses_display_option('viewmoreurl')) {
-                // the option for 'View more' link was specified, display more link
-                $viewmoretext = $chelper->get_courses_display_option('viewmoretext', new lang_string('viewmore'));
-                $morelink = html_writer::tag('div', html_writer::link($viewmoreurl, $viewmoretext), array('class' => 'paging paging-morelink'));
-            }
+            $perpage = $chelper->get_courses_display_option('limit', $CFG->coursesperpage);
+            $page = $chelper->get_courses_display_option('offset') / $perpage;
+            $pagingbar = $this->paging_bar($totalcount, $page, $perpage, $paginationurl->out(false, array('perpage' => $perpage)));
+            $pagingbar .= html_writer::tag('div', html_writer::link($paginationurl->out(false, array('perpage' => 'all')),
+                get_string('showall', '', $totalcount)), array('class' => 'paging paging-showall'));
         } else if (($totalcount > $CFG->coursesperpage) && $paginationurl) {
-            // There is more than one page of results and we are in 'view all' mode, suggest to go back to paginated view mode.
-            $pagingbar = html_writer::tag('div', html_writer::link($paginationurl->out(false, array('perpage' => $CFG->coursesperpage)), get_string('showperpage', '', $CFG->coursesperpage)), array('class' => 'paging paging-showperpage'));
+            // There is more than one page of results and we are in 'show all' mode, suggest to go back to paginated view mode.
+            $pagingbar = html_writer::tag('div', html_writer::link($paginationurl->out(false,
+                array('perpage' => $CFG->coursesperpage)), get_string('showperpage', '', $CFG->coursesperpage)),
+                array('class' => 'paging paging-showperpage'));
         }
 
         // Display list of courses.
@@ -621,9 +619,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         if (!empty($pagingbar)) {
             $content .= $pagingbar;
-        }
-        if (!empty($morelink)) {
-            $content .= $morelink;
         }
 
         return $content;
@@ -737,7 +732,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         $squaredsearch = new \moodle_url('/course/index.php');  // Needs to be this as can read category id.
         $squaredsearch->param('sesskey', sesskey());
-        $squaredsearch->param('ccs', 's'); // Course category search.
+        $squaredsearch->param('ccs', 's'); // Course category search.  Used to make code in 'layout/default.php' simpler.
         $categorycoursesearchdata = array('data' => array(
             'theme' => $squaredsearch->out(false),
             'catid' => $this->currentcategoryid,
@@ -817,11 +812,11 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $nametag = 'div';
         }
 
-        // .coursebox
+        // Start .coursebox / .card.
         $content .= html_writer::start_tag('div', array(
-                    'class' => $classes,
-                    'data-courseid' => $course->id,
-                    'data-type' => self::COURSECAT_TYPE_COURSE,
+            'class' => $classes,
+            'data-courseid' => $course->id,
+            'data-type' => self::COURSECAT_TYPE_COURSE,
         ));
 
         if ($course instanceof stdClass) {
@@ -832,13 +827,14 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         if (empty($courseimageurl)) {
             $courseimageurl = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22260%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_165246601bc%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A13pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_165246601bc%22%3E%3Crect%20width%3D%22260%22%20height%3D%22180%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2296.2734375%22%20y%3D%2296%22%3E100%%20x%20180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E';
         }
-        $content .= html_writer::empty_tag('img', array('class' => 'card-img-top',
-                    'src' => $courseimageurl
-                        )
+        $content .= html_writer::empty_tag('img', array(
+            'class' => 'card-img-top',
+            'src' => $courseimageurl
+            )
         );
         $content .= html_writer::start_tag('div', array('class' => 'card-body'));
         $content .= html_writer::start_tag('div', array('class' => 'card-img-overlay'));
-        // course name
+        // Course name.
         $coursename = $chelper->get_course_formatted_name($course);
         $coursenamelink = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)), $coursename, array('class' => $course->visible ? '' : 'dimmed'));
         $content .= html_writer::tag($nametag, $coursenamelink, array('class' => 'coursename card-title'));
@@ -855,7 +851,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $this->coursecat_include_js();
             }
         }
-        $content .= html_writer::end_tag('div'); // .moreinfo
+        $content .= html_writer::end_tag('div'); // Start .moreinfo.
         // Display course summary.
         if ($course->has_summary()) {
             $content .= html_writer::start_tag('div', array('class' => 'summary'));
@@ -871,7 +867,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                         html_writer::link(new moodle_url('/user/view.php', array('id' => $userid, 'course' => SITEID)), $coursecontact['username']);
                 $content .= html_writer::tag('li', $name);
             }
-            $content .= html_writer::end_tag('ul'); // .teachers
+            $content .= html_writer::end_tag('ul'); // Start .teachers.
         }
 
         // Display course category if necessary (for example in search results).
@@ -881,27 +877,34 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $content .= html_writer::start_tag('div', array('class' => 'coursecat'));
                 $content .= get_string('category') . ': ' .
                         html_writer::link(new moodle_url('/course/index.php', array('categoryid' => $cat->id)), $cat->get_formatted_name(), array('class' => $cat->visible ? '' : 'dimmed'));
-                $content .= html_writer::end_tag('div'); // .coursecat
+                $content .= html_writer::end_tag('div'); // End .coursecat.
             }
         }
 
-        $content .= html_writer::end_tag('div'); // .card-text
-        $content .= html_writer::end_tag('div'); // .card-body
+        $content .= html_writer::end_tag('div'); // Start .card-text.
+        $content .= html_writer::end_tag('div'); // Start .card-body.
         $content .= html_writer::start_tag('div', array('class' => 'card-footer'));
         // Print enrolmenticons.
         if ($icons = enrol_get_course_info_icons($course)) {
-            $content .= html_writer::start_tag('div', array('class' => 'enrolmenticons'));
+            $content .= html_writer::start_tag('div', array('class' => 'enrolmenticons')); // Start .enrolmenticons.
             foreach ($icons as $pix_icon) {
                 $content .= $this->render($pix_icon);
             }
-            $content .= html_writer::end_tag('div'); // .enrolmenticons
+            $content .= html_writer::end_tag('div'); // End .enrolmenticons.
         }
-        $content .= html_writer::end_tag('div'); // .card-footer
+        $content .= html_writer::end_tag('div'); // End .card-footer.
 
         $content .= html_writer::end_tag('div'); // .coursebox / .card
+
         return $content;
     }
 
+    /**
+     * Serve the AJAX call to search for the courses in the given category.
+     *
+     * @param int $categoryid The category.
+     * @return string Markup.
+     */
     public function category_courses_from_search($categoryid) {
         global $CFG;
         require_once($CFG->libdir . '/coursecatlib.php');
@@ -915,7 +918,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $categorysearchsort = optional_param('searchsort', 1, PARAM_INT);
         $baseurl = new moodle_url('/course/index.php');
         $baseurl->param('categoryid', $coursecat->id);
-        //}
+
         if ($perpage != $CFG->coursesperpage) {
             $baseurl->param('perpage', $perpage);
         }
@@ -941,5 +944,4 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         return $this->coursecat_courses_content($chelper, $courses['courses'], $courses['totalcount']);
     }
-
 }
