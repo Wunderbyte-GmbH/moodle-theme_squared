@@ -52,7 +52,7 @@ define(['jquery', 'core/log'], function ($, log) {
 
                     $.ajax({
                         url: url,
-                        data: {'search': search, 'categoryid': categoryId, 'searchsort': searchSort},
+                        data: {'sqcategorysearch': search, 'categoryid': categoryId, 'searchsort': searchSort},
                         dataType: 'html'
                     }).done(function (html) {
                         if (updateCurrentCategoryId === true) {

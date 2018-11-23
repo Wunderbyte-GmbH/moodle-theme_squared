@@ -467,9 +467,12 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         }
 
         $coursedisplayoptions = array();
+
+        // Used in 'coursecat_tree()' and needed in 'coursecat_courses()'.
+        $coursedisplayoptions['sqcategorysearch'] = optional_param('sqcategorysearch', '', PARAM_TEXT);
+
         $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
         $page = optional_param('page', 0, PARAM_INT);
-        $coursedisplayoptions['searchterm'] = optional_param('search', '', PARAM_TEXT);
         $baseurl = new moodle_url('/course/index.php');
         if ($coursecat->id) {
             $baseurl->param('categoryid', $coursecat->id);
@@ -527,7 +530,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $this->categorysearchsort = optional_param('searchsort', 1, PARAM_INT);
 
         $courses = $this->coursecat_toolbox->search_courses(
-                $chelper->get_courses_display_option('searchterm'),
+                $chelper->get_courses_display_option('sqcategorysearch'),
                 array(
                     'categoryid' => $coursecat->id,
                     'limit' => $chelper->get_courses_display_option('limit'),
@@ -574,10 +577,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $paginationurl = $chelper->get_courses_display_option('paginationurl');
         $paginationurl->param('sesskey', sesskey());
         $paginationurl->param('ccs', 's'); // Course category search.
-        $searchterm = $chelper->get_courses_display_option('searchterm');
-        if (!empty($searchterm)) {
-            $paginationurl->param('search', $searchterm);
-        }
+
         if ($totalcount > count($courses)) {
             // There are more results that can fit on one page.
             if ($paginationurl) {
@@ -662,7 +662,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $content .= $this->squared_search_sort();
         $content .= html_writer::end_tag('div'); // End search sort.
         $content .= html_writer::start_tag('div', array('class' => 'col-md-4')); // Start search form.
-        $content .= $this->squared_category_course_search();
+        $content .= $this->squared_category_course_search($chelper->get_courses_display_option('sqcategorysearch'));
         $content .= html_writer::end_tag('div'); // End search form.
         $content .= html_writer::end_tag('div'); // End search row.
 
@@ -718,17 +718,20 @@ class theme_squared_core_course_renderer extends core_course_renderer {
     /**
      * Returns the Squared category course search form and initialises the associated jQuery AMD module.
      *
+     * @param string $sqcategorysearch Current search if any.
      * @return string Markup.
      */
-    protected function squared_category_course_search() {
+    protected function squared_category_course_search($sqcategorysearch) {
         $content = html_writer::start_tag('form', array('class' => 'mdl-align'));
         $content .= html_writer::tag('label', get_string('searchcourses') . ': ', array('for' => 'sq-category-search', 'class' => 'd-inline'));
         $content .= html_writer::empty_tag('input', array(
-                    'disabled' => 'disabled',
-                    'id' => 'sq-category-search',
-                    'name' => 'squaredcategorysearch',
-                    'size' => '30',
-                    'type' => 'text')
+                'disabled' => 'disabled',
+                'id' => 'sq-category-search',
+                'name' => 'sqcategorysearch',
+                'size' => '30',
+                'type' => 'text',
+                'value' => $sqcategorysearch // Deal with populating the field if the user presses enter.
+            )
         );
         $content .= html_writer::end_tag('form');
 
@@ -746,7 +749,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
     /**
      * Returns the Squared category course sort search form.
-     * 
+     *
      * @return string Markup.
      */
     protected function squared_search_sort() {
@@ -908,7 +911,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $coursedisplayoptions = array();
         $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
         $page = optional_param('page', 0, PARAM_INT);
-        $coursedisplayoptions['searchterm'] = optional_param('search', '', PARAM_TEXT); // Needed in coursecat_courses_content() ?.
+        $coursedisplayoptions['sqcategorysearch'] = optional_param('sqcategorysearch', '', PARAM_TEXT);  // Needed in 'coursecat_courses()'.
         $categorysearchsort = optional_param('searchsort', 1, PARAM_INT);
         $baseurl = new moodle_url('/course/index.php');
         $baseurl->param('categoryid', $coursecat->id);
@@ -927,7 +930,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $chelper->set_courses_display_options($coursedisplayoptions);
 
         $courses = $this->coursecat_toolbox->search_courses(
-                $coursedisplayoptions['searchterm'],
+                $coursedisplayoptions['sqcategorysearch'],
                 array(
                     'categoryid' => $coursecat->id,
                     'limit' => $chelper->get_courses_display_option('limit'),
