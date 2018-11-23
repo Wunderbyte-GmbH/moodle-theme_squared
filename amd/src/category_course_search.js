@@ -39,21 +39,27 @@ define(['jquery', 'core/log'], function ($, log) {
                 log.debug('Squared Category Course Search AMD init');
                 log.debug('Squared Category Course Search AJAX URL: ' + data.theme);
                 var currentCategoryId = data.catid;
+                var currentSort = data.sort;
                 var timeoutId;
                 var searched = false;
 
-                var searchAJAX = function(search, categoryId, updateCurrentCategoryId, url) {
+                var searchAJAX = function(search, searchSort, updateSearchSort, categoryId, updateCurrentCategoryId, url) {
                     categoryId = typeof categoryId !== 'undefined' ? categoryId : currentCategoryId;
                     updateCurrentCategoryId = typeof updateCurrentCategoryId !== 'undefined' ? updateCurrentCategoryId : false;
+                    updateSearchSort = typeof updateSearchSort !== 'undefined' ? updateSearchSort : false;
                     url = typeof url !== 'undefined' ? url : data.theme;
+                    searchSort = typeof searchSort !== 'undefined' ? searchSort : currentSort;
 
                     $.ajax({
                         url: url,
-                        data: {'search': search, 'categoryid': categoryId},
+                        data: {'search': search, 'categoryid': categoryId, 'searchsort': searchSort},
                         dataType: 'html'
                     }).done(function (html) {
                         if (updateCurrentCategoryId === true) {
                             currentCategoryId = categoryId;
+                        }
+                        if (updateSearchSort === true) {
+                            currentSort = searchSort;
                         }
                         $("#sqccs").html(html);
                         pagination();
@@ -72,7 +78,7 @@ define(['jquery', 'core/log'], function ($, log) {
                     }
                     log.debug('Squared Category Course Search Page Link AJAX URL: ' + pagelinkurl);
                     if (pagelinkurl !== null) { // Just in case!
-                        searchAJAX($('#sq-category-search').val(), currentCategoryId, false, pagelinkurl);
+                        searchAJAX($('#sq-category-search').val(), currentSort, false, currentCategoryId, false, pagelinkurl);
                     }
                 };
 
@@ -113,6 +119,16 @@ define(['jquery', 'core/log'], function ($, log) {
                     var sqsValue = $('#sq-category-search').val();
 
                     log.debug('Squared Select Category Course Search: ' + optionSelected + ' - ' + sqsValue);
+
+                    searchAJAX(sqsValue, currentSort, false, optionSelected, true);
+                });
+
+                $('#sq-category-sort').prop("disabled", false);
+                $('#sq-category-sort').on('change', function () {
+                    var optionSelected = $("option:selected", this).val();
+                    var sqsValue = $('#sq-category-search').val();
+
+                    log.debug('Squared Select Category Sort Course Search: ' + optionSelected + ' - ' + sqsValue);
 
                     searchAJAX(sqsValue, optionSelected, true);
                 });
