@@ -106,7 +106,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function course_content_header($onlyifnotcalledbefore = false) {
         $content = parent::course_content_header($onlyifnotcalledbefore);
 
-        if ($this->page->pagelayout == 'coursecategory') {
+        if ($this->page->pagelayout == 'mydashboard') {
             if (\theme_squared\toolbox::course_content_search()) {
                 $content .= '<div class="courseitemsearch mdl-align">';
                 $content .= '<div><p>'.get_string('findcoursecontent', 'theme_squared').'</p></div>';

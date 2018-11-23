@@ -450,16 +450,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $title .= ": " . $coursecat->get_formatted_name();
             }
             $this->page->set_title($title);
-
-            // Print the category selector
-            if (coursecat::count_all() > 1) {
-                $output .= html_writer::start_tag('div', array('class' => 'categorypicker'));
-                $select = new single_select(new moodle_url('/course/index.php'), 'categoryid',
-                    coursecat::make_categories_list(), $coursecat->id, null, 'switchcategory');
-                $select->set_label('TODO - This changes the url and therefore the colours of the squares, please advise!<br/>'.get_string('categories') . ':');
-                $output .= $this->render($select);
-                $output .= html_writer::end_tag('div'); // .categorypicker
-            }
         }
 
         // Print current category description
