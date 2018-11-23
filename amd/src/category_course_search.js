@@ -124,7 +124,7 @@ define(['jquery', 'core/log'], function ($, log) {
                     if (body.hasClass('category-' + currentCategoryId)) {
                         body.removeClass('category-' + currentCategoryId);
                     }
-                    if (optionSelected != 0) {
+                    if (optionSelected !== '0') {
                         body.addClass('category-' + optionSelected);
                     }
 
