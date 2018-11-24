@@ -631,6 +631,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     protected function coursecat_courses(coursecat_helper $chelper, $courses, $totalcount = null) {
+        if ($this->page->pagelayout != 'coursecategory') {
+            return parent::coursecat_courses($chelper, $courses, $totalcount);
+        }
         if ($totalcount === null) {
             $totalcount = count($courses);
         }
@@ -899,6 +902,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         global $CFG;
         require_once($CFG->libdir . '/coursecatlib.php');
         $coursecat = coursecat::get($categoryid);
+        $this->currentcategoryid = $categoryid;
         $chelper = new coursecat_helper();
 
         $coursedisplayoptions = array();
