@@ -518,6 +518,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     protected function coursecat_tree(coursecat_helper $chelper, $coursecat) {
+        if ($this->page->pagelayout != 'coursecategory') {
+            return parent::coursecat_tree($chelper, $coursecat);
+        }
         $this->currentcategoryid = $coursecat->id;
         $this->categorysearchsort = optional_param('searchsort', 1, PARAM_INT);
 
