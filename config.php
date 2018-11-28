@@ -28,7 +28,7 @@
 $THEME->name = 'squared';
 
 $THEME->parents = array ('boost');
-$THEME->sheets = array('custom');
+$THEME->sheets = array('form', 'custom');
 
 $THEME->scss = function($theme) {
     return theme_squared_get_main_scss_content($theme);

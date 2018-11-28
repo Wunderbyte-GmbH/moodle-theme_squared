@@ -1,0 +1,10 @@
+.sqselect {
+    background-image: url([[pix:theme|fa-chevron-down]]);
+    background-position: right .75rem center;
+    background-repeat: no-repeat;
+    background-size: 10px;
+    padding: .375rem 1.75rem .375rem .75rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
