@@ -578,13 +578,13 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $perpage = $chelper->get_courses_display_option('limit', $CFG->coursesperpage);
             $page = $chelper->get_courses_display_option('offset') / $perpage;
             $pagingbar = $this->paging_bar($totalcount, $page, $perpage, $paginationurl->out(false, array('perpage' => $perpage)));
-            $pagingbar .= html_writer::tag('div', html_writer::link($paginationurl->out(false, array('perpage' => 'all')),
-                get_string('showall', '', $totalcount)), array('class' => 'paging paging-showall'));
+            $pagingallbar = html_writer::tag('div', html_writer::link($paginationurl->out(false, array('perpage' => 'all')),
+                get_string('showall', '', $totalcount)), array('class' => 'paging paging-showall mdl-align'));
         } else if (($totalcount > $CFG->coursesperpage) && $paginationurl) {
             // There is more than one page of results and we are in 'show all' mode, suggest to go back to paginated view mode.
-            $pagingbar = html_writer::tag('div', html_writer::link($paginationurl->out(false,
+            $pagingallbar = html_writer::tag('div', html_writer::link($paginationurl->out(false,
                 array('perpage' => $CFG->coursesperpage)), get_string('showperpage', '', $CFG->coursesperpage)),
-                array('class' => 'paging paging-showperpage'));
+                array('class' => 'paging paging-showperpage mdl-align'));
         }
 
         // Display list of courses.
@@ -593,7 +593,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $content .= $pagingbar;
         }
 
-        $content .= html_writer::start_tag('div', array('class' => 'card-deck justify-content-center'));
+        $content .= html_writer::start_tag('div', array('class' => 'card-deck justify-content-between'));
         $coursecount = 0;
         foreach ($courses as $course) {
             $coursecount++;
@@ -612,7 +612,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         if (!empty($pagingbar)) {
             $content .= $pagingbar;
         }
-
+        if (!empty($pagingallbar)) {
+            $content .= $pagingallbar;
+        }
         return $content;
     }
 
@@ -644,14 +646,14 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             return '';
         }
 
-        $content = html_writer::start_tag('div', array('id' => 'sqccf', 'class' => 'row justify-content-center')); // Start search row.
+        $content = html_writer::start_tag('div', array('id' => 'sqccf', 'class' => 'row justify-content-between')); // Start search row.
         $content .= html_writer::start_tag('div', array('class' => 'col-md-6 col-lg-4')); // Start search category.
         $content .= $this->squared_category_select_search();
         $content .= html_writer::end_tag('div'); // End search category.
         $content .= html_writer::start_tag('div', array('class' => 'col-md-6 col-lg-4')); // Start search form.
         $content .= $this->squared_category_course_search($chelper->get_courses_display_option('sqcategorysearch'));
         $content .= html_writer::end_tag('div'); // End search form.
-        $content .= html_writer::start_tag('div', array('class' => 'col-md-6 col-lg-4')); // Start search sort.
+        $content .= html_writer::start_tag('div', array('class' => 'col-md-12 col-lg-4')); // Start search sort.
         $content .= $this->squared_search_sort();
         $content .= html_writer::end_tag('div'); // End search sort.
         $content .= html_writer::end_tag('div'); // End search row.
@@ -674,7 +676,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
     protected function squared_category_select_search() {
         $cats = $this->coursecat_toolbox::make_categories_list();
 
-        $content = html_writer::start_tag('form', array('class' => 'mdl-align'));
+        $content = html_writer::start_tag('div', array('class' => 'sqscat'));
+        $content .= html_writer::start_tag('form', array('class' => 'mdl-align'));
 
         $content .= html_writer::tag('label', get_string('coursecategory') . ': ', array('for' => 'sq-category-select', 'class' => 'd-inline'));
 
@@ -700,6 +703,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $content .= html_writer::end_tag('select');
 
         $content .= html_writer::end_tag('form');
+        $content .= html_writer::end_tag('div');
 
         // AJAX initialised in squared_category_course_search().
 
@@ -745,7 +749,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string Markup.
      */
     protected function squared_search_sort() {
-        $content = html_writer::start_tag('form', array('class' => 'mdl-align'));
+        $content = html_writer::start_tag('div', array('class' => 'sqssort'));
+        $content .= html_writer::start_tag('form', array('class' => 'mdl-align'));
         $content .= html_writer::tag('label', get_string('sort') . ': ', array('for' => 'sq-category-sort', 'class' => 'd-inline'));
         $content .= html_writer::start_tag('select', array(
             'class' => 'sqselect sqformelement',
@@ -767,6 +772,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         $content .= html_writer::end_tag('select');
         $content .= html_writer::end_tag('form');
+        $content .= html_writer::end_tag('div');
 
         // AJAX initialised in squared_category_course_search().
 
