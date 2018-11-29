@@ -21,6 +21,32 @@
                     color: inherit;
                 }
             }
+            .title {
+                .icon-container {
+                    margin-bottom: -5px;
+                    width: 64px;
+                    .courseblock-icon {
+                        margin: 5px 18px;
+                    }
+                    .action-menu .menubar {
+                        display: inline-block !important;
+                        .action-menu-item,
+                        .action-menu-trigger {
+                            display: inline !important;
+                        }
+                        .action-menu-item {
+                            margin-left: 3px;
+                        }
+                        .action-menu-trigger .dropdown-toggle .icon {
+                            margin-right: 0;
+                        }
+                    }
+                }
+                .block_action,
+                h2.collapselink {
+                    display: inline !important;
+                }
+            }
         }
         @include gradient-directional(lighten($squared-purple, 15%), lighten($squared-purple, 5%));
 
@@ -108,6 +134,13 @@
         }
     }
 }
+
+.editing #block-region-side-pre .block .card-heading .header .title h2.collapselink {
+    word-break: break-all;
+    line-height: 35px;
+    vertical-align: top;
+}
+
 .nozoom #block-region-side-pre {
     @media (max-width: $screen-breakpoint) {
         .courseblock-icon {
@@ -267,6 +300,7 @@
         }
     }
 }
+
 #block-region-side-pre {
     .block {
         &.card {
@@ -427,6 +461,7 @@
         @include block_icon(mylanguageportfolio32);
     }
 }
+
 // Styles for non-JS.
 #block-region-side-pre {
     .card-collapse.collapse {
