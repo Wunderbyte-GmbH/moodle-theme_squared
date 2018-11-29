@@ -43,7 +43,7 @@
                     }
                 }
                 .block_action,
-                h2.collapselink {
+                h2.sqtitle {
                     display: inline !important;
                 }
             }
@@ -136,7 +136,7 @@
 }
 
 .editing #block-region-side-pre .block {
-    .card-heading .header .title h2.collapselink {
+    .card-heading .header .title h2.sqtitle {
         word-break: break-all;
         line-height: 35px;
         vertical-align: top;

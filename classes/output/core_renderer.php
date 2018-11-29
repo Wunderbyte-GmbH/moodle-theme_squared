@@ -393,6 +393,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             'aria-controls' => 'inst'.$bc->blockinstanceid);
         if ($bc->title) {
             $attributes = array_merge($collapseattributes);
+            $attributes['class'] = $attributes['class'].' sqtitle';
             if ($bc->blockinstanceid) {
                 $attributes['id'] = 'instance-'.$bc->blockinstanceid.'-header';
             }
@@ -405,10 +406,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         $controlshtml = $this->block_controls($bc->controls, $blockid);
 
-        $collapseattributes['class'] = $collapseattributes['class'].' d-inline-block icon-container';
-        $icon = html_writer::tag('div', '', array('class' => 'courseblock-icon'));
+        $collapseattributes['class'] = $collapseattributes['class'].' courseblock-icon';
+        $icon = html_writer::tag('div', '', $collapseattributes);
 
-        $iconarea = html_writer::tag('div', $icon.$controlshtml, $collapseattributes);      
+        $iconarea = html_writer::tag('div', $icon.$controlshtml, array('class' => 'd-inline-block icon-container'));
 
         $output = '';
         if ($title || $controlshtml) {
@@ -468,7 +469,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $thisblock->name = 'block_flat_navigation';
         $thisblock->title = '<span class="title">'.$flatnavname.'</span>';
         $thisblock->header = '<div role="tree" class="collapselink" data-toggle="collapse" data-target="#subcollapsefake9999" aria-expanded="false" aria-controls="instfake9999">'.
-            '<div class="header"><div class="title"><h2>'.$flatnavname.'</h2></div></div>'.
+            '<div class="header"><div class="title"><div class="d-inline-block icon-container"><div class="courseblock-icon"></div></div><h2 class="sqtitle">'.$flatnavname.'</h2></div></div>'.
             '</div>';
         $thisblock->content = $this->render_from_template('theme_squared/flat_navigation_content', $templatecontext);
         $thisblock->blockinstanceid = "fake9999"; // Not sure!  But we are a 'fake' block.
