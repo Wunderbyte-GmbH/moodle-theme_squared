@@ -698,6 +698,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             if ($catkey == $this->currentcategoryid) {
                 $attrs['selected'] = 'selected';
             }
+            $catdatalen = mb_strlen($catdata);
+            if ($catdatalen >= 50) {
+                $catdata = '...'.mb_substr($catdata, ($catdatalen - 47));
+            }
             $content .= html_writer::tag('option', $catdata, $attrs);
         }
         $content .= html_writer::end_tag('select');
