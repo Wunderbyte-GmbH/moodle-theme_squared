@@ -9,12 +9,14 @@
         padding: 7px 15px;
     }
     .breadcrumb-nav {
+        display: inline-block;
         margin-bottom: 0;
     }
     .breadcrumb-button {
-        margin-top: 0px;
+        display: inline-block;
+        float: right;
+        margin-top: 2px;
         .singlebutton {
-            display: inline-block;
             div {
                 margin: 0;
                 input[type="submit"] {
