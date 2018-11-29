@@ -72,6 +72,9 @@ class toolbox {
                                 background-color: '.$theme->settings->$setting.';
                                 @include gradient-directional(lighten('.$theme->settings->$setting.', 15%), darken('.$theme->settings->$setting.', 5%));
                             }
+                            .block .card-heading .icon-container {
+                                background-color: darken('.$theme->settings->$setting.', 20%);
+                            }
                             .card-group {
                                 background-color: '.$theme->settings->$setting.';
                             }

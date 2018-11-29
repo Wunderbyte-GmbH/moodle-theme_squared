@@ -385,13 +385,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
      */
     protected function block_header_collapse(block_contents $bc) {
         $title = '';
+        $collapseattributes = array('role' => 'tree',
+            'class' => 'collapselink',
+            'data-toggle' => 'collapse',
+            'data-target' => '#subcollapse'.$bc->blockinstanceid,
+            'aria-expanded' => 'false',
+            'aria-controls' => 'inst'.$bc->blockinstanceid);
         if ($bc->title) {
-            $attributes = array('role' => 'tree',
-                'class' => 'collapselink',
-                'data-toggle' => 'collapse',
-                'data-target' => '#subcollapse'.$bc->blockinstanceid,
-                'aria-expanded' => 'false',
-                'aria-controls' => 'inst'.$bc->blockinstanceid);
+            $attributes = array_merge($collapseattributes);
             if ($bc->blockinstanceid) {
                 $attributes['id'] = 'instance-'.$bc->blockinstanceid.'-header';
             }
@@ -404,9 +405,15 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         $controlshtml = $this->block_controls($bc->controls, $blockid);
 
+        $collapseattributes['class'] = $collapseattributes['class'].' d-inline-block icon-container';
+        $icon = html_writer::tag('div', '', array('class' => 'courseblock-icon'));
+
+        $iconarea = html_writer::tag('div', $icon.$controlshtml, $collapseattributes);      
+
         $output = '';
         if ($title || $controlshtml) {
-            $output .= html_writer::tag('div', html_writer::tag('div', html_writer::tag('div', '', array('class'=>'block_action')). $title . $controlshtml, array('class' => 'title')), array('class' => 'header'));
+            $output .= html_writer::tag('div', html_writer::tag('div', $iconarea.html_writer::tag('div', '',
+                array('class'=>'block_action')).$title, array('class' => 'title')), array('class' => 'header'));
         }
         return $output;
     }
@@ -460,9 +467,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $thisblock = new stdClass();
         $thisblock->name = 'block_flat_navigation';
         $thisblock->title = '<span class="title">'.$flatnavname.'</span>';
-        $thisblock->header = '<div class="header"><div class="title"><h2>'.$flatnavname.'</h2></div></div>';
         $thisblock->header = '<div role="tree" class="collapselink" data-toggle="collapse" data-target="#subcollapsefake9999" aria-expanded="false" aria-controls="instfake9999">'.
-            $thisblock->header.
+            '<div class="header"><div class="title"><h2>'.$flatnavname.'</h2></div></div>'.
             '</div>';
         $thisblock->content = $this->render_from_template('theme_squared/flat_navigation_content', $templatecontext);
         $thisblock->blockinstanceid = "fake9999"; // Not sure!  But we are a 'fake' block.
