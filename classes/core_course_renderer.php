@@ -971,7 +971,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $coursedisplayoptions = array();
         $coursedisplayoptions['sqcardlayout'] = true;
         $coursedisplayoptions['recursive'] = true;
-        $coursedisplayoptions['limit'] = $CFG->frontpagecourselimit;
 
         $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
         $page = optional_param('page', 0, PARAM_INT);
@@ -983,7 +982,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $baseurl->param('perpage', $perpage);
         }
         if ($perpage == 'all') { // Does the search on all and established in coursecat_courses_content().
-            $coursedisplayoptions['limit'] = null;
+            $coursedisplayoptions['limit'] = $CFG->frontpagecourselimit;
             $coursedisplayoptions['offset'] = 0;
         } else {
             $coursedisplayoptions['limit'] = $perpage;
