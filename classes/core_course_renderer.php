@@ -462,6 +462,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         // Used in 'coursecat_tree()' and needed in 'coursecat_courses()'.
         $coursedisplayoptions['sqcategorysearch'] = optional_param('sqcategorysearch', '', PARAM_TEXT);
+        $coursedisplayoptions['sqcardlayout'] = true;
 
         $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
         $page = optional_param('page', 0, PARAM_INT);
@@ -480,6 +481,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $coursedisplayoptions['offset'] = $page * $perpage;
         }
         $coursedisplayoptions['paginationurl'] = new moodle_url($baseurl);
+        $this->set_squared_search($coursedisplayoptions['paginationurl']);
         $chelper->set_courses_display_options($coursedisplayoptions);
 
         // Display course category tree.
@@ -518,7 +520,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     protected function coursecat_tree(coursecat_helper $chelper, $coursecat) {
-        if ($this->page->pagelayout != 'coursecategory') {
+        if (!$this->is_card_layout($chelper)) {
             return parent::coursecat_tree($chelper, $coursecat);
         }
         $this->currentcategoryid = $coursecat->id;
@@ -570,21 +572,21 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         // Prepare content of paging bar if it is needed.
         $pagingbar = null;
         $paginationurl = $chelper->get_courses_display_option('paginationurl');
-        $paginationurl->param('sesskey', sesskey());
-        $paginationurl->param('ccs', 's'); // Course category search.  Used to make code in 'layout/default.php' simpler.
 
-        if ($totalcount > count($courses)) {
-            // There are more results that can fit on one page.
-            $perpage = $chelper->get_courses_display_option('limit', $CFG->coursesperpage);
-            $page = $chelper->get_courses_display_option('offset') / $perpage;
-            $pagingbar = $this->paging_bar($totalcount, $page, $perpage, $paginationurl->out(false, array('perpage' => $perpage)));
-            $pagingallbar = html_writer::tag('div', html_writer::link($paginationurl->out(false, array('perpage' => 'all')),
-                get_string('showall', '', $totalcount)), array('class' => 'paging paging-showall mdl-align'));
-        } else if (($totalcount > $CFG->coursesperpage) && $paginationurl) {
-            // There is more than one page of results and we are in 'show all' mode, suggest to go back to paginated view mode.
-            $pagingallbar = html_writer::tag('div', html_writer::link($paginationurl->out(false,
-                array('perpage' => $CFG->coursesperpage)), get_string('showperpage', '', $CFG->coursesperpage)),
-                array('class' => 'paging paging-showperpage mdl-align'));
+        if ($paginationurl) {
+            if ($totalcount > count($courses)) {
+                // There are more results that can fit on one page.
+                $perpage = $chelper->get_courses_display_option('limit', $CFG->coursesperpage);
+                $page = $chelper->get_courses_display_option('offset') / $perpage;
+                $pagingbar = $this->paging_bar($totalcount, $page, $perpage, $paginationurl->out(false, array('perpage' => $perpage)));
+                $pagingallbar = html_writer::tag('div', html_writer::link($paginationurl->out(false, array('perpage' => 'all')),
+                    get_string('showall', '', $totalcount)), array('class' => 'paging paging-showall mdl-align'));
+            } else if ($totalcount > $CFG->coursesperpage) {
+                // There is more than one page of results and we are in 'show all' mode, suggest to go back to paginated view mode.
+                $pagingallbar = html_writer::tag('div', html_writer::link($paginationurl->out(false,
+                    array('perpage' => $CFG->coursesperpage)), get_string('showperpage', '', $CFG->coursesperpage)),
+                    array('class' => 'paging paging-showperpage mdl-align'));
+            }
         }
 
         // Display list of courses.
@@ -635,7 +637,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     protected function coursecat_courses(coursecat_helper $chelper, $courses, $totalcount = null) {
-        if ($this->page->pagelayout != 'coursecategory') {
+        if (!$this->is_card_layout($chelper)) {
             return parent::coursecat_courses($chelper, $courses, $totalcount);
         }
         if ($totalcount === null) {
@@ -736,8 +738,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $content .= html_writer::end_tag('form');
 
         $squaredsearch = new \moodle_url('/course/index.php');  // Needs to be this as can read category id.
-        $squaredsearch->param('sesskey', sesskey());
-        $squaredsearch->param('ccs', 's'); // Course category search.  Used to make code in 'layout/default.php' simpler.
+        $this->set_squared_search($squaredsearch);
         $categorycoursesearchdata = array('data' => array(
             'theme' => $squaredsearch->out(false),
             'catid' => $this->currentcategoryid,
@@ -796,7 +797,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     protected function coursecat_coursebox(coursecat_helper $chelper, $course, $additionalclasses = '') {
-        if ($this->page->pagelayout != 'coursecategory') {
+        if (!$this->is_card_layout($chelper)) {
             return parent::coursecat_coursebox($chelper, $course, $additionalclasses);
         }
 
@@ -924,6 +925,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
         $page = optional_param('page', 0, PARAM_INT);
         $coursedisplayoptions['sqcategorysearch'] = optional_param('sqcategorysearch', '', PARAM_TEXT);  // Needed in 'coursecat_courses()'.
+        $coursedisplayoptions['sqcardlayout'] = true;
         $categorysearchsort = optional_param('searchsort', 1, PARAM_INT);
         $baseurl = new moodle_url('/course/index.php');
         $baseurl->param('categoryid', $coursecat->id);
@@ -939,6 +941,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $coursedisplayoptions['offset'] = $page * $perpage;
         }
         $coursedisplayoptions['paginationurl'] = new moodle_url($baseurl);
+        $this->set_squared_search($coursedisplayoptions['paginationurl']);
         $chelper->set_courses_display_options($coursedisplayoptions);
 
         $courses = $this->coursecat_toolbox->search_courses(
@@ -952,5 +955,14 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         );
 
         return $this->coursecat_courses_content($chelper, $courses['courses'], $courses['totalcount']);
+    }
+
+    protected function set_squared_search(moodle_url $url) {
+        $url->param('sesskey', sesskey());
+        $url->param('ccs', 's'); // Course category search.  Used to make code in 'layout/default.php' simpler.
+    }
+
+    protected function is_card_layout(coursecat_helper $chelper) {
+        return ($chelper->get_courses_display_option('sqcardlayout') == true);
     }
 }
