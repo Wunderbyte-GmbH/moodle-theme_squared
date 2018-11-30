@@ -1,13 +1,11 @@
-.course_category_tree { 
-    .card-deck {
-        .card {
-            flex-basis: 18rem;
-            margin-bottom: 30px;
-            .card-img-top {
-                display: block;
-                height: 180px;
-                width: 100%;
-            }
+.sqcoursecards.card-deck {
+    .card {
+        flex-basis: 18rem;
+        margin-bottom: 30px;
+        .card-img-top {
+            display: block;
+            height: 180px;
+            width: 100%;
         }
     }
     .card-img-overlay .card-title {
@@ -23,11 +21,9 @@
 }
 
 @media(min-width: $screen-breakpoint) {
-    .course_category_tree { 
-        .card-deck {
-            .card { 
-                flex: 0 0 18rem; // Override unbelieveable Boost blocks.scss global!
-            }
+    .sqcoursecards.card-deck {
+        .card { 
+            flex: 0 0 18rem; // Override unbelieveable Boost blocks.scss global!
         }
     }
 }

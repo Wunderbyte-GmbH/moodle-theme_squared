@@ -595,7 +595,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $content .= $pagingbar;
         }
 
-        $content .= html_writer::start_tag('div', array('class' => 'card-deck justify-content-between'));
+        $content .= html_writer::start_tag('div', array('class' => 'sqcoursecards card-deck justify-content-between'));
         $coursecount = 0;
         foreach ($courses as $course) {
             $coursecount++;
@@ -957,6 +957,62 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         return $this->coursecat_courses_content($chelper, $courses['courses'], $courses['totalcount']);
     }
 
+    // #1081 - Frontpage card layout.
+    /**
+     * Returns HTML to print list of available courses for the frontpage
+     *
+     * @return string
+     */
+    public function frontpage_available_courses() {
+        global $CFG;
+        require_once($CFG->libdir. '/coursecatlib.php');
+
+        $chelper = new coursecat_helper();
+        $coursedisplayoptions = array();
+        $coursedisplayoptions['sqcardlayout'] = true;
+        $coursedisplayoptions['recursive'] = true;
+        $coursedisplayoptions['limit'] = $CFG->frontpagecourselimit;
+        
+        $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
+        $page = optional_param('page', 0, PARAM_INT);
+
+        $baseurl = new moodle_url('/index.php');
+        $baseurl->param('redirect', '0');
+
+        if ($perpage != $CFG->frontpagecourselimit) {
+            $baseurl->param('perpage', $perpage);
+        }
+        if ($perpage == 'all') { // Does the search on all and established in coursecat_courses_content().
+            $coursedisplayoptions['limit'] = null;
+            $coursedisplayoptions['offset'] = 0;
+        } else {
+            $coursedisplayoptions['limit'] = $perpage;
+            $coursedisplayoptions['offset'] = $page * $perpage;
+        }
+        $coursedisplayoptions['paginationurl'] = new moodle_url($baseurl);
+        
+        $chelper->set_courses_display_options($coursedisplayoptions);
+        /*$chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)->
+                set_courses_display_options(array(
+                    'recursive' => true,
+                    'limit' => $CFG->frontpagecourselimit,
+                    'viewmoreurl' => new moodle_url('/course/index.php'),
+                    'viewmoretext' => new lang_string('fulllistofcourses')));*/
+
+        $chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
+        //$courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
+        //$totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
+        $courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
+        $totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
+        if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {
+            // Print link to create a new course, for the 1st available category.
+            return $this->add_new_course_button();
+        }
+        //return $this->coursecat_courses($chelper, $courses, $totalcount);
+        return $this->coursecat_courses_content($chelper, $courses, $totalcount);
+    }
+
+    // Card layout and search helpers.
     protected function set_squared_search(moodle_url $url) {
         $url->param('sesskey', sesskey());
         $url->param('ccs', 's'); // Course category search.  Used to make code in 'layout/default.php' simpler.
