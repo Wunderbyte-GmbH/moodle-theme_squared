@@ -113,7 +113,7 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-23rd November 2015 - Version Temp Square 0.93.3.
+23rd November 2018 - Version Temp Square 0.93.3.
   1. Update to Moodle 3.5 with the Boost theme as a parent and SCSS.  LESS to be removed but as reference for now.
 
 27th August 2015 - Version 2.9.2

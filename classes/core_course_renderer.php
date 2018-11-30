@@ -972,7 +972,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $coursedisplayoptions['sqcardlayout'] = true;
         $coursedisplayoptions['recursive'] = true;
         $coursedisplayoptions['limit'] = $CFG->frontpagecourselimit;
-        
+
         $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
         $page = optional_param('page', 0, PARAM_INT);
 
@@ -990,34 +990,36 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $coursedisplayoptions['offset'] = $page * $perpage;
         }
         $coursedisplayoptions['paginationurl'] = new moodle_url($baseurl);
-        
+
         $chelper->set_courses_display_options($coursedisplayoptions);
-        /*$chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)->
-                set_courses_display_options(array(
-                    'recursive' => true,
-                    'limit' => $CFG->frontpagecourselimit,
-                    'viewmoreurl' => new moodle_url('/course/index.php'),
-                    'viewmoretext' => new lang_string('fulllistofcourses')));*/
 
         $chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
-        //$courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
-        //$totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
         $courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
         $totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
         if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {
             // Print link to create a new course, for the 1st available category.
             return $this->add_new_course_button();
         }
-        //return $this->coursecat_courses($chelper, $courses, $totalcount);
         return $this->coursecat_courses_content($chelper, $courses, $totalcount);
     }
 
     // Card layout and search helpers.
+    /**
+     * Sets the given url to be used for course category searches.
+     * @param moodle_url $url The Moodle url to establish course category search on.
+     */
     protected function set_squared_search(moodle_url $url) {
         $url->param('sesskey', sesskey());
         $url->param('ccs', 's'); // Course category search.  Used to make code in 'layout/default.php' simpler.
     }
 
+    /**
+     * States if we are using a squared theme card layout.  Thus any method that instigates the layout needs to set the
+     * 'sqcardlayout' course display option to true.
+     *
+     * @param coursecat_helper $chelper The course helper.
+     * @return boolean Yes we are!
+     */
     protected function is_card_layout(coursecat_helper $chelper) {
         return ($chelper->get_courses_display_option('sqcardlayout') == true);
     }
