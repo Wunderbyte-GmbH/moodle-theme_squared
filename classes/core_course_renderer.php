@@ -469,6 +469,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $baseurl = new moodle_url('/course/index.php');
         if ($coursecat->id) {
             $baseurl->param('categoryid', $coursecat->id);
+        } else {
+            $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED_WITH_CAT); // State the category when all categories.
         }
         if ($perpage != $CFG->coursesperpage) {
             $baseurl->param('perpage', $perpage);
@@ -608,7 +610,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             }
             $content .= $this->coursecat_coursebox($chelper, $course, $classes);
         }
-
         $content .= html_writer::end_tag('div'); // .card-deck
 
         if (!empty($pagingbar)) {
@@ -850,17 +851,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $content .= html_writer::end_tag('div'); // .card-img-overlay
         $content .= html_writer::start_tag('div', array('class' => 'card-text'));
 
-        $content .= html_writer::start_tag('div', array('class' => 'moreinfo'));
-        if ($chelper->get_show_courses() < self::COURSECAT_SHOW_COURSES_EXPANDED) {
-            if ($course->has_summary() || $course->has_course_contacts() || $course->has_course_overviewfiles()) {
-                $url = new moodle_url('/course/info.php', array('id' => $course->id));
-                $image = $this->output->pix_icon('i/info', $this->strings->summary);
-                $content .= html_writer::link($url, $image, array('title' => $this->strings->summary));
-                // Make sure JS file to expand course content is included.
-                $this->coursecat_include_js();
-            }
-        }
-        $content .= html_writer::end_tag('div'); // Start .moreinfo.
         // Display course summary.
         if ($course->has_summary()) {
             $content .= html_writer::start_tag('div', array('class' => 'summary'));
@@ -885,7 +875,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             if ($cat = coursecat::get($course->category, IGNORE_MISSING)) {
                 $content .= html_writer::start_tag('div', array('class' => 'coursecat'));
                 $content .= get_string('category') . ': ' .
-                        html_writer::link(new moodle_url('/course/index.php', array('categoryid' => $cat->id)), $cat->get_formatted_name(), array('class' => $cat->visible ? '' : 'dimmed'));
+                    html_writer::link(new moodle_url('/course/index.php', array('categoryid' => $cat->id)), $cat->get_formatted_name(), array('class' => $cat->visible ? '' : 'dimmed'));
                 $content .= html_writer::end_tag('div'); // End .coursecat.
             }
         }
@@ -943,6 +933,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $coursedisplayoptions['paginationurl'] = new moodle_url($baseurl);
         $this->set_squared_search($coursedisplayoptions['paginationurl']);
         $chelper->set_courses_display_options($coursedisplayoptions);
+        if (!$categoryid) {
+            $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED_WITH_CAT); // State the category when all categories.
+        }
 
         $courses = $this->coursecat_toolbox->search_courses(
                 $coursedisplayoptions['sqcategorysearch'],
@@ -972,16 +965,23 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $coursedisplayoptions['sqcardlayout'] = true;
         $coursedisplayoptions['recursive'] = true;
 
-        $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
-        $page = optional_param('page', 0, PARAM_INT);
+        if (optional_param('sqfac', '0', PARAM_INT) == 1) { // Note: AJAX for this would allow the another pagingation to remember.
+            // If the optional parameters exist then their values are for us.
+            $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
+            $page = optional_param('page', 0, PARAM_INT);
+        } else {
+            $perpage = $CFG->coursesperpage;
+            $page = 0;
+        }
 
         $baseurl = new moodle_url('/index.php');
         $baseurl->param('redirect', '0');
+        $baseurl->param('sqfac', 1);
 
         if ($perpage != $CFG->frontpagecourselimit) {
             $baseurl->param('perpage', $perpage);
         }
-        if ($perpage == 'all') { // Does the search on all and established in coursecat_courses_content().
+        if ($perpage == 'all') { // All available courses.
             $coursedisplayoptions['limit'] = $CFG->frontpagecourselimit;
             $coursedisplayoptions['offset'] = 0;
         } else {
@@ -990,6 +990,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         }
         $coursedisplayoptions['paginationurl'] = new moodle_url($baseurl);
 
+        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED_WITH_CAT);
         $chelper->set_courses_display_options($coursedisplayoptions);
 
         $chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
@@ -999,7 +1000,116 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             // Print link to create a new course, for the 1st available category.
             return $this->add_new_course_button();
         }
-        return $this->coursecat_courses_content($chelper, $courses, $totalcount);
+
+        // Display list of courses.
+        $attributes = $chelper->get_and_erase_attributes('courses');
+        $output = html_writer::start_tag('div', $attributes);
+        $output .= $this->coursecat_courses_content($chelper, $courses, $totalcount);
+        $output .= html_writer::end_tag('div'); // .courses
+        return $output;
+    }
+
+    /**
+     * Returns HTML to print list of courses user is enrolled to for the frontpage
+     *
+     * Also lists remote courses or remote hosts if MNET authorisation is used
+     *
+     * @return string
+     */
+    public function frontpage_my_courses() {
+        global $USER, $CFG, $DB;
+
+        if (!isloggedin() or isguestuser()) {
+            return '';
+        }
+
+        $output = '';
+        // The field 'summaryformat' can be used in get_course_formatted_summary().
+        $courses  = enrol_get_my_courses('summary, summaryformat');
+        $rhosts   = array();
+        $rcourses = array();
+        if (!empty($CFG->mnet_dispatcher_mode) && $CFG->mnet_dispatcher_mode==='strict') {
+            $rcourses = get_my_remotecourses($USER->id);
+            $rhosts   = get_my_remotehosts();
+        }
+
+        if (!empty($courses) || !empty($rcourses) || !empty($rhosts)) {
+            $chelper = new coursecat_helper();
+            $coursedisplayoptions = array();
+            $coursedisplayoptions['sqcardlayout'] = true;
+
+            if (optional_param('sqfmc', '0', PARAM_INT) == 1) { // Note: AJAX for this would allow the another pagingation to remember.
+                // If the optional parameters exist then their values are for us.
+                $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
+                $page = optional_param('page', 0, PARAM_INT);
+            } else {
+                $perpage = $CFG->coursesperpage;
+                $page = 0;
+            }
+
+            $baseurl = new moodle_url('/index.php');
+            $baseurl->param('redirect', '0');
+            $baseurl->param('sqfmc', 1);
+
+            if ($perpage != $CFG->frontpagecourselimit) {
+                $baseurl->param('perpage', $perpage);
+            }
+            $totalcount = count($courses);
+            if ($perpage == 'all') { // All enrolled courses.
+                $coursedisplayoptions['limit'] = $CFG->frontpagecourselimit;
+                $coursedisplayoptions['offset'] = 0;
+            } else {
+                $coursedisplayoptions['limit'] = $perpage;
+                $coursedisplayoptions['offset'] = $page * $perpage;
+                $courses = array_slice($courses, $coursedisplayoptions['offset'], $coursedisplayoptions['limit'], true);
+            }
+            $coursedisplayoptions['paginationurl'] = new moodle_url($baseurl);
+
+            $morelink = null;
+            if ($totalcount > $CFG->frontpagecourselimit) {
+                // There are more enrolled courses than we can display, display link to 'My courses'.
+                $courses = array_slice($courses, 0, $CFG->frontpagecourselimit, true);
+                $totalcount = count($courses);
+                $morelink = html_writer::tag('div', html_writer::link(new moodle_url('/my/'), new lang_string('mycourses')),
+                    array('class' => 'paging paging-morelink'));
+            } else if ($perpage == 'all') {
+                // All enrolled courses are displayed, display link to 'All courses' if there are more courses in system.
+                $morelink = html_writer::tag('div', html_writer::link(new moodle_url('/course/index.php'),
+                    new lang_string('fulllistofcourses')),
+                    array('class' => 'paging paging-morelink'));
+            }
+
+            $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED_WITH_CAT);
+            $chelper->set_courses_display_options($coursedisplayoptions);
+            $chelper->set_attributes(array('class' => 'frontpage-course-list-enrolled'));
+
+            // Display list of courses.
+            $attributes = $chelper->get_and_erase_attributes('courses');
+            $output .= html_writer::start_tag('div', $attributes);
+            $output .= $this->coursecat_courses_content($chelper, $courses, $totalcount);
+            if (!empty($morelink)) {
+                $output .= $morelink;
+            }
+            $output .= html_writer::end_tag('div'); // .courses
+
+            // MNET
+            if (!empty($rcourses)) {
+                // At the IDP, we know of all the remote courses.
+                $output .= html_writer::start_tag('div', array('class' => 'courses'));
+                foreach ($rcourses as $course) {
+                    $output .= $this->frontpage_remote_course($course);
+                }
+                $output .= html_writer::end_tag('div'); // .courses
+            } elseif (!empty($rhosts)) {
+                // non-IDP, we know of all the remote servers, but not courses
+                $output .= html_writer::start_tag('div', array('class' => 'courses'));
+                foreach ($rhosts as $host) {
+                    $output .= $this->frontpage_remote_host($host);
+                }
+                $output .= html_writer::end_tag('div'); // .courses
+            }
+        }
+        return $output;
     }
 
     // Card layout and search helpers.
