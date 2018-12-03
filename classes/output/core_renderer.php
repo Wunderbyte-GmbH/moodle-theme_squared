@@ -45,10 +45,29 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return string HTML to display the main header.
      */
     public function full_header() {
-        $html = html_writer::start_tag('header', array('id' => 'page-header', 'class' => 'row'));
+        $html = html_writer::start_tag('header', array('id' => 'main-header', 'class' => 'row'));
         $html .= html_writer::start_div('col-xs-12 p-a-1');
         $html .= html_writer::start_div('pull-xs-left');
-        $html .= $this->context_header();
+        if (!empty($this->page->layout_options['courseimage'])) {
+            $course = new \course_in_list($this->page->course);
+            $courseimageurl = \theme_squared\coursecat_toolbox::course_image($course, 'course');
+            $html .= html_writer::start_div('card');
+            $html .= html_writer::start_tag('div', array('style' => 'height: 280px; overflow: hidden;'));
+            $html .= html_writer::empty_tag('img', array(
+                'class' => 'card-img-top',
+                'src' => $courseimageurl
+                )
+            );
+            $html .= html_writer::end_div();
+            $html .= html_writer::start_tag('div', array('class' => 'card-body', 'style' => 'padding: 0;'));
+            $html .= html_writer::start_tag('div', array('class' => 'card-img-overlay', 'style' => 'right: auto;'));
+            $html .= html_writer::tag('h3', $course->fullname, array('class' => 'card-title', 'style' => 'background-color: rgba(255,255,255,.5); border: 5px solid rgba(255,255,255,.05); border-radius: 4px;'));
+            $html .= html_writer::end_div();
+            $html .= html_writer::end_div();
+            $html .= html_writer::end_div();
+        } else {
+            $html .= $this->context_header();
+        }
         $html .= html_writer::end_div();
         $html .= html_writer::tag('div', $this->course_header(), array('id' => 'course-header'));
         $html .= html_writer::end_div();
