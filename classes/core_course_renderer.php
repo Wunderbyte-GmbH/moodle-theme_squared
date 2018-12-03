@@ -965,18 +965,22 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $coursedisplayoptions['sqcardlayout'] = true;
         $coursedisplayoptions['recursive'] = true;
 
-        if (optional_param('sqfac', '0', PARAM_INT) == 1) { // Note: AJAX for this would allow the another pagingation to remember.
+        if (optional_param('sqfac', '0', PARAM_INT) == 1) { // Note: The AJAX for this allows another pagingation to remember.
             // If the optional parameters exist then their values are for us.
             $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
             $page = optional_param('page', 0, PARAM_INT);
         } else {
             $perpage = $CFG->coursesperpage;
             $page = 0;
+
+            // Almost certainly not called by AJAX, so initialise.
+            $this->page->requires->js_call_amd('theme_squared/frontpage_courses', 'init', array());
         }
 
         $baseurl = new moodle_url('/index.php');
         $baseurl->param('redirect', '0');
         $baseurl->param('sqfac', 1);
+        $baseurl->param('sesskey', sesskey());
 
         if ($perpage != $CFG->frontpagecourselimit) {
             $baseurl->param('perpage', $perpage);
@@ -1003,9 +1007,11 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         // Display list of courses.
         $attributes = $chelper->get_and_erase_attributes('courses');
+        $attributes['id'] = 'sqfac';
         $output = html_writer::start_tag('div', $attributes);
         $output .= $this->coursecat_courses_content($chelper, $courses, $totalcount);
         $output .= html_writer::end_tag('div'); // .courses
+
         return $output;
     }
 
@@ -1038,18 +1044,22 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $coursedisplayoptions = array();
             $coursedisplayoptions['sqcardlayout'] = true;
 
-            if (optional_param('sqfmc', '0', PARAM_INT) == 1) { // Note: AJAX for this would allow the another pagingation to remember.
+            if (optional_param('sqfmc', '0', PARAM_INT) == 1) { // Note: The AJAX for this allows another pagingation to remember.
                 // If the optional parameters exist then their values are for us.
                 $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
                 $page = optional_param('page', 0, PARAM_INT);
             } else {
                 $perpage = $CFG->coursesperpage;
                 $page = 0;
+
+                // Almost certainly not called by AJAX, so initialise.
+                $this->page->requires->js_call_amd('theme_squared/frontpage_courses', 'init', array());
             }
 
             $baseurl = new moodle_url('/index.php');
             $baseurl->param('redirect', '0');
             $baseurl->param('sqfmc', 1);
+            $baseurl->param('sesskey', sesskey());
 
             if ($perpage != $CFG->frontpagecourselimit) {
                 $baseurl->param('perpage', $perpage);
@@ -1085,6 +1095,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
             // Display list of courses.
             $attributes = $chelper->get_and_erase_attributes('courses');
+            $attributes['id'] = 'sqfmc';
             $output .= html_writer::start_tag('div', $attributes);
             $output .= $this->coursecat_courses_content($chelper, $courses, $totalcount);
             if (!empty($morelink)) {
@@ -1119,7 +1130,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      */
     protected function set_squared_search(moodle_url $url) {
         $url->param('sesskey', sesskey());
-        $url->param('ccs', 's'); // Course category search.  Used to make code in 'layout/default.php' simpler.
+        $url->param('ccs', 1); // Course category search.  Used to make code in 'toolbox.php::default_ajax()' simpler.
     }
 
     /**
