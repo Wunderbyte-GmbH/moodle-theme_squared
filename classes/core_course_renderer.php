@@ -977,10 +977,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $this->page->requires->js_call_amd('theme_squared/frontpage_courses', 'init', array());
         }
 
-        $baseurl = new moodle_url('/index.php');
-        $baseurl->param('redirect', '0');
+        $baseurl = $this->get_squared_frontpage_courses();
         $baseurl->param('sqfac', 1);
-        $baseurl->param('sesskey', sesskey());
 
         if ($perpage != $CFG->frontpagecourselimit) {
             $baseurl->param('perpage', $perpage);
@@ -1056,10 +1054,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $this->page->requires->js_call_amd('theme_squared/frontpage_courses', 'init', array());
             }
 
-            $baseurl = new moodle_url('/index.php');
-            $baseurl->param('redirect', '0');
+            $baseurl = $this->get_squared_frontpage_courses();
             $baseurl->param('sqfmc', 1);
-            $baseurl->param('sesskey', sesskey());
 
             if ($perpage != $CFG->frontpagecourselimit) {
                 $baseurl->param('perpage', $perpage);
@@ -1131,6 +1127,19 @@ class theme_squared_core_course_renderer extends core_course_renderer {
     protected function set_squared_search(moodle_url $url) {
         $url->param('sesskey', sesskey());
         $url->param('ccs', 1); // Course category search.  Used to make code in 'toolbox.php::default_ajax()' simpler.
+    }
+
+    /**
+     * Gets the given url to be used for front page course listings.
+     *
+     * @return moodle_url $url The Moodle url for front page course listings.
+     */
+    protected function get_squared_frontpage_courses() {
+        $url = new moodle_url('/index.php');
+        $url->param('sesskey', sesskey());
+        $url->param('redirect', '0');
+
+        return $url;
     }
 
     /**

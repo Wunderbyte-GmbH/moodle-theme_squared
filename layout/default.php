@@ -29,44 +29,6 @@ defined('MOODLE_INTERNAL') || die;
 
 $toolbox = \theme_squared\toolbox::get_instance();
 $toolbox->default_ajax();
-/*
-$courseautocompletesearchterm = optional_param('term', '', PARAM_TEXT);
-$categorycoursesearch = optional_param('ccs', '', PARAM_TEXT);
-$frontpageavailablecourses = optional_param('sqfac', 0, PARAM_INT);
-$frontpagemycourses = optional_param('sqfmc', 0, PARAM_INT);
-if (($courseautocompletesearchterm) || 
-    ($categorycoursesearch) ||
-    ($frontpageavailablecourses) ||
-    ($frontpagemycourses)) {
-    // AJAX calls to have a sesskey and use the course renderer.
-
-    // Might be overkill but would probably stop DOS attack from lots of DB reads.
-    require_sesskey();
-
-    if ($CFG->forcelogin) {
-        require_login();
-    }
-    $courserenderer = $PAGE->get_renderer('core', 'course');
-
-    if ($courseautocompletesearchterm) {
-        echo json_encode($courserenderer->inspector_ajax($courseautocompletesearchterm));
-    } else if ($frontpageavailablecourses) {
-        echo $courserenderer->frontpage_available_courses();
-    } else if ($frontpagemycourses) {
-        echo $courserenderer->frontpage_my_courses();
-    } else {
-        // Must be $categorycoursesearch.
-        $catid = optional_param('categoryid', -1, PARAM_INT);  // Zero is for all courses.  Also look at /course/index.php
-        if ($catid != -1) {
-            echo $courserenderer->category_courses_from_search($catid);
-        } else {
-            header('HTTP/1.0 400 Bad Request');
-            die('Category id not sent.');
-        }
-    }
-
-    die();
-}*/
 
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
