@@ -806,21 +806,12 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         if (!isset($this->strings->summary)) {
             $this->strings->summary = get_string('summary');
         }
-        if ($chelper->get_show_courses() <= self::COURSECAT_SHOW_COURSES_COUNT) {
-            return '';
-        }
         if ($course instanceof stdClass) {
             require_once($CFG->libdir . '/coursecatlib.php');
             $course = new course_in_list($course);
         }
         $content = '';
         $classes = trim('coursebox clearfix card ' . $additionalclasses);
-        if ($chelper->get_show_courses() >= self::COURSECAT_SHOW_COURSES_EXPANDED) {
-            $nametag = 'h3';
-        } else {
-            $classes .= ' collapsed';
-            $nametag = 'div';
-        }
 
         // Start .coursebox / .card.
         $content .= html_writer::start_tag('div', array(
@@ -847,7 +838,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         // Course name.
         $coursename = $chelper->get_course_formatted_name($course);
         $coursenamelink = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)), $coursename, array('class' => $course->visible ? '' : 'dimmed'));
-        $content .= html_writer::tag($nametag, $coursenamelink, array('class' => 'coursename card-title'));
+        $content .= html_writer::tag('h3', $coursenamelink, array('class' => 'coursename card-title'));
         $content .= html_writer::end_tag('div'); // .card-img-overlay
         $content .= html_writer::start_tag('div', array('class' => 'card-text'));
 

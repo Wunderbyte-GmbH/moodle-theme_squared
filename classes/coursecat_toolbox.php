@@ -196,8 +196,8 @@ class coursecat_toolbox extends \coursecat {
     }
 
     /**
-     * Generate a semi-random color based on the courseid number (so it will always return
-     * the same color for a course).
+     * Generate a semi-random colour based on the courseid number (so it will always return
+     * the same colour for a course).
      * 
      * Code from /blocks/myoverview/classses/output/courses_view.php.
      *
