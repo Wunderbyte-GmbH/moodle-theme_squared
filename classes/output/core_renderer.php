@@ -51,17 +51,17 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if (!empty($this->page->layout_options['courseimage'])) {
             $course = new \course_in_list($this->page->course);
             $courseimageurl = \theme_squared\coursecat_toolbox::course_image($course, 'course');
-            $html .= html_writer::start_div('card');
-            $html .= html_writer::start_tag('div', array('style' => 'height: 280px; overflow: hidden;'));
+            $html .= html_writer::start_div('card', array('id' => 'course-image'));
+            $html .= html_writer::start_div('image-container');
             $html .= html_writer::empty_tag('img', array(
                 'class' => 'card-img-top',
                 'src' => $courseimageurl
                 )
             );
             $html .= html_writer::end_div();
-            $html .= html_writer::start_tag('div', array('class' => 'card-body', 'style' => 'padding: 0;'));
-            $html .= html_writer::start_tag('div', array('class' => 'card-img-overlay', 'style' => 'right: auto;'));
-            $html .= html_writer::tag('h3', $course->fullname, array('class' => 'card-title', 'style' => 'background-color: rgba(255,255,255,.5); border: 5px solid rgba(255,255,255,.05); border-radius: 4px;'));
+            $html .= html_writer::start_div('card-body');
+            $html .= html_writer::start_div('card-img-overlay');
+            $html .= html_writer::tag('h3', $course->fullname, array('class' => 'card-title'));
             $html .= html_writer::end_div();
             $html .= html_writer::end_div();
             $html .= html_writer::end_div();

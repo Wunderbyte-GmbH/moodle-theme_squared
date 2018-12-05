@@ -173,3 +173,21 @@
         }
     }
 }
+
+#course-image {
+    .image-container {
+        max-height: 280px;
+        overflow: hidden;
+    }
+    .card-body {
+        padding: 0;
+    }
+    .card-img-overlay {
+        right: auto;
+    }
+    .card-title {
+        background-color: rgba(255, 255, 255, .5);
+        border: 5px solid rgba(255, 255, 255, .05);
+        border-radius: 4px;
+    }
+}
