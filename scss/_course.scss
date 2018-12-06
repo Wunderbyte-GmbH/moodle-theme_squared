@@ -119,10 +119,6 @@
     ul.section {
         margin: 0;
     }
-
-    .completionprogress {
-        margin-top: -10px;
-    }
 }
 
 .course-content ul.topics,
@@ -175,19 +171,26 @@
 }
 
 #course-image {
-    .image-container {
-        max-height: 280px;
-        overflow: hidden;
-    }
-    .card-body {
-        padding: 0;
-    }
-    .card-img-overlay {
+    position: relative;
+    .title-overlay {
+        bottom: 0;
+        left: 0;
+        padding: 1.25rem;
+        position: absolute;
         right: auto;
+        top: 0;
     }
-    .card-title {
+    .course-title {
         background-color: rgba(255, 255, 255, .5);
         border: 5px solid rgba(255, 255, 255, .05);
         border-radius: 4px;
     }
+}
+
+#course-image-container {
+    background-size: cover;
+    height: 278px;
+    margin-bottom: -60px;
+    margin-left: -15px;
+    margin-right: -15px;
 }
