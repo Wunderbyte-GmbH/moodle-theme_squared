@@ -90,6 +90,7 @@ if (is_siteadmin()) {
         array('left' => get_string('left', 'editor'), 'right' => get_string('right', 'editor')));
     $simset->add_colourpicker('logobgcolor', '#4ba09b');
     $simset->add_checkbox('nologobgcolor', 0, 1, 0);
+    $simset->add_checkbox('courseheaderimage', 1, 1, 0);
     $ADMIN->add('theme_squared', $sp);
 
     // Category color guide settings.

@@ -76,6 +76,10 @@ $string['twitterlinkdesc'] = 'The link should look like this: https://www.twitte
 $string['youtubelink'] = 'Link to your YouTube channel (optional)';
 $string['youtubelinkdesc'] = 'The link should look like this: http://www.youtube.com/yourchannel';
 
+// Course header image setting.
+$string['courseheaderimage'] = 'Course header images';
+$string['courseheaderimagedesc'] = 'Use a course header image from the course summary files for the coures.  If there are many, then name the image \'course\' to ensure it is used.';
+
 // Course content search.
 $string['findcoursecontent'] = 'Course content: ';
 

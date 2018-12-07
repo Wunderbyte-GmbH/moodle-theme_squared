@@ -46,19 +46,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
      */
     public function full_header() {
         $html = html_writer::start_tag('header', array('id' => 'main-header', 'class' => 'row'));
-        if (!empty($this->page->layout_options['courseimage'])) {
-            $course = new \course_in_list($this->page->course);
-            $html .= html_writer::start_div('', array('id' => 'course-image'));
-            $html .= html_writer::start_div('title-overlay');
-            $html .= html_writer::tag('h3', $course->fullname, array('class' => 'course-title'));
-            $html .= html_writer::end_div();
-            $html .= html_writer::end_div();
-        }
+        $usecourseimage = ((!empty($this->page->layout_options['courseimage'])) &&
+            (!empty($this->page->theme->settings->courseheaderimage)));
         $courseheader = $this->course_header();
-        if (empty($this->page->layout_options['courseimage'])) {
-            $contextheader = $this->context_header();
-        } else {
+        if ($usecourseimage) {
             $contextheader = null;
+        } else {
+            $contextheader = $this->context_header();
         }
         if ((!empty($courseheader)) || (!empty($contextheader))) {
             $html .= html_writer::start_div('col-xs-12 p-a-1');
@@ -71,9 +65,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $html .= html_writer::end_div();
         }
         $html .= html_writer::end_tag('header');
-        if (!empty($this->page->layout_options['courseimage'])) {
+        if ($usecourseimage) {
+            $course = new \course_in_list($this->page->course);
             $courseimageurl = \theme_squared\coursecat_toolbox::course_image($course, 'course');
-            $html .= html_writer::tag('div','', array('id' => 'course-image-container',
+            $coursetitle = html_writer::start_div('', array('id' => 'course-image'));
+            $coursetitle .= html_writer::tag('h3', $course->fullname, array('class' => 'course-title'));
+            $coursetitle .= html_writer::end_div();
+
+            $html .= html_writer::tag('div', $coursetitle, array('id' => 'course-image-container',
                 'style' => 'background-image: url("'.$courseimageurl.'");'));
         }
         return $html;
