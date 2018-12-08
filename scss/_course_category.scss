@@ -8,11 +8,16 @@
             width: 100%;
         }
     }
-    .card-img-overlay .card-title {
-        background-color: rgba(255, 255, 255, 0.5);
-        text-align: center;
-        border: 5px solid rgba(255, 255, 255, 0.05);
-        border-radius: 4px;
+    .card-img-overlay {
+        bottom: auto;
+        padding: $card-img-overlay-padding $card-img-overlay-padding 0;
+        .card-title {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 5px solid rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            margin-bottom: 0;
+            text-align: center;
+        }
     }
     
     .card-text ul {
