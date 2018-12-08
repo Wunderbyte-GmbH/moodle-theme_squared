@@ -1,3 +1,16 @@
+div.activity.label { // From boost/scss/moodle/undo.scss.
+    background: inherit;
+    color: inherit;
+    border: inherit;
+    text-shadow: none;
+    padding: 8px;
+    white-space: normal;
+    display: block;
+    font-size: inherit;
+    line-height: inherit;
+    text-align: inherit;
+}
+
 .course-content {
     .sectionname {
         margin: 0;
@@ -93,16 +106,7 @@
 
         // .label vs .label
         div.activity.label {
-            background: inherit;
-            color: inherit;
-            border: inherit;
-            text-shadow: none;
             padding: 8px;
-            white-space: normal;
-            display: block;
-            font-size: inherit;
-            line-height: inherit;
-            text-align: inherit;
         }
     }
 
