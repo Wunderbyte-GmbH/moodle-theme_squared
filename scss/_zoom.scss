@@ -30,13 +30,12 @@
 
         #squared-main,
         #block-region-side-pre {
-            width: 100% !important;
-            left: 0 !important;
-            position: relative;
-            min-height: 1px;
-            padding-left: 20px !important;
-            padding-right: 10px;
-            float: none;
+            flex-basis: 100%;
+            max-width: 100%;
+            order: unset;
+        }
+        #block-region-side-pre {
+            margin-top: 20px;
         }
     }
 }
