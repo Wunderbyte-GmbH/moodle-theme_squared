@@ -234,7 +234,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             return '';
         }
 
-        return html_writer::tag('div', $searchicon . $searchinput, array('class' => 'search-input-wrapper nav-link', 'id' => $id));
+        return html_writer::tag('div', $searchinput.$searchicon, array('class' => 'search-input-wrapper nav-link', 'id' => $id));
     }
 
     /**

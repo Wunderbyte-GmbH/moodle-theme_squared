@@ -243,6 +243,7 @@ class html_renderer extends \plugin_renderer_base {
 
     /**
      * Render the searchbox shown in the top navbar.
+     * TODO: Remove as no longer used.
      */
     public function searchbox($value = '') {
         global $CFG;

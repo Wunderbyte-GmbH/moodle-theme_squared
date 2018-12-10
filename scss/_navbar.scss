@@ -15,6 +15,11 @@
         margin-left: 5px;
     }
 }
+
+.nav-nowrap {
+    flex-wrap: nowrap;
+}
+
 .navbar-light .navbar-toggler {
     padding: 0;
     margin: 7px 7px 7px 0;
@@ -139,6 +144,34 @@
 
 #navbaradvresults {
     display: none;
+}
+
+.search-input-wrapper {
+    display: inline;
+    float: none;
+    margin-right: 4px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.search-input-wrapper > div {
+    float: right;
+}
+
+.search-input-wrapper > form {
+    display: inline;
+    margin-left: 0;
+    > input {
+        transition: width .5s ease-in-out;
+        width: 0;
+    }
+}
+
+.search-input-wrapper.expanded {
+    width: 200px;
+    > form > input {
+        width: 162px;
+    }
 }
 
 .search-input-wrapper.nav-link #navbaradvresults {
