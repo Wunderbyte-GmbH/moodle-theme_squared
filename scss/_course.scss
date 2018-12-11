@@ -28,7 +28,7 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
             vertical-align: text-bottom;
         }
         .sqheadingtext {
-            padding: 7px 10px;
+            padding: 4px 10px;
             vertical-align: text-bottom;
             display: inline-block;
         }
@@ -41,22 +41,29 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
             margin-bottom: 2px;
             .activity {
                 background-color: #eceeef;
-                .activityinstance a,
                 .activityinstance .sqactivityicon {
-                    min-height: 2.4em;
-                }
-                .activityinstance .sqactivityicon {
+                    border-style: solid;
+                    border-width: 4px;
+                    height: 34px;
                     margin-right: 4px;
+                    width: 34px;
                     img.activityicon {
                         margin-left: 5px;
                         margin-right: 5px;
                         margin-top: 5px;
                     }
                 }
+                .activityinstance a .instancename {
+                    line-height: 1;
+                    vertical-align: super;
+                }
                 .contentwithoutlink > a,
                 .activityinstance > a {
-                    text-indent: 0;
-                    padding-left: 0;
+                    text-indent: -38px;
+                    padding-left: 38px;
+                }
+                .availabilityinfo {
+                    margin-left: 36px;
                 }
             }
             .contentafterlink {
