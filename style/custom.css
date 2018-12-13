@@ -1,3 +1,7 @@
+.course-content .section.row .sqcol .activity .activityinstance .sqactivityicon {
+    background-image: url([[pix:theme|sq_glow]]);
+}
+
 /* Custom CSS Settings
 -------------------------*/
 [[setting:customcss]]
