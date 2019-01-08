@@ -88,6 +88,9 @@ class toolbox {
                         #page-header .context-header-settings-menu {
                             background-color: '.$theme->settings->$setting.';
                         }
+                        .course-content .section.row .sqcol .activity .activityinstance .sqactivityicon {
+                            border-color: '.$theme->settings->$setting.';
+                        }
                         &.path-mod-forum {
                             .forumpost {
                                 .row .left.picture {

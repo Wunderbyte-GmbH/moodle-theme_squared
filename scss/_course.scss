@@ -42,6 +42,8 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
             .activity {
                 background-color: #eceeef;
                 .activityinstance .sqactivityicon {
+                    border-style: solid;
+                    border-width: 4px;
                     height: 34px;
                     margin-right: 4px;
                     width: 34px;
