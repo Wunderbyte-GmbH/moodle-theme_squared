@@ -25,7 +25,7 @@
     <div class="row blockpairs">
         {{#blocka}}
         <div class="{{class}} pairheader left">
-            <div role="button" data-toggle="collapse" data-parent="#accordion" 
+            <div role="button" data-toggle="collapse" 
                 data-target="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="inst{{blockinstanceid}}" class="{{shape}} blockheader over-hover-to-bottom {{name}}">
                 <div class="blockhead title">
                     <div class="alignself">
@@ -42,7 +42,7 @@
         {{/blocka}}
         {{#blockb}}
         <div class="{{class}} pairheader right">
-            <div role="button" data-toggle="collapse" data-parent="#accordion" 
+            <div role="button" data-toggle="collapse" 
                     data-target="#subcollapse{{blockinstanceid}}" aria-expanded="false" aria-controls="inst{{blockinstanceid}}" class="{{shape}} blockheader over-hover-to-bottom {{name}}">
                 <div class="blockhead">
                     <div class="alignself">
@@ -64,7 +64,7 @@
             <div class="card-heading dropdown-menu-left">
                 {{{header}}}
             </div>
-            <div id="subcollapse{{blockinstanceid}}" class="card-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}">
+            <div id="subcollapse{{blockinstanceid}}" class="card-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}" data-parent="#accordion">
                 {{{content}}}
             </div>
         </div>
@@ -81,7 +81,7 @@
             <div class="card-heading dropdown-menu-left">
                 {{{header}}}
             </div>
-            <div id="subcollapse{{blockinstanceid}}" class="card-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}">
+            <div id="subcollapse{{blockinstanceid}}" class="card-body p-0 m-0 block collapse {{#subopen}}in{{/subopen}}" data-parent="#accordion">
                 {{{content}}}
             </div>
         </div>

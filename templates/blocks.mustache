@@ -14,7 +14,7 @@
 <div class="single-row" id="accordion" role="tablist" aria-multiselectable="true">
     {{#blocks}}
         <div class="{{class}} pairheader">
-            <div role="button" data-toggle="collapse" data-parent="#accordion" 
+            <div role="button" data-toggle="collapse" 
                     data-target="#subcollapse{{blockinstanceid}}" aria-expanded="true" aria-controls="inst{{blockinstanceid}}" class="squared blockheader over-hover-to-bottom {{name}}">
                 <div class="blockhead title">
                     <div class="alignself">
@@ -34,7 +34,7 @@
             <div class="card-heading dropdown-menu-left">
                 {{{header}}}
             </div>
-            <div id="subcollapse{{blockinstanceid}}" class="card-collapse collapse {{#open}}show{{/open}}" role="tabpanel" aria-labelledby="{{aria-labelledby}}">
+            <div id="subcollapse{{blockinstanceid}}" class="card-collapse collapse {{#open}}show{{/open}}" role="tabpanel" aria-labelledby="{{aria-labelledby}}" data-parent="#accordion">
                 <div class="card-body p-0 m-0 block">
                     {{{content}}}
                 </div>
