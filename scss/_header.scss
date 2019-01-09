@@ -11,7 +11,7 @@
         }
     }
     .background {
-    	display: none;
+        display: none;
         .inner {
             height: 124px;
         }
@@ -103,5 +103,12 @@
 }
 
 .squared-fixed-navbar {
-    padding-top: 49px;
+    padding-top: 50px;
+}
+
+.navbar.position-fixed {
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: $zindex-fixed;
 }
