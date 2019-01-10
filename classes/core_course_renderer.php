@@ -834,12 +834,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             )
         );
         $content .= html_writer::start_tag('div', array('class' => 'card-body'));
-        $content .= html_writer::start_tag('div', array('class' => 'card-img-overlay'));
         // Course name.
         $coursename = $chelper->get_course_formatted_name($course);
         $coursenamelink = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)), $coursename, array('class' => $course->visible ? '' : 'dimmed'));
         $content .= html_writer::tag('h3', $coursenamelink, array('class' => 'coursename card-title'));
-        $content .= html_writer::end_tag('div'); // .card-img-overlay
         $content .= html_writer::start_tag('div', array('class' => 'card-text'));
 
         // Display course summary.
