@@ -1,0 +1,15 @@
+.activity img.activityicon,
+.choosercontainer img.icon,
+.path-mod img.icon.iconlarge {
+    background-color: lighten($squared-purple, 15%);
+    border-color: lighten($squared-purple, 15%);
+    border-style: solid;
+    border-width: 4px;
+    height: 34px;
+    margin-right: 4px;
+    width: 34px;
+}
+
+.choosercontainer #chooseform .option .icon {
+    padding: 0;
+}
