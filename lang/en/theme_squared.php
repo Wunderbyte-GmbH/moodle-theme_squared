@@ -99,8 +99,8 @@ $string['moodlecoursesearch'] = 'Standard Moodle course search';
 $string['advancedcoursearch'] = 'Advanced course search';
 $string['globalsearch'] = 'Global search';
 
-// Page footer.
-$string['pagefootersettings'] = 'Footer page settings';
+// Footer settings.
+$string['footersettings'] = 'Footer settings';
 
 $string['footnote'] = 'Footnote';
 $string['footnotedesc'] = 'Whatever you add to this html area will be displayed in the footer throughout your Moodle site.';

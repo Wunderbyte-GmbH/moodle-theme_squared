@@ -89,8 +89,8 @@ if (is_siteadmin()) {
     $simset->add_checkbox('courseheaderimage', 1, 1, 0);
     $settings->add($sp);
 
-    // Page Footer settings.
-    $sp = new admin_settingpage('theme_squared_footer', get_string('pagefootersettings', 'theme_squared'));
+    // Footer settings.
+    $sp = new admin_settingpage('theme_squared_footer', get_string('footersettings', 'theme_squared'));
     $simset = new squared_simple_theme_settings($sp, 'theme_squared');
 
     $simset->add_text('youtubelink');
