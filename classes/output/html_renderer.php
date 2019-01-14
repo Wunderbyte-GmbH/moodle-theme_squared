@@ -219,12 +219,7 @@ class html_renderer extends \plugin_renderer_base {
         }
 
         $template = new stdClass();
-        $template->coursefooter = $this->course_footer();
-
-        $template->socialicons = $this->squared_socialicons();
-
-        $template->logininfo = $OUTPUT->login_info();
-        $template->standardfooterhtml = $this->standard_footer_html();
+        $template->coursefooter = $OUTPUT->course_footer();
 
         $template->list = array();
 
@@ -238,6 +233,16 @@ class html_renderer extends \plugin_renderer_base {
                 $template->list[] = $listitem;
             }
         }
+
+        $template->socialicons = $this->squared_socialicons();
+
+        if (!empty($this->theme->settings->footnote)) {
+            $template->footnote = $this->theme->settings->footnote;
+        }
+
+        $template->logininfo = $OUTPUT->login_info();
+        $template->standardfooterhtml = $this->standard_footer_html();
+
         return $this->render_from_template('theme_squared/footer', $template);
     }
 

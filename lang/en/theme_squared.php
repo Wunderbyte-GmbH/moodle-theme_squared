@@ -28,7 +28,7 @@ $string['bgcolorheading'] = 'Choose a background color for the category below';
 $string['bgcolorheadingdesc'] = 'This background color is used for special elements on pages within the specified category. It serves as a color guide.';
 $string['catcolorsettings'] = 'Course category colorguide and course header';
 $string['choosereadme'] = '<div class="clearfix"><div class="theme_screenshot"><h2>squared</h2><img src="squared/pix/screenshot.png" /><h2>About</h2><p>Squared is the theme containing more squares than any other Moodle theme. Some even say it is the most beautiful theme for Moodle. <h2>Notes</h2><p>This theme is built upon both Base and Canvas, and therefore it is not yet responsive. It is the official theme of "Onlinecampus Virtuelle PH" www.virtuelle-ph.at. It was created by David Bogner <a href="http://www.edulabs.org">www.edulabs.org - E-Learning Solutions</a> and John Stabinger (programming). The design was created by  <a href="http://contemas.net">Contemas Web Solutions</a>  </p> <h3>Free Software</h3> The theme is provided for you for free, nevertheless it did cost some thousand Euros. So if you want to make customizations, please contract us. Especially for creating a responsive version based on bootsrap, we accept any help. We are working on it, but you can accelerate the process.</div></div>';
-$string['configtitle'] = 'squared theme';
+$string['configtitle'] = 'Squared theme';
 $string['customcss'] = 'Custom CSS';
 $string['customcssdesc'] = 'Any CSS you enter here will be added to every page allowing your to easily customise this theme.';
 $string['facebooklink'] = 'Link to your facebook page (optional)';
@@ -64,7 +64,7 @@ $string['logosmalldesc'] = 'Please upload your custom logo here for the header o
 $string['numberofslides'] = 'Number of slides';
 $string['numberofslidesdesc'] = 'Number of slides to use for the slideshow on the frontpage';
 $string['pageheadersettings'] = 'Page header settings';
-$string['pluginname'] = 'squared';
+$string['pluginname'] = 'Squared';
 $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
 $string['searchurl'] = 'Search url for the search field';
@@ -98,3 +98,9 @@ $string['navbarsearchdesc'] = 'Select the type of search on the navbar.  Global 
 $string['moodlecoursesearch'] = 'Standard Moodle course search';
 $string['advancedcoursearch'] = 'Advanced course search';
 $string['globalsearch'] = 'Global search';
+
+// Page footer.
+$string['pagefootersettings'] = 'Footer page settings';
+
+$string['footnote'] = 'Footnote';
+$string['footnotedesc'] = 'Whatever you add to this html area will be displayed in the footer throughout your Moodle site.';
