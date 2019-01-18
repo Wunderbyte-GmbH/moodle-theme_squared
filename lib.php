@@ -31,7 +31,7 @@
 function theme_squared_grid($hassidepre) {
 
     if ($hassidepre) {
-        $regions = array('content' => 'col-md-9 col-lg-10 col-xl-10 order-last p-0');
+        $regions = array('content' => 'col-md-9 col-lg-10 col-xl-10 order-last');
         $regions['pre'] = 'col-md-3 col-lg-2 col-xl-2 order-first';
     } else {
         $regions = array('content' => 'col-md-12');

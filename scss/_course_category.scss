@@ -4,6 +4,10 @@
             display: block;
             height: 180px;
             width: 100%;
+            &.sq-card-image {
+                background-repeat: no-repeat;
+                background-size: 100%;
+            }
         }
     }
     .card-img-overlay {

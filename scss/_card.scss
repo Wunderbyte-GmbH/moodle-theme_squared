@@ -1,16 +1,27 @@
 // Card deck
 .card-deck {
     .card {
+        $sq-card-gutter : $sq-card-deck-margin * 2;
+        flex-basis: calc(100% - #{$sq-card-gutter});
         margin-bottom: 0;
     }
 
     @include media-breakpoint-up(sm) {
+        // Override.
+        &,
+        .card {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+    @include media-breakpoint-up(md) {
         margin-left: -$sq-card-deck-margin;
         margin-right: -$sq-card-deck-margin;
 
         .card {
              // Flexbugs #4: https://github.com/philipwalton/flexbugs#4-flex-shorthand-declarations-with-unitless-flex-basis-values-are-ignored
-             flex: 0 0 22rem;
+             flex: 0 0 25rem;
              margin-bottom: ($sq-card-deck-margin * 2); // Override the default
              margin-left: $sq-card-deck-margin;
              margin-right: $sq-card-deck-margin;

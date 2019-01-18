@@ -150,9 +150,11 @@ class coursecat_toolbox extends \coursecat {
      * 
      * @param course_in_list|stdClass $course The course to use.
      * @param string $for 'course'|'overview'|empty Specify the image to get if any.
+     *
+     * @return array('image' => boolean, 'url' => string).
      */
     public static function course_image($course, $for = '') {
-        $courseimageurl = null;
+        $courseimage = array('image' => true, 'url' => null);
         $candidates = array();
         foreach ($course->get_course_overviewfiles() as $file) {
             $isimage = $file->is_valid_image();
@@ -181,18 +183,19 @@ class coursecat_toolbox extends \coursecat {
                 // Use the first.
                 $file = reset($candidates);
             }
-            $courseimageurl = file_encode_url("$CFG->wwwroot/pluginfile.php", '/' . $file->get_contextid() . '/' . $file->get_component() . '/' .
+            $courseimage['url'] = file_encode_url("$CFG->wwwroot/pluginfile.php", '/' . $file->get_contextid() . '/' . $file->get_component() . '/' .
                     $file->get_filearea() . $file->get_filepath() . $file->get_filename(), !$isimage);
         }
 
-        if (empty($courseimageurl)) {
+        if (empty($courseimage['url'])) {
             $pattern = new \core_geopattern();
             $pattern->setColor(self::coursecolour($course->id));
             $pattern->setGenerator('squares');
-            $courseimageurl = $pattern->datauri();
+            $courseimage['image'] = false;
+            $courseimage['url'] = $pattern->datauri();
         }
 
-        return $courseimageurl;
+        return $courseimage;
     }
 
     /**
