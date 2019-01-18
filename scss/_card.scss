@@ -1,0 +1,19 @@
+// Card deck
+.card-deck {
+    .card {
+        margin-bottom: 0;
+    }
+
+    @include media-breakpoint-up(sm) {
+        margin-left: -$sq-card-deck-margin;
+        margin-right: -$sq-card-deck-margin;
+
+        .card {
+             // Flexbugs #4: https://github.com/philipwalton/flexbugs#4-flex-shorthand-declarations-with-unitless-flex-basis-values-are-ignored
+             flex: 0 0 22rem;
+             margin-bottom: ($sq-card-deck-margin * 2); // Override the default
+             margin-left: $sq-card-deck-margin;
+             margin-right: $sq-card-deck-margin;
+        }
+    }
+}

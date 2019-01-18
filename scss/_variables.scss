@@ -20,3 +20,6 @@ $screen-breakpoint: map-get($grid-breakpoints, "md");
 
 // Conversions
 $navbar-default-color: $navbar-dark-color;
+
+// Cards
+$sq-card-deck-margin: 0.25rem !default;

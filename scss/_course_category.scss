@@ -1,7 +1,5 @@
 .sqcoursecards.card-deck {
     .card {
-        flex-basis: 18rem;
-        margin-bottom: 30px;
         .card-img-top {
             display: block;
             height: 180px;
@@ -19,17 +17,9 @@
             text-align: center;
         }
     }
-    
+
     .card-text ul {
         list-style-type: none;
-    }
-}
-
-@media(min-width: $screen-breakpoint) {
-    .sqcoursecards.card-deck {
-        .card { 
-            flex: 0 0 18rem; // Override unbelieveable Boost blocks.scss global!
-        }
     }
 }
 
