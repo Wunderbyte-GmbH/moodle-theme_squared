@@ -538,6 +538,21 @@
     float: right;
 }
 
+.block.block_myoverview {
+    .content-centred {
+        max-width: none;
+    }
+    .tab-content {
+        .card-deck {
+            justify-content: space-evenly;
+            .card {
+                margin-left: 25px;
+                margin-right: 25px;
+            }
+        }
+    }
+}
+
 // @media (min-width: $screen-breakpoint) {
 //     body.gecko #block-region-side-pre .two-rows .blockheader.squared::after {
 //         padding-bottom: 100px;
