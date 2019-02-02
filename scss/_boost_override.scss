@@ -46,12 +46,13 @@
  * Styling the dropdown menus.
  */
 .dropdown-menu {
-    font-size: 14px;
     border-radius: 0;
+    font-size: 14px;
+    margin-top: 7px;
     .dropdown-item {
+        border-bottom: $border-width solid $dropdown-border-color;
         padding-top: 8px;
         padding-bottom: 8px;
-        border-bottom: $border-width solid $dropdown-border-color;
         &:last-child {
             border-bottom: 0;
         }
