@@ -188,11 +188,20 @@ class coursecat_toolbox extends \coursecat {
         }
 
         if (empty($courseimage['url'])) {
-            $pattern = new \core_geopattern();
-            $pattern->setColor(self::coursecolour($course->id));
-            $pattern->setGenerator('squares');
+            $geopattern = new \core_geopattern();
+            $geopattern->setColor(self::coursecolour($course->id));
+            static $patterns = [
+                'overlapping_circles',
+                'overlapping_rings',
+                'squares',
+                'concentric_circles',
+                'nested_squares',
+                'mosaic_squares'
+            ];
+            $pattern = $patterns[rand(0, (count($patterns) -1))];
+            $geopattern->setGenerator($pattern);
             $courseimage['image'] = false;
-            $courseimage['url'] = $pattern->datauri();
+            $courseimage['url'] = $geopattern->datauri();
         }
 
         return $courseimage;

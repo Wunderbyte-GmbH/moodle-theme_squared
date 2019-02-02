@@ -597,7 +597,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $content .= $pagingbar;
         }
 
-        $content .= html_writer::start_tag('div', array('class' => 'sqcoursecards card-deck justify-content-between'));
+        $content .= html_writer::start_tag('div', array('class' => 'sqcoursecards card-deck'));
         $coursecount = 0;
         foreach ($courses as $course) {
             $coursecount++;

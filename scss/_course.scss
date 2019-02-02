@@ -209,6 +209,12 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
     padding: 0;
 }
 
+.courses .coursebox {
+    &.even {
+        background-color: $card-bg;
+    }
+}
+
 .teachers {
-    padding-left: .4rem;
+    padding-left: 0;
 }

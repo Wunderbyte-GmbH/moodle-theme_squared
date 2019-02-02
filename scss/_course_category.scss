@@ -2,10 +2,7 @@
     .card {
         .card-img-top {
             display: block;
-            height: 40vw;
-            @include media-breakpoint-up(md) {
-                height: 15rem;
-            }
+            height: 120px;
             &.sq-card-image {
                 background-repeat: no-repeat;
                 background-size: 100%;
