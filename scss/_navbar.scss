@@ -159,7 +159,7 @@
 
 .search-input-wrapper > div {
     float: right;
-    margin-top: 8px;
+    margin-top: 11px;
 }
 
 .search-input-wrapper > form {
@@ -195,4 +195,27 @@
     display: block;
     float: none;
     opacity: 1;
+}
+
+.popover-region-messages .popover-region-toggle .icon {
+    margin-top: 5px;
+}
+
+.popover-region-notifications .popover-region-toggle .icon {
+    margin-top: 6px;
+}
+
+.navbar .popover-region-container {
+    top: 47px;
+    right: -10px;
+}
+
+.popover-region-toggle::after {
+    right: -1px;
+    bottom: -4px;
+}
+
+.popover-region-toggle::before {
+    right: -2px;
+    bottom: -3px;
 }
