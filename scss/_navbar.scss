@@ -205,6 +205,14 @@
     margin-top: 6px;
 }
 
+.popover-region-nsm .menubar {
+    margin-top: 4px;
+    .dropdown-menu {
+        left: -25px;
+        margin-top: 13px;
+    }
+}
+
 .navbar .popover-region-container {
     top: 47px;
     right: -10px;
