@@ -182,6 +182,10 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
     }
 }
 
+.autocompletion {
+    @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-line-height, $btn-border-radius); // From Bootstrap .btn
+}
+
 #course-image {
     left: 0;
     margin-left: 1.25rem;
