@@ -136,6 +136,9 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
 .course-content ul.topics,
 .course-content ul.weeks {
     li.section {
+        &:first-child {
+            margin-top: 0;
+        }
         .left {
             padding: 0;
         }
@@ -186,23 +189,19 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
     @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-line-height, $btn-border-radius); // From Bootstrap .btn
 }
 
-#course-image {
-    left: 0;
-    margin-left: 1.25rem;
-    position: relative;
-    top: 1.75rem;
-    .course-title {
-        background-color: rgba(255, 255, 255, .5);
-        border: 5px solid rgba(255, 255, 255, .05);
-        border-radius: 4px;
-        display: inline;
-    }
+h1.course-title {
+    padding: 1rem 0;
 }
 
-#course-image-container {
+h1.course-title,
+.page-header-headings h1 {
+    font-size: $h1-font-size;
+    margin-bottom: 0;
+}
+
+#course-image {
     background-size: cover;
-    height: 278px;
-    margin-bottom: -60px;
+    height: 170px;
     margin-left: -15px;
     margin-right: -15px;
     &.sq-course-image {

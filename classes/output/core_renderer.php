@@ -68,18 +68,16 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if ($usecourseimage) {
             $course = new \course_in_list($this->page->course);
             $courseimage = \theme_squared\coursecat_toolbox::course_image($course, 'course');
-            $coursetitle = html_writer::start_div('', array('id' => 'course-image'));
-            $coursetitle .= html_writer::tag('h3', $course->fullname, array('class' => 'course-title'));
-            $coursetitle .= html_writer::end_div();
 
             $attr = array(
-                'id' => 'course-image-container',
+                'id' => 'course-image',
                 'style' => 'background-image: url("'.$courseimage['url'].'");'
             );
             if (!$courseimage['image']) {
                 $attr['class'] = 'sq-course-image';
             }
-            $html .= html_writer::tag('div', $coursetitle, $attr);
+            $html .= html_writer::tag('div', '', $attr);
+            $html .= html_writer::tag('h1', $course->fullname, array('class' => 'course-title'));
         }
         return $html;
     }
