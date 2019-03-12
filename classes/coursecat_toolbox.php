@@ -189,7 +189,7 @@ class coursecat_toolbox extends \coursecat {
 
         if (empty($courseimage['url'])) {
             $geopattern = new \core_geopattern();
-            $geopattern->setColor(self::coursecolour($course->id));
+            $geopattern->setColor(self::coursecolour($course->id, $course->category));
             static $patterns = [
                 'overlapping_circles',
                 'overlapping_rings',
@@ -214,13 +214,28 @@ class coursecat_toolbox extends \coursecat {
      * Code from /blocks/myoverview/classses/output/courses_view.php.
      *
      * @param int $courseid.
+     * @param int $categoryid.
      * @return string Hex value colour code.
      */
-    protected static function coursecolour($courseid) {
-        // The colour palette is hardcoded for now.  It would make sense to combine it with theme settings.
+    protected static function coursecolour($courseid, $categoryid) {
+        global $PAGE;
+        $colour = '';
+
+        // Fallback colour palette.
         static $basecolours = [
             '#81ecec', '#74b9ff', '#a29bfe', '#dfe6e9', '#00b894', '#0984e3', '#b2bec3', '#fdcb6e', '#fd79a8', '#6c5ce7', '#ffaabb'];
 
-        return $basecolours[$courseid % 11];
+        $setting = 'bgcolor'.$categoryid;
+        if (isset($PAGE->theme->settings->$setting)) {
+            $colour = $PAGE->theme->settings->$setting;
+            if (strlen($colour) == 4) {
+                // Short form hex code which GeoPattern cannot cope with, so make long form.
+                $colour = '#'.$colour[1].$colour[1].$colour[2].$colour[2].$colour[3].$colour[3];
+            }
+        } else {
+            $colour = $basecolours[$courseid % 11];
+        }
+
+        return $colour;
     }
 }
