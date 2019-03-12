@@ -84,12 +84,8 @@ class toolbox {
                             }
                         }
                         .course-content .sectionname .sqheadingicon,
-                        .course-content .section.row .sqcol .activity .activityinstance .sqactivityicon,
                         #page-header .context-header-settings-menu {
                             background-color: '.$theme->settings->$setting.';
-                        }
-                        .course-content .section.row .sqcol .activity .activityinstance .sqactivityicon {
-                            border-color: '.$theme->settings->$setting.';
                         }
                         &.path-mod-forum {
                             .forumpost {
