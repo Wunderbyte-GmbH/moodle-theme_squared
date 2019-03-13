@@ -67,7 +67,23 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $html .= html_writer::end_tag('header');
         if ($usecourseimage) {
             $course = new \course_in_list($this->page->course);
-            $courseimage = \theme_squared\coursecat_toolbox::course_image($course, 'course');
+            $courseimage = \theme_squared\coursecat_toolbox::course_image_url($course, 'course');
+            if (empty($courseimage)) {
+                if ((empty($this->page->theme->settings->courseheaderimagefallback)) ||
+                    ($this->page->theme->settings->courseheaderimagefallback == 'courseheaderimagefallbackthemeimage')) {
+                    // Use the 'courseheaderimagefallbackimage' image or theme image if empty.
+                    $courseheaderimagefallbackimage = $this->page->theme->setting_file_url('courseheaderimagefallbackimage', 'courseheaderimagefallbackimage');
+                    if (empty($courseheaderimagefallbackimage)) {
+                        $courseheaderimagefallbackimage = $this->image_url('pexels-photo-220320_crop', 'theme')->out();
+                    }
+                    $courseimage = array('url' => $courseheaderimagefallbackimage, 'image' => true);
+                } else {
+                    // Use the generated image.
+                    $courseimage = array('url' => \theme_squared\coursecat_toolbox::course_pattern_url($course), 'image' => false);
+                }
+            } else {
+                $courseimage = array('url' => $courseimage, 'image' => true);
+            }
 
             $attr = array(
                 'id' => 'course-image',

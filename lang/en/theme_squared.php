@@ -79,6 +79,12 @@ $string['youtubelinkdesc'] = 'The link should look like this: http://www.youtube
 // Course header image setting.
 $string['courseheaderimage'] = 'Course header images';
 $string['courseheaderimagedesc'] = 'Use a course header image from the course summary files for the courses.  If there are many, then name the image \'course\' to ensure it is used.';
+$string['courseheaderimagefallback'] = 'Course header images fallback';
+$string['courseheaderimagefallbackdesc'] = 'If \'Course header images\' is on but there is no image in the course summary files then either: Use the image in the \'courseheaderimagefallbackimage\' setting but if empty use an image from the theme or generate an image.';
+$string['courseheaderimagefallbackthemeimage'] = 'Use the \'courseheaderimagefallbackimage\' image or theme image if empty';
+$string['courseheaderimagefallbackgenerated'] = 'Use the generated image';
+$string['courseheaderimagefallbackimage'] = 'Course header fallback image';
+$string['courseheaderimagefallbackimagedesc'] = 'Course header fallback image to use if \'Course header images\' is on and \'Course header images fallback\' is set to "Use the \'courseheaderimagefallbackimage\' image or theme image if empty".';
 
 // Course content search.
 $string['findcoursecontent'] = 'Course content: ';

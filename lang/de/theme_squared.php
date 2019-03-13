@@ -63,9 +63,3 @@ $string['twitterlink'] = 'Link to your twitter account (optional)';
 $string['twitterlinkdesc'] = 'The link should look like this: https://www.twitter.com/youraccount';
 $string['youtubelink'] = 'Link to your YouTube channel (optional)';
 $string['youtubelinkdesc'] = 'The link should look like this: http://www.youtube.com/yourchannel';
-
-
-
-
-
-

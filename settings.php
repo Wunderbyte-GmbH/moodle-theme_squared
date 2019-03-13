@@ -87,6 +87,12 @@ if (is_siteadmin()) {
     $simset->add_colourpicker('logobgcolor', '#4ba09b');
     $simset->add_checkbox('nologobgcolor', 0, 1, 0);
     $simset->add_checkbox('courseheaderimage', 1, 1, 0);
+    $simset->add_select('courseheaderimagefallback', 'courseheaderimagefallbackthemeimage',
+        array(
+            'courseheaderimagefallbackthemeimage' => get_string('courseheaderimagefallbackthemeimage', 'theme_squared'),
+            'courseheaderimagefallbackgenerated' => get_string('courseheaderimagefallbackgenerated', 'theme_squared')
+        ));
+    $simset->add_file('courseheaderimagefallbackimage');
     $settings->add($sp);
 
     // Footer settings.
