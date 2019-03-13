@@ -78,7 +78,7 @@ $string['youtubelinkdesc'] = 'The link should look like this: http://www.youtube
 
 // Course header image setting.
 $string['courseheaderimage'] = 'Course header images';
-$string['courseheaderimagedesc'] = 'Use a course header image from the course summary files for the coures.  If there are many, then name the image \'course\' to ensure it is used.';
+$string['courseheaderimagedesc'] = 'Use a course header image from the course summary files for the courses.  If there are many, then name the image \'course\' to ensure it is used.';
 
 // Course content search.
 $string['findcoursecontent'] = 'Course content: ';
