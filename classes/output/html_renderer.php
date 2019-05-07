@@ -160,7 +160,7 @@ class html_renderer extends \plugin_renderer_base {
         $template = new stdClass();
         $template->icons = array();
 
-        $socialicons = array('googlepluslink', 'twitterlink', 'facebooklink', 'youtubelink');
+        $socialicons = array('instagramlink', 'twitterlink', 'facebooklink', 'youtubelink');
 
         foreach ($socialicons as $si) {
             if (isset($this->theme->settings->$si)) {

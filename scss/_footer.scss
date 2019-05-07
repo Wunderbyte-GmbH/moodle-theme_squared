@@ -19,6 +19,17 @@
             a:focus {
                 text-decoration: none;
             }
+            a.socialicons img {
+                height: 29px;
+                margin: 15px 8px;
+                width: 29px;
+            }
+            &:first-of-type a.socialicons img {
+                margin-left: 0;
+            }
+            &:last-of-type a.socialicons img {
+                margin-right: 0;
+            }
         }
     }
     ul.footerlisting {

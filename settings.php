@@ -100,7 +100,7 @@ if (is_siteadmin()) {
     $simset = new squared_simple_theme_settings($sp, 'theme_squared');
 
     $simset->add_text('youtubelink');
-    $simset->add_text('googlepluslink');
+    $simset->add_text('instagramlink');
     $simset->add_text('facebooklink');
     $simset->add_text('twitterlink');
     $simset->add_textarea('footertext');

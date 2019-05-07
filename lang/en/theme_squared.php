@@ -39,8 +39,8 @@ Each line consists of some menu text an a link URL. For Example :
 <pre>Moodle news|http://moodlenews.com
 Moodle|http://moodle.org
 </pre>';
-$string['googlepluslink'] = 'Link to your google+ page (optional)';
-$string['googlepluslinkdesc'] = 'The link should look like this: https://plus.google.com/+youracount/posts';
+$string['instagramlink'] = 'Link to your Instagram page (optional)';
+$string['instagramlinkdesc'] = 'The link should look like this: https://www.instagram.com/youracount';
 $string['headerbg'] = 'Background image';
 $string['headerbgdesc'] = 'Please upload your custom background image here for the header.  The logo and background must be the same height.  For the \'On top\' layout, the background should be have a width of 1400px, the logo can be any width.  For the \'Side\' layout, the logo and background should have a combined width of 1400px.';
 $string['headerbgsmall'] = 'Background image for small devices';

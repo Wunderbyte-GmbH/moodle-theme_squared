@@ -806,9 +806,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
         global $CFG;
         $content = '';
         if ($CFG->branch >= 33) {
-            if (! empty ( $this->page->theme->settings->googlepluslink )) {
-                $content .= html_writer::tag ( 'a', '<img src="' . $this->image_url ( 'gplus', 'theme' ) . '" class="sicons" alt="google plus" />', array (
-                                'href' => $this->page->theme->settings->googlepluslink,
+            if (! empty ( $this->page->theme->settings->instagramlink )) {
+                $content .= html_writer::tag ( 'a', '<img src="' . $this->image_url ( 'instagram', 'theme' ) . '" class="sicons" alt="google plus" />', array (
+                                'href' => $this->page->theme->settings->instagramlink,
                                 'class' => 'icons'
                 ) );
             }
@@ -834,9 +834,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 ) );
             }
         } else {
-            if (! empty ( $this->page->theme->settings->googlepluslink )) {
-                $content .= html_writer::tag ( 'a', '<img src="' . $this->pix_url ( 'gplus', 'theme' ) . '" class="sicons" alt="google plus" />', array (
-                                'href' => $this->page->theme->settings->googlepluslink,
+            if (! empty ( $this->page->theme->settings->instagramlink )) {
+                $content .= html_writer::tag ( 'a', '<img src="' . $this->pix_url ( 'instagram', 'theme' ) . '" class="sicons" alt="google plus" />', array (
+                                'href' => $this->page->theme->settings->instagramlink,
                                 'class' => 'icons'
                 ) );
             }
