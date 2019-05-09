@@ -162,16 +162,18 @@ class html_renderer extends \plugin_renderer_base {
 
         $socialicons = array('instagramlink', 'twitterlink', 'facebooklink', 'youtubelink');
 
+
+        if ($CFG->branch >= 33) {
+            $imageurlfunc = 'image_url';
+        } else {
+            $imageurlfunc = 'pix_url';
+        }
         foreach ($socialicons as $si) {
-            if (isset($this->theme->settings->$si)) {
+            if (!empty($this->theme->settings->$si)) {
                 $icon = new stdClass();
                 $icon->url = $this->theme->settings->$si;
                 $icon->name = str_replace('link', '', $si);
-                if ($CFG->branch >= 33) {
-                    $icon->image = $OUTPUT->image_url($icon->name, 'theme');
-                } else {
-                    $icon->image = $OUTPUT->pix_url($icon->name, 'theme');
-                }
+                $icon->image = $OUTPUT->$imageurlfunc($icon->name, 'theme');
                 $template->icons[] = $icon;
             }
         }
