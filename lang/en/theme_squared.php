@@ -65,7 +65,6 @@ $string['numberofslides'] = 'Number of slides';
 $string['numberofslidesdesc'] = 'Number of slides to use for the slideshow on the frontpage';
 $string['pageheadersettings'] = 'Page header settings';
 $string['pluginname'] = 'Squared';
-$string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
 $string['searchurl'] = 'Search url for the search field';
 $string['searchurldesc'] = 'This is the URL you use for your search on your moodle site. If your moodle installation does not allow search engines, then replace whatever is after site: with the site you want to search (without http:// or https://)';

@@ -31,14 +31,12 @@ $toolbox = \theme_squared\toolbox::get_instance();
 $toolbox->default_ajax();
 
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
-$hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
 
 $knownregionpre = $PAGE->blocks->is_known_region('side-pre');
-$knownregionpost = $PAGE->blocks->is_known_region('side-post');
 
 $regions = theme_squared_grid($hassidepre);
 $PAGE->set_popup_notification_allowed(false);
-if ($knownregionpre || $knownregionpost) {
+if ($knownregionpre) {
     theme_squared_initialise_zoom($PAGE);
 }
 $setzoom = theme_squared_get_zoom();
@@ -91,10 +89,6 @@ echo $OUTPUT->doctype() ?>
         <?php
         if ($knownregionpre) {
             echo $OUTPUT->blocks('side-pre', $regions['pre']);
-        }?>
-        <?php
-        if ($knownregionpost) {
-            echo $OUTPUT->blocks('side-post', $regions['post']);
         }?>
     </div>
 
