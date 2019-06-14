@@ -37,9 +37,6 @@ define(['jquery', 'theme_squared/jqueryeasing', 'theme_squared/jqueryflexslider'
         $("#login2 label, #newsearchform label").inFieldLabels();
 
         // Block selector for classes rather than css3.
-        // $("#region-pre .region-content .block.vclass:eq(1)").addClass('block2');
-        // $("#region-pre .region-content .block.vclass:eq(2)").addClass('block3');
-        // $("#region-pre .region-content .block:odd").addClass('rightblock');
         $("#page-course-index-category #movecourses th.header").first().wrap('<div class="catheadwrap" />');
         $("#custommenu ul > li").not("#custommenu ul li ul li").addClass('baritem');
         // Forum header list.
@@ -68,12 +65,10 @@ define(['jquery', 'theme_squared/jqueryeasing', 'theme_squared/jqueryflexslider'
         // custommenu hover for overlay.
         $("#navbox").not(".ios #navbox,.android #navbox").hover(
             function () {
-                // $(this).addClass("hover");
                 $("#fuzz").css("height", $(document).height());
                 $("#fuzz").fadeIn();
             },
             function () {
-                // $(this).removeClass("hover");
                 $("#fuzz").fadeOut();
             }
         );
@@ -98,7 +93,6 @@ define(['jquery', 'theme_squared/jqueryeasing', 'theme_squared/jqueryflexslider'
         $('#login_username2, #newsearchfield').konami(function() {
             $('#logo').removeClass('tada');
             $("html, body").animate({ scrollTop: 0 }, "slow");
-            // alert('good job');
             $('#logo').addClass('tada');
             setTimeout(function() {
                 $('#logo').addClass('hinge');
@@ -127,11 +121,6 @@ define(['jquery', 'theme_squared/jqueryeasing', 'theme_squared/jqueryflexslider'
                 $('body').removeClass('overflow');
             }
         );
-
-        // Remove idock if editing is turned on.
-        /* if ( $('body').hasClass("editing") ) {
-            $('body').removeClass('idock');
-        }*/
 
         if ($('#page-site-index.notloggedin .block_rss_client').length){
             $("#page-site-index.notloggedin .block_rss_client .content").appendTo("#leftcolumn .innertube");

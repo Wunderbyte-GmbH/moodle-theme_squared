@@ -14,7 +14,7 @@ define(['jquery', 'theme_bootstrap/bootstrap', 'core/log'], function($, bootstra
                     e.preventDefault()
                 });
             });
-            log.debug('Arup Boostrap AMD init');
+            log.debug('Squared Boostrap AMD init');
         }
     }
 });

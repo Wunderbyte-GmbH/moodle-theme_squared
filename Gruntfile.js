@@ -49,13 +49,6 @@
  * grunt amd     Create the Asynchronous Module Definition JavaScript files.  See: MDL-49046.
  *               Done here as core Gruntfile.js currently *nix only.
  *
- * Plumbing tasks & targets:
- * -------------------------
- * Lower level tasks encapsulating a specific piece of functionality
- * but usually only useful when called in combination with another.
- *
- * grunt less         Compile all less files.
- *
  * @package theme
  * @subpackage squared
  * @author G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
@@ -104,31 +97,12 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            // Watch for any changes to less files and compile.
-            files: ["less/**/*.less"],
-            tasks: ["compile"],
+            // Watch for any changes to AMD JS files and compile.
+            files: ["amd/src/**/*.js"],
+            tasks: ["amd"],
             options: {
                 spawn: false,
                 livereload: true
-            }
-        },
-        replace: {
-            font_fix: {
-                src: 'style/squared.css',
-                overwrite: true,
-                replacements: [{
-                    from: 'glyphicons-halflings-regular.eot',
-                    to: 'glyphicons-halflings-regular.eot]]',
-                }, {
-                    from: 'glyphicons-halflings-regular.svg',
-                    to: 'glyphicons-halflings-regular.svg]]',
-                }, {
-                    from: 'glyphicons-halflings-regular.ttf',
-                    to: 'glyphicons-halflings-regular.ttf]]',
-                }, {
-                    from: 'glyphicons-halflings-regular.woff',
-                    to: 'glyphicons-halflings-regular.woff]]',
-                }]
             }
         },
         jshint: {
@@ -160,15 +134,13 @@ module.exports = function(grunt) {
     // Load contrib tasks.
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-exec");
-    grunt.loadNpmTasks("grunt-text-replace");
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
     // Register tasks.
-    grunt.registerTask("default", ["watch"]);
+    grunt.registerTask("default", ["amd"]);
     grunt.registerTask("decache", ["exec:decache"]);
 
-    grunt.registerTask("compile", ["less", "replace:font_fix", "decache"]);
     grunt.registerTask("amd", ["jshint", "uglify", "decache"]);
 };
