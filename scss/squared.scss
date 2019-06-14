@@ -3,6 +3,7 @@
 
 @import "mixins";
 @import "variables";
+@import "fonts";
 @import "blocks";
 @import "forum";
 @import "navbar";
@@ -22,6 +23,3 @@
 @import "course_formats";
 @import "zoom";
 @import "autocomplete";
-
-@include font-face('Source Sans Pro', 'sourcesanspro-regular-webfont', 300);
-@include font-face('Source Sans Pro Bold', 'sourcesanspro-bold-webfont', 300);

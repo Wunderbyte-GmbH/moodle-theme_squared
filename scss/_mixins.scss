@@ -1,14 +1,17 @@
 /*
  * Font Face
  */
-@mixin font-face($family, $name, $weight: 300){
+@mixin font-face($family, $name, $style, $weight){
     @font-face{
-        font-family: $family;
+        font-family: '#{$family}';
+        font-stretch: normal;
+        font-style: #{$style};
         src:url('[[font:theme|#{$name}.eot]]');
-        src:url('[[font:theme|#{$name}.eot]]?#iefix') format('embedded-opentype'),
+        src:local('#{$name}'),
+            url('[[font:theme|#{$name}.eot]]?#iefix') format('embedded-opentype'),
             url('[[font:theme|#{$name}.woff]]') format('woff'),
-            url('[[font:theme|#{$name}.ttf]]') format('truetype'),
-            url('[[font:theme|#{$name}.svg]]') format('svg');
+            url('[[font:theme|#{$name}.otf]]') format('opentype'),
+            url('[[font:theme|#{$name}.ttf]]') format('truetype');
         font-weight: $weight;
     }
 }
