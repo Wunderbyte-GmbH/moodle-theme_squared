@@ -31,9 +31,7 @@ namespace theme_squared;
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once($CFG->dirroot . '/lib/coursecatlib.php');
-
-class coursecat_toolbox extends \coursecat {
+class coursecat_toolbox extends \core_course_category {
 
     protected static $instance;
 
@@ -67,7 +65,7 @@ class coursecat_toolbox extends \coursecat {
      * @param array $options display options, same as in get_courses() except 'recursive' and 'idonly' is ignored -
      *                       search can be within a category if 'categoryid' is specified.
      * @param array $requiredcapabilities List of capabilities required to see return course.
-     * @return array ('totalcount' => int, 'courses' => course_in_list[]).
+     * @return array ('totalcount' => int, 'courses' => core_course_list_element[]).
      */
     public static function search_courses($search = '', $options = array(), $requiredcapabilities = array()) {
         global $DB;
@@ -95,9 +93,9 @@ class coursecat_toolbox extends \coursecat {
                 if (!empty($options['coursecontacts'])) {
                     self::preload_course_contacts($records);
                 }
-                // Prepare the list of course_in_list objects.
+                // Prepare the list of core_course_list_element objects.
                 foreach ($ids as $id) {
-                    $courses[$id] = new \course_in_list($records[$id]);
+                    $courses[$id] = new \core_course_list_element($records[$id]);
                 }
             }
             return array(
@@ -133,10 +131,10 @@ class coursecat_toolbox extends \coursecat {
             self::preload_course_contacts($records);
         }
 
-        // Prepare the list of course_in_list objects.
+        // Prepare the list of core_course_list_element objects.
         $courses = array();
         foreach ($records as $record) {
-            $courses[$record->id] = new \course_in_list($record);
+            $courses[$record->id] = new \core_course_list_element($record);
         }
 
         return array(
@@ -148,7 +146,7 @@ class coursecat_toolbox extends \coursecat {
     /**
      * Gets the image url or generated image url if no image in the course summary files for the given course.
      * 
-     * @param course_in_list|stdClass $course The course to use.
+     * @param core_course_list_element|stdClass $course The course to use.
      * @param string $for 'course'|'overview'|empty Specify the image to get if any.
      *
      * @return array('image' => boolean, 'url' => string).
@@ -169,7 +167,7 @@ class coursecat_toolbox extends \coursecat {
     /**
      * Gets the image url or empty url if no image in the course summary files for the given course.
      * 
-     * @param course_in_list|stdClass $course The course to use.
+     * @param core_course_list_element|stdClass $course The course to use.
      * @param string $for 'course'|'overview'|empty Specify the image to get if any.
      *
      * @return string The url or empty.
@@ -214,7 +212,7 @@ class coursecat_toolbox extends \coursecat {
     /**
      * Gets the generated image url for the given course.
      * 
-     * @param course_in_list|stdClass $course The course to use.
+     * @param core_course_list_element|stdClass $course The course to use.
      *
      * @return string The url.
      */

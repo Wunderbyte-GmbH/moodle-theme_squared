@@ -94,6 +94,9 @@ class toolbox {
                                 }
                             }
                         }
+                        .bg-messageheader {
+                            background-color: '.$theme->settings->$setting.';
+                        }
 
                     }
                     @media (max-width: $screen-breakpoint) {

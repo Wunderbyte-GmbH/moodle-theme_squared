@@ -1,0 +1,23 @@
+.message-drawer {
+    height: 100%;
+    top: 0;
+}
+
+.bg-messageheader {
+    background-color: $gray-light;
+    color: $white;
+}
+
+@media (min-width: $screen-breakpoint) {
+    .bg-messageheader {
+        background-color: lighten($squared-purple, 15%);
+    }
+}
+
+.popover-region-messages a {
+    color: $body-color;
+    &:hover,
+    &:focus {
+        color: inherit;
+    }
+}

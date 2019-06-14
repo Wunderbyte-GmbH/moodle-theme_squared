@@ -87,8 +87,8 @@ echo $OUTPUT->doctype() ?>
                 <div class="clearfix"></div>
             </div>
         </div>
-
         <?php
+        echo $OUTPUT->standard_after_main_region_html();
         if ($knownregionpre) {
             echo $OUTPUT->blocks('side-pre', $regions['pre']);
         }?>

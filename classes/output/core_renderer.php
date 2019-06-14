@@ -66,7 +66,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         $html .= html_writer::end_tag('header');
         if ($usecourseimage) {
-            $course = new \course_in_list($this->page->course);
+            $course = new \core_course_list_element($this->page->course);
             $courseimage = \theme_squared\coursecat_toolbox::course_image_url($course, 'course');
             if (empty($courseimage)) {
                 if ((empty($this->page->theme->settings->courseheaderimagefallback)) ||

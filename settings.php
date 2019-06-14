@@ -30,7 +30,6 @@ defined ( 'MOODLE_INTERNAL' ) || die ();
 $settings = null;
 
 if (is_siteadmin()) {
-    require_once("$CFG->libdir/coursecatlib.php");
     require_once(__DIR__."/simple_theme_settings.class.php");
     require_once("$CFG->dirroot/theme/boost/classes/admin_settingspage_tabs.php");
 
@@ -110,7 +109,7 @@ if (is_siteadmin()) {
     // Category color guide settings.
     $sp = new admin_settingpage('theme_squared_catcolor', get_string ('catcolorsettings', 'theme_squared'));
     $simset = new squared_simple_theme_settings($sp, 'theme_squared');
-    $categorytree = coursecat::get(0)->get_children ();
+    $categorytree = core_course_category::get(0)->get_children ();
     $cclr = array ('#EF001C', '#4B88FB', '#A89E00', '#013855');
     $i = 0;
     foreach ($categorytree as $cid => $value) {
