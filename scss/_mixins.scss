@@ -17,13 +17,6 @@
     .courseblock-icon {
         background: url('[[pix:theme|block/#{$iconname}]]') no-repeat 50% 50%;
     }
-    /*
-    @media (max-width: $screen-breakpoint) {
-        .courseblock-icon {
-            background-color: lighten($squared-purple, 15%);
-        }
-    }
-    */
 }
 
 @mixin menu_item($color){

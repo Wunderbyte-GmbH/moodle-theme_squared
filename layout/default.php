@@ -38,8 +38,10 @@ $regions = theme_squared_grid($hassidepre);
 $PAGE->set_popup_notification_allowed(false);
 if ($knownregionpre) {
     theme_squared_initialise_zoom($PAGE);
+    $setzoom = theme_squared_get_zoom();
+} else {
+    $setzoom = 'nozoom';
 }
-$setzoom = theme_squared_get_zoom();
 $html = $PAGE->get_renderer('theme_squared', 'html');
 
 echo $OUTPUT->doctype() ?>
@@ -51,7 +53,7 @@ echo $OUTPUT->doctype() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
 </head>
 
-<body <?php echo $OUTPUT->body_attributes($html->toplevel_category() . ' ' . $setzoom); ?>>
+<body <?php echo $OUTPUT->body_attributes($html->toplevel_category().' '.$setzoom); ?>>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
