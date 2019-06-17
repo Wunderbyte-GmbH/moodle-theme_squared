@@ -110,6 +110,9 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
                     top: 0;
                 }
             }
+            .tag {
+                white-space: normal; // To wrap 'Available but not shown on course page' type information.
+            }
         }
 
         // .label vs .label

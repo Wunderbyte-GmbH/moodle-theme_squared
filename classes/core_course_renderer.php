@@ -29,10 +29,12 @@ defined('MOODLE_INTERNAL') || die;
 
 class theme_squared_core_course_renderer extends core_course_renderer {
 
+    private $activitylayout = false;
     private static $contentcontrolinit = false;
     private $coursecat_toolbox = null;
     private $currentcategoryid = 0;
     private $categorysearchsort = 1;
+    private $userisediting = false;
 
     public function __construct(moodle_page $page, $target) {
         parent::__construct($page, $target);
@@ -43,6 +45,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             }
         }
         $this->coursecat_toolbox = \theme_squared\coursecat_toolbox::get_instance();
+        $this->activitylayout = (!empty($this->page->theme->settings->activitylayout)) ? $this->page->theme->settings->activitylayout : false;
+        $this->userisediting = $this->page->user_is_editing();
     }
 
     /**
@@ -59,7 +63,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function course_section_cm_name_title(cm_info $mod, $displayoptions = array()) {
-        if ($this->page->user_is_editing()) {
+        if (($this->userisediting == true) || ($this->activitylayout == false)) {
             return parent::course_section_cm_name_title($mod, $displayoptions);
         }
 
@@ -126,7 +130,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function course_section_cm($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
-        if ($this->page->user_is_editing()) {
+        if (($this->userisediting == true) || ($this->activitylayout == false)) {
             return parent::course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
         }
 
@@ -189,7 +193,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function course_section_cm_text(cm_info $mod, $displayoptions = array()) {
-        if ($this->page->user_is_editing()) {
+        if (($this->userisediting == true) || ($this->activitylayout == false)) {
             return parent::course_section_cm_text($mod, $displayoptions);
         }
 
@@ -229,7 +233,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return String
      */
     public function course_section_cm_list_item($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
-        if ($this->page->user_is_editing()) {
+        if (($this->userisediting == true) || ($this->activitylayout == false)) {
             return parent::course_section_cm_list_item($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
         }
 
@@ -258,8 +262,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return void
      */
     public function course_section_cm_list($course, $section, $sectionreturn = null, $displayoptions = array()) {
-        $activitylayout = (!empty($this->page->theme->settings->activitylayout)) ? $this->page->theme->settings->activitylayout : false;
-        if (($this->page->user_is_editing()) || ($activitylayout == false)) {
+        if (($this->userisediting == true) || ($this->activitylayout == false)) {
             return parent::course_section_cm_list($course, $section, $sectionreturn, $displayoptions);
         }
 
@@ -280,7 +283,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
                 if ($modulehtml = $this->course_section_cm_list_item($course, $completioninfo, $mod, $sectionreturn, $displayoptions)) {
                     if ($mod->modname != 'label') {
-                        switch ($activitylayout) {
+                        switch ($this->activitylayout) {
                             case 1: // 1,3,3.
                                 $modclasses = 'col-sm-12 col-md-4 col-lg-4';
                                 break;
