@@ -87,9 +87,8 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
                 }
             }
             .contentafterlink {
-                border-bottom: 2px solid #eceeef;
-                border-left: 2px solid #eceeef;
-                border-right: 2px solid #eceeef;
+                margin-left: 0;
+                margin-top: 0;
                 .contentcontrol {
                     cursor: pointer;
                     text-align: right;
@@ -110,7 +109,7 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
                         right: 0;
                     }
                     &.-expanded:after {
-                        background: #fff;
+                        //background: #fff;
                         content: '';
                         height: 1em;
                         margin-top: 0.2em;
@@ -120,9 +119,9 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
                     }
                 }
                 > .no-overflow:not(.-expanded)::after {
-                    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+                    //background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
                     bottom: 0;
-                    content: '';
+                    content: '...';
                     left: 0;
                     position: absolute;
                     right: 0;
