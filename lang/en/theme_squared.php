@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+$string['activityicon'] = 'Activity icon';
 $string['activitylayout'] = 'Activity layout';
 $string['activitylayoutdesc'] = 'Set the number of columns to use for the layout of the activities on a course at different window widths or \'None\' to disable.  The numbers are in order of small, medium and large.';
 $string['alternateloginurl'] = 'Alternate MNET login url';
@@ -61,6 +62,7 @@ $string['logoposition'] = 'Logo Position';
 $string['logopositiondesc'] = 'Set the logo position';
 $string['logosmall'] = 'Logo for small devices';
 $string['logosmalldesc'] = 'Please upload your custom logo here for the header on small devices.  The logo and background must be the same height.  For the \'On top\' layout, the background should be have a width of 960px, the logo can be any width.  For the \'Side\' layout, the logo and background should have a combined width of 960px.';
+$string['moreinfo'] = 'More info';
 $string['numberofslides'] = 'Number of slides';
 $string['numberofslidesdesc'] = 'Number of slides to use for the slideshow on the frontpage';
 $string['pageheadersettings'] = 'Page header settings';

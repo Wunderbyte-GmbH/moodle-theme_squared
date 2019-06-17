@@ -43,10 +43,14 @@ define(['jquery', 'core/log'], function($, log) {
 
                     var $content = $(this).parent().find('> .no-overflow');
                     if ($content.hasClass('-expanded')) {
-                        $(this).find('i').removeClass('fa-minus-circle').addClass('fa-plus-circle');
+                        $(this).find('i').removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+                        $(this).find('.sqccclose').addClass('hidden').attr('aria-hidden', 'true');
+                        $(this).find('.sqccopen').removeClass('hidden').attr('aria-hidden', 'false');
                         $content.removeClass('-expanded');
                     } else {
-                        $(this).find('i').removeClass('fa-plus-circle').addClass('fa-minus-circle');
+                        $(this).find('i').removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                        $(this).find('.sqccopen').addClass('hidden').attr('aria-hidden', 'true');
+                        $(this).find('.sqccclose').removeClass('hidden').attr('aria-hidden', 'false');
                         $content.addClass('-expanded');
                     }
                 });
