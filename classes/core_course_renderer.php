@@ -106,11 +106,16 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         return $output;
     }
 
+    /**
+     * Renders html to display the card activity header when used on a course page.
+     *
+     * @param cm_info $mod
+     * @return string
+     */
     protected function squared_activity_header(cm_info $mod) {
-        $output = '';
-
-        $output .= html_writer::empty_tag('img', array('src' => $mod->get_icon_url(),
-            'class' => 'sqactivityicon iconlarge activityicon', 'alt' => ' ', 'role' => 'presentation'));
+        $output = html_writer::empty_tag('img', array('src' => $mod->get_icon_url(),
+            'class' => 'sqactivityicon iconlarge activityicon', 'alt' => get_string('activityicon', 'theme_squared'), 'role' => 'presentation'));
+        $output .= html_writer::tag('span', get_string('modulename', 'mod_'.$mod->modname), array('class' => 'modname'));
 
         return $output;
     }
@@ -174,17 +179,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $output .= html_writer::end_tag('div'); // .activityinstance
         }
 
-        /* If there is content but NO link (eg label), then display the
-           content here (BEFORE any icons). In this case icons must be
-           displayed after the content so that it makes more sense visually
-           and for accessibility reasons, e.g. if you have a one-line label
-           it should work similarly (at least in terms of ordering) to an
-           activity. */
-        //$url = $mod->url;
-        //if (empty($url)) {
-        //    $output .= $this->course_section_cm_text($mod, $displayoptions);
-        //}
-
         // Show availability info (if module is not available).
         $output .= $this->course_section_cm_availability($mod, $displayoptions);
 
@@ -209,22 +203,29 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             return $output;
         }
 
-        $output .= html_writer::start_tag('div', array('class' => 'card-footer'));
         $content = $mod->get_formatted_content(array('overflowdiv' => true, 'noclean' => true));
         list($linkclasses, $textclasses) = $this->course_section_cm_classes($mod);
         if ($mod->url && $mod->uservisible) {
             if ($content) {
-                $content = html_writer::tag('div', html_writer::tag('i', null, array('class' => 'fa fa-plus-circle', 'aria-hidden' => 'true', 'role' => 'button')), array('class' => 'contentcontrol')).$content;
+                $output .= html_writer::start_tag('div', array('class' => 'card-footer'));
+                $content = html_writer::tag('div', 
+                    html_writer::tag('i', null, array('class' => 'fa fa-chevron-circle-down', 'aria-hidden' => 'true', 'role' => 'button')).
+                    html_writer::tag('span', get_string('moreinfo', 'theme_squared'), array('class' => 'sqcc sqccopen', 'aria-hidden' => 'false')).
+                    html_writer::tag('span', get_string('closebuttontitle'), array('class' => 'sqcc sqccclose hidden', 'aria-hidden' => 'true')),
+                    array('class' => 'contentcontrol')).
+                    $content;
                 // If specified, display extra content after link.
                 $output .= html_writer::tag('div', $content, array('class' => trim('contentafterlink ' . $textclasses)));
+                $output .= html_writer::end_tag('div');
             }
         } else {
             $groupinglabel = $mod->get_grouping_label($textclasses);
 
             // No link, so display only content.
+            $output .= html_writer::start_tag('div', array('class' => 'card-footer'));
             $output .= html_writer::tag('div', $content . $groupinglabel, array('class' => 'contentwithoutlink ' . $textclasses));
+            $output .= html_writer::end_tag('div');
         }
-        $output .= html_writer::end_tag('div');
 
         return $output;
     }
@@ -267,10 +268,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $cardcontent .= $modulehtml;
                 $cardcontent .= html_writer::end_tag('div');
 
-                //$url = $mod->url;
-                //if (!empty($url)) {
-                    $cardcontent .= $this->course_section_cm_text($mod, $displayoptions);
-                //}
+                $cardcontent .= $this->course_section_cm_text($mod, $displayoptions);
 
                 $output .= html_writer::tag('div', $cardcontent, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
             }
