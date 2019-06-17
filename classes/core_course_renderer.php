@@ -95,9 +95,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $onclick = htmlspecialchars_decode($mod->onclick, ENT_QUOTES);
 
         // Display link itself.
-        $activitylink = html_writer::empty_tag('img', array('src' => $mod->get_icon_url(),
-                'class' => 'sqactivityicon iconlarge activityicon', 'alt' => ' ', 'role' => 'presentation')).
-                html_writer::tag('span', $instancename . $altname, array('class' => 'instancename'));
+        $activitylink = html_writer::tag('span', $instancename . $altname, array('class' => 'instancename'));
         if ($mod->uservisible) {
             $output .= html_writer::link($url, $activitylink, array('class' => $linkclasses, 'onclick' => $onclick));
         } else {
@@ -105,6 +103,15 @@ class theme_squared_core_course_renderer extends core_course_renderer {
               about visibility, without the actual link ($mod->is_visible_on_course_page()). */
             $output .= html_writer::tag('div', $activitylink, array('class' => $textclasses));
         }
+        return $output;
+    }
+
+    protected function squared_activity_header(cm_info $mod) {
+        $output = '';
+
+        $output .= html_writer::empty_tag('img', array('src' => $mod->get_icon_url(),
+            'class' => 'sqactivityicon iconlarge activityicon', 'alt' => ' ', 'role' => 'presentation'));
+
         return $output;
     }
 
@@ -130,7 +137,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function course_section_cm($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
-        if (($this->userisediting == true) || ($this->activitylayout == false)) {
+        if (($mod->modname == 'label') || ($this->userisediting == true) || ($this->activitylayout == false)) {
             return parent::course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
         }
 
@@ -145,6 +152,11 @@ class theme_squared_core_course_renderer extends core_course_renderer {
          */
         if (!$mod->is_visible_on_course_page()) {
             return $output;
+        }
+
+        $modicons = $this->course_section_cm_completion($course, $completioninfo, $mod, $displayoptions);
+        if (!empty($modicons)) {
+            $output .= html_writer::span($modicons, 'actions sqactions');
         }
 
         // Display the link to the module (or do nothing if module has no url)
@@ -163,20 +175,14 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         }
 
         /* If there is content but NO link (eg label), then display the
-          content here (BEFORE any icons). In this case icons must be
-          displayed after the content so that it makes more sense visually
-          and for accessibility reasons, e.g. if you have a one-line label
-          it should work similarly (at least in terms of ordering) to an
-          activity. */
+           content here (BEFORE any icons). In this case icons must be
+           displayed after the content so that it makes more sense visually
+           and for accessibility reasons, e.g. if you have a one-line label
+           it should work similarly (at least in terms of ordering) to an
+           activity. */
         $url = $mod->url;
         if (empty($url)) {
             $output .= $this->course_section_cm_text($mod, $displayoptions);
-        }
-
-        $modicons = $this->course_section_cm_completion($course, $completioninfo, $mod, $displayoptions);
-
-        if (!empty($modicons)) {
-            $output .= html_writer::span($modicons, 'actions');
         }
 
         // Show availability info (if module is not available).
@@ -199,23 +205,25 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         $output = '';
         if (!$mod->is_visible_on_course_page()) {
-            // nothing to be displayed to the user
+            // Nothing to be displayed to the user.
             return $output;
         }
+
         $content = $mod->get_formatted_content(array('overflowdiv' => true, 'noclean' => true));
         list($linkclasses, $textclasses) = $this->course_section_cm_classes($mod);
         if ($mod->url && $mod->uservisible) {
             if ($content) {
                 $content .= html_writer::tag('div', html_writer::tag('i', null, array('class' => 'fa fa-plus-circle', 'aria-hidden' => 'true', 'role' => 'button')), array('class' => 'contentcontrol'));
                 // If specified, display extra content after link.
-                $output = html_writer::tag('div', $content, array('class' => trim('contentafterlink ' . $textclasses)));
+                $output .= html_writer::tag('div', $content, array('class' => trim('contentafterlink ' . $textclasses)));
             }
         } else {
             $groupinglabel = $mod->get_grouping_label($textclasses);
 
             // No link, so display only content.
-            $output = html_writer::tag('div', $content . $groupinglabel, array('class' => 'contentwithoutlink ' . $textclasses));
+            $output .= html_writer::tag('div', $content . $groupinglabel, array('class' => 'contentwithoutlink ' . $textclasses));
         }
+
         return $output;
     }
 
@@ -240,10 +248,29 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $output = '';
         if ($modulehtml = $this->course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions)) {
             $modclasses = 'activity ' . $mod->modname . ' modtype_' . $mod->modname . ' ' . $mod->extraclasses;
-            $output .= html_writer::tag('div', $modulehtml, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
-            $url = $mod->url;
-            if (!empty($url)) {
-                $output .= $this->course_section_cm_text($mod, $displayoptions);
+
+            if ($mod->modname == 'label') {
+                $output .= html_writer::tag('div', $modulehtml, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
+                $url = $mod->url;
+                if (!empty($url)) {
+                    $output .= $this->course_section_cm_text($mod, $displayoptions);
+                }
+            } else {
+                $modclasses .= ' card';
+
+                $cardcontent = html_writer::start_tag('div', array('class' => 'card-header'));
+                $cardcontent .= $this->squared_activity_header($mod);
+                $cardcontent .= html_writer::end_tag('div');
+                $cardcontent .= html_writer::start_tag('div', array('class' => 'card-body'));
+                $cardcontent .= $modulehtml;
+
+                $url = $mod->url;
+                if (!empty($url)) {
+                    $cardcontent .= $this->course_section_cm_text($mod, $displayoptions);
+                }
+                $cardcontent .= html_writer::end_tag('div');
+
+                $output .= html_writer::tag('div', $cardcontent, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
             }
         }
         return $output;

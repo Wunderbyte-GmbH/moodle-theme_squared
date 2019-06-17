@@ -66,6 +66,25 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
                 .availabilityinfo {
                     margin-left: 36px;
                 }
+                .sqactions {
+                    display: inline-block;
+                    left: 0;
+                    line-height: 1;
+                    position: relative;
+                    right: auto;
+                    vertical-align: top;
+                    .autocompletion {
+                        line-height: inherit;
+                        padding: 0;
+                    }
+                    .btn {
+                        border: 0;
+                        line-height: inherit;
+                        padding: 0;
+                        position: inherit;
+                        vertical-align: inherit;
+                    }
+                }
             }
             .contentafterlink {
                 border-bottom: 2px solid #eceeef;
