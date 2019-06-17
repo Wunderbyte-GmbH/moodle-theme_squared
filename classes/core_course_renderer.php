@@ -258,7 +258,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return void
      */
     public function course_section_cm_list($course, $section, $sectionreturn = null, $displayoptions = array()) {
-        if ($this->page->user_is_editing()) {
+        $activitylayout = (!empty($this->page->theme->settings->activitylayout)) ? $this->page->theme->settings->activitylayout : false;
+        if (($this->page->user_is_editing()) || ($activitylayout == false)) {
             return parent::course_section_cm_list($course, $section, $sectionreturn, $displayoptions);
         }
 
@@ -279,7 +280,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
                 if ($modulehtml = $this->course_section_cm_list_item($course, $completioninfo, $mod, $sectionreturn, $displayoptions)) {
                     if ($mod->modname != 'label') {
-                        switch (get_config('theme_squared', 'activitylayout')) {
+                        switch ($activitylayout) {
                             case 1: // 1,3,3.
                                 $modclasses = 'col-sm-12 col-md-4 col-lg-4';
                                 break;
@@ -289,7 +290,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                             case 3: // 1,2,3.
                                 $modclasses = 'col-sm-12 col-md-6 col-lg-4';
                                 break;
-                            default:
+                            default: // 1,3,3.
                                 $modclasses = 'col-sm-12 col-md-4 col-lg-4';
                         }
                         $modclasses .= ' sqcol';

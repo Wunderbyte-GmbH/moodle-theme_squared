@@ -55,13 +55,16 @@ if (is_siteadmin()) {
 
     $simset->add_select('alternateloginurl', 0, $simset->mnet_choices());
     $simset->add_checkbox('hidelocallogin', 0, 1, 0);
+
     $simset->add_select('blockperrowlimit', 4, range(0, 30));
     $choices = array(
+        0 => get_string('none'),
         1 => '1,3,3',
         2 => '1,2,4',
         3 => '1,2,3'
     );
     $simset->add_select('activitylayout', 1, $choices);
+
     $simset->add_textarea('customcss');
     $settings->add($sp);
 
