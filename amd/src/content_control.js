@@ -38,20 +38,23 @@ define(['jquery', 'core/log'], function($, log) {
 
                 log.debug('Squared Content Control AMD init');
 
-                $('.sqcol .contentafterlink .contentcontrol').on('click', function() {
+                $('.sqcol .sqcontentcontrol').on('click', function() {
                     log.debug('Squared Content Control AMD clicked');
 
-                    var $content = $(this).parent().find('> .no-overflow');
+                    var $content = $(this).parent().parent().find('.sqcontent > .no-overflow');
+                    var $sqcontent = $(this).parent().parent().find('.sqcontent');
                     if ($content.hasClass('-expanded')) {
                         $(this).find('i').removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
                         $(this).find('.sqccclose').addClass('hidden').attr('aria-hidden', 'true');
                         $(this).find('.sqccopen').removeClass('hidden').attr('aria-hidden', 'false');
                         $content.removeClass('-expanded');
+                        $sqcontent.removeClass('sqexpanded');
                     } else {
                         $(this).find('i').removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
                         $(this).find('.sqccopen').addClass('hidden').attr('aria-hidden', 'true');
                         $(this).find('.sqccclose').removeClass('hidden').attr('aria-hidden', 'false');
                         $content.addClass('-expanded');
+                        $sqcontent.addClass('sqexpanded');
                     }
                 });
 

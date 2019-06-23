@@ -72,14 +72,18 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
                     padding-left: 38px;
                 }
                 .availabilityinfo {
-                    margin-left: 36px;
+                    display: inline-block;
+                    margin-bottom: .5em;
+                    margin-left: 0;
+                    margin-top: 0;
                 }
                 .sqactions {
                     display: inline-block;
-                    left: 0;
+                    float: right;
+                    left: auto;
                     line-height: 1;
                     position: relative;
-                    right: auto;
+                    right: 0;
                     vertical-align: top;
                     .autocompletion {
                         line-height: inherit;
@@ -96,19 +100,14 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
                 .card-footer {
                     background-color: inherit;
                     border-top: solid 1px black;
+                    padding: .25rem 1.25rem;
                 }
             }
-            .contentafterlink {
+            .sqcontent {
                 margin-left: 0;
                 margin-top: 0;
-                .contentcontrol {
-                    cursor: pointer;
-                    .sqcc {
-                        margin-left: 4px;
-                    }
-                }
                 > .no-overflow {
-                    max-height: 0;
+                    max-height: 76px;
                     position: relative;
                     overflow: hidden;
                     transition: max-height 1s ease;
@@ -116,30 +115,40 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
                     &.-expanded {
                         max-height: 420px; // Line height (21px) * 20 lines.
                     }
-                    &.-expanded:before {
-                        bottom: 0;
-                        content: '...';
-                        position: absolute;
-                        right: 0;
-                    }
-                    &.-expanded:after {
-                        //background: #fff;
-                        content: '';
-                        height: 1em;
-                        margin-top: 0.2em;
-                        position: absolute;
-                        right: 0;
-                        width: 1em;
-                    }
                 }
-                > .no-overflow:not(.-expanded)::after {
-                    //background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+                &.sqexpanded.sqmorecontent > .no-overflow:before {
                     bottom: 0;
                     content: '...';
-                    left: 0;
                     position: absolute;
                     right: 0;
-                    top: 0;
+                }
+                &.sqexpanded.sqmorecontent > .no-overflow:after {
+                    content: '';
+                    height: 1em;
+                    margin-top: 0.2em;
+                    position: absolute;
+                    right: 0;
+                    width: 1em;
+                }
+                &:not(.sqexpanded).sqexpandedcontent > .no-overflow:before {
+                    bottom: 0;
+                    content: '...';
+                    position: absolute;
+                    right: 0;
+                }
+                &:not(.sqexpanded).sqexpandedcontent > .no-overflow:after {
+                    content: '';
+                    height: 1em;
+                    margin-top: 0.2em;
+                    position: absolute;
+                    right: 0;
+                    width: 1em;
+                }
+            }
+            .sqcontentcontrol {
+                cursor: pointer;
+                .sqcc {
+                    margin-left: 4px;
                 }
             }
             .tag {
