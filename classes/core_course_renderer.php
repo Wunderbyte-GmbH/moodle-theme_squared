@@ -115,7 +115,19 @@ class theme_squared_core_course_renderer extends core_course_renderer {
     protected function squared_activity_header(cm_info $mod) {
         $output = html_writer::empty_tag('img', array('src' => $mod->get_icon_url(),
             'class' => 'sqactivityicon iconlarge activityicon', 'alt' => get_string('activityicon', 'theme_squared'), 'role' => 'presentation'));
-        $output .= html_writer::tag('span', get_string('modulename', 'mod_'.$mod->modname), array('class' => 'modname'));
+        $instancename = $mod->get_formatted_name();
+        $altname = $mod->modfullname;
+        /* Avoid unnecessary duplication: if e.g. a forum name already
+          includes the word forum (or Forum, etc) then it is unhelpful
+          to include that in the accessible description that is added. */
+        if (false !== strpos(core_text::strtolower($instancename), core_text::strtolower($altname))) {
+            $altname = '';
+        }
+        // File type after name, for alphabetic lists (screen reader).
+        if ($altname) {
+            $altname = get_accesshide(' ' . $altname);
+        }
+        $output .= html_writer::tag('span', $instancename.$altname, array('class' => 'instancename modname'));
 
         return $output;
     }
@@ -186,51 +198,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
     }
 
     /**
-     * Renders html to display the module content on the course page (i.e. text of the labels)
-     *
-     * @param cm_info $mod
-     * @param array $displayoptions
-     * @return string
-     */
-    public function course_section_cm_text(cm_info $mod, $displayoptions = array()) {
-        if (($mod->modname == 'label') || ($this->userisediting == true) || ($this->activitylayout == false)) {
-            return parent::course_section_cm_text($mod, $displayoptions);
-        }
-
-        $output = '';
-        if (!$mod->is_visible_on_course_page()) {
-            // Nothing to be displayed to the user.
-            return $output;
-        }
-
-        $content = $mod->get_formatted_content(array('overflowdiv' => true, 'noclean' => true));
-        list($linkclasses, $textclasses) = $this->course_section_cm_classes($mod);
-        if ($mod->url && $mod->uservisible) {
-            if ($content) {
-                $output .= html_writer::start_tag('div', array('class' => 'card-footer'));
-                $content = html_writer::tag('div', 
-                    html_writer::tag('i', null, array('class' => 'fa fa-chevron-circle-down', 'aria-hidden' => 'true', 'role' => 'button')).
-                    html_writer::tag('span', get_string('moreinfo', 'theme_squared'), array('class' => 'sqcc sqccopen', 'aria-hidden' => 'false')).
-                    html_writer::tag('span', get_string('closebuttontitle'), array('class' => 'sqcc sqccclose hidden', 'aria-hidden' => 'true')),
-                    array('class' => 'contentcontrol')).
-                    $content;
-                // If specified, display extra content after link.
-                $output .= html_writer::tag('div', $content, array('class' => trim('contentafterlink ' . $textclasses)));
-                $output .= html_writer::end_tag('div');
-            }
-        } else {
-            $groupinglabel = $mod->get_grouping_label($textclasses);
-
-            // No link, so display only content.
-            $output .= html_writer::start_tag('div', array('class' => 'card-footer'));
-            $output .= html_writer::tag('div', $content . $groupinglabel, array('class' => 'contentwithoutlink ' . $textclasses));
-            $output .= html_writer::end_tag('div');
-        }
-
-        return $output;
-    }
-
-    /**
      * Renders HTML to display one course module for display within a section.
      *
      * This function calls:
@@ -249,29 +216,90 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         }
 
         $output = '';
-        if ($modulehtml = $this->course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions)) {
-            $modclasses = 'activity ' . $mod->modname . ' modtype_' . $mod->modname . ' ' . $mod->extraclasses;
+        $modclasses = 'activity ' . $mod->modname . ' modtype_' . $mod->modname . ' ' . $mod->extraclasses;
 
-            if ($mod->modname == 'label') {
-                $output .= html_writer::tag('div', $modulehtml, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
-                $url = $mod->url;
-                if (!empty($url)) {
-                    $output .= $this->course_section_cm_text($mod, $displayoptions);
+        if ($mod->modname == 'label') {
+            $modulehtml = $this->course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
+            $output .= html_writer::tag('div', $modulehtml, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
+            $url = $mod->url;
+            if (!empty($url)) {
+                $output .= $this->course_section_cm_text($mod, $displayoptions);
+            }
+        } else {
+            $url = $mod->url;
+            if (!$mod->is_visible_on_course_page() || !$url) {
+                // Nothing to be displayed to the user.
+                return $output;
+            }
+            $modclasses = trim($modclasses).' card';
+
+            list($linkclasses, $textclasses) = $this->course_section_cm_classes($mod);
+
+            /* Get on-click attribute value if specified and decode the onclick - it
+               has already been encoded for display. */
+            $onclick = htmlspecialchars_decode($mod->onclick, ENT_QUOTES);
+
+            $activity = $this->squared_activity_header($mod);
+            if ($mod->uservisible) {
+                $cardcontent = html_writer::link($url, $activity, array('class' => $linkclasses.' card-header', 'onclick' => $onclick));
+            } else {
+                /* We may be displaying this just in order to show information
+                   about visibility, without the actual link ($mod->is_visible_on_course_page()). */
+                $cardcontent = html_writer::tag('div', $activity, array('class' => $textclasses.' card-header'));
+            }
+
+            $bodycontent = '';
+            $formattedcontent = $mod->get_formatted_content(array('overflowdiv' => false, 'noclean' => true));
+            $contentlen = core_text::strlen($mod->content);
+            if ($contentlen > 217) {
+                $textclasses .= ' sqexpandedcontent';
+            }
+            if ($contentlen > 1374) {
+                $textclasses .= ' sqmorecontent';
+            }
+            if ($mod->url && $mod->uservisible) {
+                if ($formattedcontent) {
+                    $bodycontent .= html_writer::tag('div', $formattedcontent, array('class' => trim('contentafterlink sqcontent '.$textclasses)));
                 }
             } else {
-                $modclasses = trim($modclasses).' card';
+                $groupinglabel = $mod->get_grouping_label($textclasses);
 
-                $cardcontent = html_writer::start_tag('div', array('class' => 'card-header'));
-                $cardcontent .= $this->squared_activity_header($mod);
-                $cardcontent .= html_writer::end_tag('div');
-                $cardcontent .= html_writer::start_tag('div', array('class' => 'card-body'));
-                $cardcontent .= $modulehtml;
-                $cardcontent .= html_writer::end_tag('div');
-
-                $cardcontent .= $this->course_section_cm_text($mod, $displayoptions);
-
-                $output .= html_writer::tag('div', $cardcontent, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
+                // No link, so display only content.
+                $bodycontent .= html_writer::tag('div', $formattedcontent.$groupinglabel, array('class' => 'contentwithoutlink sqcontent ' . $textclasses));
             }
+
+            if (!empty($bodycontent)) {
+                $cardcontent .= html_writer::start_tag('div', array('class' => 'card-body'));
+                $cardcontent .= $bodycontent;
+                $cardcontent .= html_writer::end_tag('div');
+            }
+
+            // Show availability info (if module is not available).
+            $footercontent = $this->course_section_cm_availability($mod, $displayoptions);
+
+            $modicons = $this->course_section_cm_completion($course, $completioninfo, $mod, $displayoptions);
+            if (!empty($modicons)) {
+                $footercontent .= html_writer::span($modicons, 'actions sqactions');
+            }
+
+            if ($mod->url && $mod->uservisible) {
+                if (($formattedcontent) && ($contentlen > 217)) {
+                    $footercontent .= html_writer::tag('div', 
+                        html_writer::tag('i', null, array('class' => 'fa fa-chevron-circle-down', 'aria-hidden' => 'true', 'role' => 'button')).
+                        html_writer::tag('span', get_string('expand'), array('class' => 'sqcc sqccopen', 'aria-hidden' => 'false')).
+                        html_writer::tag('span', get_string('closebuttontitle'), array('class' => 'sqcc sqccclose hidden', 'aria-hidden' => 'true')),
+                        array('class' => 'sqcontentcontrol'));
+                }
+            }
+
+            if (!empty($footercontent)) {
+                $cardcontent .= html_writer::start_tag('div', array('class' => 'card-footer'));
+                $cardcontent .= $footercontent;
+                $cardcontent .= html_writer::end_tag('div');
+            }
+
+
+            $output .= html_writer::tag('div', $cardcontent, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
         }
         return $output;
     }
