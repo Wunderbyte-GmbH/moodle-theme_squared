@@ -282,9 +282,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $footercontent .= html_writer::span($modicons, 'actions sqactions');
             }
 
-            if ($mod->url && $mod->uservisible) {
+            if ($mod->url) {
                 if (($formattedcontent) && ($contentlen > 217)) {
-                    $footercontent .= html_writer::tag('div', 
+                    $footercontent .= html_writer::tag('div',
                         html_writer::tag('i', null, array('class' => 'fa fa-chevron-circle-down', 'aria-hidden' => 'true', 'role' => 'button')).
                         html_writer::tag('span', get_string('expand'), array('class' => 'sqcc sqccopen', 'aria-hidden' => 'false')).
                         html_writer::tag('span', get_string('closebuttontitle'), array('class' => 'sqcc sqccclose hidden', 'aria-hidden' => 'true')),
