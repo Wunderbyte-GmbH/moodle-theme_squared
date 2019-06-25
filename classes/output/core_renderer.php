@@ -94,6 +94,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }
             $html .= html_writer::tag('div', '', $attr);
             $html .= html_writer::tag('h1', $course->fullname, array('class' => 'course-title'));
+            $html .= $this->courseprogress($this->page->course);
         }
         return $html;
     }
@@ -114,6 +115,37 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $content = parent::heading ( $icon . $text, $level, $classes, $id );
 
         return $content;
+    }
+
+    /**
+     * Outputs the course progress donut if course completion is on.
+     *
+     * @return string Markup.
+     */
+    protected function courseprogress($course) {
+        $output = '';
+        $completion = new \completion_info($course);
+
+        if ($completion->is_enabled()) {
+            $templatedata = new \stdClass;
+            $templatedata->hasprogress = true;
+            $templatedata->progress = \core_completion\progress::get_course_progress_percentage($course);
+            if (!is_null($templatedata->progress)) {
+                $templatedata->progress = floor($templatedata->progress);
+            }
+
+            $output .= html_writer::start_tag('div', array('class' => 'row'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-12'));
+            $courseprogress = new \moodle_url('/report/progress/index.php');
+            $courseprogress->param('course', $course->id);
+            $courseprogress->param('sesskey', sesskey());
+            $output .= html_writer::link($courseprogress,
+                $this->render_from_template('block_myoverview/progress-chart', $templatedata));
+            $output .= html_writer::end_tag('div');
+            $output .= html_writer::end_tag('div');
+        }
+
+        return $output;
     }
 
     /**
