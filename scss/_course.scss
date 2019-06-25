@@ -113,7 +113,7 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
                     transition: max-height 1s ease;
   
                     &.-expanded {
-                        max-height: 420px; // Line height (21px) * 20 lines.
+                        max-height: 840px; // Line height (21px) * 40 lines.
                     }
                 }
                 &.sqexpanded.sqmorecontent > .no-overflow:before {

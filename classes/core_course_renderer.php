@@ -254,7 +254,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             if ($contentlen > 217) {
                 $textclasses .= ' sqexpandedcontent';
             }
-            if ($contentlen > 1374) {
+            if ($contentlen > 2748) {
                 $textclasses .= ' sqmorecontent';
             }
             if ($mod->url && $mod->uservisible) {
