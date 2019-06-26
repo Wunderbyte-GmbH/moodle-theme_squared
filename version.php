@@ -26,11 +26,11 @@
  */
 defined ( 'MOODLE_INTERNAL' ) || die ();
 
-$plugin->version = 2019061400;
-$plugin->requires  = 2018120301.00; // Moodle 3.6.1 (Build: 20181205).
-$plugin->release = "Heldenplatz 3.6.0.1"; // Release name: Famous squares around the world followed by Moodle version followed by stability number (> 1 = stable) followed by revision.
+$plugin->version = 2019062600;
+$plugin->requires  = 2019052000.00; // 3.7 (Build: 20190520).
+$plugin->release = "Heldenplatz 3.7.0.1"; // Release name: Famous squares around the world followed by Moodle version followed by stability number (> 1 = stable) followed by revision.
 $plugin->maturity = MATURITY_BETA;
 $plugin->component = 'theme_squared'; // Full name of the plugin (used for diagnostics)
 $plugin->dependencies = array (
-    'theme_boost' => 2018120300
+    'theme_boost' => 2019052000
 );

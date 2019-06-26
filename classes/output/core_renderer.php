@@ -657,6 +657,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
     /**
      * Prints a nice side block with an optional header.
      *
+     * Note: M3.7 version uses a template.  Ported M3.6 methods initially,
+     *       but could consider using as such in the future.
+     *
      * The content is described
      * by a {@link core_renderer::block_contents} object.
      *
@@ -740,6 +743,52 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         return $bc;
+    }
+
+    /**
+     * Produces the content area for a block
+     *
+     * @param block_contents $bc
+     * @return string
+     */
+    protected function block_content(block_contents $bc) {
+        $output = html_writer::start_tag('div', array('class' => 'content'));
+        if (!$bc->title && !$this->block_controls($bc->controls)) {
+            $output .= html_writer::tag('div', '', array('class'=>'block_action notitle'));
+        }
+        $output .= $bc->content;
+        $output .= $this->block_footer($bc);
+        $output .= html_writer::end_tag('div');
+
+        return $output;
+    }
+
+    /**
+     * Produces the footer for a block
+     *
+     * @param block_contents $bc
+     * @return string
+     */
+    protected function block_footer(block_contents $bc) {
+        $output = '';
+        if ($bc->footer) {
+            $output .= html_writer::tag('div', $bc->footer, array('class' => 'footer'));
+        }
+        return $output;
+    }
+
+    /**
+     * Produces the annotation for a block
+     *
+     * @param block_contents $bc
+     * @return string
+     */
+    protected function block_annotation(block_contents $bc) {
+        $output = '';
+        if ($bc->annotation) {
+            $output .= html_writer::tag('div', $bc->annotation, array('class' => 'blockannotation'));
+        }
+        return $output;
     }
 
     /**
