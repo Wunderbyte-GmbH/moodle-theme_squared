@@ -139,7 +139,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             if (!is_null($templatedata->progress)) {
                 $templatedata->progress = floor($templatedata->progress);
             }
-            $progressbar = $this->render_from_template('block_myoverview/progress-chart', $templatedata);
+            $progressbar = $this->render_from_template('theme_squared/progress-chart', $templatedata);
             if (has_capability('report/progress:view',  \context_course::instance($course->id))) {
                 $courseprogress = new \moodle_url('/report/progress/index.php');
                 $courseprogress->param('course', $course->id);
