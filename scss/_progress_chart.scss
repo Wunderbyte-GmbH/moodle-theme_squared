@@ -62,25 +62,4 @@ $doughnut-fill-colour: $brand-warning;
             }
         }
     }
-
-    .no-progress {
-        height: $chart-size;
-        width: $chart-size;
-        background-color: $doughnut-empty-colour;
-        border-radius: 50%;
-        position: relative;
-
-        .icon {
-            position: absolute;
-            top: 50%;
-            /*rtl:ignore*/
-            left: 50%;
-            margin: 0;
-            transform: translate(-63%, -50%);
-            color: #fff;
-            height: ($chart-size / 2) + 10px;
-            width: ($chart-size / 2) + 10px;
-            font-size: ($chart-size / 2) + 10px;
-        }
-    }
 }

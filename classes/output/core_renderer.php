@@ -134,7 +134,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         if ($completion->is_enabled()) {
             $templatedata = new \stdClass;
-            $templatedata->hasprogress = true;
             $templatedata->progress = \core_completion\progress::get_course_progress_percentage($course);
             if (!is_null($templatedata->progress)) {
                 $templatedata->progress = floor($templatedata->progress);

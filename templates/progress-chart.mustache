@@ -21,12 +21,10 @@
 
     Example context (json):
     {
-        "hasprogress": true,
         "progress": "60"
     }
 }}
 <div class="progress-chart-container m-b-1">
-    {{#hasprogress}}
     <div class="progress-doughnut">
         <div class="progress-text {{#progress}}has-percent{{/progress}}">{{progress}}&#37;</div>
         <div class="progress-indicator">
@@ -41,10 +39,4 @@
             </svg>
         </div>
     </div>
-    {{/hasprogress}}
-    {{^hasprogress}}
-    <div class="no-progress">
-        {{#pix}} i/course {{/pix}}
-    </div>
-    {{/hasprogress}}
 </div>
