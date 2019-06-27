@@ -463,7 +463,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      */
     protected function block_header_collapse(block_contents $bc) {
         $title = '';
-        $collapseattributes = array('role' => 'tree',
+        $collapseattributes = array('role' => 'button',
             'class' => 'collapselink',
             'data-toggle' => 'collapse',
             'data-target' => '#subcollapse'.$bc->blockinstanceid,
@@ -546,7 +546,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $thisblock = new stdClass();
         $thisblock->name = 'block_flat_navigation';
         $thisblock->title = '<span class="title">'.$flatnavname.'</span>';
-        $thisblock->header = '<div role="tree" class="collapselink" data-toggle="collapse" data-target="#subcollapsefake9999" aria-expanded="false" aria-controls="instfake9999">'.
+        $thisblock->header = '<div role="button" class="collapselink" data-toggle="collapse" data-target="#subcollapsefake9999" aria-expanded="false" aria-controls="instfake9999">'.
             '<div class="header"><div class="title"><div class="d-inline-block icon-container"><div class="courseblock-icon"></div></div><h2 class="sqtitle">'.$flatnavname.'</h2></div></div>'.
             '</div>';
         $thisblock->content = $this->render_from_template('theme_squared/flat_navigation_content', $templatecontext);
@@ -596,7 +596,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 if ($bc->attributes['data-block'] == 'adminblock') {
                     $bc->blockinstanceid = -1;
                 }
-                $thisblock->header = $this->block_header_collapse($bc);
+                $thisblock->header = $this->block_header_collapse($thisblock); // Pass in the new potentially altered block_contents.
                 $thisblock->movetarget = false;
 
                 $template->blocks[] = $thisblock;
