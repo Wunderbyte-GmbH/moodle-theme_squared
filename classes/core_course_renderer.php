@@ -78,8 +78,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $instancename = $mod->get_formatted_name();
         $altname = $mod->modfullname;
         /* Avoid unnecessary duplication: if e.g. a forum name already
-          includes the word forum (or Forum, etc) then it is unhelpful
-          to include that in the accessible description that is added. */
+           includes the word forum (or Forum, etc) then it is unhelpful
+           to include that in the accessible description that is added. */
         if (false !== strpos(core_text::strtolower($instancename), core_text::strtolower($altname))) {
             $altname = '';
         }
@@ -91,7 +91,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         list($linkclasses, $textclasses) = $this->course_section_cm_classes($mod);
 
         /* Get on-click attribute value if specified and decode the onclick - it
-          has already been encoded for display. */
+           has already been encoded for display. */
         $onclick = htmlspecialchars_decode($mod->onclick, ENT_QUOTES);
 
         // Display link itself.
@@ -154,18 +154,21 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function course_section_cm($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
-        if (($mod->modname == 'label') || ($this->userisediting == true) || ($this->activitylayout == false)) {
+        if (($mod->modname == 'label') ||
+            ($mod->modname == 'folder') ||
+            ($this->userisediting == true) ||
+            ($this->activitylayout == false)) {
             return parent::course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
         }
 
         $output = '';
         /* We return empty string (because course module will not be displayed at all)
-          if:
-          1) The activity is not visible to users
-          and
-          2) The 'availableinfo' is empty, i.e. the activity was
-          hidden in a way that leaves no info, such as using the
-          eye icon.
+           if:
+           1) The activity is not visible to users
+           and
+           2) The 'availableinfo' is empty, i.e. the activity was
+           hidden in a way that leaves no info, such as using the
+           eye icon.
          */
         if (!$mod->is_visible_on_course_page()) {
             return $output;
@@ -218,7 +221,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $output = '';
         $modclasses = 'activity ' . $mod->modname . ' modtype_' . $mod->modname . ' ' . $mod->extraclasses;
 
-        if ($mod->modname == 'label') {
+        if (($mod->modname == 'label') || ($mod->modname == 'folder')) {
             $modulehtml = $this->course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
             $output .= html_writer::tag('div', $modulehtml, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
             $url = $mod->url;
@@ -337,7 +340,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $mod = $modinfo->cms[$modnumber];
 
                 if ($modulehtml = $this->course_section_cm_list_item($course, $completioninfo, $mod, $sectionreturn, $displayoptions)) {
-                    if ($mod->modname != 'label') {
+                    if (($mod->modname == 'label') || ($mod->modname != 'folder')) {
                         switch ($this->activitylayout) {
                             case 1: // 1,3,3.
                                 $modclasses = 'col-sm-12 col-md-4 col-lg-4';
