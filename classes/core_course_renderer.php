@@ -154,8 +154,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function course_section_cm($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
-        if (($mod->modname == 'label') ||
-            ($mod->modname == 'folder') ||
+        if ((empty($mod->url)) ||
             ($this->userisediting == true) ||
             ($this->activitylayout == false)) {
             return parent::course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
@@ -221,7 +220,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $output = '';
         $modclasses = 'activity ' . $mod->modname . ' modtype_' . $mod->modname . ' ' . $mod->extraclasses;
 
-        if (($mod->modname == 'label') || ($mod->modname == 'folder')) {
+        if (empty($mod->url)) {
             $modulehtml = $this->course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
             $output .= html_writer::tag('div', $modulehtml, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
             $url = $mod->url;
@@ -340,7 +339,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $mod = $modinfo->cms[$modnumber];
 
                 if ($modulehtml = $this->course_section_cm_list_item($course, $completioninfo, $mod, $sectionreturn, $displayoptions)) {
-                    if (($mod->modname == 'label') || ($mod->modname != 'folder')) {
+                    if (!(empty($mod->url))) {
                         switch ($this->activitylayout) {
                             case 1: // 1,3,3.
                                 $modclasses = 'col-sm-12 col-md-4 col-lg-4';
