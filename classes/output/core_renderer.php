@@ -610,43 +610,43 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }
         }
 
-        // Two block columns
-        $template->pairs = array();
-        $count = 1;
-        $pair = new stdClass();
-        foreach ($template->blocks as $block) {
-            if (!$block->movetarget && is_array($block->attributes) && isset($block->attributes['data-block'])) {
-                $block->name = 'block_' . $block->attributes['data-block'];
-            }
-            $block->shape = 'squared';
-            if ($block->name == "block_adminblock") {
-                $block->blockinstanceid = -1;
-            }
-            if ($block->name == "block_settings") {
-                $block->subopen = true;
-            }
-
-            if ($count == 2) {
-                $pair->blockb = $block;
-                $template->pairs[] = $pair;
-                $pair = false;
-                $count = 1;
-            } else {
-                $pair = new stdClass();
-                $pair->class = 'col-xs-6';
-                $pair->blocka = $block;
-                $count++;
-            }
-        }
-        if ($pair) {
-            if (($numblocks % 2) != 0) {
-                $pair->blocka->shape = 'rectangle';
-                $pair->class = 'col-xs-12 lastblock';
-            }
-            $template->pairs[] = $pair;
-        }
-
         if ($blocksrows) {
+            // Two block columns
+            $template->pairs = array();
+            $count = 1;
+            $pair = new stdClass();
+            foreach ($template->blocks as $block) {
+                if (!$block->movetarget && is_array($block->attributes) && isset($block->attributes['data-block'])) {
+                    $block->name = 'block_' . $block->attributes['data-block'];
+                }
+                $block->shape = 'squared';
+                if ($block->name == "block_adminblock") {
+                    $block->blockinstanceid = -1;
+                }
+                if ($block->name == "block_settings") {
+                    $block->subopen = true;
+                }
+
+                if ($count == 2) {
+                    $pair->blockb = $block;
+                    $template->pairs[] = $pair;
+                    $pair = false;
+                    $count = 1;
+                } else {
+                    $pair = new stdClass();
+                    $pair->class = 'col-xs-6';
+                    $pair->blocka = $block;
+                    $count++;
+                }
+            }
+            if ($pair) {
+                if (($numblocks % 2) != 0) {
+                    $pair->blocka->shape = 'rectangle';
+                    $pair->class = 'col-xs-12 lastblock';
+                }
+                $template->pairs[] = $pair;
+            }
+
             return $this->render_from_template('theme_squared/blocksrows', $template);
         } else {
             return $this->render_from_template('theme_squared/blocks', $template);
