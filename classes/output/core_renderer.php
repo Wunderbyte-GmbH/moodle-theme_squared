@@ -139,6 +139,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $templatedata->progress = \core_completion\progress::get_course_progress_percentage($course);
                 if (!is_null($templatedata->progress)) {
                     $templatedata->progress = floor($templatedata->progress);
+                } else {
+                    $templatedata->progress = 0;
                 }
                 $progressbar = $this->render_from_template('theme_squared/progress-chart', $templatedata);
                 if (has_capability('report/progress:view',  \context_course::instance($course->id))) {
