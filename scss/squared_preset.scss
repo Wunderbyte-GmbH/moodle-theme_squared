@@ -19,19 +19,26 @@ $brand-danger:              #ff4136 !default;
 $brand-inverse:             $gray-dark !default;
 $navbar-height:             50px !default;
 
+$gray-forum: #DCDDDD !default;
+
 // Spacing
 $spacer:   1rem !default;
 $spacer-x: $spacer !default;
 $spacer-y: $spacer !default;
 $border-width: 1px !default;
+$border-radius-base: 0 !default;
 
 // Body
 $body-bg:    #f4f4f4 !default;
 $body-color: #3a3a3a !default;
 
 // Typography
-$font-family-sans-serif: "Open Sans", "Helvetica Neue", Arial, sans-serif !default;
+$font-family-sans-serif:  "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$headings-font-family:    "Source Sans Pro Bold", $font-family-sans-serif !default;
+$h1-line-height: 1.3em !default;
+$h1-text-colour: #131313 !default;
 $font-size-root: 14px !default;
+$font-size-base: 16px !default;
 
 // Tables
 $table-bg:                      transparent !default;
@@ -42,7 +49,7 @@ $table-border-color:            #f4f4f4 !default;
 
 // Dropdowns
 $dropdown-border-color:          #e2e2e2 !default;
-$dropdown-link-color:            $body-color;
+$dropdown-link-color:            $body-color !default;
 
 // Navbar
 $navbar-light-color:                rgba(0, 0, 0, .535) !default;
@@ -52,6 +59,7 @@ $navbar-light-active-color:         $brand-primary !default;
 // Cards
 $card-border-radius:       0 !default;
 $card-border-color:        rgba(238, 238, 238, 1) !default;
+$sq-card-deck-margin: 0.25rem !default;
 
 // Breadcrumbs
 $breadcrumb-bg:                 transparent !default;
@@ -61,14 +69,14 @@ $breadcrumb-divider-rtl: "/" !default;
 
 
 // Squared
-$squared-purple: #62BFE5;
-$sq-green: #4BA09B;
-$sq-red: #DE794E;
-$sq-orange: #FFC966;
+$squared-purple: #62BFE5 !default;
+$sq-green: #4BA09B !default;
+$sq-red: #DE794E !default;
+$sq-orange: #FFC966 !default;
 
-$brand-success:         $sq-green;
-$brand-info:            #5bc0de;
-$brand-warning:         $sq-orange;
-$brand-danger:          $sq-red;
+$brand-success:         $sq-green !default;
+$brand-info:            #5bc0de !default;
+$brand-warning:         $sq-orange !default;
+$brand-danger:          $sq-red !default;
 
-$footer-link-color: $brand-primary;
+$footer-link-color: $brand-primary !default;
