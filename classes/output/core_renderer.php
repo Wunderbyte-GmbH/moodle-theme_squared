@@ -130,23 +130,26 @@ class core_renderer extends \theme_boost\output\core_renderer {
      */
     protected function courseprogress($course) {
         $output = '';
-        $completion = new \completion_info($course);
+        $courseformat = course_get_format($course);
+        if (get_class($courseformat) != 'format_tiles') {
+            $completion = new \completion_info($course);
 
-        if ($completion->is_enabled()) {
-            $templatedata = new \stdClass;
-            $templatedata->hasprogress = true;
-            $templatedata->progress = \core_completion\progress::get_course_progress_percentage($course);
-            if (!is_null($templatedata->progress)) {
-                $templatedata->progress = floor($templatedata->progress);
-            }
-            $progressbar = $this->render_from_template('block_myoverview/progress-chart', $templatedata);
-            if (has_capability('report/progress:view',  \context_course::instance($course->id))) {
-                $courseprogress = new \moodle_url('/report/progress/index.php');
-                $courseprogress->param('course', $course->id);
-                $courseprogress->param('sesskey', sesskey());
-                $output .= html_writer::link($courseprogress, $progressbar);
-            } else {
-                $output .= $progressbar;
+            if ($completion->is_enabled()) {
+                $templatedata = new \stdClass;
+                $templatedata->hasprogress = true;
+                $templatedata->progress = \core_completion\progress::get_course_progress_percentage($course);
+                if (!is_null($templatedata->progress)) {
+                    $templatedata->progress = floor($templatedata->progress);
+                }
+                $progressbar = $this->render_from_template('block_myoverview/progress-chart', $templatedata);
+                if (has_capability('report/progress:view',  \context_course::instance($course->id))) {
+                    $courseprogress = new \moodle_url('/report/progress/index.php');
+                    $courseprogress->param('course', $course->id);
+                    $courseprogress->param('sesskey', sesskey());
+                    $output .= html_writer::link($courseprogress, $progressbar);
+                } else {
+                    $output .= $progressbar;
+                }
             }
         }
 
