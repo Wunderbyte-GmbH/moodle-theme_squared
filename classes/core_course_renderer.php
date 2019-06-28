@@ -484,8 +484,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      */
     public function course_category($category) {
         global $CFG;
-        require_once($CFG->libdir . '/coursecatlib.php');
-        $coursecat = coursecat::get(is_object($category) ? $category->id : $category);
+
+        $coursecat = core_course_category::get(is_object($category) ? $category->id : $category);
         $site = get_site();
         $output = '';
 
@@ -496,9 +496,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $this->page->set_button($managebutton);
         }
         if (!$coursecat->id) {
-            if (coursecat::count_all() == 1) {
+            if (core_course_category::count_all() == 1) {
                 // There exists only one category in the system, do not display link to it
-                $coursecat = coursecat::get_default();
+                $coursecat = core_course_category::get_default();
                 $strfulllistofcourses = get_string('fulllistofcourses');
                 $this->page->set_title("$site->shortname: $strfulllistofcourses");
             } else {
@@ -507,7 +507,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             }
         } else {
             $title = $site->shortname;
-            if (coursecat::count_all() > 1) {
+            if (core_course_category::count_all() > 1) {
                 $title .= ": " . $coursecat->get_formatted_name();
             }
             $this->page->set_title($title);
@@ -563,7 +563,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $output .= $this->single_button($url, get_string('addnewcourse'), 'get');
         }
         ob_start();
-        if (coursecat::count_all() == 1) {
+        if (core_course_category::count_all() == 1) {
             print_course_request_buttons(context_system::instance());
         } else {
             print_course_request_buttons($context);
@@ -868,8 +868,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $this->strings->summary = get_string('summary');
         }
         if ($course instanceof stdClass) {
-            require_once($CFG->libdir . '/coursecatlib.php');
-            $course = new course_in_list($course);
+            $course = new core_course_list_element($course);
         }
         $content = '';
         $classes = trim('coursebox clearfix card ' . $additionalclasses);
@@ -882,8 +881,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         ));
 
         if ($course instanceof stdClass) {
-            require_once($CFG->libdir . '/coursecatlib.php');
-            $course = new course_in_list($course);
+            $course = new core_course_list_element($course);
         }
         $courseimage = $this->coursecat_toolbox->course_image($course, 'overview');
         if (empty($courseimage['url'])) {
@@ -913,7 +911,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $content .= html_writer::end_tag('div'); // .summary
         }
 
-        // Display course contacts. See course_in_list::get_course_contacts().
+        // Display course contacts. See core_course_list_element::get_course_contacts().
         if ($course->has_course_contacts()) {
             $content .= html_writer::start_tag('ul', array('class' => 'teachers'));
             foreach ($course->get_course_contacts() as $userid => $coursecontact) {
@@ -926,8 +924,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         // Display course category if necessary (for example in search results).
         if ($chelper->get_show_courses() == self::COURSECAT_SHOW_COURSES_EXPANDED_WITH_CAT) {
-            require_once($CFG->libdir . '/coursecatlib.php');
-            if ($cat = coursecat::get($course->category, IGNORE_MISSING)) {
+            if ($cat = core_course_category::get($course->category, IGNORE_MISSING)) {
                 $content .= html_writer::start_tag('div', array('class' => 'coursecat'));
                 $content .= get_string('category') . ': ' .
                     html_writer::link(new moodle_url('/course/index.php', array('categoryid' => $cat->id)), $cat->get_formatted_name(), array('class' => $cat->visible ? '' : 'dimmed'));
@@ -961,8 +958,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      */
     public function category_courses_from_search($categoryid) {
         global $CFG;
-        require_once($CFG->libdir . '/coursecatlib.php');
-        $coursecat = coursecat::get($categoryid);
+
+        $coursecat = core_course_category::get($categoryid);
         $this->currentcategoryid = $categoryid;
         $chelper = new coursecat_helper();
 
@@ -1013,7 +1010,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      */
     public function frontpage_available_courses() {
         global $CFG;
-        require_once($CFG->libdir. '/coursecatlib.php');
 
         $chelper = new coursecat_helper();
         $coursedisplayoptions = array();
@@ -1051,8 +1047,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $chelper->set_courses_display_options($coursedisplayoptions);
 
         $chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
-        $courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
-        $totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
+        $courses = core_course_category::get(0)->get_courses($chelper->get_courses_display_options());
+        $totalcount = core_course_category::get(0)->get_courses_count($chelper->get_courses_display_options());
         if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {
             // Print link to create a new course, for the 1st available category.
             return $this->add_new_course_button();
