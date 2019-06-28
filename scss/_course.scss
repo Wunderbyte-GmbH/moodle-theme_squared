@@ -178,6 +178,10 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
     }
 }
 
+.course-content li.section ul {
+    padding-left: 2rem;
+}
+
 .course-content ul.topics,
 .course-content ul.weeks {
     li.section {
