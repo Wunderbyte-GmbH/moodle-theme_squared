@@ -60,11 +60,11 @@ in order to improve the theme or add your settings.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 3.5 version 2018051700.00 (Build: 20180517) and above within the 3.5 branch until the
+This version works with Moodle 3.7 version 2019052000.00 (Build: 20190520) and above within the 3.7 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/35/en/Installing_Moodle'.
+'docs.moodle.org/37/en/Installing_Moodle'.
 
 Installation
 ============
@@ -113,6 +113,8 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+28th June 2019 - Version Heldenplatz 3.7.1.0.
+
 23rd November 2018 - Version Temp Square 0.93.3.
   1. Update to Moodle 3.5 with the Boost theme as a parent and SCSS.  LESS to be removed but as reference for now.
 
