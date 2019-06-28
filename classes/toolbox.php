@@ -51,8 +51,7 @@ class toolbox {
 
         $scss = theme_boost_get_extra_scss($this->boostparent);
 
-        require_once("$CFG->libdir/coursecatlib.php");
-        $categorytree = \coursecat::get(0)->get_children();
+        $categorytree = \core_course_category::get(0)->get_children();
 
         // Navbar Colours.
         foreach ($categorytree as $cid => $value) {
