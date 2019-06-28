@@ -1,25 +1,8 @@
-// //
-// // Variables
-// // --------------------------------------------------
-
-$font-size-base: 16px;
-
-// img-responsive display
-$display: inline-block;
-
-$gray-forum: #DCDDDD;
-
-$link-color: #3063a6;
-
-$font-family-sans-serif:  "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$headings-font-family:    "Source Sans Pro Bold", $font-family-sans-serif;
-
-$border-radius-base: 0;
+//
+// Extra Variables
+// --------------------------------------------------
 
 $screen-breakpoint: map-get($grid-breakpoints, "md");
 
 // Conversions
 $navbar-default-color: $navbar-dark-color;
-
-// Cards
-$sq-card-deck-margin: 0.25rem !default;
