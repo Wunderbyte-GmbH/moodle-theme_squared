@@ -27,6 +27,7 @@
 namespace theme_squared\output;
 defined('MOODLE_INTERNAL') || die;
 
+use html_writer;
 use navigation_node;
 
 class block_settings_renderer extends \block_settings_renderer {
