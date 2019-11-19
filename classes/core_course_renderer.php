@@ -495,8 +495,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 array('categoryid' => $coursecat->id)), get_string('managecourses'), 'get');
             $this->page->set_button($managebutton);
         }
+        $catcount = core_course_category::is_simple_site();
         if (!$coursecat->id) {
-            if (core_course_category::count_all() == 1) {
+            if ($catcount == 1) {
                 // There exists only one category in the system, do not display link to it
                 $coursecat = core_course_category::get_default();
                 $strfulllistofcourses = get_string('fulllistofcourses');
@@ -507,7 +508,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             }
         } else {
             $title = $site->shortname;
-            if (core_course_category::count_all() > 1) {
+            if ($catcount > 1) {
                 $title .= ": " . $coursecat->get_formatted_name();
             }
             $this->page->set_title($title);
@@ -563,7 +564,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $output .= $this->single_button($url, get_string('addnewcourse'), 'get');
         }
         ob_start();
-        if (core_course_category::count_all() == 1) {
+        if ($catcount == 1) {
             print_course_request_buttons(context_system::instance());
         } else {
             print_course_request_buttons($context);
