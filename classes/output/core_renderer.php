@@ -251,7 +251,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         $searchicon = html_writer::tag('span', '', array('title' => get_string('search', 'search'), 'class' => 'fa fa-search'));
-        $searchicon = html_writer::tag('div', $searchicon, array('role' => 'button', 'tabindex' => 0));
+        $searchicon = html_writer::tag('div', $searchicon, array('id' => 'sqsearchbutton', 'role' => 'button', 'tabindex' => 0));
 
         if ($navbarsearch == 1) {
             // Based on 'course_search_form' in the core course renderer.

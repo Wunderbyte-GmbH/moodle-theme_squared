@@ -185,7 +185,7 @@ class toolbox {
      */
     public function default_ajax() {
         global $CFG, $PAGE;
-        
+
         $courseautocompletesearchterm = optional_param('term', '', PARAM_TEXT);
         $categorycoursesearch = optional_param('ccs', 0, PARAM_INT);
         $frontpageavailablecourses = optional_param('sqfac', 0, PARAM_INT);

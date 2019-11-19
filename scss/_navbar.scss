@@ -192,8 +192,9 @@
 }
 
 .search-input-wrapper.nav-link.expanded #navbaradvresults {
-    display: block;
+    display: inline-block;
     float: none;
+    margin-top: 11px;
     opacity: 1;
 }
 
