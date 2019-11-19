@@ -102,7 +102,7 @@ define(['jquery', 'jqueryui', 'core/log'], function($, jqui, log) {
 
                 $("#navbaradvsearch").autocomplete({
                     source: data.theme,
-                    appendTo: "#navbaradvsearchresults",
+                    appendTo: "#navbaradvresults",
                     minLength: 2,
                     select: function(event, ui) {
                         var url = ui.item.id;
@@ -113,7 +113,7 @@ define(['jquery', 'jqueryui', 'core/log'], function($, jqui, log) {
                 }).prop("disabled", false);
 
                 wrapper = $('#' + data.id);
-                wrapper.on('click mouseover keydown', 'div', toggleSearch);
+                wrapper.on('click mouseover keydown', '#sqsearchbutton', toggleSearch);
             });
         }
     }
