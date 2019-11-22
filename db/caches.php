@@ -36,5 +36,13 @@ $definitions = array(
             'changesincourse',
         ),
         'ttl' => 600,
+    ),
+    // Caches font awesome icons.
+    'fontawesome5iconmapping' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => true,
+        'simpledata' => true,
+        'staticacceleration' => true,
+        'staticaccelerationsize' => 1
     )
 );

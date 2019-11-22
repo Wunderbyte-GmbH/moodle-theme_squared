@@ -250,7 +250,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $id = clean_param($id, PARAM_ALPHANUMEXT);
         }
 
-        $searchicon = html_writer::tag('span', '', array('title' => get_string('search', 'search'), 'class' => 'fa fa-search'));
+        if (\theme_squared\toolbox::get_config_setting('fav')) {
+            $icon = 'fas fa-search';
+        } else {
+            $icon = 'fa fa-search';
+        }
+        $searchicon = html_writer::tag('span', '', array('title' => get_string('search', 'search'), 'class' => $icon));
         $searchicon = html_writer::tag('div', $searchicon, array('id' => 'sqsearchbutton', 'role' => 'button', 'tabindex' => 0));
 
         if ($navbarsearch == 1) {
@@ -377,9 +382,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $loggedinas = '<span class="loggedintext">' . $realuserinfo . get_string('loggedinas', 'moodle',
                     $username) . '</span>';
                 if ($withlinks) {
+                    if (\theme_squared\toolbox::get_config_setting('fav')) {
+                        $icon = 'fas fa-sign-out-alt';
+                    } else {
+                        $icon = 'fa fa-sign-out';
+                    }
                     $loggedinas .= html_writer::tag('div',
                         html_writer::link(new moodle_url('/login/logout.php?sesskey=' . sesskey()),
-                        '<em><span class="fa fa-sign-out"></span>' . get_string('logout') . '</em>'));
+                        '<em><span class="'.$icon.'"></span>' . get_string('logout') . '</em>'));
                 }
             }
         } else {
@@ -995,7 +1005,16 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     private function fontawesome($icon) {
-        $icon = html_writer::tag('i', '', array('class' => 'fa fa-' . $icon));
+        $toolbox = \theme_squared\toolbox::get_instance();
+        if ($toolbox->get_setting('fav')) {
+            $classes[] = $toolbox->get_fa5_from_fa4($theicon);
+        } else {
+            $classes[] = 'fa fa-'.$theicon;
+        }
+        $attributes['aria-hidden'] = 'true';
+        $attributes['class'] = implode(' ', $classes);
+        $icon = html_writer::tag('i', '', $attributes);
+
         return html_writer::tag('span', $icon, array('class' => 'iconwrapper'));
     }
 }
