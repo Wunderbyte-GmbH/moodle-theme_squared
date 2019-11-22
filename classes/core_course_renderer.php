@@ -286,8 +286,13 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
             if ($mod->url) {
                 if (($formattedcontent) && ($contentlen > 217)) {
+                    if (\theme_squared\toolbox::get_config_setting('fav')) {
+                        $icon = 'fas fa-chevron-circle-down';
+                    } else {
+                        $icon = 'fa fa-chevron-circle-down';
+                    }
                     $footercontent .= html_writer::tag('div',
-                        html_writer::tag('i', null, array('class' => 'fa fa-chevron-circle-down', 'aria-hidden' => 'true', 'role' => 'button')).
+                        html_writer::tag('i', null, array('class' => $icon, 'aria-hidden' => 'true', 'role' => 'button')).
                         html_writer::tag('span', get_string('expand'), array('class' => 'sqcc sqccopen', 'aria-hidden' => 'false')).
                         html_writer::tag('span', get_string('closebuttontitle'), array('class' => 'sqcc sqccclose hidden', 'aria-hidden' => 'true')),
                         array('class' => 'sqcontentcontrol'));

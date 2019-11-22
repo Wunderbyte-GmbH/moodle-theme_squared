@@ -28,7 +28,16 @@
 $THEME->name = 'squared';
 
 $THEME->parents = array ('boost');
-$THEME->sheets = array('form', 'custom');
+$THEME->sheets = array();
+if (!empty(\theme_squared\toolbox::get_config_setting('fav'))) {
+    $THEME->sheets[] = 'fa-brands';
+    $THEME->sheets[] = 'fa-regular';
+    $THEME->sheets[] = 'fa-solid';
+    $THEME->sheets[] = 'fontawesome';
+    $THEME->sheets[] = 'fa-fixes';
+}
+$THEME->sheets[] = 'form';
+$THEME->sheets[] = 'custom';
 
 $THEME->scss = function($theme) {
     return theme_squared_get_main_scss_content($theme);
@@ -140,3 +149,5 @@ $THEME->layouts = array(
 $THEME->javascripts_footer = array(
     'squared'
 );
+
+$THEME->iconsystem = '\\theme_squared\\output\\icon_system_fontawesome';

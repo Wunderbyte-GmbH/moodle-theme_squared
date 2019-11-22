@@ -71,8 +71,19 @@ echo $OUTPUT->doctype() ?>
             <div id="region-main" class="inner">
                 <div id="page-navbar" class="clearfix">
                     <button class="moodlezoom">
+                        <?php
+                            if (\theme_squared\toolbox::get_config_setting('fav')) {
+                        ?>
+                        <i class="fas fa-expand tosmall"></i>
+                        <i class="fas fa-compress tofull"></i>
+                        <?php
+                            } else {
+                        ?>
                         <i class="fa fa-expand tosmall"></i>
                         <i class="fa fa-compress tofull"></i>
+                        <?php
+                            }
+                        ?>
                     </button>
                     <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>
                     <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
