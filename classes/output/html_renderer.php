@@ -279,6 +279,7 @@ class html_renderer extends \plugin_renderer_base {
         $templateinfo->formaction = $formaction;
         $templateinfo->hiddenfields = $hiddenfields;
         $templateinfo->searchfield = $searchfield;
+        $templateinfo->fav = \theme_squared\toolbox::get_config_setting('fav');
         return $this->render_from_template('theme_squared/navbarsearch', $templateinfo);
     }
 

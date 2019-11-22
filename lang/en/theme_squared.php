@@ -38,6 +38,8 @@ $string['customcss'] = 'Custom CSS';
 $string['customcssdesc'] = 'Any CSS you enter here will be added to every page allowing your to easily customise this theme.';
 $string['facebooklink'] = 'Link to your facebook page (optional)';
 $string['facebooklinkdesc'] = 'The link should look like this: http://www.facebook.com/yourpage';
+$string['fav'] = 'FontAwesome 5 Free';
+$string['favdesc'] = 'Use FontAwesome 5 Free for icons.  Note: Please see the license in the fonts folder of the theme.';
 $string['footertext'] = 'Footer links';
 $string['footertextdesc'] = 'You can configure a custom listing here shown in the footer.
 Each line consists of some menu text an a link URL. For Example :

@@ -1,8 +1,8 @@
 <div class="search-wrapper inactive">
     <form action="{{{formaction}}}" method="get" class="search">
         <div id="search-trigger">
-            <i class="open fa fa-search fa-gray"></i>
-            <i class="closed fa fa-times fa-gray"></i>
+            <i class="open {{^fav}}fa fa-search{{/fav}}{{#fav}}fas fa-search{{/fav}} fa-gray"></i>
+            <i class="closed {{^fav}}fa fa-times{{/fav}}{{#fav}}fas fa-times{{/fav}} fa-gray"></i>
             <span class="sr-only">
             {{#str}} search {{/str}}
             </span>
