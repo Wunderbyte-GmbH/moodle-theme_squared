@@ -799,10 +799,13 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         );
         $content .= html_writer::end_tag('form');
 
-        $squaredsearch = new \moodle_url('/course/index.php');  // Needs to be this as can read category id.
-        $this->set_squared_search($squaredsearch);
+        $siteurl = new \moodle_url('/course/index.php');  // Needs to be this as can read category id.
+        $ajaxurl = clone $siteurl;
+        $this->set_squared_search($ajaxurl);
         $categorycoursesearchdata = array('data' => array(
-            'theme' => $squaredsearch->out(false),
+            'siteurl' => $siteurl->out(false),
+            'ajaxurl' => $ajaxurl->out(false),
+            'categorystr' => get_string('category'),
             'catid' => $this->currentcategoryid,
             'sort' => $this->categorysearchsort));
         $this->page->requires->js_call_amd('theme_squared/category_course_search', 'init', $categorycoursesearchdata);
