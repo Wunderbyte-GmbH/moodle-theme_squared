@@ -105,6 +105,14 @@ $string['moodlecoursesearch'] = 'Standard Moodle course search';
 $string['advancedcoursearch'] = 'Advanced course search';
 $string['globalsearch'] = 'Global search';
 
+// H5P
+$string['hvp'] = 'H5P';
+$string['hvpcustomcss'] = 'H5P Custom CSS';
+$string['hvpcustomcssdesc'] = 'Custom CSS for the H5P module.';
+
+$string['hvpfontcss'] = 'H5P Font CSS';
+$string['hvpfontcssdesc'] = 'Font CSS for the H5P module.  Place the \'font-face\' declarations here using Moodle \'font:theme\' syntax for the URL and ensure the font file is in the themes font folder.  Then apply with CSS \'font-family\' declarations in the H5P custom CSS setting.';
+
 // Footer settings.
 $string['footersettings'] = 'Footer settings';
 
