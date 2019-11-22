@@ -37,7 +37,8 @@ define(['jquery', 'core/log'], function ($, log) {
             $(document).ready(function ($) {
 
                 log.debug('Squared Category Course Search AMD init');
-                log.debug('Squared Category Course Search AJAX URL: ' + data.theme);
+                log.debug('Squared Category Course Search Site URL: ' + data.siteurl);
+                log.debug('Squared Category Course Search AJAX URL: ' + data.ajaxurl);
                 var currentCategoryId = data.catid;
                 var currentSort = data.sort;
                 var timeoutId;
@@ -47,7 +48,7 @@ define(['jquery', 'core/log'], function ($, log) {
                     categoryId = typeof categoryId !== 'undefined' ? categoryId : currentCategoryId;
                     updateCurrentCategoryId = typeof updateCurrentCategoryId !== 'undefined' ? updateCurrentCategoryId : false;
                     updateSearchSort = typeof updateSearchSort !== 'undefined' ? updateSearchSort : false;
-                    url = typeof url !== 'undefined' ? url : data.theme;
+                    url = typeof url !== 'undefined' ? url : data.ajaxurl;
                     searchSort = typeof searchSort !== 'undefined' ? searchSort : currentSort;
 
                     $.ajax({
@@ -129,6 +130,7 @@ define(['jquery', 'core/log'], function ($, log) {
                     }
 
                     searchAJAX(sqsValue, currentSort, false, optionSelected, true);
+                    window.history.pushState(data.categorystr + " - " + optionSelected, data.categorystr + " - " + optionSelected, data.siteurl + "?categoryid=" + optionSelected);
                 });
 
                 $('#sq-category-sort').prop("disabled", false);
