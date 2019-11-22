@@ -65,6 +65,8 @@ if (is_siteadmin()) {
     );
     $simset->add_select('activitylayout', 1, $choices);
 
+    $simset->add_textarea('prescss');
+    $simset->add_textarea('customscss');
     $simset->add_textarea('customcss');
     $settings->add($sp);
 
