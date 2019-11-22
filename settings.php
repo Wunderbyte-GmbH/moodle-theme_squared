@@ -98,6 +98,15 @@ if (is_siteadmin()) {
     $simset->add_file('courseheaderimagefallbackimage');
     $settings->add($sp);
 
+    // H5P settings.
+    $sp = new admin_settingpage('theme_squared_hvp', get_string('hvp', 'theme_squared'));
+    $simset = new squared_simple_theme_settings($sp, 'theme_squared');
+
+    $simset->add_textarea('hvpcustomcss');
+    $toolbox = \theme_squared\toolbox::get_instance();
+    $simset->add_textarea('hvpfontcss', $toolbox->gethvpdefaultfonts());
+    $settings->add($sp);
+
     // Footer settings.
     $sp = new admin_settingpage('theme_squared_footer', get_string('footersettings', 'theme_squared'));
     $simset = new squared_simple_theme_settings($sp, 'theme_squared');

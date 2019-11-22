@@ -33,6 +33,7 @@ defined('MOODLE_INTERNAL') || die;
 class toolbox {
 
     protected static $instance;
+    protected $squaredconfig;
     protected $boostparent;
 
     private function __construct() {
@@ -42,6 +43,7 @@ class toolbox {
         if (!is_object(self::$instance)) {
             self::$instance = new self();
             self::$instance->boostparent = \theme_config::load('boost');
+            self::$instance->squaredconfig = \theme_config::load('squared');
         }
         return self::$instance;
     }
@@ -166,6 +168,32 @@ class toolbox {
     }
 
     /**
+     * Gets the theme config.
+     *
+     * @return theme_config object.
+     */
+    public function get_theme_config() {
+        return self::$instance->squaredconfig;
+    }
+
+    /**
+     * Gets the specified setting.
+     *
+     * @param string $settingname The name of the setting.
+     * @return boolean|mixed false if not found or setting value.
+     */
+    public function get_setting($settingname) {
+        $settingvalue = false;
+
+        $theconfig = self::$instance->squaredconfig;
+        if ($theconfig != null) {
+            $settingvalue = $theconfig->settings->$settingname;
+        }
+
+        return $settingvalue;
+    }
+
+    /**
      * States if course content search can be used.  Will now work if theme is in $CFG->themedir.
      * @return boolean false|true if course content search can be used.
      */
@@ -222,5 +250,98 @@ class toolbox {
             }
             die();
         }
+    }
+
+    /**
+     * Gets the default H5P fonts as supplied by the theme.
+     *
+     * @return string The font CSS.
+     */
+    public function gethvpdefaultfonts() {
+        return "
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: normal;
+                font-weight: 200;
+                src: url('[[font:theme|SourceSansPro-ExtraLight.otf]]');
+            }
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: italic;
+                font-weight: 200;
+                src: url('[[font:theme|SourceSansPro-ExtraLightIt.otf]]');
+            }
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: normal;
+                font-weight: 300;
+                src: url('[[font:theme|SourceSansPro-Light.otf]]');
+            }
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: italic;
+                font-weight: 300;
+                src: url('[[font:theme|SourceSansPro-LightIt.otf]]');
+            }
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: normal;
+                font-weight: 400;
+                src: url('[[font:theme|SourceSansPro-Regular.otf]]');
+            }
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: italic;
+                font-weight: 400;
+                src: url('[[font:theme|SourceSansPro-It.otf]]');
+            }
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: normal;
+                font-weight: 600;
+                src: url('[[font:theme|SourceSansPro-Semibold.otf]]');
+            }
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: italic;
+                font-weight: 600;
+                src: url('[[font:theme|SourceSansPro-SemiboldIt.otf]]');
+            }
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: normal;
+                font-weight: 700;
+                src: url('[[font:theme|SourceSansPro-Bold.otf]]');
+            }
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: italic;
+                font-weight: 700;
+                src: url('[[font:theme|SourceSansPro-BoldIt.otf]]');
+            }
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: normal;
+                font-weight: 900;
+                src: url('[[font:theme|SourceSansPro-Black.otf]]');
+            }
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: italic;
+                font-weight: 900;
+                src: url('[[font:theme|SourceSansPro-BlackIt.otf]]');
+            }
+        ";
     }
 }

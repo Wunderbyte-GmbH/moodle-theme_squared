@@ -108,20 +108,97 @@ function theme_squared_process_css($css, $theme) {
  * @return boolean
  */
 function theme_squared_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
-    static $theme;
-    if (empty ($theme)) {
-        $theme = theme_config::load ('squared');
-    }
+    $toolbox = \theme_squared\toolbox::get_instance();
+    $theme = $toolbox->get_theme_config();
 
     // By default, theme files must be cache-able by both browsers and proxies.  From 'More' theme.
     if (!array_key_exists('cacheability', $options)) {
         $options['cacheability'] = 'public';
     }
-    if ($context->contextlevel == CONTEXT_SYSTEM and $filearea) {
-        return $theme->setting_file_serve ($filearea, $args, $forcedownload, $options);
+    if ($context->contextlevel == CONTEXT_SYSTEM) {
+        if ($filearea === 'hvp') {
+            theme_squared_serve_hvp_css($args[1], $theme);
+        } else if ($filearea) {
+            return $theme->setting_file_serve ($filearea, $args, $forcedownload, $options);
+        } else {
+            send_file_not_found();
+        }
     } else {
-        send_file_not_found ();
+        send_file_not_found();
     }
+}
+
+/**
+ * Serves the H5P Custom CSS.
+ *
+ * @param string $filename The filename.
+ * @param theme_config $theme The theme config object.
+ */
+function theme_squared_serve_hvp_css($filename, $theme) {
+    global $CFG, $PAGE;
+    require_once($CFG->dirroot.'/lib/configonlylib.php'); // For min_enable_zlib_compression().
+
+    $toolbox = \theme_squared\toolbox::get_instance();
+    $PAGE->set_context(context_system::instance());
+
+    $content = '';
+    $hvpfontcss = $toolbox->get_setting('hvpfontcss');
+    if (!empty($hvpfontcss)) {
+        // Code adapted from post_process() in the theme_config object.
+        if (preg_match_all('/\[\[font:([a-z0-9_]+\|)?([^\]]+)\]\]/', $hvpfontcss, $matches, PREG_SET_ORDER)) {
+            $replaced = array();
+            foreach ($matches as $match) {
+                if (isset($replaced[$match[0]])) {
+                    continue;
+                }
+                $replaced[$match[0]] = true;
+                $fontname = $match[2];
+                $component = rtrim($match[1], '|');
+                $fonturl = $theme->font_url($fontname, $component)->out(false);
+                // We do not need full url because the font.php is always in the same dir.
+                $fonturl = preg_replace('|^http.?://[^/]+|', '', $fonturl);
+                $hvpfontcss = str_replace($match[0], $fonturl, $hvpfontcss);
+            }
+
+            $content .= $hvpfontcss.PHP_EOL.PHP_EOL;
+        }
+    }
+
+    $content .= $toolbox->get_setting('hvpcustomcss');
+    $md5content = md5($content);
+    $md5stored = get_config('theme_squared', 'hvpccssmd5');
+    if ((empty($md5stored)) || ($md5stored != $md5content)) {
+        // Content changed, so the last modified time needs to change.
+        set_config('hvpccssmd5', $md5content, 'theme_squared');
+        $lastmodified = time();
+        set_config('hvpccsslm', $lastmodified, 'theme_squared');
+    } else {
+        $lastmodified = get_config('theme_squared', 'hvpccsslm');
+        if (empty($lastmodified)) {
+            $lastmodified = time();
+        }
+    }
+
+    // Sixty days only - the revision may get incremented quite often.
+    $lifetime = 60 * 60 * 24 * 60;
+
+    header('HTTP/1.1 200 OK');
+
+    header('Etag: "'.$md5content.'"');
+    header('Content-Disposition: inline; filename="'.$filename.'"');
+    header('Last-Modified: '.gmdate('D, d M Y H:i:s', $lastmodified).' GMT');
+    header('Expires: '.gmdate('D, d M Y H:i:s', time() + $lifetime).' GMT');
+    header('Pragma: ');
+    header('Cache-Control: public, max-age='.$lifetime);
+    header('Accept-Ranges: none');
+    header('Content-Type: text/css; charset=utf-8');
+    if (!min_enable_zlib_compression()) {
+        header('Content-Length: '.strlen($content));
+    }
+
+    echo $content;
+
+    die;
 }
 
 /**
