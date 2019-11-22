@@ -120,6 +120,11 @@ class toolbox {
                 }';
         }
 
+        $customscss = $this->get_setting('customscss');
+        if (!empty($customscss)) {
+            $scss .= $customscss;
+        }
+
         return $scss;
     }
 
@@ -137,7 +142,14 @@ class toolbox {
     }
 
     public function get_pre_scss($theme) {
-        return theme_boost_get_pre_scss($this->boostparent);
+        $scss = theme_boost_get_pre_scss($this->boostparent);
+
+        $prescss = $this->get_setting('prescss');
+        if (!empty($prescss)) {
+            $scss .= $prescss;
+        }
+
+        return $scss;
     }
 
     /**
