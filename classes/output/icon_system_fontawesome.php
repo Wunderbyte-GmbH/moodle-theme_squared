@@ -41,7 +41,6 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
     protected function __construct() {
         // Has to be this for the external AJAX calls that don't know what theme is set.
         $this->fav = \theme_squared\toolbox::get_config_setting('fav');
-error_log('Hullo: '.$this->fav);
     }
 
     public function get_core_icon_map() {
