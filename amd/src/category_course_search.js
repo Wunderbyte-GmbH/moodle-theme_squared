@@ -116,31 +116,38 @@ define(['jquery', 'core/log'], function ($, log) {
 
                 $('#sq-category-select').prop("disabled", false);
                 $('#sq-category-select').on('change', function () {
-                    var optionSelected = $("option:selected", this).val();
-                    var sqsValue = $('#sq-category-search').val();
+                    var optionSelected = $("option:selected", this);
+                    var optionSelectedCat = optionSelected.val();
 
-                    log.debug('Squared Select Category Course Search: ' + optionSelected + ' - ' + sqsValue);
+                    if (optionSelected.data('differenttheme') == true) {
+                        log.debug('Squared Select Category Course Redirect: ' + optionSelectedCat);
+                        window.location.replace(data.siteurl + "?categoryid=" + optionSelectedCat);
+                    } else {
+                        var sqsValue = $('#sq-category-search').val();
 
-                    var body = $('body');
-                    if (body.hasClass('category-' + currentCategoryId)) {
-                        body.removeClass('category-' + currentCategoryId);
+                        log.debug('Squared Select Category Course Search: ' + optionSelectedCat + ' - ' + sqsValue);
+
+                        var body = $('body');
+                        if (body.hasClass('category-' + currentCategoryId)) {
+                            body.removeClass('category-' + currentCategoryId);
+                        }
+                        if (optionSelectedCat !== '0') {
+                            body.addClass('category-' + optionSelectedCat);
+                        }
+
+                        searchAJAX(sqsValue, currentSort, false, optionSelectedCat, true);
                     }
-                    if (optionSelected !== '0') {
-                        body.addClass('category-' + optionSelected);
-                    }
-
-                    searchAJAX(sqsValue, currentSort, false, optionSelected, true);
-                    window.history.pushState(data.categorystr + " - " + optionSelected, data.categorystr + " - " + optionSelected, data.siteurl + "?categoryid=" + optionSelected);
+                    window.history.pushState(data.categorystr + " - " + optionSelectedCat, data.categorystr + " - " + optionSelectedCat, data.siteurl + "?categoryid=" + optionSelectedCat);
                 });
 
                 $('#sq-category-sort').prop("disabled", false);
                 $('#sq-category-sort').on('change', function () {
-                    var optionSelected = $("option:selected", this).val();
+                    var optionSelectedCat = $("option:selected", this).val();
                     var sqsValue = $('#sq-category-search').val();
 
-                    log.debug('Squared Select Category Sort Course Search: ' + optionSelected + ' - ' + sqsValue);
+                    log.debug('Squared Select Category Sort Course Search: ' + optionSelectedCat + ' - ' + sqsValue);
 
-                    searchAJAX(sqsValue, optionSelected, true);
+                    searchAJAX(sqsValue, optionSelectedCat, true);
                 });
 
                 pagination();
