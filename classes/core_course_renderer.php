@@ -758,7 +758,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         }
         $content .= html_writer::tag('option', get_string('all'), $attrs);
         foreach ($cats as $catkey => $catdata) {
-            $coursecat = core_course_category::get($catkey);
+            $coursecat = coursecat::get($catkey);
             $attrs = array('value' => $catkey);
             if ($catkey == $this->currentcategoryid) {
                 $attrs['selected'] = 'selected';
