@@ -260,9 +260,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $textclasses .= ' sqmorecontent';
             }
             if ($mod->url && $mod->uservisible) {
-                if ($formattedcontent) {
-                    $bodycontent .= html_writer::tag('div', $formattedcontent, array('class' => trim('contentafterlink sqcontent '.$textclasses)));
-                }
+                $bodycontent .= html_writer::tag('div', $formattedcontent, array('class' => trim('contentafterlink sqcontent '.$textclasses)));
             } else {
                 $groupinglabel = $mod->get_grouping_label($textclasses);
 
@@ -299,11 +297,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 }
             }
 
-            if (!empty($footercontent)) {
-                $cardcontent .= html_writer::start_tag('div', array('class' => 'card-footer'));
-                $cardcontent .= $footercontent;
-                $cardcontent .= html_writer::end_tag('div');
-            }
+            $cardcontent .= html_writer::start_tag('div', array('class' => 'card-footer'));
+            $cardcontent .= $footercontent;
+            $cardcontent .= html_writer::end_tag('div');
 
 
             $output .= html_writer::tag('div', $cardcontent, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
