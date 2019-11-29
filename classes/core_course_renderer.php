@@ -252,8 +252,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
             $bodycontent = '';
             $formattedcontent = $mod->get_formatted_content(array('overflowdiv' => false, 'noclean' => true));
-            $contentlen = core_text::strlen($mod->content);
-            if ($contentlen > 217) {
+            $contentlen = core_text::strlen(strip_tags($mod->content));
+            if ($contentlen > 45) {
                 $textclasses .= ' sqexpandedcontent';
             }
             if ($contentlen > 2748) {
@@ -283,7 +283,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             }
 
             if ($mod->url) {
-                if (($formattedcontent) && ($contentlen > 217)) {
+                if (($formattedcontent) && ($contentlen > 45)) {
                     if (\theme_squared\toolbox::get_config_setting('fav')) {
                         $icon = 'fas fa-chevron-circle-down';
                     } else {
