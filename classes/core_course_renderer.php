@@ -118,8 +118,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $instancename = $mod->get_formatted_name();
         $altname = $mod->modfullname;
         /* Avoid unnecessary duplication: if e.g. a forum name already
-          includes the word forum (or Forum, etc) then it is unhelpful
-          to include that in the accessible description that is added. */
+           includes the word forum (or Forum, etc) then it is unhelpful
+           to include that in the accessible description that is added. */
         if (false !== strpos(core_text::strtolower($instancename), core_text::strtolower($altname))) {
             $altname = '';
         }
@@ -127,7 +127,15 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         if ($altname) {
             $altname = get_accesshide(' ' . $altname);
         }
-        $output .= html_writer::tag('span', $instancename.$altname, array('class' => 'instancename modname'));
+        $instanceattrs = array('class' => 'instancename modname');
+        if (core_text::strlen($instancename) > 48) {
+            $toexpand = html_writer::tag('span', core_text::substr($instancename, 0, 48).'...',
+                array('class' => 'sqmodnametruncated', 'aria-hidden' => 'true'));
+            $toexpand .= html_writer::tag('span', $instancename, array('class' => 'sqmodnamefull', 'aria-hidden' => 'true'));
+            $instanceattrs['aria-label'] = $instancename;
+            $instancename = $toexpand;
+        }
+        $output .= html_writer::tag('span', $instancename.$altname, $instanceattrs);
 
         return $output;
     }
