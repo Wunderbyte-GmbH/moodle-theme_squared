@@ -44,16 +44,18 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
                 .card-header {
                     background-color: #f6f6f6;
                     padding: 1.25rem 1.25rem 1.25rem 4.25rem;
-                    .sqmodnamefull {
-                        display: none;
-                    }
-                    &:hover,
-                    &:focus {
-                        .sqmodnametruncated {
+                    transition: height 1s ease;
+                    .instancename {
+                        .sqmodnamefull {
                             display: none;
                         }
-                        .sqmodnamefull {
-                            display: inline;
+                        &.-expanded {
+                            .sqmodnametruncated {
+                                display: none;
+                            }
+                            .sqmodnamefull {
+                                display: inline;
+                            }
                         }
                     }
                 }
