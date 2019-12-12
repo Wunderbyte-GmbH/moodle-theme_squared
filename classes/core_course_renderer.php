@@ -110,7 +110,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * Renders html to display the card activity header when used on a course page.
      *
      * @param cm_info $mod
-     * @return string
+     * @return array(boolean toexpand, string outout).
      */
     protected function squared_activity_header(cm_info $mod) {
         $output = html_writer::empty_tag('img', array('src' => $mod->get_icon_url(),
@@ -128,7 +128,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $altname = get_accesshide(' ' . $altname);
         }
         $instanceattrs = array('class' => 'instancename modname');
-        if (core_text::strlen($instancename) > 48) {
+        $toexpand = (core_text::strlen($instancename) > 48);
+        if ($toexpand) {
             $toexpand = html_writer::tag('span', core_text::substr($instancename, 0, 48).'...',
                 array('class' => 'sqmodnametruncated', 'aria-hidden' => 'true'));
             $toexpand .= html_writer::tag('span', $instancename, array('class' => 'sqmodnamefull', 'aria-hidden' => 'true'));
@@ -137,7 +138,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         }
         $output .= html_writer::tag('span', $instancename.$altname, $instanceattrs);
 
-        return $output;
+        return array('toexpand' => $toexpand, 'output'=> $output);
     }
 
     /**
@@ -249,7 +250,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                has already been encoded for display. */
             $onclick = htmlspecialchars_decode($mod->onclick, ENT_QUOTES);
 
-            $activity = $this->squared_activity_header($mod);
+            $activitydata = $this->squared_activity_header($mod);
+            $activity = $activitydata['output'];
             if ($mod->uservisible) {
                 $cardcontent = html_writer::link($url, $activity, array('class' => $linkclasses.' card-header', 'onclick' => $onclick));
             } else {
@@ -291,7 +293,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             }
 
             if ($mod->url) {
-                if (($formattedcontent) && ($contentlen > 45)) {
+                if ((($formattedcontent) && ($contentlen > 45)) || ($activitydata['toexpand'])) {
                     if (\theme_squared\toolbox::get_config_setting('fav')) {
                         $icon = 'fas fa-chevron-circle-down';
                     } else {
