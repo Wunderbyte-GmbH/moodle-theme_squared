@@ -36,6 +36,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
     private $categorysearchsort = 1;
     private $userisediting = false;
 
+    private const moddivider = 1;
+    private const hidemodsummary = 2;
+    private const showmodsummary = 3;
+
     public function __construct(moodle_page $page, $target) {
         parent::__construct($page, $target);
         if (!$this->page->user_is_editing()) {
@@ -260,25 +264,18 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $cardcontent = html_writer::tag('div', $activity, array('class' => $textclasses.' card-header'));
             }
 
-            $bodycontent = '';
             $formattedcontent = $mod->get_formatted_content(array('overflowdiv' => false, 'noclean' => true));
             $contentlen = core_text::strlen(strip_tags($mod->content));
-            if ($contentlen > 45) {
-                $textclasses .= ' sqexpandedcontent';
-            }
-            if ($contentlen > 2748) {
-                $textclasses .= ' sqmorecontent';
-            }
-            if ($mod->url && $mod->uservisible) {
-                $bodycontent .= html_writer::tag('div', $formattedcontent, array('class' => trim('contentafterlink sqcontent '.$textclasses)));
-            } else {
-                $groupinglabel = $mod->get_grouping_label($textclasses);
 
-                // No link, so display only content.
-                $bodycontent .= html_writer::tag('div', $formattedcontent.$groupinglabel, array('class' => 'contentwithoutlink sqcontent ' . $textclasses));
-            }
+            if ((!empty($formattedcontent)) || ($displayoptions['sqshowdescription'] == self::showmodsummary)) {
+                if ($contentlen > 45) {
+                    $textclasses .= ' sqexpandedcontent';
+                }
+                if ($contentlen > 2748) {
+                    $textclasses .= ' sqmorecontent';
+                }
 
-            if (!empty($bodycontent)) {
+                $bodycontent = html_writer::tag('div', $formattedcontent, array('class' => trim('contentafterlink sqcontent '.$textclasses)));
                 $cardcontent .= html_writer::start_tag('div', array('class' => 'card-body'));
                 $cardcontent .= $bodycontent;
                 $cardcontent .= html_writer::end_tag('div');
@@ -292,19 +289,17 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 $footercontent .= html_writer::span($modicons, 'actions sqactions');
             }
 
-            if ($mod->url) {
-                if ((($formattedcontent) && ($contentlen > 45)) || ($activitydata['toexpand'])) {
-                    if (\theme_squared\toolbox::get_config_setting('fav')) {
-                        $icon = 'fas fa-chevron-circle-down';
-                    } else {
-                        $icon = 'fa fa-chevron-circle-down';
-                    }
-                    $footercontent .= html_writer::tag('div',
-                        html_writer::tag('i', null, array('class' => $icon, 'aria-hidden' => 'true', 'role' => 'button')).
-                        html_writer::tag('span', get_string('expand'), array('class' => 'sqcc sqccopen', 'aria-hidden' => 'false')).
-                        html_writer::tag('span', get_string('closebuttontitle'), array('class' => 'sqcc sqccclose hidden', 'aria-hidden' => 'true')),
-                        array('class' => 'sqcontentcontrol'));
+            if ((($formattedcontent) && ($contentlen > 45)) || ($activitydata['toexpand'])) {
+                if (\theme_squared\toolbox::get_config_setting('fav')) {
+                    $icon = 'fas fa-chevron-circle-down';
+                } else {
+                    $icon = 'fa fa-chevron-circle-down';
                 }
+                $footercontent .= html_writer::tag('div',
+                    html_writer::tag('i', null, array('class' => $icon, 'aria-hidden' => 'true', 'role' => 'button')).
+                    html_writer::tag('span', get_string('expand'), array('class' => 'sqcc sqccopen', 'aria-hidden' => 'false')).
+                    html_writer::tag('span', get_string('closebuttontitle'), array('class' => 'sqcc sqccclose hidden', 'aria-hidden' => 'true')),
+                    array('class' => 'sqcontentcontrol'));
             }
 
             $cardcontent .= html_writer::start_tag('div', array('class' => 'card-footer'));
@@ -326,7 +321,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @param stdClass $course course object
      * @param int|stdClass|section_info $section relative section number or section object
      * @param int $sectionreturn section number to return to
-     * @param int $displayoptions
+     * @param array $displayoptions
      * @return void
      */
     public function course_section_cm_list($course, $section, $sectionreturn = null, $displayoptions = array()) {
@@ -346,8 +341,15 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         // Get the list of modules visible to user.
         $sectionoutput = '';
         if (!empty($modinfo->sections[$section->section])) {
+
+            $showdescriptions = $this->calculate_show_descriptions($modinfo->sections[$section->section], $modinfo);
+
             foreach ($modinfo->sections[$section->section] as $modnumber) {
                 $mod = $modinfo->cms[$modnumber];
+
+                if ($showdescriptions[$modnumber] != self::moddivider) {
+                    $displayoptions['sqshowdescription'] = $showdescriptions[$modnumber];
+                }
 
                 if ($modulehtml = $this->course_section_cm_list_item($course, $completioninfo, $mod, $sectionreturn, $displayoptions)) {
                     if (!(empty($mod->url))) {
@@ -377,6 +379,53 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $output .= html_writer::tag('div', $sectionoutput, array('class' => 'section img-text row'));
 
         return $output;
+    }
+
+    /**
+     * Calculates if a module should show its description.
+     *
+     * This function calls {@link core_course_renderer::course_section_cm()}
+     *
+     * @param array $sectionmodules int module numbers
+     * @param course_modinfo $modinfo module info for the course.
+     *
+     * @return array boolean indicating if the description should be shown or self::moddivider if a label, indexed by module number.
+     */
+    private function calculate_show_descriptions($sectionmodules, $modinfo) {
+        $showdescriptions = array();
+        $current = false;
+
+        foreach ($sectionmodules as $modnumber) {
+            $mod = $modinfo->cms[$modnumber];
+
+            if (!(empty($mod->url))) {
+                if ($current == false) {
+                    $formattedcontent = $mod->get_formatted_content(array('overflowdiv' => false, 'noclean' => true));
+                    if (empty($formattedcontent)) {
+                        $showdescriptions[$modnumber] = self::hidemodsummary;
+                    } else {
+                        $current = true;
+                        $showdescriptions[$modnumber] = self::showmodsummary;
+                        // Go back to the last label / start of section and show the rest.
+                        $reversed = array_reverse($showdescriptions, true);
+                        foreach($reversed as $modno => $modsd) {
+                            if ($modsd == self::moddivider) {
+                                // Label, so break.
+                                break;
+                            }
+                            $showdescriptions[$modno] = self::showmodsummary;
+                        }
+                    }
+                } else {
+                    $showdescriptions[$modnumber] = self::showmodsummary;
+                }
+            } else {
+                $showdescriptions[$modnumber] = self::moddivider; // A label.
+                $current = false; // A label is a divider.
+            }
+        }
+
+        return $showdescriptions;
     }
 
     /**
