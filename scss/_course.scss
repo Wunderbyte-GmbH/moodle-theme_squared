@@ -182,11 +182,19 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
     .section div.section,
     .section ul.section,
     .section div.summary {
-        padding: 15px 20px;
+        background: #fff;
         border: 1px solid #fff;
         box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
-        background: #fff;
         font-size: 100%;
+    }
+
+    .section div.section,
+    .section ul.section {
+        padding: 15px 25px;
+    }
+
+    .section div.summary {
+        padding: 15px 40px;
     }
 
     ul.section {
