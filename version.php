@@ -26,7 +26,7 @@
  */
 defined ( 'MOODLE_INTERNAL' ) || die ();
 
-$plugin->version = 2019061402;
+$plugin->version = 2019061403;
 $plugin->requires  = 2018120301.00; // Moodle 3.6.1 (Build: 20181205).
 $plugin->release = "Heldenplatz 3.6.1.1"; // Release name: Famous squares around the world followed by Moodle version followed by stability number (> 1 = stable) followed by revision.
 $plugin->maturity = MATURITY_STABLE;
