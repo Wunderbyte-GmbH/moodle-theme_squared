@@ -28,11 +28,22 @@
     margin: 7px 7px 7px 0;
 }
 
-.navbar-dark .popover-region-nsm a .icon {
-    color: $navbar-dark-color;
+.navbar-dark .popover-region-nsm {
+    a .icon {
+        color: $navbar-dark-color;
+    }
+    .dropdown-item:active a .icon {
+        color: $black;
+    }
 }
-.navbar-light .popover-region-nsm a .icon {
-    color: $navbar-light-color;
+
+.navbar-light .popover-region-nsm {
+    a .icon {
+        color: $navbar-light-color;
+    }
+    .dropdown-item:active a .icon {
+        color: $white;
+    }
 }
 
 .navbar-dark .navbar-nav .popover-region-nsm.nav-link,
@@ -211,6 +222,7 @@
     .dropdown-menu {
         left: -25px;
         margin-top: 13px;
+        right: auto;
     }
 }
 
