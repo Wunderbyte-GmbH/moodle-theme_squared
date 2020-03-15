@@ -113,6 +113,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+15th March 2020 - Version Heldenplatz 3.8.1.1.
+  1. Logo change.
+
 26th November 2019 - Version Heldenplatz 3.8.1.0.
 
 28th June 2019 - Version Heldenplatz 3.7.1.0.
