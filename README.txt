@@ -115,6 +115,7 @@ Version Information
 ===================
 15th March 2020 - Version Heldenplatz 3.8.1.1.
   1. Logo change.
+  2. Slight 1px border on region-main.
 
 26th November 2019 - Version Heldenplatz 3.8.1.0.
 
