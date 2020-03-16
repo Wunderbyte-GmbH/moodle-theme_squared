@@ -65,6 +65,8 @@ if (is_siteadmin()) {
     );
     $simset->add_select('activitylayout', 1, $choices);
 
+    $simset->add_colourpicker('bgcolordefault', '#a4daf0');  // This is $sq-bgc-default in squared_preset.scss.
+
     $simset->add_checkbox('fav', 0, 1, 0);
 
     $simset->add_textarea('prescss');

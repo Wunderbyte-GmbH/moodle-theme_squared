@@ -146,6 +146,10 @@ class toolbox {
     public function get_pre_scss($theme) {
         $scss = theme_boost_get_pre_scss($this->boostparent);
 
+        if (!empty($theme->settings->bgcolordefault)) {
+            $scss .= '$sq-bgc-default: '.$theme->settings->bgcolordefault.';'.PHP_EOL;
+        }
+
         $prescss = $this->get_setting('prescss');
         if (!empty($prescss)) {
             $scss .= $prescss;

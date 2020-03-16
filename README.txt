@@ -121,6 +121,7 @@ Version Information
   5. No background on square icon when < 768px.
   6. Course title to 24px.
   7. Line height of block title when >= 786px to 15px.
+  8. Added 'bgcolordefault' setting for the squares when not in a category to the general settings.
 
 26th November 2019 - Version Heldenplatz 3.8.1.0.
 
