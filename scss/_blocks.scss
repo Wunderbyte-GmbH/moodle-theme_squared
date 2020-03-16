@@ -108,7 +108,7 @@
     .pairheader {
         &.left {
             padding-right: 2px;
-            padding-left: 0;   
+            padding-left: 0;
         }
         &.right {
             padding-left: 2px;
@@ -146,15 +146,8 @@
 }
 
 .nozoom #block-region-side-pre {
-    @media (max-width: $screen-breakpoint) {
-        .courseblock-icon {
-            background-color: lighten($squared-purple, 15%);
-        }
-    }
-    
     @media (min-width: $screen-breakpoint) {
         .over-hover-to-bottom {
-            //display: inline-block;
             vertical-align: middle;
             -webkit-transform: translateZ(0);
             transform: translateZ(0);
