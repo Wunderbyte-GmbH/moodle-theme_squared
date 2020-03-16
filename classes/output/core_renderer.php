@@ -95,7 +95,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $html .= html_writer::tag('div', '', $attr);
             $html .= html_writer::start_tag('div', array('class' => 'row'));
             $html .= html_writer::start_tag('div', array('class' => 'col-10'));
-            $html .= html_writer::tag('h1', $course->fullname, array('class' => 'course-title'));
+            $html .= html_writer::tag('h1', format_string($course->fullname), array('class' => 'course-title'));
             $html .= html_writer::end_tag('div');
             $html .= html_writer::start_tag('div', array('class' => 'col-2'));
             $html .= $this->courseprogress($this->page->course);
