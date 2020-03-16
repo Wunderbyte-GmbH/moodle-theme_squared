@@ -120,10 +120,9 @@
     }
 
     .blockheader {
-        border-radius: 0;
-        border: 1px solid $gray;
-        display: block;
         background-color: $gray-light;
+        border-radius: 0;
+        display: block;
         .blockhead {
             color: #FFF;
             display: block;
@@ -221,15 +220,14 @@
             }
         }
         .blockheader {
+            background-color: lighten($squared-purple, 15%);
+            text-align: center;
             .alignself {
                 display: flex;
                 height: 100%;
                 justify-content: center;
                 align-items: center;
             }
-            text-align: center;
-            border: 0;
-            background-color: lighten($squared-purple, 15%);
             @include gradient-directional(lighten($squared-purple, 15%), lighten($squared-purple, 5%));
             &.squared:after {
               content: "";

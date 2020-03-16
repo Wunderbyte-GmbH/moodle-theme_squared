@@ -117,6 +117,7 @@ Version Information
   1. Logo change.
   2. Slight 1px border on region-main.
   3. region-main padding.
+  4. Remove border on squares when < 768px.
 
 26th November 2019 - Version Heldenplatz 3.8.1.0.
 
