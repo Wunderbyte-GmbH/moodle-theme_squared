@@ -609,6 +609,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $thisblock = $this->block($bc, $region);
                 if ($bc->attributes['data-block'] == 'adminblock') {
                     $bc->blockinstanceid = -1;
+                    $thisblock->blockinstanceid = $bc->blockinstanceid;
                 }
                 $thisblock->header = $this->block_header_collapse($thisblock); // Pass in the new potentially altered block_contents.
                 $thisblock->movetarget = false;
