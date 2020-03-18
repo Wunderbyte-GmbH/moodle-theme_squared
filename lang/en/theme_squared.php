@@ -95,6 +95,8 @@ $string['courseheaderimagefallbackthemeimage'] = 'Use the \'courseheaderimagefal
 $string['courseheaderimagefallbackgenerated'] = 'Use the generated image';
 $string['courseheaderimagefallbackimage'] = 'Course header fallback image';
 $string['courseheaderimagefallbackimagedesc'] = 'Course header fallback image to use if \'Course header images\' is on and \'Course header images fallback\' is set to "Use the \'courseheaderimagefallbackimage\' image or theme image if empty".';
+$string['courseheaderimagehelpheading'] = 'Course header image help';
+$string['courseheaderimagehelpcontent'] = 'If and image in the course summary has an: \'_course\' postfix then used in the course header only, \'_all\' postfix then used on the course and course overview or if no postfix, then the course overview only.  For the course the first \'_all\' image is selected before the first \'_course\' image found.  For the course overview the first \'_all\' image is selected before the first non-prefixed image.  If no image is found then the \'courseheaderimagefallback\' setting applies.';
 
 // Course content search.
 $string['findcoursecontent'] = 'Course content: ';

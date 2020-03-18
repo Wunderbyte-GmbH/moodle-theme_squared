@@ -126,6 +126,7 @@ TBD - Version Heldenplatz 3.8.1.1.
  10. Use 'format_string()' on 'h1.course-title' so that the mult-lang functionality works.
  11. Fix Accordion background > 786px.
  12. Add custom 'favicon' setting to the general settings.
+ 13. Changes to the course header image.
 
 26th November 2019 - Version Heldenplatz 3.8.1.0.
 

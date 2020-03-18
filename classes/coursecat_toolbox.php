@@ -35,6 +35,13 @@ class coursecat_toolbox extends \core_course_category {
 
     protected static $instance;
 
+    public const allpostfix = '_all';
+    public const allpostfixlen = 4;
+    public const coursepostfix = '_course';
+    public const coursepostfixlen = 7;
+    public const forcourse = 'course';
+    public const foroverview = 'overview';
+
     protected function __construct() {
         // Using pseudo category '0', see the 'get' method in the parent.
         $record = new \stdClass();
@@ -147,11 +154,11 @@ class coursecat_toolbox extends \core_course_category {
      * Gets the image url or generated image url if no image in the course summary files for the given course.
      * 
      * @param core_course_list_element|stdClass $course The course to use.
-     * @param string $for 'course'|'overview'|empty Specify the image to get if any.
+     * @param string $for 'course'|'overview' Specify the image to get if any.
      *
      * @return array('image' => boolean, 'url' => string).
      */
-    public static function course_image($course, $for = '') {
+    public static function course_image($course, $for) {
         $courseimage = array('image' => true, 'url' => null);
 
         $courseimage['url'] = self::course_image_url($course, $for);
@@ -168,40 +175,54 @@ class coursecat_toolbox extends \core_course_category {
      * Gets the image url or empty url if no image in the course summary files for the given course.
      * 
      * @param core_course_list_element|stdClass $course The course to use.
-     * @param string $for 'course'|'overview'|empty Specify the image to get if any.
+     * @param string $for 'course'|'overview' Specify the image to get if any.
      *
      * @return string The url or empty.
      */
-    public static function course_image_url($course, $for = '') {
-        $candidates = array();
+    public static function course_image_url($course, $for) {
+        /* Notes:
+            _course -> Course image only.
+            no postfix: Course overview only.
+            _all -> course + course overview
+
+            If no image then 'courseheaderimagefallback' setting kicks in.
+        */
+        $forcourse = (strcmp(self::forcourse, $for) === 0);
+
+        $primarycandidates = array();
+        $secondarycandidates = array();
         $url = '';
         foreach ($course->get_course_overviewfiles() as $file) {
             $isimage = $file->is_valid_image();
             if ($isimage) {
                 $filename = pathinfo($file->get_filename(), PATHINFO_FILENAME);
-                $candidates[$filename] = $file;
+
+                /* This order is:
+                   For the course, then pick the first _all then the first _course or nothing.
+                   For the course overview, then pick the first _all then the first image as long as it is not a _course.
+                */
+                if (\core_text::substr($filename, -self::coursepostfixlen) === self::coursepostfix) {
+                    if ($forcourse) {
+                        $secondarycandidates[$filename] = $file;
+                    }
+                } else if (\core_text::substr($filename, -self::allpostfixlen) === self::allpostfix) {
+                    $primarycandidates[$filename] = $file;
+                } else if (!$forcourse) {
+                    $secondarycandidates[$filename] = $file;
+                }
             }
+        }
+
+        if (!empty($primarycandidates)) {
+            $candidates = $primarycandidates;
+        } else if (!empty($secondarycandidates)) {
+            $candidates = $secondarycandidates;
         }
 
         if (!empty($candidates)) {
             global $CFG;
-            $file = null;
-            if (!empty($for)) {
-                $use = null;
-                foreach ($candidates as $candidatekey => $candidate) {
-                    if (strcmp($candidatekey, $for) === 0) { // Does this need to be multibyte (UTF8) safe?
-                        $file = $candidate;
-                        break;
-                    }
-                }
-                if (empty($file)) {
-                    // Use the first.
-                    $file = reset($candidates);
-                }
-            } else {
-                // Use the first.
-                $file = reset($candidates);
-            }
+            // Use the first.
+            $file = reset($candidates);
             $url = file_encode_url("$CFG->wwwroot/pluginfile.php", '/'.$file->get_contextid().'/'.$file->get_component().'/'.
                 $file->get_filearea() . $file->get_filepath() . $file->get_filename(), !$isimage);
         }

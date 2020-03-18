@@ -67,7 +67,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $html .= html_writer::end_tag('header');
         if ($usecourseimage) {
             $course = new \core_course_list_element($this->page->course);
-            $courseimage = \theme_squared\coursecat_toolbox::course_image_url($course, 'course');
+            $courseimage = \theme_squared\coursecat_toolbox::course_image_url($course, \theme_squared\coursecat_toolbox::forcourse);
             if (empty($courseimage)) {
                 if ((empty($this->page->theme->settings->courseheaderimagefallback)) ||
                     ($this->page->theme->settings->courseheaderimagefallback == 'courseheaderimagefallbackthemeimage')) {
@@ -93,6 +93,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $attr['class'] = 'sq-course-image';
             }
             $html .= html_writer::tag('div', '', $attr);
+            if ($this->page->user_is_editing()) {
+                $html .= html_writer::start_tag('div', array('class' => 'row'));
+                $html .= html_writer::start_tag('div', array('class' => 'col-12'));
+                $html .= html_writer::tag('h2', get_string('courseheaderimagehelpheading', 'theme_squared'));
+                $html .= html_writer::tag('p', get_string('courseheaderimagehelpcontent', 'theme_squared'));
+                $html .= html_writer::end_tag('div');
+                $html .= html_writer::end_tag('div');
+            }
             $html .= html_writer::start_tag('div', array('class' => 'row'));
             $html .= html_writer::start_tag('div', array('class' => 'col-10'));
             $html .= html_writer::tag('h1', format_string($course->fullname), array('class' => 'course-title'));
