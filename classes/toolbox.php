@@ -69,7 +69,14 @@ class toolbox {
                 $scss .= '
                     .category-'.$cid.' {
                         #block-region-side-pre {
-                            .blockheader, .block .card-heading {
+                            @media (min-width: $screen-breakpoint) {
+                                .single-row,
+                                .two-rows {
+                                    background-color: '.$theme->settings->$setting.';
+                                }
+                            }
+                            .blockheader,
+                            .block .card-heading {
                                 background-color: '.$theme->settings->$setting.';
                                 @include gradient-directional(lighten('.$theme->settings->$setting.', 15%), darken('.$theme->settings->$setting.', 5%));
                             }

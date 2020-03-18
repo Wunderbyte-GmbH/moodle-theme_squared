@@ -113,7 +113,7 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-15th March 2020 - Version Heldenplatz 3.8.1.1.
+TBD - Version Heldenplatz 3.8.1.1.
   1. Logo change.
   2. Slight 1px border on region-main.
   3. region-main padding.
@@ -124,6 +124,8 @@ Version Information
   8. Added 'bgcolordefault' setting for the squares when not in a category to the general settings.
   9. Fix 'Add a block' not working.
  10. Use 'format_string()' on 'h1.course-title' so that the mult-lang functionality works.
+ 11. Fix Accordion background > 786px.
+
 
 26th November 2019 - Version Heldenplatz 3.8.1.0.
 

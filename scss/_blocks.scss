@@ -197,6 +197,10 @@
             height: 32px;
             top: 10px;
         }
+        .single-row,
+        .two-rows {
+            background-color: $sq-bgc-default;
+        }
         .blockpairs {
             margin-top: 0;
         }
