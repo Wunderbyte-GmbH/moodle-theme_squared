@@ -229,6 +229,27 @@ class toolbox {
     }
 
     /**
+     * Gets the setting moodle_url for the given setting if it exists and set.
+     *
+     * See: https://moodle.org/mod/forum/discuss.php?d=371252#p1516474 and change if theme_config::setting_file_url
+     * changes.
+     */
+    public function get_setting_moodle_url($setting) {
+        $settingurl = null;
+
+        $thesetting = self::get_config_setting($setting);
+        if (!empty($thesetting)) {
+            global $CFG;
+            $itemid = \theme_get_revision();
+            $syscontext = \context_system::instance();
+
+            $settingurl = \moodle_url::make_file_url("$CFG->wwwroot/pluginfile.php", "/$syscontext->id/theme_squared/$setting/$itemid".$thesetting);
+            $settingurl = preg_replace('|^https?://|i', '//', $settingurl->out(false));
+        }
+        return $settingurl;
+    }
+
+    /**
      * States if course content search can be used.  Will now work if theme is in $CFG->themedir.
      * @return boolean false|true if course content search can be used.
      */

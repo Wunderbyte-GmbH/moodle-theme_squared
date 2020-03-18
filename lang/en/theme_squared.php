@@ -42,6 +42,8 @@ $string['facebooklink'] = 'Link to your facebook page (optional)';
 $string['facebooklinkdesc'] = 'The link should look like this: http://www.facebook.com/yourpage';
 $string['fav'] = 'FontAwesome 5 Free';
 $string['favdesc'] = 'Use FontAwesome 5 Free for icons.  Note: Please see the license in the fonts folder of the theme.';
+$string['favicon'] = 'Custom favicon';
+$string['favicondesc'] = 'Upload your own favicon.  It should be an .ico file.';
 $string['footertext'] = 'Footer links';
 $string['footertextdesc'] = 'You can configure a custom listing here shown in the footer.
 Each line consists of some menu text an a link URL. For Example :

@@ -1055,6 +1055,20 @@ class core_renderer extends \theme_boost\output\core_renderer {
         );
     }
 
+    /**
+     * Returns the url of the custom favicon.
+     */
+    public function favicon() {
+        $toolbox = \theme_squared\toolbox::get_instance();
+        $favicon = $toolbox->get_setting_moodle_url('favicon');
+
+        if (empty($favicon)) {
+            return $this->page->theme->image_url('favicon', 'theme');
+        } else {
+            return $favicon;
+        }
+    }
+
     private function fontawesome($icon) {
         $toolbox = \theme_squared\toolbox::get_instance();
         if ($toolbox->get_setting('fav')) {

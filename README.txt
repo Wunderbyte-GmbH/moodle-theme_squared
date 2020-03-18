@@ -125,7 +125,7 @@ TBD - Version Heldenplatz 3.8.1.1.
   9. Fix 'Add a block' not working.
  10. Use 'format_string()' on 'h1.course-title' so that the mult-lang functionality works.
  11. Fix Accordion background > 786px.
-
+ 12. Add custom 'favicon' setting to the general settings.
 
 26th November 2019 - Version Heldenplatz 3.8.1.0.
 

@@ -116,7 +116,9 @@ function theme_squared_pluginfile($course, $cm, $context, $filearea, $args, $for
         $options['cacheability'] = 'public';
     }
     if ($context->contextlevel == CONTEXT_SYSTEM) {
-        if ($filearea === 'hvp') {
+        if ($filearea === 'favicon') {
+            return $theme->setting_file_serve('favicon', $args, $forcedownload, $options);
+        } else if ($filearea === 'hvp') {
             theme_squared_serve_hvp_css($args[1], $theme);
         } else if ($filearea) {
             return $theme->setting_file_serve ($filearea, $args, $forcedownload, $options);

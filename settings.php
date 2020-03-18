@@ -38,6 +38,9 @@ if (is_siteadmin()) {
     $sp = new admin_settingpage('theme_squared_basic', get_string('basicsettings', 'theme_squared'));
     $simset = new squared_simple_theme_settings($sp, 'theme_squared');
 
+    // Custom favicon.
+    $simset->add_file('favicon');
+
     $domain = preg_replace ( "(^https?://)", "", $CFG->wwwroot );
     $searchurl = 'https://www.google.com/search?as_sitesearch=' . $domain;
     $simset->add_text('searchurl', $searchurl);
