@@ -86,10 +86,6 @@ class toolbox {
                             .card-group {
                                 background-color: '.$theme->settings->$setting.';
                             }
-
-                            .over-hover-to-bottom:before {
-                                background-color: lighten('.$theme->settings->$setting.', 5%);
-                            }
                         }
                         .course-content .sectionname .sqheadingicon,
                         #page-header .context-header-settings-menu {
@@ -274,7 +270,7 @@ class toolbox {
         $categorycoursesearch = optional_param('ccs', 0, PARAM_INT);
         $frontpageavailablecourses = optional_param('sqfac', 0, PARAM_INT);
         $frontpagemycourses = optional_param('sqfmc', 0, PARAM_INT);
-        if (($courseautocompletesearchterm) || 
+        if (($courseautocompletesearchterm) ||
             ($categorycoursesearch) ||
             ($frontpageavailablecourses) ||
             ($frontpagemycourses)) {
