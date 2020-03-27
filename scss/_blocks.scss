@@ -121,7 +121,7 @@
 
     .blockheader {
         background-color: $sq-bgc-default;
-        @include gradient-directional(lighten($sq-bgc-default, 15%), lighten($sq-bgc-default, 5%));
+        @include gradient-directional(darken($sq-bgc-default, 5%), lighten($sq-bgc-default, 5%));
         border-radius: 0;
         display: block;
         .blockhead {

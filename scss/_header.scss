@@ -23,11 +23,13 @@
         background-repeat: no-repeat;
     }
     .logoimg {
-        background-size: auto 100%;
+        background-size: contain;
         background-position: center center;
     }
     .headerbgimg {
         background-position: right top;
+        background-size: contain;
+        background-color: $sq-green;
     }
     .logo {
         position: relative;
@@ -70,11 +72,10 @@
         .logoimg {
             height: 174px;
             width: 100%;
-            background-color: transparent;
             background-repeat: no-repeat;
         }
         .logoimg {
-            background-size: 100% auto;
+            background-size: contain;
         }
     }
 }
