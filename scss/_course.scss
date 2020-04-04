@@ -42,6 +42,8 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
             .activity {
                 background-color: #e1e0e0;
                 .card-header {
+                    display: flex;
+                    align-items: center;
                     background-color: #f6f6f6;
                     padding: 1.25rem 1.25rem 1.25rem 4.25rem;
                     transition: height 1s ease;
@@ -50,17 +52,18 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
                             display: none;
                         }
                         &.-expanded {
-                            .sqmodnametruncated {
-                                display: none;
-                            }
-                            .sqmodnamefull {
-                                display: inline;
-                            }
+                            white-space: normal;
+                            overflow: auto;
+                            text-overflow: initial;
                         }
                     }
                 }
                 .modname {
                     line-height: 34px;
+                    flex: 1;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
                 .sqactivityicon {
                     border-style: none;

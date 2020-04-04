@@ -132,7 +132,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $altname = get_accesshide(' ' . $altname);
         }
         $instanceattrs = array('class' => 'instancename modname');
+
         $toexpand = (core_text::strlen($instancename) > 48);
+        /*
         if ($toexpand) {
             $toexpand = html_writer::tag('span', core_text::substr($instancename, 0, 48).'...',
                 array('class' => 'sqmodnametruncated', 'aria-hidden' => 'true'));
@@ -140,6 +142,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $instanceattrs['aria-label'] = $instancename;
             $instancename = $toexpand;
         }
+        */
         $output .= html_writer::tag('span', $instancename.$altname, $instanceattrs);
 
         return array('toexpand' => $toexpand, 'output'=> $output);
