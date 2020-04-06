@@ -46,10 +46,12 @@ if (is_siteadmin()) {
         1 => get_string('moodlecoursesearch', 'theme_squared'),
         2 => get_string('advancedcoursearch', 'theme_squared')
     );
+    $default = 1;
     if ((!empty($CFG->enableglobalsearch)) && has_capability('moodle/search:query', context_system::instance())) {
         $options[3] = get_string('globalsearch', 'theme_squared');
+        $default = 3;
     }
-    $simset->add_select('navbarsearch', 2, $options);
+    $simset->add_select('navbarsearch', $default, $options);
 
     $simset->add_select('alternateloginurl', 0, $simset->mnet_choices());
     $simset->add_checkbox('hidelocallogin', 0, 1, 0);
