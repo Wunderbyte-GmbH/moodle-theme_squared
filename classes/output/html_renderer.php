@@ -249,41 +249,6 @@ class html_renderer extends \plugin_renderer_base {
     }
 
     /**
-     * Render the searchbox shown in the top navbar.
-     * TODO: Remove as no longer used.
-     */
-    public function searchbox($value = '') {
-        global $CFG;
-        if (empty($this->theme)) {
-            $this->theme = theme_config::load('squared');
-        }
-
-        $domain = preg_replace ( "(^https?://)", "", $CFG->wwwroot );
-        if (! empty ( $this->theme->settings->searchurl )) {
-            $url = new moodle_url ( $this->theme->settings->searchurl );
-            $hiddenfields = html_writer::input_hidden_params ( $url );
-            $formaction = $url->out_omit_querystring ();
-        } else {
-            $hiddenfields = '';
-            $formaction = 'http://www.google.com/search';
-        }
-        if (! empty ( $this->theme->settings->searchfield )) {
-            $searchfield = $this->theme->settings->searchfield;
-        } else {
-            $searchfield = "q";
-        }
-
-        $configsearchurl = $this->theme->settings->searchurl;
-        $searchurl = empty($configsearchurl) ? '/course/search.php' : $formaction;
-        $templateinfo = new \stdClass();
-        $templateinfo->formaction = $formaction;
-        $templateinfo->hiddenfields = $hiddenfields;
-        $templateinfo->searchfield = $searchfield;
-        $templateinfo->fav = \theme_squared\toolbox::get_config_setting('fav');
-        return $this->render_from_template('theme_squared/navbarsearch', $templateinfo);
-    }
-
-    /**
      * Find the toplevel category for use in the bodyclasses
      */
     public function toplevel_category() {

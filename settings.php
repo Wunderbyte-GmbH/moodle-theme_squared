@@ -41,11 +41,6 @@ if (is_siteadmin()) {
     // Custom favicon.
     $simset->add_file('favicon');
 
-    $domain = preg_replace ( "(^https?://)", "", $CFG->wwwroot );
-    $searchurl = 'https://www.google.com/search?as_sitesearch=' . $domain;
-    $simset->add_text('searchurl', $searchurl);
-    $simset->add_text('searchfield');
-
     // Navbar search.
     $options = array(
         1 => get_string('moodlecoursesearch', 'theme_squared'),
@@ -54,7 +49,7 @@ if (is_siteadmin()) {
     if ((!empty($CFG->enableglobalsearch)) && has_capability('moodle/search:query', context_system::instance())) {
         $options[3] = get_string('globalsearch', 'theme_squared');
     }
-    $simset->add_select('navbarsearch', 1, $options);
+    $simset->add_select('navbarsearch', 2, $options);
 
     $simset->add_select('alternateloginurl', 0, $simset->mnet_choices());
     $simset->add_checkbox('hidelocallogin', 0, 1, 0);
