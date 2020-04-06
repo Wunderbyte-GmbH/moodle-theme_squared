@@ -47,15 +47,10 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
                     background-color: #f6f6f6;
                     padding: 1.25rem 1.25rem 1.25rem 4.25rem;
                     transition: height 1s ease;
-                    .instancename {
-                        .sqmodnamefull {
-                            display: none;
-                        }
-                        &.-expanded {
-                            white-space: normal;
-                            overflow: auto;
-                            text-overflow: initial;
-                        }
+                    .instancename.-expanded {
+                        overflow: auto;
+                        text-overflow: initial;
+                        white-space: normal;
                     }
                 }
                 .modname {

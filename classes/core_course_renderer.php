@@ -131,21 +131,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         if ($altname) {
             $altname = get_accesshide(' ' . $altname);
         }
-        $instanceattrs = array('class' => 'instancename modname');
 
-        $toexpand = (core_text::strlen($instancename) > 48);
-        /*
-        if ($toexpand) {
-            $toexpand = html_writer::tag('span', core_text::substr($instancename, 0, 48).'...',
-                array('class' => 'sqmodnametruncated', 'aria-hidden' => 'true'));
-            $toexpand .= html_writer::tag('span', $instancename, array('class' => 'sqmodnamefull', 'aria-hidden' => 'true'));
-            $instanceattrs['aria-label'] = $instancename;
-            $instancename = $toexpand;
-        }
-        */
-        $output .= html_writer::tag('span', $instancename.$altname, $instanceattrs);
+        $output .= html_writer::tag('span', $instancename.$altname, array('class' => 'instancename modname'));
 
-        return array('toexpand' => $toexpand, 'output'=> $output);
+        return array('toexpand' => (core_text::strlen($instancename) > 48), 'output'=> $output);
     }
 
     /**
