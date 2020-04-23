@@ -45,7 +45,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return string HTML to display the main header.
      */
     public function full_header() {
-        $html = html_writer::start_tag('header', array('id' => 'main-header', 'class' => 'row'));
+        $html = html_writer::start_tag('header', array('id' => 'main-header', 'class' => 'row p-a-1'));
         $usecourseimage = ((!empty($this->page->layout_options['courseimage'])) &&
             (!empty($this->page->theme->settings->courseheaderimage)));
         $courseheader = $this->course_header();
@@ -55,12 +55,28 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $contextheader = $this->context_header();
         }
         if ((!empty($courseheader)) || (!empty($contextheader))) {
-            $html .= html_writer::start_div('col-xs-12 p-a-1');
+            if (($this->page->pagelayout == 'mydashboard') && (\theme_squared\toolbox::course_content_search())) {
+                $html .= html_writer::start_div('col-xs-8');
+                $courseitemsearch = '<div class="courseitemsearch mdl-right">';
+                $courseitemsearch .= '<div><p>'.get_string('findcoursecontent', 'theme_squared').'</p></div>';
+                $courseitemsearch .= '<div id="courseitemsearchresults">';
+                $courseitemsearch .= '<input type="text" name="courseitemsearch" id="courseitemsearch" disabled="disabled">';
+                $courseitemsearch .= '</div></div>';
+            } else {
+                $html .= html_writer::start_div('col-xs-12');
+            }
             if ($contextheader) {
                 $html .= html_writer::start_div('pull-xs-left');
                 $html .= $contextheader;
                 $html .= html_writer::end_div();
             }
+            if (!empty($courseitemsearch)) {
+                $html .= html_writer::end_div();
+                $html .= html_writer::start_div('col-xs-4');
+                $html .= $courseitemsearch;
+            }
+            $html .= html_writer::end_div();
+            $html .= html_writer::start_div('col-xs-12');
             $html .= html_writer::tag('div', $courseheader, array('id' => 'course-header'));
             $html .= html_writer::end_div();
         }
@@ -184,29 +200,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }
         }
         return parent::body_attributes($additionalclasses);
-    }
-
-    /**
-     * Returns course-specific information to be output immediately above content on any course page
-     * (for the current course)
-     *
-     * @param bool $onlyifnotcalledbefore output content only if it has not been output before
-     * @return string
-     */
-    public function course_content_header($onlyifnotcalledbefore = false) {
-        $content = parent::course_content_header($onlyifnotcalledbefore);
-
-        if ($this->page->pagelayout == 'mydashboard') {
-            if (\theme_squared\toolbox::course_content_search()) {
-                $content .= '<div class="courseitemsearch mdl-align">';
-                $content .= '<div><p>'.get_string('findcoursecontent', 'theme_squared').'</p></div>';
-                $content .= '<div id="courseitemsearchresults">';
-                $content .= '<input type="text" name="courseitemsearch" id="courseitemsearch" disabled="disabled">';
-                $content .= '</div></div>';
-            }
-        }
-
-        return $content;
     }
 
     /**
