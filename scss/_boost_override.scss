@@ -56,6 +56,14 @@
         &:last-child {
             border-bottom: 0;
         }
+        @include hover-focus {
+            a {
+                color: inherit;
+                .icon {
+                    color: inherit;
+                }
+            }
+        }
     }
     .dropdown-divider {
         display: none;
