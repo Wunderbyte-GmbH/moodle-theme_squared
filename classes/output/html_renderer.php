@@ -127,22 +127,8 @@ class html_renderer extends \plugin_renderer_base {
         global $OUTPUT;
         $template = new \stdClass();
         $template->output = $OUTPUT;
-        /*$template->siteurl = new moodle_url('/');
-        $template->sitename = $SITE->shortname;
-        $template->usermenu = $OUTPUT->user_menu();
-        $template->custommenu = $OUTPUT->custom_menu();
-        $template->pageheadingmenu = $OUTPUT->page_heading_menu();
-        if (isset($OUTPUT->page->layout_options['langmenu'])) {
-            $template->languagemenu = $this->languagemenu();
-        }
-        $template->search = $this->searchbox();
-        if ($CFG->branch >= 33) {
-            $template->togglebtn = $OUTPUT->image_url('more-button', 'theme_squared');
-        } else {
-            $template->togglebtn = $OUTPUT->pix_url('more-button', 'theme_squared');
-        }*/
-
         $template->navpositionfixed = $fixednavbar;
+
         return $this->render_from_template('theme_squared/navigation', $template);
     }
 

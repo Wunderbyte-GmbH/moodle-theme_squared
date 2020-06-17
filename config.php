@@ -140,7 +140,7 @@ $THEME->layouts = array(
         'defaultregion' => 'side-pre',
     ),
     'secure' => array(
-        'file' => 'default.php',
+        'file' => 'secure.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre'
     ),

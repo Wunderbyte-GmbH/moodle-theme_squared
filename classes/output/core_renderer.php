@@ -56,27 +56,27 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         if ((!empty($courseheader)) || (!empty($contextheader))) {
             if (($this->page->pagelayout == 'mydashboard') && (\theme_squared\toolbox::course_content_search())) {
-                $html .= html_writer::start_div('col-xs-8');
+                $html .= html_writer::start_div('col-8');
                 $courseitemsearch = '<div class="courseitemsearch mdl-right">';
                 $courseitemsearch .= '<div><p>'.get_string('findcoursecontent', 'theme_squared').'</p></div>';
                 $courseitemsearch .= '<div id="courseitemsearchresults">';
                 $courseitemsearch .= '<input type="text" name="courseitemsearch" id="courseitemsearch" disabled="disabled">';
                 $courseitemsearch .= '</div></div>';
             } else {
-                $html .= html_writer::start_div('col-xs-12');
+                $html .= html_writer::start_div('col-12');
             }
             if ($contextheader) {
-                $html .= html_writer::start_div('pull-xs-left');
+                $html .= html_writer::start_div('pull-left');
                 $html .= $contextheader;
                 $html .= html_writer::end_div();
             }
             if (!empty($courseitemsearch)) {
                 $html .= html_writer::end_div();
-                $html .= html_writer::start_div('col-xs-4');
+                $html .= html_writer::start_div('col-4');
                 $html .= $courseitemsearch;
             }
             $html .= html_writer::end_div();
-            $html .= html_writer::start_div('col-xs-12');
+            $html .= html_writer::start_div('col-12');
             $html .= html_writer::tag('div', $courseheader, array('id' => 'course-header'));
             $html .= html_writer::end_div();
         }
@@ -651,7 +651,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     $count = 1;
                 } else {
                     $pair = new stdClass();
-                    $pair->class = 'col-xs-6';
+                    $pair->class = 'col-6';
                     $pair->blocka = $block;
                     $count++;
                 }
@@ -659,7 +659,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             if ($pair) {
                 if (($numblocks % 2) != 0) {
                     $pair->blocka->shape = 'rectangle';
-                    $pair->class = 'col-xs-12 lastblock';
+                    $pair->class = 'col-12 lastblock';
                 }
                 $template->pairs[] = $pair;
             }
