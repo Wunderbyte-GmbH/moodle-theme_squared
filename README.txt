@@ -60,11 +60,11 @@ in order to improve the theme or add your settings.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 3.8 version 2019111800.00 (Build: 20191118) and above within the 3.8 branch until the
+This version works with Moodle 3.9 version 2020061500.00 (Build: 20200615) and above within the 3.9 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/38/en/Installing_Moodle'.
+'docs.moodle.org/39/en/Installing_Moodle'.
 
 Installation
 ============
@@ -113,6 +113,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+19th June 2010 - Maria-Theresien-Platz 3.9.1.0.
+  1. Update to Moodle 3.9.
+  2. Same functionality as 3.8.1.1.
+
 TBD - Version Heldenplatz 3.8.1.1.
   1. Logo change.
   2. Slight 1px border on region-main.
