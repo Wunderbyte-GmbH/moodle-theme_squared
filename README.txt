@@ -113,7 +113,7 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-TBD - Version Heldenplatz 3.8.1.1.
+19th June 2020 - Version Heldenplatz 3.8.1.1.
   1. Logo change.
   2. Slight 1px border on region-main.
   3. region-main padding.
