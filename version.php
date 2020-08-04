@@ -26,9 +26,9 @@
  */
 defined ( 'MOODLE_INTERNAL' ) || die ();
 
-$plugin->version = 2020061701;
+$plugin->version = 2020061702;
 $plugin->requires  = 2020061500.00; // 3.9 (Build: 20200615).
-$plugin->release = "Maria-Theresien-Platz 3.9.1.0"; // Release name: Famous squares around the world followed by Moodle version followed by stability number (> 1 = stable) followed by revision.
+$plugin->release = "Maria-Theresien-Platz 3.9.1.1"; // Release name: Famous squares around the world followed by Moodle version followed by stability number (> 1 = stable) followed by revision.
 $plugin->maturity = MATURITY_STABLE;
 $plugin->component = 'theme_squared'; // Full name of the plugin (used for diagnostics)
 $plugin->dependencies = array (
