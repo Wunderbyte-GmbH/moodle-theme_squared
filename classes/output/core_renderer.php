@@ -528,7 +528,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $lastblock = null;
         $zones = array();
         foreach ($blocks as $block) {
-            if (($block->instance->blockname == 'navigation') || $block->instance->blockname == 'settings')) {
+            if (($block->instance->blockname == 'navigation') || ($block->instance->blockname == 'settings')) {
                 continue;
             }
             $zones[] = $block->title;
