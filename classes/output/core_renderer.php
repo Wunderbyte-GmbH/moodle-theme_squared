@@ -1073,6 +1073,70 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
     }
 
+    /**
+     * Outputs the opening section of a box.
+     *
+     * @param string $classes A space-separated list of CSS classes.
+     * @param string $id An optional ID.
+     * @param array $attributes An array of other attributes to give the box.
+     * @return string the HTML to output.
+     */
+    public function box_start($classes = 'generalbox', $id = null, $attributes = array()) {
+        $output = '';
+
+        if (strpos($classes, 'book_content') !== false) {
+            global $DB;
+
+            // Viewing a book chapter.
+            $id = optional_param('id', 0, PARAM_INT); // Course Module ID.
+            if ($id) {
+                $cm = get_coursemodule_from_id('book', $id, 0, false, MUST_EXIST);
+                $book = $DB->get_record('book', array('id' => $cm->instance), '*', MUST_EXIST);
+            } else {
+                $bid = optional_param('b', 0, PARAM_INT); // Book id.
+                $book = $DB->get_record('book', array('id' => $bid), '*', MUST_EXIST);
+                $cm = get_coursemodule_from_instance('book', $book->id, 0, false, MUST_EXIST);
+                $id = $cm->id;
+            }
+
+            $context = \context_module::instance($cm->id);
+            if (has_capability('mod/book:edit', $context)) {
+                $chapterid = optional_param('chapterid', 0, PARAM_INT); // Chapter ID.
+
+                if ($chapterid == '0') { // Go to first chapter if none given.
+                    // Read chapters.
+                    $chapters = book_preload_chapters($book);
+                    $viewhidden = has_capability('mod/book:viewhiddenchapters', $context);
+                    foreach ($chapters as $ch) {
+                        if ($ch->hidden && $viewhidden) {
+                            $chapterid = $ch->id;
+                            break;
+                        }
+                        if (!$ch->hidden) {
+                            $chapterid = $ch->id;
+                            break;
+                        }
+                    }
+                }
+                $chapter = $DB->get_record('book_chapters', array('id' => $chapterid, 'bookid' => $book->id));
+
+                $title = trim(format_string($chapter->title, true, array('context' => $context)));
+                $titleunescaped = trim(format_string($chapter->title, true, array('context' => $context, 'escape' => false)));
+                $output .= html_writer::link(new moodle_url('/mod/book/edit.php', array('cmid' => $cm->id, 'id' => $chapterid)),
+                    $this->pix_icon('t/edit', get_string('editchapter', 'mod_book', $title)),
+                    array(
+                        'title' => get_string('editchapter', 'mod_book', $titleunescaped),
+                        'class' => 'pull-right pt-3'
+                    )
+                );
+            }
+        }
+
+        $output .= parent::box_start($classes, $id, $attributes);
+
+        return $output;
+    }
+
     private function fontawesome($icon) {
         $toolbox = \theme_squared\toolbox::get_instance();
         if ($toolbox->get_setting('fav')) {
