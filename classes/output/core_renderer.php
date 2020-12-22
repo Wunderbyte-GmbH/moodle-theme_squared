@@ -1083,6 +1083,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      */
     public function box_start($classes = 'generalbox', $id = null, $attributes = array()) {
         $output = '';
+        $classes = \renderer_base::prepare_classes($classes);
 
         if (strpos($classes, 'book_content') !== false) {
             global $DB;
