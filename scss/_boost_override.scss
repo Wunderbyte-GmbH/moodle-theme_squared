@@ -56,9 +56,11 @@
         &:last-child {
             border-bottom: 0;
         }
-        @include hover-focus {
+        &:active,
+        &:hover,
+        &:focus,
+        &:focus-within {
             a {
-                color: inherit;
                 .icon {
                     color: inherit;
                 }
