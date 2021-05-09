@@ -6,7 +6,6 @@
         .inner {
             background-color: transparent;
             height: 124px;
-            width: 124px;
             margin: 0 auto;
         }
     }
@@ -27,7 +26,7 @@
         background-position: center center;
     }
     .headerbgimg {
-        background-position: right top;
+        background-position: right center;
         background-size: contain;
         background-color: $sq-green;
     }
@@ -57,7 +56,7 @@
             }
         }
         .background {
-        	display: block;
+            display: block;
             &.grid {
                 padding-left: 0;
             }

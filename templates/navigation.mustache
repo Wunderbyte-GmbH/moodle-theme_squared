@@ -1,24 +1,30 @@
 <header role="banner" class="navbar navbar-expand-lg navbar-light bg-light moodle-has-zindex position-{{#navpositionfixed}}fixed{{/navpositionfixed}}{{^navpositionfixed}}static{{/navpositionfixed}}">
-    <nav class="nav navbar-nav mr-auto sq-hidden-md-down">
+    <ul class="nav navbar-nav mr-auto sq-hidden-md-down">
         <!-- custom_menu -->
         {{{ output.custom_menu }}}
         <!-- page_heading_menu -->
         {{{ output.page_heading_menu }}}
-    </nav>
+    </ul>
 
-    <nav class="nav nav-nowrap ml-auto">
+    <ul class="nav nav-nowrap ml-auto">
         <!-- search_box -->
-        <span class="sq-hidden-md-down">
-        {{{ output.search_box }}}
-        </span>
+        <li class="nav-item sq-hidden-md-down">
+            {{{ output.search_box }}}
+        </li>
 
         <!-- navbar_settings_menu_output -->
-        {{{ output.navbar_settings_menu }}}
+        <li class="nav-item">
+            {{{ output.navbar_settings_menu }}}
+        </li>
 
         <!-- navbar_plugin_output -->
-        {{{ output.navbar_plugin_output }}}
+        <li class="nav-item d-flex">
+            {{{ output.navbar_plugin_output }}}
+        </li>
 
         <!-- user_menu -->
-        {{{ output.user_menu }}}
-    </nav>
+        <li class="nav-item">
+            {{{ output.user_menu }}}
+        </li>
+    </ul>
 </header>

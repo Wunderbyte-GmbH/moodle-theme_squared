@@ -2,7 +2,7 @@
 // Extra Variables
 // --------------------------------------------------
 
-$screen-breakpoint: map-get($grid-breakpoints, "md");
+$screen-breakpoint: map-get($grid-breakpoints, "sm");
 
 // Conversions
 $navbar-default-color: $navbar-dark-color;
