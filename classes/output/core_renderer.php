@@ -245,37 +245,23 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }
         }
 
-        if ($id == false) {
-            $id = uniqid();
-        } else {
-            // Needs to be cleaned, we use it for the input id.
-            $id = clean_param($id, PARAM_ALPHANUMEXT);
-        }
-
+        $icon = 'icon ';
         if (\theme_squared\toolbox::get_config_setting('fav')) {
-            $icon = 'fas fa-search';
+            $icon .= 'fas fa-search';
         } else {
-            $icon = 'fa fa-search';
+            $icon .= 'fa fa-search';
         }
         $searchicon = html_writer::tag('span', '', array('title' => get_string('search', 'search'), 'class' => $icon));
-        $searchicon = html_writer::tag('div', $searchicon, array('id' => 'sqsearchbutton', 'role' => 'button', 'tabindex' => 0));
 
-        if ($navbarsearch == 1) {
-            // Based on 'course_search_form' in the core course renderer.
-            // JS to animate the form.
-            $this->page->requires->js_call_amd('core/search-input', 'init', array($id));
-            $strsearchcourses = get_string("searchcourses");
-            $searchurl = new moodle_url('/course/search.php');
-
-            $searchinput = html_writer::start_tag('form', array('id' => 'fid_'.$id, 'action' => $searchurl, 'method' => 'get'));
-            $inputid = 'inp_'.$id;
-            $searchinput .= html_writer::tag('label', $strsearchcourses.': ', array('for' => $inputid, 'class' => 'accesshide'));
-            $searchinput .= html_writer::empty_tag('input', array('type' => 'text', 'id' => $inputid,
-                'size' => 19, 'name' => 'search'));
-            $searchinput .= html_writer::end_tag('form');
-
-        } else if ($navbarsearch == 2) {
-            $squaredsearch = new \moodle_url('/course/index.php');
+        if ($navbarsearch == 2) {
+            // Squared custom advanced course search.
+            if ($id == false) {
+                $id = uniqid();
+            } else {
+                // Needs to be cleaned, we use it for the input id.
+                $id = clean_param($id, PARAM_ALPHANUMEXT);
+            }
+            $squaredsearch = new moodle_url('/course/index.php');
             $squaredsearch->param('sesskey', sesskey());
             $navbaradvsearchdata = array('data' => array('theme' => $squaredsearch->out(false), 'id' => $id));
             $this->page->requires->js_call_amd('theme_squared/navbar_advanced_search', 'init', $navbaradvsearchdata);
@@ -286,22 +272,29 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $searchinput .= '<input type="text" name="navbaradvsearch" id="navbaradvsearch" disabled="disabled">';
             $searchinput .= '</span>';
 
-        } else if ($navbarsearch == 3) {
-            global $CFG;
-            // JS to animate the form.
-            $this->page->requires->js_call_amd('core/search-input', 'init', array($id));
+            $searchicon = html_writer::tag('div', $searchicon, array('id' => 'sqsearchbutton', 'role' => 'button', 'tabindex' => 0));
 
-            $formattrs = array('class' => 'search-input-form', 'action' => $CFG->wwwroot . '/search/index.php');
-            $inputattrs = array('type' => 'text', 'name' => 'q', 'placeholder' => get_string('search', 'search'),
-                'size' => 19, 'tabindex' => -1, 'id' => 'id_q_'.$id);
-            $contents = html_writer::tag('label', get_string('enteryoursearchquery', 'search'),
-                array('for' => 'id_q_' . $id, 'class' => 'accesshide')) . html_writer::tag('input', '', $inputattrs);
-            $searchinput = html_writer::tag('form', $contents, $formattrs);
+            $search = html_writer::tag('div', $searchinput.$searchicon, array('class' => 'search-input-wrapper nav-link', 'id' => $id));
         } else {
-            return '';
+            if ($navbarsearch == 3) {
+                $action = new moodle_url('/search/index.php');
+                $searchstring = get_string('globalsearch', 'core_admin');
+            } else {
+                $action = new moodle_url('/course/search.php');
+                $searchstring = get_string('searchcourses');
+            }
+
+            $data = [
+                'action' => $action,
+                'hiddenfields' => (object) ['name' => 'context', 'value' => $this->page->context->id],
+                'inputname' => 'q',
+                'searchstring' => $searchstring,
+                'searchicon' => $searchicon
+            ];
+            $search = $this->render_from_template('theme_squared/squared_search_input_navbar', $data);
         }
 
-        return html_writer::tag('div', $searchinput.$searchicon, array('class' => 'search-input-wrapper nav-link', 'id' => $id));
+        return $search;
     }
 
     /**

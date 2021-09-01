@@ -210,6 +210,13 @@
     opacity: 1;
 }
 
+.squared-search-input-navbar {
+    margin-top: 3px;
+    .icon {
+        color: $body-color;
+    }
+}
+
 .popover-region-messages .popover-region-toggle .icon {
     margin-top: 5px;
 }

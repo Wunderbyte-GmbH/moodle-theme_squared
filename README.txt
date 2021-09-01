@@ -116,6 +116,7 @@ Version Information
 1st September 2021 - Rathausplatz 3.10.1.0
   1. Update to Moodle 3.10.
   2. Same functionality as 3.9.1.1.
+  3. Fix 'Search field in navbar is collapsed (due to JS error)' - #9.
 
 19th June 2020 - Maria-Theresien-Platz 3.9.1.0.
   1. Update to Moodle 3.9.
