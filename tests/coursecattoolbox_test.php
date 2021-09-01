@@ -37,7 +37,7 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
     private $testcategory;
     private $toolbox;
 
-    protected function setUp() {
+    protected function setUp(): void {
         $this->resetAfterTest(true);
 
         set_config('theme', 'squared');

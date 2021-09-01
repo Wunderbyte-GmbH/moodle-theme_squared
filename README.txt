@@ -113,7 +113,11 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-19th June 2010 - Maria-Theresien-Platz 3.9.1.0.
+1st September 2021 - Rathausplatz 3.10.1.0
+  1. Update to Moodle 3.10.
+  2. Same functionality as 3.9.1.1.
+
+19th June 2020 - Maria-Theresien-Platz 3.9.1.0.
   1. Update to Moodle 3.9.
   2. Same functionality as 3.8.1.1.
 
