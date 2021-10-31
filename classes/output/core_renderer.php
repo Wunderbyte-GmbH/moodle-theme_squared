@@ -230,7 +230,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function search_box($id = false) {
         $navbarsearch = (empty($this->page->theme->settings->navbarsearch)) ? false : $this->page->theme->settings->navbarsearch;
 
-        if (empty($navbarsearch)) {
+        if ((empty($navbarsearch)) || (\theme_squared\toolbox::search_page($this->page->pagetype))) { // Don't duplicate the search boxes.
             return '';
         }
 

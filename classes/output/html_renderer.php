@@ -128,6 +128,7 @@ class html_renderer extends \plugin_renderer_base {
         $template = new \stdClass();
         $template->output = $OUTPUT;
         $template->navpositionfixed = $fixednavbar;
+        $template->searchbox = $OUTPUT->search_box();
 
         return $this->render_from_template('theme_squared/navigation', $template);
     }

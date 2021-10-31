@@ -261,6 +261,19 @@ class toolbox {
     }
 
     /**
+     * States if the page type is a search one.
+     *
+     * @param string $pagetype The page type.
+     * @return boolean true / false.
+     */
+    public static function search_page($pagetype) {
+        if (($pagetype == 'search-index') || ($pagetype == 'course-search')) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Helper method for the default layout file.
      */
     public function default_ajax() {
