@@ -500,7 +500,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $output = '';
         if ($title || $controlshtml) {
             $output .= html_writer::tag('div', html_writer::tag('div', $iconarea.html_writer::tag('div', '',
-                array('class'=>'block_action')).$title, array('class' => 'title')), array('class' => 'header'));
+                array('class' => 'block_action')).$title, array('class' => 'title')), array('class' => 'header'));
         }
         return $output;
     }
@@ -551,15 +551,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $template = new stdClass();
 
         // Add flat navigation.
-        global $PAGE;
         $flatnavname = get_string('flatnavigation', 'theme_squared');
-        $templatecontext = array('flatnavigation' => $PAGE->flatnav);
+        $templatecontext = array('flatnavigation' => $this->page->flatnav);
         $thisblock = new stdClass();
         $thisblock->name = 'block_flat_navigation';
         $thisblock->title = '<span class="title">'.$flatnavname.'</span>';
         $thisblock->header = '<div role="button" class="collapselink" data-toggle="collapse" data-target="#subcollapsefake9999" aria-expanded="false" aria-controls="instfake9999">'.
-            '<div class="header"><div class="title"><div class="d-inline-block icon-container"><div class="courseblock-icon"></div></div><h2 class="sqtitle">'.$flatnavname.'</h2></div></div>'.
-            '</div>';
+            '<div class="header"><div class="title"><div class="d-inline-block icon-container"><div class="courseblock-icon"></div></div><h2 class="sqtitle">'.
+            $flatnavname.'</h2></div></div></div>';
         $thisblock->content = $this->render_from_template('theme_squared/flat_navigation_content', $templatecontext);
         $thisblock->blockinstanceid = "fake9999"; // Not sure!  But we are a 'fake' block.
         $thisblock->instanceid = "fake9999";
@@ -766,7 +765,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     protected function block_content(block_contents $bc) {
         $output = html_writer::start_tag('div', array('class' => 'content'));
         if (!$bc->title && !$this->block_controls($bc->controls)) {
-            $output .= html_writer::tag('div', '', array('class'=>'block_action notitle'));
+            $output .= html_writer::tag('div', '', array('class' => 'block_action notitle'));
         }
         $output .= $bc->content;
         $output .= $this->block_footer($bc);

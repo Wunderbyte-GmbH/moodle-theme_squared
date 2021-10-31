@@ -304,13 +304,13 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
 
         $offset = 3 * $perpage;
         $searchresults = $this->toolbox->search_courses('', array('offset' => $offset, 'limit' => $perpage))['courses'];
-        $this->assertEquals(3, count($searchresults));
+        $this->assertEquals(1, count($searchresults));
         $expectedresultcount = 0;
         foreach ($searchresults as $courseinlistobject) {
             $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
             $expectedresultcount++;
         }
-        $this->assertEquals(3, $expectedresultcount);
+        $this->assertEquals(1, $expectedresultcount);
     }
 
     public function test_search_some_courses_pages() {

@@ -35,12 +35,12 @@ class coursecat_toolbox extends \core_course_category {
 
     protected static $instance;
 
-    public const allpostfix = '_all';
-    public const allpostfixlen = 4;
-    public const coursepostfix = '_course';
-    public const coursepostfixlen = 7;
-    public const forcourse = 'course';
-    public const foroverview = 'overview';
+    public const ALLPOSTFIX = '_all';
+    public const ALLPOSTFIXLEN = 4;
+    public const COURSEPOSTFIX = '_course';
+    public const COURSEPOSTFIXLEN = 7;
+    public const FORCOURSE = 'course';
+    public const FOROVERVIEW = 'overview';
 
     protected function __construct() {
         // Using pseudo category '0', see the 'get' method in the parent.
@@ -152,7 +152,7 @@ class coursecat_toolbox extends \core_course_category {
 
     /**
      * Gets the image url or generated image url if no image in the course summary files for the given course.
-     * 
+     *
      * @param core_course_list_element|stdClass $course The course to use.
      * @param string $for 'course'|'overview' Specify the image to get if any.
      *
@@ -173,7 +173,7 @@ class coursecat_toolbox extends \core_course_category {
 
     /**
      * Gets the image url or empty url if no image in the course summary files for the given course.
-     * 
+     *
      * @param core_course_list_element|stdClass $course The course to use.
      * @param string $for 'course'|'overview' Specify the image to get if any.
      *
@@ -187,7 +187,7 @@ class coursecat_toolbox extends \core_course_category {
 
             If no image then 'courseheaderimagefallback' setting kicks in.
         */
-        $forcourse = (strcmp(self::forcourse, $for) === 0);
+        $forcourse = (strcmp(self::FORCOURSE, $for) === 0);
 
         $primarycandidates = array();
         $secondarycandidates = array();
@@ -201,11 +201,11 @@ class coursecat_toolbox extends \core_course_category {
                    For the course, then pick the first _all then the first _course or nothing.
                    For the course overview, then pick the first _all then the first image as long as it is not a _course.
                 */
-                if (\core_text::substr($filename, -self::coursepostfixlen) === self::coursepostfix) {
+                if (\core_text::substr($filename, -self::COURSEPOSTFIXLEN) === self::COURSEPOSTFIX) {
                     if ($forcourse) {
                         $secondarycandidates[$filename] = $file;
                     }
-                } else if (\core_text::substr($filename, -self::allpostfixlen) === self::allpostfix) {
+                } else if (\core_text::substr($filename, -self::ALLPOSTFIXLEN) === self::ALLPOSTFIX) {
                     $primarycandidates[$filename] = $file;
                 } else if (!$forcourse) {
                     $secondarycandidates[$filename] = $file;
@@ -232,7 +232,7 @@ class coursecat_toolbox extends \core_course_category {
 
     /**
      * Gets the generated image url for the given course.
-     * 
+     *
      * @param core_course_list_element|stdClass $course The course to use.
      *
      * @return string The url.
@@ -248,7 +248,7 @@ class coursecat_toolbox extends \core_course_category {
             'nested_squares',
             'mosaic_squares'
         ];
-        $pattern = $patterns[rand(0, (count($patterns) -1))];
+        $pattern = $patterns[rand(0, (count($patterns) - 1))];
         $geopattern->setGenerator($pattern);
         return $geopattern->datauri();
     }
@@ -256,7 +256,7 @@ class coursecat_toolbox extends \core_course_category {
     /**
      * Generate a semi-random colour based on the courseid number (so it will always return
      * the same colour for a course).
-     * 
+     *
      * Code from /blocks/myoverview/classses/output/courses_view.php.
      *
      * @param int $courseid.

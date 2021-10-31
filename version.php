@@ -29,7 +29,8 @@ defined ( 'MOODLE_INTERNAL' ) || die ();
 $plugin->version = 2021090100;
 $plugin->requires  = 2020110900.00; // 3.10 (Build: 20201109).
 $plugin->supported = array(310, 310);
-$plugin->release = "Rathausplatz 3.10.1.0"; // Release name: Famous squares around the world followed by Moodle version followed by stability number (> 1 = stable) followed by revision.
+ // Release name: Famous squares around the world followed by Moodle version followed by stability number (> 1 = stable) followed by revision.
+$plugin->release = "Rathausplatz 3.10.1.0";
 $plugin->maturity = MATURITY_STABLE;
 $plugin->component = 'theme_squared'; // Full name of the plugin (used for diagnostics).
 $plugin->dependencies = array (

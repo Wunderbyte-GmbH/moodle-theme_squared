@@ -28,7 +28,6 @@ namespace theme_squared\output;
 defined('MOODLE_INTERNAL') || die;
 
 use custom_menu;
-use html_writer;
 use moodle_url;
 use stdClass;
 use theme_config;
@@ -124,11 +123,10 @@ class html_renderer extends \plugin_renderer_base {
      * Full top Navbar. Returns Mustache rendered menu.
      */
     protected function navigation_menu($fixednavbar = false) {
-        global $OUTPUT;
         $template = new \stdClass();
-        $template->output = $OUTPUT;
+        $template->output = $this->output;
         $template->navpositionfixed = $fixednavbar;
-        $template->searchbox = $OUTPUT->search_box();
+        $template->searchbox = $this->output->search_box();
 
         return $this->render_from_template('theme_squared/navigation', $template);
     }
@@ -137,7 +135,7 @@ class html_renderer extends \plugin_renderer_base {
      * Render the social icons shown in the page footer.
      */
     public function squared_socialicons() {
-        global $OUTPUT, $CFG;
+        global $CFG;
         $content = '';
 
         if (empty($this->theme)) {
@@ -160,7 +158,7 @@ class html_renderer extends \plugin_renderer_base {
                 $icon = new stdClass();
                 $icon->url = $this->theme->settings->$si;
                 $icon->name = str_replace('link', '', $si);
-                $icon->image = $OUTPUT->$imageurlfunc($icon->name, 'theme');
+                $icon->image = $this->output->$imageurlfunc($icon->name, 'theme');
                 $template->icons[] = $icon;
             }
         }
@@ -171,11 +169,10 @@ class html_renderer extends \plugin_renderer_base {
      * Render the language menu.
      */
     public function languagemenu() {
-        global $OUTPUT;
         if (empty($this->theme)) {
             $this->theme = theme_config::load('squared');
         }
-        $haslangmenu = $OUTPUT->lang_menu() != '';
+        $haslangmenu = $this->output->lang_menu() != '';
         $langmenu = new stdClass();
 
         if ($haslangmenu) {
@@ -202,13 +199,12 @@ class html_renderer extends \plugin_renderer_base {
      * Render the text shown in the page footer.
      */
     public function footer() {
-        global $OUTPUT;
         if (empty($this->theme)) {
             $this->theme = theme_config::load('squared');
         }
 
         $template = new stdClass();
-        $template->coursefooter = $OUTPUT->course_footer();
+        $template->coursefooter = $this->output->course_footer();
 
         $template->list = array();
 
@@ -229,7 +225,7 @@ class html_renderer extends \plugin_renderer_base {
             $template->footnote = $this->theme->settings->footnote;
         }
 
-        $template->logininfo = $OUTPUT->login_info();
+        $template->logininfo = $this->output->login_info();
         $template->standardfooterhtml = $this->standard_footer_html();
 
         return $this->render_from_template('theme_squared/footer', $template);

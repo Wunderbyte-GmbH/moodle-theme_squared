@@ -220,7 +220,7 @@ class toolbox {
      * @param string $setting Setting name.
      * @return any false|value of setting.
      */
-    static public function get_config_setting($setting) {
+    public static function get_config_setting($setting) {
         return \get_config('theme_squared', $setting);
     }
 
@@ -249,7 +249,7 @@ class toolbox {
      * States if course content search can be used.  Will now work if theme is in $CFG->themedir.
      * @return boolean false|true if course content search can be used.
      */
-    static public function course_content_search() {
+    public static function course_content_search() {
         global $PAGE;
 
         $squaredsearch = new \moodle_url('/course/index.php');

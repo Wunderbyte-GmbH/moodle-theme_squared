@@ -27,6 +27,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $definitions = array(
     // Used to store data for course categories visible to current user. Helps to browse list of categories.
     'coursecat' => array(

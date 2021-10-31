@@ -31,14 +31,14 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
     private $activitylayout = false;
     private static $contentcontrolinit = false;
-    private $coursecat_toolbox = null;
+    private $coursecattoolbox = null;
     private $currentcategoryid = 0;
     private $categorysearchsort = 1;
     private $userisediting = false;
 
-    private const moddivider = 1;
-    private const hidemodsummary = 2;
-    private const showmodsummary = 3;
+    private const MODDIVIDER = 1;
+    private const HIDEMODSUMMARY = 2;
+    private const SHOWMODSUMMARY = 3;
 
     public function __construct(moodle_page $page, $target) {
         parent::__construct($page, $target);
@@ -48,7 +48,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 self::$contentcontrolinit = true;
             }
         }
-        $this->coursecat_toolbox = \theme_squared\coursecat_toolbox::get_instance();
+        $this->coursecattoolbox = \theme_squared\coursecat_toolbox::get_instance();
         $this->activitylayout = (!empty($this->page->theme->settings->activitylayout)) ? $this->page->theme->settings->activitylayout : false;
         $this->userisediting = $this->page->user_is_editing();
     }
@@ -134,7 +134,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
 
         $output .= html_writer::tag('span', $instancename.$altname, array('class' => 'instancename modname'));
 
-        return array('toexpand' => (core_text::strlen($instancename) > 48), 'output'=> $output);
+        return array('toexpand' => (core_text::strlen($instancename) > 48), 'output' => $output);
     }
 
     /**
@@ -259,7 +259,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $formattedcontent = $mod->get_formatted_content(array('overflowdiv' => false, 'noclean' => true));
             $contentlen = core_text::strlen(strip_tags($mod->content));
 
-            if ((!empty($formattedcontent)) || ($displayoptions['sqshowdescription'] == self::showmodsummary)) {
+            if ((!empty($formattedcontent)) || ($displayoptions['sqshowdescription'] == self::SHOWMODSUMMARY)) {
                 if ($contentlen > 45) {
                     $textclasses .= ' sqexpandedcontent';
                 }
@@ -297,7 +297,6 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $cardcontent .= html_writer::start_tag('div', array('class' => 'card-footer'));
             $cardcontent .= $footercontent;
             $cardcontent .= html_writer::end_tag('div');
-
 
             $output .= html_writer::tag('div', $cardcontent, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
         }
@@ -339,7 +338,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             foreach ($modinfo->sections[$section->section] as $modnumber) {
                 $mod = $modinfo->cms[$modnumber];
 
-                if ($showdescriptions[$modnumber] != self::moddivider) {
+                if ($showdescriptions[$modnumber] != self::MODDIVIDER) {
                     $displayoptions['sqshowdescription'] = $showdescriptions[$modnumber];
                 }
 
@@ -381,7 +380,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @param array $sectionmodules int module numbers
      * @param course_modinfo $modinfo module info for the course.
      *
-     * @return array boolean indicating if the description should be shown or self::moddivider if a label, indexed by module number.
+     * @return array boolean indicating if the description should be shown or self::MODDIVIDER if a label, indexed by module number.
      */
     private function calculate_show_descriptions($sectionmodules, $modinfo) {
         $showdescriptions = array();
@@ -394,25 +393,25 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 if ($current == false) {
                     $formattedcontent = $mod->get_formatted_content(array('overflowdiv' => false, 'noclean' => true));
                     if (empty($formattedcontent)) {
-                        $showdescriptions[$modnumber] = self::hidemodsummary;
+                        $showdescriptions[$modnumber] = self::HIDEMODSUMMARY;
                     } else {
                         $current = true;
-                        $showdescriptions[$modnumber] = self::showmodsummary;
+                        $showdescriptions[$modnumber] = self::SHOWMODSUMMARY;
                         // Go back to the last label / start of section and show the rest.
                         $reversed = array_reverse($showdescriptions, true);
-                        foreach($reversed as $modno => $modsd) {
-                            if ($modsd == self::moddivider) {
+                        foreach ($reversed as $modno => $modsd) {
+                            if ($modsd == self::MODDIVIDER) {
                                 // Label, so break.
                                 break;
                             }
-                            $showdescriptions[$modno] = self::showmodsummary;
+                            $showdescriptions[$modno] = self::SHOWMODSUMMARY;
                         }
                     }
                 } else {
-                    $showdescriptions[$modnumber] = self::showmodsummary;
+                    $showdescriptions[$modnumber] = self::SHOWMODSUMMARY;
                 }
             } else {
-                $showdescriptions[$modnumber] = self::moddivider; // A label.
+                $showdescriptions[$modnumber] = self::MODDIVIDER; // A label.
                 $current = false; // A label is a divider.
             }
         }
@@ -642,7 +641,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $this->currentcategoryid = $coursecat->id;
         $this->categorysearchsort = optional_param('searchsort', 1, PARAM_INT);
 
-        $courses = $this->coursecat_toolbox->search_courses(
+        $courses = $this->coursecattoolbox->search_courses(
                 $chelper->get_courses_display_option('sqcategorysearch'),
                 array(
                     'categoryid' => $coursecat->id,
@@ -791,7 +790,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string Markup.
      */
     protected function squared_category_select_search() {
-        $cats = $this->coursecat_toolbox::make_categories_list();
+        $cats = $this->coursecattoolbox::make_categories_list();
 
         $content = html_writer::start_tag('div', array('class' => 'sqscat'));
         $content .= html_writer::start_tag('form', array('class' => 'mdl-align'));
@@ -943,10 +942,16 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         if ($course instanceof stdClass) {
             $course = new core_course_list_element($course);
         }
-        $courseimage = $this->coursecat_toolbox->course_image($course, \theme_squared\coursecat_toolbox::foroverview);
+        $courseimage = $this->coursecattoolbox->course_image($course, \theme_squared\coursecat_toolbox::FOROVERVIEW);
         if (empty($courseimage['url'])) {
             $courseimage['image'] = false;
-            $courseimage['url'] = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22260%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_165246601bc%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A13pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_165246601bc%22%3E%3Crect%20width%3D%22260%22%20height%3D%22180%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2296.2734375%22%20y%3D%2296%22%3E100%%20x%20180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E';
+            $courseimage['url'] = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22260%22%20height%3D%22180%22%20xmlns%3D%22'.
+                'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20180%22%20preserveAspectRatio%3D%22none%22%3E%3C'.
+                    'defs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_165246601bc%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3A'.
+                    'bold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A13pt'.
+                    '%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_165246601bc%22%3E%3Crect%20width%3D%22260%22%20height'.
+                    '%3D%22180%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2296.2734375%22%20y%3D%2296%22%3E100%%20x%20180%3C%2F'.
+                    'text%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E';
         }
         $classes = 'card-img-top';
         if ($courseimage['image']) {
@@ -987,7 +992,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             if ($cat = core_course_category::get($course->category, IGNORE_MISSING)) {
                 $content .= html_writer::start_tag('div', array('class' => 'coursecat'));
                 $content .= get_string('category') . ': ' .
-                    html_writer::link(new moodle_url('/course/index.php', array('categoryid' => $cat->id)), $cat->get_formatted_name(), array('class' => $cat->visible ? '' : 'dimmed'));
+                    html_writer::link(new moodle_url('/course/index.php', array('categoryid' => $cat->id)), 
+                        $cat->get_formatted_name(), array('class' => $cat->visible ? '' : 'dimmed'));
                 $content .= html_writer::end_tag('div'); // End .coursecat.
             }
         }
@@ -1049,7 +1055,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED_WITH_CAT); // State the category when all categories.
         }
 
-        $courses = $this->coursecat_toolbox->search_courses(
+        $courses = $this->coursecattoolbox->search_courses(
                 $coursedisplayoptions['sqcategorysearch'],
                 array(
                     'categoryid' => $coursecat->id,
@@ -1141,9 +1147,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $output = '';
         // The field 'summaryformat' can be used in get_course_formatted_summary().
         $courses  = enrol_get_my_courses('summary, summaryformat');
-        $rhosts   = array();
+        $rhosts = array();
         $rcourses = array();
-        if (!empty($CFG->mnet_dispatcher_mode) && $CFG->mnet_dispatcher_mode==='strict') {
+        if (!empty($CFG->mnet_dispatcher_mode) && $CFG->mnet_dispatcher_mode === 'strict') {
             $rcourses = get_my_remotecourses($USER->id);
             $rhosts   = get_my_remotehosts();
         }
@@ -1218,7 +1224,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                     $output .= $this->frontpage_remote_course($course);
                 }
                 $output .= html_writer::end_tag('div'); // .courses
-            } elseif (!empty($rhosts)) {
+            } else if (!empty($rhosts)) {
                 // non-IDP, we know of all the remote servers, but not courses
                 $output .= html_writer::start_tag('div', array('class' => 'courses'));
                 foreach ($rhosts as $host) {
