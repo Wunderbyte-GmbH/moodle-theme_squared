@@ -191,11 +191,11 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $output .= html_writer::start_tag('div', array('class' => 'activityinstance'));
             $output .= $cmname;
 
-            // Module can put text after the link (e.g. forum unread)
+            // Module can put text after the link (e.g. forum unread).
             $output .= $mod->afterlink;
 
-            // Closing the tag which contains everything but edit icons. Content part of the module should not be part of this.
-            $output .= html_writer::end_tag('div'); // .activityinstance
+            // Closing the tag which contains everything but edit icons.  Content part of the module should not be part of this.
+            $output .= html_writer::end_tag('div'); // Class .activityinstance.
         }
 
         // Show availability info (if module is not available).
@@ -549,7 +549,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $catcount = core_course_category::is_simple_site();
         if (!$coursecat->id) {
             if ($catcount == 1) {
-                // There exists only one category in the system, do not display link to it
+                // There exists only one category in the system, do not display link to it.
                 $coursecat = core_course_category::get_default();
                 $strfulllistofcourses = get_string('fulllistofcourses');
                 $this->page->set_title("$site->shortname: $strfulllistofcourses");
@@ -565,7 +565,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $this->page->set_title($title);
         }
 
-        // Print current category description
+        // Print current category description.
         $chelper = new coursecat_helper();
         if ($description = $chelper->get_category_formatted_description($coursecat)) {
             $output .= $this->box($description, array('class' => 'generalbox info'));
@@ -602,7 +602,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         // Display course category tree.
         $output .= $this->coursecat_tree($chelper, $coursecat);
 
-        // Add action buttons
+        // Add action buttons.
         $output .= $this->container_start('buttons');
         $context = get_category_or_system_context($coursecat->id);
         if (has_capability('moodle/course:create', $context)) {
@@ -656,12 +656,12 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             return '';
         }
 
-        // Start content generation
+        // Start content generation.
         $content = '';
         $attributes = $chelper->get_and_erase_attributes('course_category_tree clearfix');
         $content .= html_writer::start_tag('div', $attributes);
         $content .= html_writer::tag('div', $categorycontent, array('class' => 'content'));
-        $content .= html_writer::end_tag('div'); // .course_category_tree
+        $content .= html_writer::end_tag('div'); // Class .course_category_tree.
 
         return $content;
     }
@@ -723,7 +723,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             }
             $content .= $this->coursecat_coursebox($chelper, $course, $classes);
         }
-        $content .= html_writer::end_tag('div'); // .card-deck
+        $content .= html_writer::end_tag('div'); // Class .card-deck.
 
         if (!empty($pagingbar)) {
             $content .= $pagingbar;
@@ -973,7 +973,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         if ($course->has_summary()) {
             $content .= html_writer::start_tag('div', array('class' => 'summary'));
             $content .= $chelper->get_course_formatted_summary($course, array('overflowdiv' => true, 'noclean' => true, 'para' => false));
-            $content .= html_writer::end_tag('div'); // .summary
+            $content .= html_writer::end_tag('div'); // Class .summary.
         }
 
         // Display course contacts. See core_course_list_element::get_course_contacts().
@@ -992,7 +992,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             if ($cat = core_course_category::get($course->category, IGNORE_MISSING)) {
                 $content .= html_writer::start_tag('div', array('class' => 'coursecat'));
                 $content .= get_string('category') . ': ' .
-                    html_writer::link(new moodle_url('/course/index.php', array('categoryid' => $cat->id)), 
+                    html_writer::link(new moodle_url('/course/index.php', array('categoryid' => $cat->id)),
                         $cat->get_formatted_name(), array('class' => $cat->visible ? '' : 'dimmed'));
                 $content .= html_writer::end_tag('div'); // End .coursecat.
             }
@@ -1004,14 +1004,14 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         // Print enrolmenticons.
         if ($icons = enrol_get_course_info_icons($course)) {
             $content .= html_writer::start_tag('div', array('class' => 'enrolmenticons')); // Start .enrolmenticons.
-            foreach ($icons as $pix_icon) {
-                $content .= $this->render($pix_icon);
+            foreach ($icons as $pixicon) {
+                $content .= $this->render($pixicon);
             }
             $content .= html_writer::end_tag('div'); // End .enrolmenticons.
         }
         $content .= html_writer::end_tag('div'); // End .card-footer.
 
-        $content .= html_writer::end_tag('div'); // .coursebox / .card
+        $content .= html_writer::end_tag('div'); // Class .coursebox / .card.
 
         return $content;
     }
@@ -1068,7 +1068,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         return $this->coursecat_courses_content($chelper, $courses['courses'], $courses['totalcount']);
     }
 
-    // #1081 - Frontpage card layout.
+    // Issue #1081 - Frontpage card layout.
     /**
      * Returns HTML to print list of available courses for the frontpage
      *
@@ -1125,7 +1125,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $attributes['id'] = 'sqfac';
         $output = html_writer::start_tag('div', $attributes);
         $output .= $this->coursecat_courses_content($chelper, $courses, $totalcount);
-        $output .= html_writer::end_tag('div'); // .courses
+        $output .= html_writer::end_tag('div'); // Class .courses.
 
         return $output;
     }
@@ -1214,23 +1214,23 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             if (!empty($morelink)) {
                 $output .= $morelink;
             }
-            $output .= html_writer::end_tag('div'); // .courses
+            $output .= html_writer::end_tag('div'); // Class .courses.
 
-            // MNET
+            // MNET.
             if (!empty($rcourses)) {
                 // At the IDP, we know of all the remote courses.
                 $output .= html_writer::start_tag('div', array('class' => 'courses'));
                 foreach ($rcourses as $course) {
                     $output .= $this->frontpage_remote_course($course);
                 }
-                $output .= html_writer::end_tag('div'); // .courses
+                $output .= html_writer::end_tag('div'); // Class .courses.
             } else if (!empty($rhosts)) {
-                // non-IDP, we know of all the remote servers, but not courses
+                // non-IDP, we know of all the remote servers, but not courses.
                 $output .= html_writer::start_tag('div', array('class' => 'courses'));
                 foreach ($rhosts as $host) {
                     $output .= $this->frontpage_remote_host($host);
                 }
-                $output .= html_writer::end_tag('div'); // .courses
+                $output .= html_writer::end_tag('div'); // Class .courses.
             }
         }
         return $output;

@@ -72,17 +72,12 @@ echo $OUTPUT->doctype() ?>
                 <div id="page-navbar" class="clearfix">
                     <button class="moodlezoom">
                         <?php
+                        $faclass = 'fa';
                         if (\theme_squared\toolbox::get_config_setting('fav')) {
-                        ?>
-                        <i class="fas fa-expand tosmall"></i>
-                        <i class="fas fa-compress tofull"></i>
-                        <?php
-                        } else {
-                        ?>
-                        <i class="fa fa-expand tosmall"></i>
-                        <i class="fa fa-compress tofull"></i>
-                        <?php
+                            $faclass .= 's';
                         }
+                        echo '<i class="'.$faclass.' fa-expand tosmall"></i>';
+                        echo '<i class="'.$faclass.' fa-compress tofull"></i>';
                         ?>
                     </button>
                     <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>

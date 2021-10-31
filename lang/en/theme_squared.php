@@ -115,7 +115,7 @@ $string['moodlecoursesearch'] = 'Standard Moodle course search';
 $string['advancedcoursearch'] = 'Advanced course search';
 $string['globalsearch'] = 'Global search';
 
-// H5P
+// H5P.
 $string['hvp'] = 'H5P';
 $string['hvpcustomcss'] = 'H5P Custom CSS';
 $string['hvpcustomcssdesc'] = 'Custom CSS for the H5P module.';
