@@ -33,7 +33,7 @@ if (is_siteadmin()) {
     require_once(__DIR__."/simple_theme_settings.class.php");
     require_once("$CFG->dirroot/theme/boost/classes/admin_settingspage_tabs.php");
 
-    // Page general settings,
+    // Page general settings.
     $settings = new theme_boost_admin_settingspage_tabs('themesettingsquared', get_string('pluginname', 'theme_squared'));
     $sp = new admin_settingpage('theme_squared_basic', get_string('basicsettings', 'theme_squared'));
     $simset = new squared_simple_theme_settings($sp, 'theme_squared');

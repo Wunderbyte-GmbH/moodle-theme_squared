@@ -55,7 +55,7 @@ class theme_squared_block_navigation_renderer extends block_navigation_renderer 
                 ($item->contains_active_node() && $item->children->count() > 0));
             $isbranch = $isexpandable && ($item->children->count() > 0 || ($item->has_children() && (isloggedin() || $item->type <= navigation_node::TYPE_CATEGORY)));
 
-            // Skip elements which have no content and no action - no point in showing them
+            // Skip elements which have no content and no action - no point in showing them.
             if (!$isexpandable && empty($item->action)) {
                 continue;
             }
@@ -64,8 +64,8 @@ class theme_squared_block_navigation_renderer extends block_navigation_renderer 
 
             if ($hasicon) {
                 $icon = $this->output->render($item->icon);
-                // Because an icon is being used we're going to wrap the actual content in a span.
-                // This will allow designers to create columns for the content, as we've done in styles.css.
+                /* Because an icon is being used we're going to wrap the actual content in a span.
+                   This will allow designers to create columns for the content, as we've done in styles.css. */
                 $content = $icon . html_writer::span($content, 'item-content-wrap');
             } else {
                 $icon = '';

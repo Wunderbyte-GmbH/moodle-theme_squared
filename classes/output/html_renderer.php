@@ -147,7 +147,6 @@ class html_renderer extends \plugin_renderer_base {
 
         $socialicons = array('instagramlink', 'twitterlink', 'facebooklink', 'youtubelink');
 
-
         if ($CFG->branch >= 33) {
             $imageurlfunc = 'image_url';
         } else {

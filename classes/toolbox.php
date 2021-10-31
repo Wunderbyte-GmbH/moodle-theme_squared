@@ -305,7 +305,7 @@ class toolbox {
                 echo $courserenderer->frontpage_my_courses();
             } else {
                 // Must be $categorycoursesearch.
-                $catid = optional_param('categoryid', -1, PARAM_INT);  // Zero is for all courses.  Also look at /course/index.php
+                $catid = optional_param('categoryid', -1, PARAM_INT);  // Zero is for all courses.  Also look at /course/index.php.
                 if ($catid != -1) {
                     echo $courserenderer->category_courses_from_search($catid);
                 } else {

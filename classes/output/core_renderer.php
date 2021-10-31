@@ -336,13 +336,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $subscribeurl = preg_replace('/login\/index\.php/i', 'login/signup.php', $loginurl);
 
         if (empty($course->id)) {
-            // $course->id is not defined during installation
+            // $course->id is not defined during installation.
             return '';
         } else if (isloggedin()) {
             $context = \context_course::instance($course->id);
 
             $fullname = fullname($USER, true);
-            // Since Moodle 2.0 this link always goes to the public profile page (not the course profile page)
+            // Since Moodle 2.0 this link always goes to the public profile page (not the course profile page).
             if ($withlinks) {
                 $linktitle = get_string('viewprofile');
                 $username = "<a href=\"$CFG->wwwroot/user/profile.php?id=$USER->id\" title=\"$linktitle\">$fullname</a>";
@@ -359,9 +359,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }
             if (isguestuser()) {
                 if (!$loginpage && $withlinks) {
-                    $loggedinas = " <a class=\"standardbutton plainlogin btn\" href=\"$loginurl\">" . get_string('login') . '</a>';
+                    $loggedinas = " <a class=\"standardbutton plainlogin btn\" href=\"$loginurl\">".get_string('login').'</a>';
                 }
-            } else if (is_role_switched($course->id)) { // Has switched roles
+            } else if (is_role_switched($course->id)) { // Has switched roles.
                 $rolename = '';
                 if ($role = $DB->get_record('role', array('id' => $USER->access['rsw'][$context->path]))) {
                     $rolename = ': ' . role_get_name($role, $context);
@@ -440,7 +440,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $authplugin = get_auth_plugin('mnet');
         $authurl = $authplugin->loginpage_idp_list($urltogo);
 
-        // Check the id of the MNET host for the idp
+        // Check the id of the MNET host for the idp.
         $host = $DB->get_field('mnet_host', 'name', array('id' => $this->page->theme->settings->alternateloginurl));
         if (!empty($authurl)) {
             foreach ($authurl as $key => $urlarray) {
@@ -556,9 +556,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $thisblock = new stdClass();
         $thisblock->name = 'block_flat_navigation';
         $thisblock->title = '<span class="title">'.$flatnavname.'</span>';
-        $thisblock->header = '<div role="button" class="collapselink" data-toggle="collapse" data-target="#subcollapsefake9999" aria-expanded="false" aria-controls="instfake9999">'.
-            '<div class="header"><div class="title"><div class="d-inline-block icon-container"><div class="courseblock-icon"></div></div><h2 class="sqtitle">'.
-            $flatnavname.'</h2></div></div></div>';
+        $thisblock->header = '<div role="button" class="collapselink" data-toggle="collapse" data-target="#subcollapsefake9999" '.
+            'aria-expanded="false" aria-controls="instfake9999"><div class="header"><div class="title"><div class="d-inline-block '.
+            'icon-container"><div class="courseblock-icon"></div></div><h2 class="sqtitle">'.$flatnavname.'</h2></div></div></div>';
         $thisblock->content = $this->render_from_template('theme_squared/flat_navigation_content', $templatecontext);
         $thisblock->blockinstanceid = "fake9999"; // Not sure!  But we are a 'fake' block.
         $thisblock->instanceid = "fake9999";
@@ -623,7 +623,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         if ($blocksrows) {
-            // Two block columns
+            // Two block columns.
             $template->pairs = array();
             $count = 1;
             $pair = new stdClass();
