@@ -37,7 +37,7 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
     private $testcategory;
     private $toolbox;
 
-    protected function setUp(): void {
+    protected function set_up() {
         $this->resetAfterTest(true);
 
         set_config('theme', 'squared');
@@ -126,6 +126,7 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
     }
 
     public function test_search_most_courses() {
+        $this->set_up();
         $searchresults = $this->toolbox->search_courses()['courses'];
         $expectedresults = array(
             'TP1' => 'Topic One',
@@ -145,6 +146,7 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
     }
 
     public function test_search_some_courses() {
+        $this->set_up();
         $searchresults = $this->toolbox->search_courses('Three')['courses'];
         $expectedresults = array(
             'TP3' => 'Topic Three'
@@ -160,6 +162,7 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
     }
 
     public function test_empty_search_course_category_id() {
+        $this->set_up();
         $searchresults = $this->toolbox->search_courses('', array('categoryid' => $this->testcategory->id))['courses'];
         $expectedresults = array(
             'TP1' => 'Topic One',
@@ -177,6 +180,7 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
     }
 
     public function test_three_search_no_course_category() {
+        $this->set_up();
         $this->add_more_courses();
         $searchresults = $this->toolbox->search_courses('Three')['courses'];
         $expectedresults = array(
@@ -198,6 +202,7 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
     }
 
     public function test_three_search_and_course_category() {
+        $this->set_up();
         $this->add_more_courses();
         $searchresults = $this->toolbox->search_courses('Three', array('categoryid' => $this->testcategory->id))['courses'];
         $expectedresults = array(
@@ -217,6 +222,7 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
     }
 
     public function test_search_all_courses() {
+        $this->set_up();
         $this->add_more_courses();
         $searchresults = $this->toolbox->search_courses()['courses'];
         $expectedresults = array(
@@ -242,6 +248,7 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
     }
 
     public function test_search_all_courses_page_two() {
+        $this->set_up();
         $this->add_more_courses();
         $perpage = 3;
         $offset = 2 * $perpage;
@@ -269,6 +276,7 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
     }
 
     public function test_search_all_courses_pages() {
+        $this->set_up();
         $this->add_more_courses();
         $perpage = 3;
         $offset = 2 * $perpage;
@@ -306,6 +314,7 @@ class theme_squared_coursecattoolbox_testcase extends advanced_testcase {
     }
 
     public function test_search_some_courses_pages() {
+        $this->set_up();
         $perpage = 2;
         $offset = 1 * $perpage;
         $searchresults = $this->toolbox->search_courses('Topic', array('offset' => $offset, 'limit' => $perpage))['courses'];
