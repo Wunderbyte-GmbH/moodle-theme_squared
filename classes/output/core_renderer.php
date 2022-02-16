@@ -511,9 +511,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @param string $region the name of a region on this page.
      * @return string the HTML to be output.
      */
-    public function blocks_for_region($region) {
+    public function blocks_for_region($region, $fakeblocksonly = false) {
         if ($region == 'content') {
-            return parent::blocks_for_region($region);
+            return parent::blocks_for_region($region, $fakeblocksonly);
         }
 
         $blockcontents = $this->page->blocks->get_content_for_region($region, $this);
