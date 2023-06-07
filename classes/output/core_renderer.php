@@ -513,7 +513,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if ($title || $controlshtml) {
             $output .= html_writer::tag(
                 'div', 
-                html_writer::tag('div', $iconarea.$title.$controlshtml, array('class' => 'title')),
+                html_writer::tag('div', $iconarea.
+                    html_writer::tag('div', $title.$controlshtml),
+                    array('class' => 'title-container')),
                 array('class' => 'header')
             );
         }
