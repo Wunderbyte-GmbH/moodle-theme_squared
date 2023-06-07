@@ -67,6 +67,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function course_section_cm_name_title(cm_info $mod, $displayoptions = array()) {
+        debugging(
+            'course_section_cm_name_title is deprecated. Use core_courseformat\\output\\local\\cm\\title class instead.',
+            DEBUG_DEVELOPER
+        );
         if (($this->userisediting == true) || ($this->activitylayout == false)) {
             return parent::course_section_cm_name_title($mod, $displayoptions);
         }
@@ -159,6 +163,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function course_section_cm($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
+        debugging(
+            'course_section_cm is deprecated. Use core_courseformat\\output\\content\\cm output class instead.',
+            DEBUG_DEVELOPER
+        );
         if ((empty($mod->url)) ||
             ($this->userisediting == true) ||
             ($this->activitylayout == false)) {
@@ -218,6 +226,11 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return String
      */
     public function course_section_cm_list_item($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
+        debugging(
+            'course_section_cm_list_item is deprecated. Use renderer course_section_updated_cm_item instead',
+            DEBUG_DEVELOPER
+        );
+
         if (($this->userisediting == true) || ($this->activitylayout == false)) {
             return parent::course_section_cm_list_item($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
         }
@@ -316,6 +329,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return void
      */
     public function course_section_cm_list($course, $section, $sectionreturn = null, $displayoptions = array()) {
+        debugging('course_section_cm_list is deprecated. Use core_courseformat\\output\\local\\content\\section\\cmlist '.
+                'classes instead.', DEBUG_DEVELOPER);
+
         if (($this->userisediting == true) || ($this->activitylayout == false)) {
             return parent::course_section_cm_list($course, $section, $sectionreturn, $displayoptions);
         }
