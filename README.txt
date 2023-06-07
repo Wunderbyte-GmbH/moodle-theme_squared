@@ -113,6 +113,16 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+
+Freyung 401.1.0 - TBC
+---------------------
+1. Update to Moodle 4.1.
+2. Use core 'grunt', e.g.
+   Install grunt-cli: `[sudo] npm install -g grunt-cli`
+   Node dependencies: run `npm install` in the Moodle root directory.
+   Build with: grunt amd --root=theme/squared
+   Note: If on Windows, then set 'linebreak-style' to 'off' in root '.eslintrc' as Git will handle this for us.
+
 1st September 2021 - Rathausplatz 3.10.1.0
   1. Update to Moodle 3.10.
   2. Same functionality as 3.9.1.1.
