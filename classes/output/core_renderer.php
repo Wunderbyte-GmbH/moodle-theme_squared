@@ -495,12 +495,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $collapseattributes['class'] = $collapseattributes['class'].' courseblock-icon';
         $icon = html_writer::tag('div', '', $collapseattributes);
 
-        $iconarea = html_writer::tag('div', $icon.$controlshtml, array('class' => 'd-inline-block icon-container'));
+        $iconarea = html_writer::tag('div', $icon, array('class' => 'd-inline-block icon-container'));
 
         $output = '';
         if ($title || $controlshtml) {
-            $output .= html_writer::tag('div', html_writer::tag('div', $iconarea.html_writer::tag('div', '',
-                array('class' => 'block_action')).$title, array('class' => 'title')), array('class' => 'header'));
+            $output .= html_writer::tag('div', html_writer::tag('div', $iconarea.$title.$controlshtml, array('class' => 'title')), array('class' => 'header'));
         }
         return $output;
     }
