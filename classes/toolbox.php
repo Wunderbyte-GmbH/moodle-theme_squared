@@ -28,8 +28,6 @@
 
 namespace theme_squared;
 
-defined('MOODLE_INTERNAL') || die;
-
 class toolbox {
 
     protected static $instance;
@@ -181,7 +179,7 @@ class toolbox {
 
         if (file_exists("$CFG->dirroot/theme/squared/scss/$filename")) {
             return "$CFG->dirroot/theme/squared/scss/$filename";
-        } else if (!empty($CFG->themedir) and file_exists("$CFG->themedir/squared/scss/$filename")) {
+        } else if (!empty($CFG->themedir) && file_exists("$CFG->themedir/squared/scss/$filename")) {
             return "$CFG->themedir/squared/scss/$filename";
         } else {
             return dirname(__FILE__) . "/$filename";
@@ -239,7 +237,8 @@ class toolbox {
             $itemid = \theme_get_revision();
             $syscontext = \context_system::instance();
 
-            $settingurl = \moodle_url::make_file_url("$CFG->wwwroot/pluginfile.php", "/$syscontext->id/theme_squared/$setting/$itemid".$thesetting);
+            $settingurl = \moodle_url::make_file_url("$CFG->wwwroot/pluginfile.php",
+                "/$syscontext->id/theme_squared/$setting/$itemid".$thesetting);
             $settingurl = preg_replace('|^https?://|i', '//', $settingurl->out(false));
         }
         return $settingurl;

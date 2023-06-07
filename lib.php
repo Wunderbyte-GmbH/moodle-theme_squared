@@ -26,10 +26,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
- defined('MOODLE_INTERNAL') || die;
-
 function theme_squared_grid($hassidepre) {
-
     if ($hassidepre) {
         $regions = array('content' => 'col-md-9 col-lg-10 col-xl-10 order-last');
         $regions['pre'] = 'col-md-3 col-lg-2 col-xl-2 order-first';

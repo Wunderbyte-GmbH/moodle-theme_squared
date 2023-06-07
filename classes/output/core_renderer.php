@@ -88,7 +88,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 if ((empty($this->page->theme->settings->courseheaderimagefallback)) ||
                     ($this->page->theme->settings->courseheaderimagefallback == 'courseheaderimagefallbackthemeimage')) {
                     // Use the 'courseheaderimagefallbackimage' image or theme image if empty.
-                    $courseheaderimagefallbackimage = $this->page->theme->setting_file_url('courseheaderimagefallbackimage', 'courseheaderimagefallbackimage');
+                    $courseheaderimagefallbackimage = $this->page->theme->setting_file_url(
+                        'courseheaderimagefallbackimage', 'courseheaderimagefallbackimage');
                     if (empty($courseheaderimagefallbackimage)) {
                         $courseheaderimagefallbackimage = $this->image_url('pexels-photo-220320_crop', 'theme')->out();
                     }
@@ -230,7 +231,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function search_box($id = false) {
         $navbarsearch = (empty($this->page->theme->settings->navbarsearch)) ? false : $this->page->theme->settings->navbarsearch;
 
-        if ((empty($navbarsearch)) || (\theme_squared\toolbox::search_page($this->page->pagetype))) { // Don't duplicate the search boxes.
+        // Don't duplicate the search boxes.
+        if ((empty($navbarsearch)) || (\theme_squared\toolbox::search_page($this->page->pagetype))) {
             return '';
         }
 
@@ -272,9 +274,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $searchinput .= '<input type="text" name="navbaradvsearch" id="navbaradvsearch" disabled="disabled">';
             $searchinput .= '</span>';
 
-            $searchicon = html_writer::tag('div', $searchicon, array('id' => 'sqsearchbutton', 'role' => 'button', 'tabindex' => 0));
+            $searchicon = html_writer::tag('div', $searchicon,
+                array('id' => 'sqsearchbutton', 'role' => 'button', 'tabindex' => 0));
 
-            $search = html_writer::tag('div', $searchinput.$searchicon, array('class' => 'search-input-wrapper nav-link', 'id' => $id));
+            $search = html_writer::tag('div', $searchinput.$searchicon,
+                array('class' => 'search-input-wrapper nav-link', 'id' => $id));
         } else {
             if ($navbarsearch == 3) {
                 $action = new moodle_url('/search/index.php');
@@ -336,7 +340,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $subscribeurl = preg_replace('/login\/index\.php/i', 'login/signup.php', $loginurl);
 
         if (empty($course->id)) {
-            // $course->id is not defined during installation.
+            // Note: $course->id is not defined during installation.
             return '';
         } else if (isloggedin()) {
             $context = \context_course::instance($course->id);
@@ -349,7 +353,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             } else {
                 $username = $fullname;
             }
-            if (is_mnet_remote_user($USER) and $idprovider = $DB->get_record('mnet_host',
+            if (is_mnet_remote_user($USER) && $idprovider = $DB->get_record('mnet_host',
                 array('id' => $USER->mnethostid))) {
                 if ($withlinks) {
                     $username .= " from <a href=\"{$idprovider->wwwroot}\">{$idprovider->name}</a>";
@@ -368,8 +372,15 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 }
                 $loggedinas = '<span class="loggedintext">' . get_string('loggedinas', 'moodle', $username) . $rolename . '</span>';
                 if ($withlinks) {
-                    $url = new moodle_url('/course/switchrole.php',
-                        array('id' => $course->id, 'sesskey' => sesskey(), 'switchrole' => 0, 'returnurl' => $this->page->url->out_as_local_url(false)));
+                    $url = new moodle_url(
+                        '/course/switchrole.php',
+                        array(
+                            'id' => $course->id,
+                            'sesskey' => sesskey(),
+                            'switchrole' => 0, 
+                            'returnurl' => $this->page->url->out_as_local_url(false)
+                        )
+                    );
                     $loggedinas .= '(' . html_writer::tag('a', get_string('switchrolereturn'),
                         array('href' => $url, 'class' => 'btn')) . ')';
                 }
@@ -408,9 +419,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
                         $a = new stdClass();
                         $a->attempts = $count;
                         $loggedinas .= get_string('failedloginattempts', '', $a);
-                        if (file_exists("$CFG->dirroot/report/log/index.php") and has_capability('report/log:view', \context_system::instance())) {
-                            $loggedinas .= ' ('.html_writer::link(new moodle_url('/report/log/index.php', array('chooselog' => 1,
-                                            'id' => 0 , 'modid' => 'site_errors')), get_string('logs')).')';
+                        if (file_exists("$CFG->dirroot/report/log/index.php") &&
+                            has_capability('report/log:view', \context_system::instance())) {
+                            $loggedinas .= ' ('.html_writer::link(new moodle_url('/report/log/index.php',
+                                array('chooselog' => 1, 'id' => 0 , 'modid' => 'site_errors')), get_string('logs')).')';
                         }
                         $loggedinas .= '</div>';
                     }
@@ -499,7 +511,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         $output = '';
         if ($title || $controlshtml) {
-            $output .= html_writer::tag('div', html_writer::tag('div', $iconarea.$title.$controlshtml, array('class' => 'title')), array('class' => 'header'));
+            $output .= html_writer::tag(
+                'div', 
+                html_writer::tag('div', $iconarea.$title.$controlshtml, array('class' => 'title')),
+                array('class' => 'header')
+            );
         }
         return $output;
     }
@@ -606,7 +622,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     $bc->blockinstanceid = -1;
                     $thisblock->blockinstanceid = $bc->blockinstanceid;
                 }
-                $thisblock->header = $this->block_header_collapse($thisblock); // Pass in the new potentially altered block_contents.
+                // Pass in the new potentially altered block_contents.
+                $thisblock->header = $this->block_header_collapse($thisblock);
                 $thisblock->movetarget = false;
 
                 $template->blocks[] = $thisblock;
@@ -808,26 +825,28 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         $renderedtext = '';
         $lastelement = end ( $textandlinks );
-        if (empty ( $lastelement [0] )) {
+        if (empty ( $lastelement[0] )) {
             $lastelement = prev ( $textandlinks );
         }
         $attributes = array ();
         foreach ($textandlinks as $value) {
-            if (empty ( $value [0] )) {
+            if (empty ( $value[0] )) {
                 continue;
             }
             $renderedtext .= html_writer::start_tag ( 'span', $attributes );
-            $renderedtext .= html_writer::tag ( 'a', trim ( $value [0] ), array (
-                    'href' => trim ( $value [1] )
+            $renderedtext .= html_writer::tag ('a', trim ($value[0]), array(
+                    'href' => trim($value[1])
             ) );
-            $renderedtext .= html_writer::end_tag ( 'span' );
+            $renderedtext .= html_writer::end_tag ('span');
         }
         $renderedtext .= html_writer::tag ('span', page_doc_link(get_string('moodledocslink')), array (
             'class' => 'helplink'
         ) );
-        $renderedtext .= html_writer::tag ('span', 'Theme by <a href="http://www.edulabs.org" target="_blank">edulabs.org - e-learning solutions</a>', array (
-            'class' => 'squared-themeby lastelement'
-        ) );
+        $renderedtext .= html_writer::tag(
+            'span',
+            'Theme by <a href="http://www.edulabs.org" target="_blank">edulabs.org - e-learning solutions</a>',
+            array ('class' => 'squared-themeby lastelement')
+        );
         return $renderedtext;
     }
 

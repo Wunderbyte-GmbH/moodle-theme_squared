@@ -25,8 +25,6 @@
 
 namespace theme_squared\output;
 
-defined('MOODLE_INTERNAL') || die();
-
 class external extends \core\output\external {
     /**
      * Returns description of load_icon_map() parameters.

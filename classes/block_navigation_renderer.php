@@ -51,16 +51,19 @@ class theme_squared_block_navigation_renderer extends block_navigation_renderer 
             $content = $item->get_content();
             $title = $item->get_title();
 
-            $isexpandable = (empty($expansionlimit) || ($item->type > navigation_node::TYPE_ACTIVITY || $item->type < $expansionlimit) ||
+            $isexpandable = (empty($expansionlimit) ||
+                ($item->type > navigation_node::TYPE_ACTIVITY || $item->type < $expansionlimit) ||
                 ($item->contains_active_node() && $item->children->count() > 0));
-            $isbranch = $isexpandable && ($item->children->count() > 0 || ($item->has_children() && (isloggedin() || $item->type <= navigation_node::TYPE_CATEGORY)));
+            $isbranch = $isexpandable && ($item->children->count() > 0 || ($item->has_children() &&
+                (isloggedin() || $item->type <= navigation_node::TYPE_CATEGORY)));
 
             // Skip elements which have no content and no action - no point in showing them.
             if (!$isexpandable && empty($item->action)) {
                 continue;
             }
 
-            $hasicon = ((!$isbranch || $item->type == navigation_node::TYPE_ACTIVITY || $item->type == navigation_node::TYPE_RESOURCE) && $item->icon instanceof renderable);
+            $hasicon = ((!$isbranch || $item->type == navigation_node::TYPE_ACTIVITY || $item->type == navigation_node::TYPE_RESOURCE) &&
+                $item->icon instanceof renderable);
 
             if ($hasicon) {
                 $icon = $this->output->render($item->icon);

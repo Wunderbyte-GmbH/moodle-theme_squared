@@ -29,8 +29,6 @@
 
 namespace theme_squared;
 
-defined('MOODLE_INTERNAL') || die;
-
 class coursecat_toolbox extends \core_course_category {
 
     protected static $instance;
@@ -79,11 +77,13 @@ class coursecat_toolbox extends \core_course_category {
         $categoryid = !empty($options['categoryid']) ? $options['categoryid'] : 0;
         $limit = !empty($options['limit']) ? $options['limit'] : null;
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
-        $sortfields = !empty($options['sort']) ? $options['sort'] : array('sortorder' => 1); // Note: 1 is ASC and -1 is DESC, see get_courses().
+        // Note: 1 is ASC and -1 is DESC, see get_courses().
+        $sortfields = !empty($options['sort']) ? $options['sort'] : array('sortorder' => 1);
 
         $coursecatcache = \cache::make('theme_squared', 'coursecat');
         $cachekey = 's-' . serialize(
-                        array($search) + array('categoryid' => $categoryid) + array('sort' => $sortfields) + array('requiredcapabilities' => $requiredcapabilities)
+            array($search) + array('categoryid' => $categoryid) + array('sort' => $sortfields) +
+            array('requiredcapabilities' => $requiredcapabilities)
         );
         $cntcachekey = 'scnt-' . serialize($search);
 
@@ -269,7 +269,8 @@ class coursecat_toolbox extends \core_course_category {
 
         // Fallback colour palette.
         static $basecolours = [
-            '#81ecec', '#74b9ff', '#a29bfe', '#dfe6e9', '#00b894', '#0984e3', '#b2bec3', '#fdcb6e', '#fd79a8', '#6c5ce7', '#ffaabb'];
+            '#81ecec', '#74b9ff', '#a29bfe', '#dfe6e9', '#00b894', '#0984e3',
+            '#b2bec3', '#fdcb6e', '#fd79a8', '#6c5ce7', '#ffaabb'];
 
         $setting = 'bgcolor'.$categoryid;
         if (isset($PAGE->theme->settings->$setting)) {

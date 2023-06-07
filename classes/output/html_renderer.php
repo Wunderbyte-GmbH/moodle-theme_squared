@@ -25,8 +25,6 @@
 
 namespace theme_squared\output;
 
-defined('MOODLE_INTERNAL') || die;
-
 use custom_menu;
 use moodle_url;
 use stdClass;
