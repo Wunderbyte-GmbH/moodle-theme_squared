@@ -377,7 +377,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                         array(
                             'id' => $course->id,
                             'sesskey' => sesskey(),
-                            'switchrole' => 0, 
+                            'switchrole' => 0,
                             'returnurl' => $this->page->url->out_as_local_url(false)
                         )
                     );
@@ -495,7 +495,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
             if ($bc->blockinstanceid) {
                 $attributes['id'] = 'instance-'.$bc->blockinstanceid.'-header';
             }
-            $title = html_writer::tag('h2', $bc->title, $attributes);
+            $title = html_writer::tag('div',
+                html_writer::tag('h2', $bc->title, $attributes)
+            );
         }
 
         $blockid = null;
@@ -512,10 +514,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $output = '';
         if ($title || $controlshtml) {
             $output .= html_writer::tag(
-                'div', 
+                'div',
                 html_writer::tag('div', $iconarea.
-                    html_writer::tag('div', $title.$controlshtml),
-                    array('class' => 'title-container')),
+                    html_writer::tag('div', $title.$controlshtml, array('class' => 'title-container')),
+                    array('class' => 'header-container')),
                 array('class' => 'header')
             );
         }
@@ -574,8 +576,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $thisblock->name = 'block_flat_navigation';
         $thisblock->title = '<span class="title">'.$flatnavname.'</span>';
         $thisblock->header = '<div role="button" class="collapselink" data-toggle="collapse" data-target="#subcollapsefake9999" '.
-            'aria-expanded="false" aria-controls="instfake9999"><div class="header"><div class="title"><div class="d-inline-block '.
-            'icon-container"><div class="courseblock-icon"></div></div><h2 class="sqtitle">'.$flatnavname.'</h2></div></div></div>';
+            'aria-expanded="false" aria-controls="instfake9999"><div class="header">'.
+            '<div class="header-container">'.
+            '<div class="d-inline-block icon-container"><div class="courseblock-icon"></div></div>'.
+            '<div class="title-container">'.
+            '<div><h2 class="sqtitle">'.$flatnavname.'</h2></div></div></div></div></div>';
         $thisblock->content = $this->render_from_template('theme_squared/flat_navigation_content', $templatecontext);
         $thisblock->blockinstanceid = "fake9999"; // Not sure!  But we are a 'fake' block.
         $thisblock->instanceid = "fake9999";
@@ -821,9 +826,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     protected function squared_prepare_textlinks($textlinks) {
-        $textsnippets = explode ( ';', $textlinks );
+        $textsnippets = explode (';', $textlinks);
         foreach ($textsnippets as $value) {
-            $textandlinks [] = explode ( ',', $value, 2 );
+            $textandlinks[] = explode (',', $value, 2 );
         }
         $renderedtext = '';
         $lastelement = end ( $textandlinks );

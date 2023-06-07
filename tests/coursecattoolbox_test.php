@@ -33,7 +33,7 @@ namespace theme_squared;
  * Toolbox unit tests for the Squared theme.
  * @group theme_squared
  */
-class coursecattoolbox_testcase extends advanced_testcase {
+class coursecattoolbox_testcase extends \advanced_testcase {
 
     private $testcategory;
     private $toolbox;
