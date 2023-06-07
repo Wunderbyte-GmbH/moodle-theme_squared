@@ -21,9 +21,11 @@
                     color: inherit;
                 }
             }
-            .title {
+            .header-container {
+                display: grid;
+                grid-template-columns: 64px auto;
+
                 .icon-container {
-                    margin-bottom: -5px;
                     width: 64px;
                     .courseblock-icon {
                         margin: 5px 18px;
@@ -42,9 +44,11 @@
                         }
                     }
                 }
-                .block_action,
-                h2.sqtitle {
-                    display: inline !important;
+
+                .title-container {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
                 }
             }
         }

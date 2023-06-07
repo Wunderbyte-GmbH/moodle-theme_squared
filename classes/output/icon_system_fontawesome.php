@@ -24,8 +24,6 @@
  */
 namespace theme_squared\output;
 
-defined('MOODLE_INTERNAL') || die();
-
 class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
 
     /**
@@ -332,7 +330,8 @@ class icon_system_fontawesome extends \core\output\icon_system_fontawesome {
             'core:t/block' => 'fas fa-ban',
             'core:t/block_to_dock_rtl' => 'fas fa-chevron-right',
             'core:t/block_to_dock' => 'fas fa-chevron-left',
-            'core:t/calc_off' => 'fas fa-calculator', // TODO: Change to better icon once we have stacked icon support or more icons.
+            // TODO: Change to better icon once we have stacked icon support or more icons.
+            'core:t/calc_off' => 'fas fa-calculator',
             'core:t/calc' => 'fas fa-calculator',
             'core:t/check' => 'fas fa-check',
             'core:t/cohort' => 'fas fa-users',

@@ -25,8 +25,6 @@
  * @author G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die;
-
 class theme_squared_core_course_renderer extends core_course_renderer {
 
     private $activitylayout = false;
@@ -67,6 +65,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function course_section_cm_name_title(cm_info $mod, $displayoptions = array()) {
+        debugging(
+            'course_section_cm_name_title is deprecated. Use core_courseformat\\output\\local\\cm\\title class instead.',
+            DEBUG_DEVELOPER
+        );
         if (($this->userisediting == true) || ($this->activitylayout == false)) {
             return parent::course_section_cm_name_title($mod, $displayoptions);
         }
@@ -118,7 +120,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      */
     protected function squared_activity_header(cm_info $mod) {
         $output = html_writer::empty_tag('img', array('src' => $mod->get_icon_url(),
-            'class' => 'sqactivityicon iconlarge activityicon', 'alt' => get_string('activityicon', 'theme_squared'), 'role' => 'presentation'));
+            'class' => 'sqactivityicon iconlarge activityicon',
+            'alt' => get_string('activityicon', 'theme_squared'),
+            'role' => 'presentation')
+        );
         $instancename = $mod->get_formatted_name();
         $altname = $mod->modfullname;
         /* Avoid unnecessary duplication: if e.g. a forum name already
@@ -159,6 +164,10 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function course_section_cm($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
+        debugging(
+            'course_section_cm is deprecated. Use core_courseformat\\output\\content\\cm output class instead.',
+            DEBUG_DEVELOPER
+        );
         if ((empty($mod->url)) ||
             ($this->userisediting == true) ||
             ($this->activitylayout == false)) {
@@ -183,7 +192,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             $output .= html_writer::span($modicons, 'actions sqactions');
         }
 
-        // Display the link to the module (or do nothing if module has no url)
+        // Display the link to the module (or do nothing if module has no url).
         $cmname = $this->course_section_cm_name($mod, $displayoptions);
 
         if (!empty($cmname)) {
@@ -218,6 +227,11 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return String
      */
     public function course_section_cm_list_item($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
+        debugging(
+            'course_section_cm_list_item is deprecated. Use renderer course_section_updated_cm_item instead',
+            DEBUG_DEVELOPER
+        );
+
         if (($this->userisediting == true) || ($this->activitylayout == false)) {
             return parent::course_section_cm_list_item($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
         }
@@ -316,6 +330,9 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      * @return void
      */
     public function course_section_cm_list($course, $section, $sectionreturn = null, $displayoptions = array()) {
+        debugging('course_section_cm_list is deprecated. Use core_courseformat\\output\\local\\content\\section\\cmlist '.
+                'classes instead.', DEBUG_DEVELOPER);
+
         if (($this->userisediting == true) || ($this->activitylayout == false)) {
             return parent::course_section_cm_list($course, $section, $sectionreturn, $displayoptions);
         }
@@ -345,16 +362,16 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 if ($modulehtml = $this->course_section_cm_list_item($course, $completioninfo, $mod, $sectionreturn, $displayoptions)) {
                     if (!(empty($mod->url))) {
                         switch ($this->activitylayout) {
-                            case 1: // 1,3,3.
+                            case 1: // Layout is 1,3,3.
                                 $modclasses = 'col-sm-12 col-md-4 col-lg-4';
                                 break;
-                            case 2: // 1,2,4.
+                            case 2: // Layout is 1,2,4.
                                 $modclasses = 'col-sm-12 col-md-6 col-lg-3';
                                 break;
-                            case 3: // 1,2,3.
+                            case 3: // Layout is 1,2,3.
                                 $modclasses = 'col-sm-12 col-md-6 col-lg-4';
                                 break;
-                            default: // 1,3,3.
+                            default: // Layout is 1,3,3.
                                 $modclasses = 'col-sm-12 col-md-4 col-lg-4';
                         }
                         $modclasses .= ' sqcol';
@@ -486,7 +503,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                     $thissection = $modinfo->get_section_info($thissection);
                 }
                 if ((string) $thissection->name !== '') {
-                    $sectionname = format_string($thissection->name, true, array('context' => context_course::instance($course->id)));
+                    $sectionname = format_string($thissection->name, true,
+                        array('context' => context_course::instance($course->id)));
                 } else {
                     $sectionname = $courseformat->get_section_name($thissection->section);
                 }
@@ -608,9 +626,11 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         if (has_capability('moodle/course:create', $context)) {
             // Print link to create a new course, for the 1st available category.
             if ($coursecat->id) {
-                $url = new moodle_url('/course/edit.php', array('category' => $coursecat->id, 'returnto' => 'category'));
+                $url = new moodle_url('/course/edit.php',
+                    array('category' => $coursecat->id, 'returnto' => 'category'));
             } else {
-                $url = new moodle_url('/course/edit.php', array('category' => $CFG->defaultrequestcategory, 'returnto' => 'topcat'));
+                $url = new moodle_url('/course/edit.php',
+                    array('category' => $CFG->defaultrequestcategory, 'returnto' => 'topcat'));
             }
             $output .= $this->single_button($url, get_string('addnewcourse'), 'get');
         }
@@ -693,7 +713,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 // There are more results that can fit on one page.
                 $perpage = $chelper->get_courses_display_option('limit', $CFG->coursesperpage);
                 $page = $chelper->get_courses_display_option('offset') / $perpage;
-                $pagingbar = $this->paging_bar($totalcount, $page, $perpage, $paginationurl->out(false, array('perpage' => $perpage)));
+                $pagingbar = $this->paging_bar($totalcount, $page, $perpage,
+                    $paginationurl->out(false, array('perpage' => $perpage)));
                 $pagingallbar = html_writer::tag('div', html_writer::link($paginationurl->out(false, array('perpage' => 'all')),
                     get_string('showall', '', $totalcount)), array('class' => 'paging paging-showall mdl-align'));
             } else if ($totalcount > $CFG->coursesperpage) {
@@ -762,7 +783,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
             return '';
         }
 
-        $content = html_writer::start_tag('div', array('id' => 'sqccf', 'class' => 'row justify-content-between')); // Start search row.
+        // Start search row.
+        $content = html_writer::start_tag('div', array('id' => 'sqccf', 'class' => 'row justify-content-between'));
         $content .= html_writer::start_tag('div', array('class' => 'col-md-6 col-lg-4')); // Start search category.
         $content .= $this->squared_category_select_search();
         $content .= html_writer::end_tag('div'); // End search category.
@@ -779,7 +801,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $attributes['id'] = 'sqccs';
         $content .= html_writer::start_tag('div', $attributes);
         $content .= $this->coursecat_courses_content($chelper, $courses, $totalcount);
-        $content .= html_writer::end_tag('div'); // .courses
+        $content .= html_writer::end_tag('div'); // End of .courses.
 
         return $content;
     }
@@ -795,7 +817,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $content = html_writer::start_tag('div', array('class' => 'sqscat'));
         $content .= html_writer::start_tag('form', array('class' => 'mdl-align'));
 
-        $content .= html_writer::tag('label', get_string('coursecategory') . ': ', array('for' => 'sq-category-select', 'class' => 'd-inline'));
+        $content .= html_writer::tag('label', get_string('coursecategory').': ',
+            array('for' => 'sq-category-select', 'class' => 'd-inline'));
 
         $content .= html_writer::start_tag('select', array(
             'class' => 'sqselect sqformelement',
@@ -842,7 +865,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
      */
     protected function squared_category_course_search($sqcategorysearch) {
         $content = html_writer::start_tag('form', array('class' => 'mdl-align'));
-        $content .= html_writer::tag('label', get_string('searchcourses') . ': ', array('for' => 'sq-category-search', 'class' => 'd-inline'));
+        $content .= html_writer::tag('label', get_string('searchcourses').': ',
+            array('for' => 'sq-category-search', 'class' => 'd-inline'));
         $content .= html_writer::empty_tag('input', array(
                 'class' => 'sqinput sqformelement',
                 'disabled' => 'disabled',
@@ -946,12 +970,12 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         if (empty($courseimage['url'])) {
             $courseimage['image'] = false;
             $courseimage['url'] = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22260%22%20height%3D%22180%22%20xmlns%3D%22'.
-                'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20180%22%20preserveAspectRatio%3D%22none%22%3E%3C'.
-                    'defs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_165246601bc%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3A'.
-                    'bold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A13pt'.
-                    '%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_165246601bc%22%3E%3Crect%20width%3D%22260%22%20height'.
-                    '%3D%22180%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2296.2734375%22%20y%3D%2296%22%3E100%%20x%20180%3C%2F'.
-                    'text%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E';
+                'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20180%22%20preserveAspectRatio%3D%22none%22'.
+                '%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_165246601bc%20text%20%7B%20fill%3A%23AAAAAA%3B'.
+                'font-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3B'.
+                'font-size%3A13pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_165246601bc%22%3E%3Crect%20width%3D'.
+                '%22260%22%20height%3D%22180%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2296.2734375%22'.
+                '%20y%3D%2296%22%3E100%%20x%20180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E';
         }
         $classes = 'card-img-top';
         if ($courseimage['image']) {
@@ -965,14 +989,18 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $content .= html_writer::start_tag('div', array('class' => 'card-body'));
         // Course name.
         $coursename = $chelper->get_course_formatted_name($course);
-        $coursenamelink = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)), $coursename, array('class' => $course->visible ? '' : 'dimmed'));
+        $coursenamelink = html_writer::link(new moodle_url('/course/view.php',
+            array('id' => $course->id)), $coursename, array('class' => $course->visible ? '' : 'dimmed'));
         $content .= html_writer::tag('h3', $coursenamelink, array('class' => 'coursename card-title'));
         $content .= html_writer::start_tag('div', array('class' => 'card-text'));
 
         // Display course summary.
         if ($course->has_summary()) {
             $content .= html_writer::start_tag('div', array('class' => 'summary'));
-            $content .= $chelper->get_course_formatted_summary($course, array('overflowdiv' => true, 'noclean' => true, 'para' => false));
+            $content .= $chelper->get_course_formatted_summary(
+                $course,
+                array('overflowdiv' => true, 'noclean' => true, 'para' => false)
+            );
             $content .= html_writer::end_tag('div'); // Class .summary.
         }
 
@@ -980,8 +1008,11 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         if ($course->has_course_contacts()) {
             $content .= html_writer::start_tag('ul', array('class' => 'teachers'));
             foreach ($course->get_course_contacts() as $userid => $coursecontact) {
-                $name = $coursecontact['rolename'] . ': ' .
-                        html_writer::link(new moodle_url('/user/view.php', array('id' => $userid, 'course' => SITEID)), $coursecontact['username']);
+                $name = $coursecontact['rolename'].': '.
+                    html_writer::link(new moodle_url(
+                        '/user/view.php', array('id' => $userid, 'course' => SITEID)),
+                        $coursecontact['username']
+                    );
                 $content .= html_writer::tag('li', $name);
             }
             $content .= html_writer::end_tag('ul'); // Start .teachers.
@@ -1032,7 +1063,8 @@ class theme_squared_core_course_renderer extends core_course_renderer {
         $coursedisplayoptions = array();
         $perpage = optional_param('perpage', $CFG->coursesperpage, PARAM_INT);
         $page = optional_param('page', 0, PARAM_INT);
-        $coursedisplayoptions['sqcategorysearch'] = optional_param('sqcategorysearch', '', PARAM_TEXT);  // Needed in 'coursecat_courses()'.
+        // Needed in 'coursecat_courses()'.
+        $coursedisplayoptions['sqcategorysearch'] = optional_param('sqcategorysearch', '', PARAM_TEXT);
         $coursedisplayoptions['sqcardlayout'] = true;
         $categorysearchsort = optional_param('searchsort', 1, PARAM_INT);
         $baseurl = new moodle_url('/course/index.php');
@@ -1140,7 +1172,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
     public function frontpage_my_courses() {
         global $USER, $CFG, $DB;
 
-        if (!isloggedin() or isguestuser()) {
+        if (!isloggedin() || isguestuser()) {
             return '';
         }
 
@@ -1225,7 +1257,7 @@ class theme_squared_core_course_renderer extends core_course_renderer {
                 }
                 $output .= html_writer::end_tag('div'); // Class .courses.
             } else if (!empty($rhosts)) {
-                // non-IDP, we know of all the remote servers, but not courses.
+                // Non-IDP, we know of all the remote servers, but not courses.
                 $output .= html_writer::start_tag('div', array('class' => 'courses'));
                 foreach ($rhosts as $host) {
                     $output .= $this->frontpage_remote_host($host);

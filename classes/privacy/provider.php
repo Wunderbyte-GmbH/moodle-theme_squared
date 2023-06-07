@@ -28,8 +28,6 @@
 
 namespace theme_squared\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * The Squared theme does not store any user data.
  * But if you use CDN fonts then investigate the respective privacy policies.

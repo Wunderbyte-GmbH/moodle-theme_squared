@@ -1,4 +1,4 @@
-The "squared" Moodle Theme
+The "Squared" Moodle Theme
 ======================
 
 The theme is generally based on squares. If you like squares, that is definitely your first choice, if you do not like squares, 
@@ -60,11 +60,10 @@ in order to improve the theme or add your settings.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 3.9 version 2020061500.00 (Build: 20200615) and above within the 3.9 branch until the
+This version works with Moodle 4.1 version 2022112800.00 (Build: 20221128) and above within the MOODLE_401_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/39/en/Installing_Moodle'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/401/en/Installing_Moodle)'.
 
 Installation
 ============
@@ -113,69 +112,92 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+
+10th July 2023 - Freyung 401.1.0
+---------------------
+1. Update to Moodle 4.1.
+2. Use core 'grunt', e.g.
+   Install grunt-cli: `[sudo] npm install -g grunt-cli`
+   Node dependencies: run `npm install` in the Moodle root directory.
+   Build with: grunt amd --root=theme/squared
+   Note: If on Windows, then set 'linebreak-style' to 'off' in root '.eslintrc' as Git will handle this for us.
+
 1st September 2021 - Rathausplatz 3.10.1.0
-  1. Update to Moodle 3.10.
-  2. Same functionality as 3.9.1.1.
-  3. Fix 'Search field in navbar is collapsed (due to JS error)' - #9.
+---------------------
+1. Update to Moodle 3.10.
+2. Same functionality as 3.9.1.1.
+3. Fix 'Search field in navbar is collapsed (due to JS error)' - #9.
 
 19th June 2020 - Maria-Theresien-Platz 3.9.1.0.
-  1. Update to Moodle 3.9.
-  2. Same functionality as 3.8.1.1.
+---------------------
+1. Update to Moodle 3.9.
+2. Same functionality as 3.8.1.1.
 
 TBD - Version Heldenplatz 3.8.1.1.
-  1. Logo change.
-  2. Slight 1px border on region-main.
-  3. region-main padding.
-  4. Remove border on squares when < 768px.
-  5. No background on square icon when < 768px.
-  6. Course title to 24px.
-  7. Line height of block title when >= 786px to 15px.
-  8. Added 'bgcolordefault' setting for the squares when not in a category to the general settings.
-  9. Fix 'Add a block' not working.
- 10. Use 'format_string()' on 'h1.course-title' so that the mult-lang functionality works.
- 11. Fix Accordion background > 786px.
- 12. Add custom 'favicon' setting to the general settings.
- 13. Changes to the course header image.
+---------------------
+1. Logo change.
+2. Slight 1px border on region-main.
+3. region-main padding.
+4. Remove border on squares when < 768px.
+5. No background on square icon when < 768px.
+6. Course title to 24px.
+7. Line height of block title when >= 786px to 15px.
+8. Added 'bgcolordefault' setting for the squares when not in a category to the general settings.
+9. Fix 'Add a block' not working.
+10. Use 'format_string()' on 'h1.course-title' so that the mult-lang functionality works.
+11. Fix Accordion background > 786px.
+12. Add custom 'favicon' setting to the general settings.
+13. Changes to the course header image.
 
 26th November 2019 - Version Heldenplatz 3.8.1.0.
+---------------------
 
 28th June 2019 - Version Heldenplatz 3.7.1.0.
+---------------------
 
 23rd November 2018 - Version Temp Square 0.93.3.
+---------------------
   1. Update to Moodle 3.5 with the Boost theme as a parent and SCSS.  LESS to be removed but as reference for now.
 
 27th August 2015 - Version 2.9.2
-  1. Remove redundant old style jQuery code.
+---------------------
+1. Remove redundant old style jQuery code.
 
 26th August 2015 - Version 2.9.1.
-  1. First stable release for Moodle 2.9 - task #722.
-  2. Notification for not filling out required fields in mod questionnaire is white font on white background - task #721.
+---------------------
+1. First stable release for Moodle 2.9 - task #722.
+2. Notification for not filling out required fields in mod questionnaire is white font on white background - task #721.
 
 11th August 2015 - Version 2.9.0.5.
-  1. Editing mode on course page: admin block stays over settings panel - task #714.
-  2. Reduce font-size in h3. sectionname - task #715.
-  3. Frontpage blocks - task #708.
-  4. Apply top level bg category colour to all sub-categories and also courses within sub categories - task #709.
+---------------------
+1. Editing mode on course page: admin block stays over settings panel - task #714.
+2. Reduce font-size in h3. sectionname - task #715.
+3. Frontpage blocks - task #708.
+4. Apply top level bg category colour to all sub-categories and also courses within sub categories - task #709.
 
 10th August 2015 - Version 2.9.0.4.
-  1. Fix Notice: Undefined variable: cssclass in /usr/www/users/lernst/laborblank_net/theme/squared/classes/core_renderer.php on line 290 - task #710.
-  2. Frontpage blocks - task #708.
-  3. Apply top level bg category colour to all sub-categories and also courses within sub categories - task #709.
-  4. Dock blocks on course pages with click on double chevron icon: Does not work anymore - task #711.
-  5. Custom font is not loaded - task #713.
-  6. Fix custom CSS integration + Colour guide - task #712.
+---------------------
+1. Fix Notice: Undefined variable: cssclass in /usr/www/users/lernst/laborblank_net/theme/squared/classes/core_renderer.php on line 290 - task #710.
+2. Frontpage blocks - task #708.
+3. Apply top level bg category colour to all sub-categories and also courses within sub categories - task #709.
+4. Dock blocks on course pages with click on double chevron icon: Does not work anymore - task #711.
+5. Custom font is not loaded - task #713.
+6. Fix custom CSS integration + Colour guide - task #712.
 
- 9th August 2015 - Version 2.9.0.3.
-  1. Implement core course category renderer override - task #388 - Work in progress.
-  2. When in edit mode and expanding the settings in a block in the left column, the opening panel is not displayed correctly - task #707.
-  3. Front page blocks expanded instead of "squares" - task #706.
+9th August 2015 - Version 2.9.0.3.
+---------------------
+1. Implement core course category renderer override - task #388 - Work in progress.
+2. When in edit mode and expanding the settings in a block in the left column, the opening panel is not displayed correctly - task #707.
+3. Front page blocks expanded instead of "squares" - task #706.
 
- 8th August 2015 - Version 2.9.0.2.
-  1. Make theme compatible with course format grid view - task #703.
-  2. Implement core course category renderer override - task #388 - Work in progress.
+8th August 2015 - Version 2.9.0.2.
+---------------------
+1. Make theme compatible with course format grid view - task #703.
+2. Implement core course category renderer override - task #388 - Work in progress.
 
- 7th August 2015 - Version 2.9.0.1.
-  1. Implement API and style changes necessary for M2.9 - task #380.
-  2. Put back 'html5shiv.js' - task #380.
-  3. Implement own 'myprofile' string as has been depreciated - task #380.  TODO: Need other versions besides English.
-  4. Use class autoloading for core_renderer - task #380.
+7th August 2015 - Version 2.9.0.1.
+---------------------
+1. Implement API and style changes necessary for M2.9 - task #380.
+2. Put back 'html5shiv.js' - task #380.
+3. Implement own 'myprofile' string as has been depreciated - task #380.  TODO: Need other versions besides English.
+4. Use class autoloading for core_renderer - task #380.

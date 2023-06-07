@@ -86,7 +86,30 @@ echo $OUTPUT->doctype() ?>
 
                 <?php
                 echo $OUTPUT->full_header();
+
+                $secondarynavigation = $OUTPUT->secondarynavigation();
+                if ((!is_null($secondarynavigation)) && (!empty($secondarynavigation['secondarynavigation']))) {
+                    echo html_writer::start_tag('div', array('class' => 'secondary-navigation d-print-none'));
+                    echo $OUTPUT->render_from_template('core/moremenu', $secondarynavigation['secondarynavigation']);
+                    echo html_writer::end_tag('div');
+                }
+
                 echo $OUTPUT->course_content_header();
+
+                if ((!is_null($secondarynavigation)) && (!empty($secondarynavigation['overflow']))) {
+                    echo html_writer::start_tag('div', array('class' => 'container-fluid tertiary-navigation'));
+                    echo html_writer::start_tag('div', array('class' => 'navitem'));
+                    echo $OUTPUT->render_from_template('core/url_select', $secondarynavigation['overflow']);
+                    echo html_writer::end_tag('div');
+                    echo html_writer::end_tag('div');
+                }
+
+                $header = $PAGE->activityheader;
+                $headercontent = $header->export_for_template($OUTPUT);
+                if (!empty($headercontent)) {
+                    echo $OUTPUT->render_from_template('core/activity_header', $headercontent);
+                }
+
                 echo $OUTPUT->main_content();
                 echo $OUTPUT->course_content_footer();
                 ?>

@@ -25,8 +25,6 @@
 
 namespace theme_squared\output;
 
-defined('MOODLE_INTERNAL') || die;
-
 use custom_menu;
 use moodle_url;
 use stdClass;
@@ -127,6 +125,12 @@ class html_renderer extends \plugin_renderer_base {
         $template->output = $this->output;
         $template->navpositionfixed = $fixednavbar;
         $template->searchbox = $this->output->search_box();
+
+        $primary = new \core\navigation\output\primary($this->page);
+        $primarymenu = $primary->export_for_template($this);
+        $template->primarymoremenu = $primarymenu['moremenu'];
+        $template->langmenu = $primarymenu['lang'];
+        $template->usermenu = $primarymenu['user'];
 
         return $this->render_from_template('theme_squared/navigation', $template);
     }

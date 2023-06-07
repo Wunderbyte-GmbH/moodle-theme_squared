@@ -153,3 +153,5 @@ $THEME->javascripts_footer = array(
 );
 
 $THEME->iconsystem = '\\theme_squared\\output\\icon_system_fontawesome';
+$THEME->haseditswitch = true;
+$THEME->requiredblocks = '';

@@ -45,7 +45,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return string HTML to display the main header.
      */
     public function full_header() {
-        $html = html_writer::start_tag('header', array('id' => 'main-header', 'class' => 'row p-a-1'));
+        $html = html_writer::start_tag('header', array('id' => 'main-header', 'class' => 'row mt-1 p-a-1'));
         $usecourseimage = ((!empty($this->page->layout_options['courseimage'])) &&
             (!empty($this->page->theme->settings->courseheaderimage)));
         $courseheader = $this->course_header();
@@ -66,7 +66,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $html .= html_writer::start_div('col-12');
             }
             if ($contextheader) {
-                $html .= html_writer::start_div('pull-left');
+                $html .= html_writer::start_div('squaredcontextheader d-inline-block');
                 $html .= $contextheader;
                 $html .= html_writer::end_div();
             }
@@ -74,6 +74,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $html .= html_writer::end_div();
                 $html .= html_writer::start_div('col-4');
                 $html .= $courseitemsearch;
+            } else {
+                $headeractions = $this->page->get_header_actions();
+                if (!empty($headeractions)) {
+                    $context = new stdClass;
+                    $context->headeractions = $headeractions;
+                    $html .= $this->render_from_template('theme_squared/header_actions', $context);
+                }
             }
             $html .= html_writer::end_div();
             $html .= html_writer::start_div('col-12');
@@ -83,12 +90,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $html .= html_writer::end_tag('header');
         if ($usecourseimage) {
             $course = new \core_course_list_element($this->page->course);
-            $courseimage = \theme_squared\coursecat_toolbox::course_image_url($course, \theme_squared\coursecat_toolbox::forcourse);
+            $courseimage = \theme_squared\coursecat_toolbox::course_image_url($course, \theme_squared\coursecat_toolbox::FORCOURSE);
             if (empty($courseimage)) {
                 if ((empty($this->page->theme->settings->courseheaderimagefallback)) ||
                     ($this->page->theme->settings->courseheaderimagefallback == 'courseheaderimagefallbackthemeimage')) {
                     // Use the 'courseheaderimagefallbackimage' image or theme image if empty.
-                    $courseheaderimagefallbackimage = $this->page->theme->setting_file_url('courseheaderimagefallbackimage', 'courseheaderimagefallbackimage');
+                    $courseheaderimagefallbackimage = $this->page->theme->setting_file_url(
+                        'courseheaderimagefallbackimage', 'courseheaderimagefallbackimage');
                     if (empty($courseheaderimagefallbackimage)) {
                         $courseheaderimagefallbackimage = $this->image_url('pexels-photo-220320_crop', 'theme')->out();
                     }
@@ -145,6 +153,27 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $content = parent::heading ( $icon . $text, $level, $classes, $id );
 
         return $content;
+    }
+
+    /**
+     * Gets the secondary navigation if any.
+     *
+     * @return null or an array containing the secondary navigation and if there, overflow entries.
+     */
+    public function secondarynavigation() {
+        $retr = null;
+
+        if ($this->page->has_secondary_navigation()) {
+            $tablistnav = $this->page->has_tablist_secondary_navigation();
+            $moremenu = new \core\navigation\output\more_menu($this->page->secondarynav, 'nav-tabs', true, $tablistnav);
+            $retr['secondarynavigation'] = $moremenu->export_for_template($this);
+            $overflowdata = $this->page->secondarynav->get_overflow_menu_data();
+            if (!is_null($overflowdata)) {
+                $retr['overflow'] = $overflowdata->export_for_template($this);
+            }
+        }
+
+        return $retr;
     }
 
     /**
@@ -230,7 +259,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function search_box($id = false) {
         $navbarsearch = (empty($this->page->theme->settings->navbarsearch)) ? false : $this->page->theme->settings->navbarsearch;
 
-        if ((empty($navbarsearch)) || (\theme_squared\toolbox::search_page($this->page->pagetype))) { // Don't duplicate the search boxes.
+        // Don't duplicate the search boxes.
+        if ((empty($navbarsearch)) || (\theme_squared\toolbox::search_page($this->page->pagetype))) {
             return '';
         }
 
@@ -272,9 +302,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $searchinput .= '<input type="text" name="navbaradvsearch" id="navbaradvsearch" disabled="disabled">';
             $searchinput .= '</span>';
 
-            $searchicon = html_writer::tag('div', $searchicon, array('id' => 'sqsearchbutton', 'role' => 'button', 'tabindex' => 0));
+            $searchicon = html_writer::tag('div', $searchicon,
+                array('id' => 'sqsearchbutton', 'role' => 'button', 'tabindex' => 0));
 
-            $search = html_writer::tag('div', $searchinput.$searchicon, array('class' => 'search-input-wrapper nav-link', 'id' => $id));
+            $search = html_writer::tag('div', $searchinput.$searchicon,
+                array('class' => 'search-input-wrapper nav-link', 'id' => $id));
         } else {
             if ($navbarsearch == 3) {
                 $action = new moodle_url('/search/index.php');
@@ -295,6 +327,34 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         return $search;
+    }
+
+    /**
+     * Renders a custom menu object (located in outputcomponents.php)
+     *
+     * The custom menu this method produces makes use of the YUI3 menunav widget
+     * and requires very specific html elements and classes.
+     *
+     * @staticvar int $menucount
+     * @param custom_menu $menu
+     * @return string
+     */
+    protected function render_custom_menu(\custom_menu $menu) {
+        global $CFG;
+
+        if (!$menu->has_children()) {
+            return '';
+        }
+
+        // Note: Language menu is already on the navbar.
+
+        $content = '';
+        foreach ($menu->get_children() as $item) {
+            $context = $item->export_for_template($this);
+            $content .= $this->render_from_template('core/custom_menu_item', $context);
+        }
+
+        return $content;
     }
 
     /**
@@ -336,7 +396,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $subscribeurl = preg_replace('/login\/index\.php/i', 'login/signup.php', $loginurl);
 
         if (empty($course->id)) {
-            // $course->id is not defined during installation.
+            // Note: $course->id is not defined during installation.
             return '';
         } else if (isloggedin()) {
             $context = \context_course::instance($course->id);
@@ -349,7 +409,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             } else {
                 $username = $fullname;
             }
-            if (is_mnet_remote_user($USER) and $idprovider = $DB->get_record('mnet_host',
+            if (is_mnet_remote_user($USER) && $idprovider = $DB->get_record('mnet_host',
                 array('id' => $USER->mnethostid))) {
                 if ($withlinks) {
                     $username .= " from <a href=\"{$idprovider->wwwroot}\">{$idprovider->name}</a>";
@@ -368,8 +428,15 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 }
                 $loggedinas = '<span class="loggedintext">' . get_string('loggedinas', 'moodle', $username) . $rolename . '</span>';
                 if ($withlinks) {
-                    $url = new moodle_url('/course/switchrole.php',
-                        array('id' => $course->id, 'sesskey' => sesskey(), 'switchrole' => 0, 'returnurl' => $this->page->url->out_as_local_url(false)));
+                    $url = new moodle_url(
+                        '/course/switchrole.php',
+                        array(
+                            'id' => $course->id,
+                            'sesskey' => sesskey(),
+                            'switchrole' => 0,
+                            'returnurl' => $this->page->url->out_as_local_url(false)
+                        )
+                    );
                     $loggedinas .= '(' . html_writer::tag('a', get_string('switchrolereturn'),
                         array('href' => $url, 'class' => 'btn')) . ')';
                 }
@@ -408,9 +475,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
                         $a = new stdClass();
                         $a->attempts = $count;
                         $loggedinas .= get_string('failedloginattempts', '', $a);
-                        if (file_exists("$CFG->dirroot/report/log/index.php") and has_capability('report/log:view', \context_system::instance())) {
-                            $loggedinas .= ' ('.html_writer::link(new moodle_url('/report/log/index.php', array('chooselog' => 1,
-                                            'id' => 0 , 'modid' => 'site_errors')), get_string('logs')).')';
+                        if (file_exists("$CFG->dirroot/report/log/index.php") &&
+                            has_capability('report/log:view', \context_system::instance())) {
+                            $loggedinas .= ' ('.html_writer::link(new moodle_url('/report/log/index.php',
+                                array('chooselog' => 1, 'id' => 0 , 'modid' => 'site_errors')), get_string('logs')).')';
                         }
                         $loggedinas .= '</div>';
                     }
@@ -483,7 +551,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
             if ($bc->blockinstanceid) {
                 $attributes['id'] = 'instance-'.$bc->blockinstanceid.'-header';
             }
-            $title = html_writer::tag('h2', $bc->title, $attributes);
+            $title = html_writer::tag('div',
+                html_writer::tag('h2', $bc->title, $attributes)
+            );
         }
 
         $blockid = null;
@@ -495,12 +565,17 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $collapseattributes['class'] = $collapseattributes['class'].' courseblock-icon';
         $icon = html_writer::tag('div', '', $collapseattributes);
 
-        $iconarea = html_writer::tag('div', $icon.$controlshtml, array('class' => 'd-inline-block icon-container'));
+        $iconarea = html_writer::tag('div', $icon, array('class' => 'd-inline-block icon-container'));
 
         $output = '';
         if ($title || $controlshtml) {
-            $output .= html_writer::tag('div', html_writer::tag('div', $iconarea.html_writer::tag('div', '',
-                array('class' => 'block_action')).$title, array('class' => 'title')), array('class' => 'header'));
+            $output .= html_writer::tag(
+                'div',
+                html_writer::tag('div', $iconarea.
+                    html_writer::tag('div', $title.$controlshtml, array('class' => 'title-container')),
+                    array('class' => 'header-container')),
+                array('class' => 'header')
+            );
         }
         return $output;
     }
@@ -531,10 +606,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $numblocks = 1; // Take into account the fake flat navigation block.
         foreach ($blockcontents as $bc) {
             if ($bc instanceof block_contents) {
-                if (($bc->attributes['data-block'] == 'navigation') || ($bc->attributes['data-block'] == 'settings')) {
-                    continue;
-                }
-
                 $numblocks++;
             } else if ($bc instanceof block_move_target) {
                 $numblocks++;
@@ -557,8 +628,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $thisblock->name = 'block_flat_navigation';
         $thisblock->title = '<span class="title">'.$flatnavname.'</span>';
         $thisblock->header = '<div role="button" class="collapselink" data-toggle="collapse" data-target="#subcollapsefake9999" '.
-            'aria-expanded="false" aria-controls="instfake9999"><div class="header"><div class="title"><div class="d-inline-block '.
-            'icon-container"><div class="courseblock-icon"></div></div><h2 class="sqtitle">'.$flatnavname.'</h2></div></div></div>';
+            'aria-expanded="false" aria-controls="instfake9999"><div class="header">'.
+            '<div class="header-container">'.
+            '<div class="d-inline-block icon-container"><div class="courseblock-icon"></div></div>'.
+            '<div class="title-container">'.
+            '<div><h2 class="sqtitle">'.$flatnavname.'</h2></div></div></div></div></div>';
         $thisblock->content = $this->render_from_template('theme_squared/flat_navigation_content', $templatecontext);
         $thisblock->blockinstanceid = "fake9999"; // Not sure!  But we are a 'fake' block.
         $thisblock->instanceid = "fake9999";
@@ -598,16 +672,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
         // One block column.
         foreach ($blockcontents as $bc) {
             if ($bc instanceof block_contents) {
-                if (($bc->attributes['data-block'] == 'navigation') || ($bc->attributes['data-block'] == 'settings')) {
-                    continue;
-                }
-
                 $thisblock = $this->block($bc, $region);
+                // TODO: Not sure if this is needed anymore?
                 if ($bc->attributes['data-block'] == 'adminblock') {
                     $bc->blockinstanceid = -1;
                     $thisblock->blockinstanceid = $bc->blockinstanceid;
                 }
-                $thisblock->header = $this->block_header_collapse($thisblock); // Pass in the new potentially altered block_contents.
+                // Pass in the new potentially altered block_contents.
+                $thisblock->header = $this->block_header_collapse($thisblock);
                 $thisblock->movetarget = false;
 
                 $template->blocks[] = $thisblock;
@@ -632,11 +704,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     $block->name = 'block_' . $block->attributes['data-block'];
                 }
                 $block->shape = 'squared';
+                // TODO: Not sure if this is needed anymore?
                 if ($block->name == "block_adminblock") {
                     $block->blockinstanceid = -1;
-                }
-                if ($block->name == "block_settings") {
-                    $block->subopen = true;
                 }
 
                 if ($count == 2) {
@@ -803,32 +873,34 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     protected function squared_prepare_textlinks($textlinks) {
-        $textsnippets = explode ( ';', $textlinks );
+        $textsnippets = explode (';', $textlinks);
         foreach ($textsnippets as $value) {
-            $textandlinks [] = explode ( ',', $value, 2 );
+            $textandlinks[] = explode (',', $value, 2 );
         }
         $renderedtext = '';
         $lastelement = end ( $textandlinks );
-        if (empty ( $lastelement [0] )) {
+        if (empty ( $lastelement[0] )) {
             $lastelement = prev ( $textandlinks );
         }
         $attributes = array ();
         foreach ($textandlinks as $value) {
-            if (empty ( $value [0] )) {
+            if (empty ( $value[0] )) {
                 continue;
             }
             $renderedtext .= html_writer::start_tag ( 'span', $attributes );
-            $renderedtext .= html_writer::tag ( 'a', trim ( $value [0] ), array (
-                    'href' => trim ( $value [1] )
+            $renderedtext .= html_writer::tag ('a', trim ($value[0]), array(
+                    'href' => trim($value[1])
             ) );
-            $renderedtext .= html_writer::end_tag ( 'span' );
+            $renderedtext .= html_writer::end_tag ('span');
         }
         $renderedtext .= html_writer::tag ('span', page_doc_link(get_string('moodledocslink')), array (
             'class' => 'helplink'
         ) );
-        $renderedtext .= html_writer::tag ('span', 'Theme by <a href="http://www.edulabs.org" target="_blank">edulabs.org - e-learning solutions</a>', array (
-            'class' => 'squared-themeby lastelement'
-        ) );
+        $renderedtext .= html_writer::tag(
+            'span',
+            'Theme by <a href="http://www.edulabs.org" target="_blank">edulabs.org - e-learning solutions</a>',
+            array ('class' => 'squared-themeby lastelement')
+        );
         return $renderedtext;
     }
 

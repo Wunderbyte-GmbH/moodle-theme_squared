@@ -13,12 +13,8 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
 
 .course-content {
     .sectionname {
-        margin: 0;
-        background-color: $gray-lighter;
-
         font-family: $font-family-sans-serif;
-        border: 1px solid #fff;
-        box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
+        margin: 0;
 
         .sqheadingicon {
             display: inline-block;
@@ -175,15 +171,6 @@ div.activity.label { // From boost/scss/moodle/undo.scss.
         div.activity.label {
             padding: 8px;
         }
-    }
-
-    .section div.section,
-    .section ul.section,
-    .section div.summary {
-        background: #fff;
-        border: 1px solid #fff;
-        box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.23);
-        font-size: 100%;
     }
 
     .section div.section,

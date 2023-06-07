@@ -29,8 +29,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 class squared_simple_theme_settings {
     private $themename;
     private $settingspage;
@@ -251,18 +249,18 @@ class squared_simple_theme_settings {
 
         if (! empty ( $CFG->mnet_all_hosts_id )) {
             $sql .= " AND h.id <> ?";
-            $params [] = $CFG->mnet_all_hosts_id;
+            $params[] = $CFG->mnet_all_hosts_id;
         }
 
         if ($hosts = $DB->get_records_sql ( $sql, $params )) {
             $choices = array ();
-            $choices [0] = 'notset';
+            $choices[0] = 'notset';
             foreach ($hosts as $id => $host) {
-                $choices [$id] = $host->name;
+                $choices[$id] = $host->name;
             }
         } else {
             $choices = array ();
-            $choices [0] = 'notset';
+            $choices[0] = 'notset';
         }
         return $choices;
     }

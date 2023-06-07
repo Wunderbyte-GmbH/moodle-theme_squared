@@ -25,7 +25,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace theme_squared\output;
-defined('MOODLE_INTERNAL') || die;
 
 use html_writer;
 use navigation_node;
