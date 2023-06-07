@@ -29,6 +29,8 @@
 
 namespace theme_squared;
 
+use stdClass;
+
 /**
  * Toolbox unit tests for the Squared theme.
  * @group theme_squared

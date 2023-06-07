@@ -50,11 +50,6 @@
                     flex-direction: row;
                     justify-content: space-between;
                 }
-
-                .block_action,
-                h2.sqtitle {
-                    display: inline !important;
-                }
             }
         }
         @include gradient-directional(lighten($squared-purple, 15%), lighten($squared-purple, 5%));
