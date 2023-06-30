@@ -104,6 +104,12 @@ echo $OUTPUT->doctype() ?>
                     echo html_writer::end_tag('div');
                 }
 
+                $header = $PAGE->activityheader;
+                $headercontent = $header->export_for_template($OUTPUT);
+                if (!empty($headercontent)) {
+                    echo $OUTPUT->render_from_template('core/activity_header', $headercontent);
+                }
+
                 echo $OUTPUT->main_content();
                 echo $OUTPUT->course_content_footer();
                 ?>
