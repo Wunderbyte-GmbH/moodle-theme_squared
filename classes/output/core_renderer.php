@@ -45,7 +45,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return string HTML to display the main header.
      */
     public function full_header() {
-        $html = html_writer::start_tag('header', array('id' => 'main-header', 'class' => 'row p-a-1'));
+        $html = html_writer::start_tag('header', array('id' => 'main-header', 'class' => 'row mt-1 p-a-1'));
         $usecourseimage = ((!empty($this->page->layout_options['courseimage'])) &&
             (!empty($this->page->theme->settings->courseheaderimage)));
         $courseheader = $this->course_header();
@@ -74,6 +74,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $html .= html_writer::end_div();
                 $html .= html_writer::start_div('col-4');
                 $html .= $courseitemsearch;
+            } else {
+                $headeractions = $this->page->get_header_actions();
+                if (!empty($headeractions)) {
+                    $context = new stdClass;
+                    $context->headeractions = $headeractions;
+                    $html .= $this->render_from_template('theme_squared/header_actions', $context);
+                }
             }
             $html .= html_writer::end_div();
             $html .= html_writer::start_div('col-12');
