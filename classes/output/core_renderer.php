@@ -606,10 +606,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $numblocks = 1; // Take into account the fake flat navigation block.
         foreach ($blockcontents as $bc) {
             if ($bc instanceof block_contents) {
-                if (($bc->attributes['data-block'] == 'navigation') || ($bc->attributes['data-block'] == 'settings')) {
-                    continue;
-                }
-
                 $numblocks++;
             } else if ($bc instanceof block_move_target) {
                 $numblocks++;
@@ -676,11 +672,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
         // One block column.
         foreach ($blockcontents as $bc) {
             if ($bc instanceof block_contents) {
-                if (($bc->attributes['data-block'] == 'navigation') || ($bc->attributes['data-block'] == 'settings')) {
-                    continue;
-                }
-
                 $thisblock = $this->block($bc, $region);
+                // TODO: Not sure if this is needed anymore?
                 if ($bc->attributes['data-block'] == 'adminblock') {
                     $bc->blockinstanceid = -1;
                     $thisblock->blockinstanceid = $bc->blockinstanceid;
@@ -711,11 +704,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     $block->name = 'block_' . $block->attributes['data-block'];
                 }
                 $block->shape = 'squared';
+                // TODO: Not sure if this is needed anymore?
                 if ($block->name == "block_adminblock") {
                     $block->blockinstanceid = -1;
-                }
-                if ($block->name == "block_settings") {
-                    $block->subopen = true;
                 }
 
                 if ($count == 2) {
