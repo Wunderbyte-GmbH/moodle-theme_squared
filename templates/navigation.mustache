@@ -1,4 +1,9 @@
 <header role="banner" class="navbar navbar-expand-lg navbar-light bg-light moodle-has-zindex position-{{#navpositionfixed}}fixed{{/navpositionfixed}}{{^navpositionfixed}}static{{/navpositionfixed}}">
+    {{#primarymoremenu}}
+        <div class="primary-navigation">
+            {{> core/moremenu}}
+        </div>
+    {{/primarymoremenu}}
     <ul class="nav navbar-nav mr-auto sq-hidden-md-down">
         <!-- custom_menu -->
         {{{ output.custom_menu }}}
@@ -29,4 +34,5 @@
             {{{ output.user_menu }}}
         </li>
     </ul>
+    {{{ output.edit_switch }}}
 </header>
