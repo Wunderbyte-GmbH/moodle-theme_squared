@@ -330,6 +330,34 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
+     * Renders a custom menu object (located in outputcomponents.php)
+     *
+     * The custom menu this method produces makes use of the YUI3 menunav widget
+     * and requires very specific html elements and classes.
+     *
+     * @staticvar int $menucount
+     * @param custom_menu $menu
+     * @return string
+     */
+    protected function render_custom_menu(\custom_menu $menu) {
+        global $CFG;
+
+        if (!$menu->has_children()) {
+            return '';
+        }
+
+        // Note: Language menu is already on the navbar.
+
+        $content = '';
+        foreach ($menu->get_children() as $item) {
+            $context = $item->export_for_template($this);
+            $content .= $this->render_from_template('core/custom_menu_item', $context);
+        }
+
+        return $content;
+    }
+
+    /**
      * Return the standard string that says whether you are logged in (and switched
      * roles/logged in as another user).
      * @param bool $withlinks if false, then don't include any links in the HTML produced.

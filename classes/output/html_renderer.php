@@ -121,16 +121,16 @@ class html_renderer extends \plugin_renderer_base {
      * Full top Navbar. Returns Mustache rendered menu.
      */
     protected function navigation_menu($fixednavbar = false) {
-        global $PAGE;
-
         $template = new \stdClass();
         $template->output = $this->output;
         $template->navpositionfixed = $fixednavbar;
         $template->searchbox = $this->output->search_box();
 
-        $primary = new \core\navigation\output\primary($PAGE);
+        $primary = new \core\navigation\output\primary($this->page);
         $primarymenu = $primary->export_for_template($this);
         $template->primarymoremenu = $primarymenu['moremenu'];
+        $template->langmenu = $primarymenu['lang'];
+        $template->usermenu = $primarymenu['user'];
 
         return $this->render_from_template('theme_squared/navigation', $template);
     }

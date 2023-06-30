@@ -19,6 +19,13 @@
         </li>
         {{/searchbox}}
 
+        {{#langmenu}}
+        <li class="nav-item">
+            {{> theme_boost/language_menu }}
+            <div class="divider border-left h-75 align-self-center mx-1"></div>
+        </li>
+        {{/langmenu}}
+
         <!-- navbar_settings_menu_output -->
         <li class="nav-item">
             {{{ output.navbar_settings_menu }}}
@@ -29,10 +36,12 @@
             {{{ output.navbar_plugin_output }}}
         </li>
 
+        {{#usermenu}}
         <!-- user_menu -->
         <li class="nav-item">
-            {{{ output.user_menu }}}
+            {{> core/user_menu }}
         </li>
+        {{/usermenu}}
     </ul>
     {{{ output.edit_switch }}}
 </header>
