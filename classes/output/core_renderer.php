@@ -66,7 +66,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $html .= html_writer::start_div('col-12');
             }
             if ($contextheader) {
-                $html .= html_writer::start_div('pull-left');
+                $html .= html_writer::start_div('squaredcontextheader d-inline-block');
                 $html .= $contextheader;
                 $html .= html_writer::end_div();
             }
