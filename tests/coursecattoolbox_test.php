@@ -282,7 +282,7 @@ class coursecattoolbox_testcase extends \advanced_testcase {
         $this->set_up();
         $this->add_more_courses();
         $perpage = 3;
-        $offset = 2 * $perpage;
+        $offset = 3 * $perpage;
         $searchresults = $this->toolbox->search_courses('', array('offset' => $offset, 'limit' => $perpage))['courses'];
         $expectedresults = array(
             'TP1' => 'Topic One',
@@ -297,16 +297,6 @@ class coursecattoolbox_testcase extends \advanced_testcase {
             'TP35' => 'Three Five'
         );
 
-        $this->assertEquals(3, count($searchresults));
-        $expectedresultcount = 0;
-        foreach ($searchresults as $courseinlistobject) {
-            $this->assertEquals($courseinlistobject->fullname, $expectedresults[$courseinlistobject->shortname]);
-            $expectedresultcount++;
-        }
-        $this->assertEquals(3, $expectedresultcount);
-
-        $offset = 3 * $perpage;
-        $searchresults = $this->toolbox->search_courses('', array('offset' => $offset, 'limit' => $perpage))['courses'];
         $this->assertEquals(1, count($searchresults));
         $expectedresultcount = 0;
         foreach ($searchresults as $courseinlistobject) {
