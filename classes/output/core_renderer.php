@@ -40,6 +40,11 @@ require_once($CFG->dirroot . '/course/format/lib.php');
 class core_renderer extends \theme_boost\output\core_renderer {
 
     /**
+     * @var flat_navigation Contains a list of nav nodes, most closely related to the current page.
+     */
+    protected $_flatnav = null;
+
+    /**
      * Wrapper for header elements.
      *
      * @return string HTML to display the main header.
@@ -532,6 +537,18 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
+     * Returns the flat navigation object
+     * @return flat_navigation
+     */
+    protected function get_flatnav() {
+        if ($this->_flatnav === null) {
+            $this->_flatnav = new flat_navigation($this->page);
+            $this->_flatnav->initialise();
+        }
+        return $this->_flatnav;
+    }
+
+    /**
      * Produces a header for a block
      *
      * @param block_contents $bc
@@ -623,7 +640,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         // Add flat navigation.
         $flatnavname = get_string('flatnavigation', 'theme_squared');
-        $templatecontext = array('flatnavigation' => $this->page->flatnav);
         $thisblock = new stdClass();
         $thisblock->name = 'block_flat_navigation';
         $thisblock->title = '<span class="title">'.$flatnavname.'</span>';
@@ -633,6 +649,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             '<div class="d-inline-block icon-container"><div class="courseblock-icon"></div></div>'.
             '<div class="title-container">'.
             '<div><h2 class="sqtitle">'.$flatnavname.'</h2></div></div></div></div></div>';
+        $templatecontext = array('flatnavigation' => $this->get_flatnav());
         $thisblock->content = $this->render_from_template('theme_squared/flat_navigation_content', $templatecontext);
         $thisblock->blockinstanceid = "fake9999"; // Not sure!  But we are a 'fake' block.
         $thisblock->instanceid = "fake9999";
