@@ -36,6 +36,7 @@ if (is_siteadmin()) {
     // Page general settings.
     $settings = new theme_boost_admin_settingspage_tabs('themesettingsquared', get_string('pluginname', 'theme_squared'));
     $sp = new admin_settingpage('theme_squared_basic', get_string('basicsettings', 'theme_squared'));
+    $sp->add(new admin_setting_heading('theme_squared_privacy', '', get_string('privacy:note', 'theme_squared')));
     $simset = new squared_simple_theme_settings($sp, 'theme_squared');
 
     // Custom favicon.
